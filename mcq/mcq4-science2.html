@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>विज्ञान विशेष 2 — 100 प्रश्न | Science Special 2</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#d9c2e8;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#d9c2e8;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ce93d8,#e1bee7);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#f3e5f5;color:#4a148c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 विज्ञान विशेष — 2 (100 प्रश्न)
+              <small>Science Special 2 · ऊष्मा · चुम्बकत्व · परमाणु · धातुकर्म · आनुवंशिकी</small>
+              <small id="sectionLabel">खंड A — भौतिकी: ऊष्मा और ऊष्मागतिकी</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   विज्ञान विशेष 2 — 100 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — भौतिकी: ऊष्मा और ऊष्मागतिकी", en:"Section A — Physics: Heat & Thermodynamics"},
+  {hi:"खंड B — भौतिकी: चुम्बकत्व और विद्युत चुम्बकीय", en:"Section B — Physics: Magnetism & Electromagnetic"},
+  {hi:"खंड C — भौतिकी: आधुनिक भौतिकी और परमाणु", en:"Section C — Physics: Modern Physics & Nuclear"},
+  {hi:"खंड D — भौतिकी: यंत्र, उपकरण और मापन", en:"Section D — Physics: Instruments & Measurement"},
+  {hi:"खंड E — रसायन: धातुकर्म और खनिज", en:"Section E — Chemistry: Metallurgy & Minerals"},
+  {hi:"खंड F — रसायन: पर्यावरण रसायन", en:"Section F — Chemistry: Environmental Chemistry"},
+  {hi:"खंड G — रसायन: भोजन और दैनिक जीवन", en:"Section G — Chemistry: Food & Everyday Life"},
+  {hi:"खंड H — जीव विज्ञान: आनुवंशिकी और विकास", en:"Section H — Biology: Genetics & Evolution"},
+  {hi:"खंड I — जीव विज्ञान: पारिस्थितिकी और सूक्ष्मजीव", en:"Section I — Biology: Ecology & Microorganisms"}
+];
+const SECTION_STARTS = [0, 12, 24, 36, 48, 60, 72, 82, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — भौतिकी: ऊष्मा और ऊष्मागतिकी (Q1–12) ============ */
+{q:{hi:"ऊष्मागतिकी का 'शून्यवाँ नियम' किससे संबंधित है?",en:"The 'Zeroth Law' of thermodynamics is related to which of the following?"},
+ o:[{hi:"तापमान",en:"Temperature"},{hi:"दाब",en:"Pressure"},{hi:"आयतन",en:"Volume"},{hi:"ऊर्जा",en:"Energy"}],a:0,
+ ex:{hi:"ऊष्मागतिकी का शून्यवाँ नियम तापमान की अवधारणा देता है — 'यदि A और B, C के साथ तापीय साम्य में हैं, तो A और B भी परस्पर साम्य में हैं।' इसी आधार पर तापमापी कार्य करता है।",en:"The Zeroth Law of thermodynamics defines temperature — if A and B are each in thermal equilibrium with C, then A and B are also in equilibrium. Thermometers work on this."}},
+
+{q:{hi:"'ऊष्मागतिकी का प्रथम नियम' किसका रूप है?",en:"The 'First Law of Thermodynamics' is a form of which law?"},
+ o:[{hi:"संवेग संरक्षण",en:"Conservation of momentum"},{hi:"ऊर्जा संरक्षण",en:"Conservation of energy"},{hi:"द्रव्यमान संरक्षण",en:"Conservation of mass"},{hi:"आवेश संरक्षण",en:"Conservation of charge"}],a:1,
+ ex:{hi:"ऊष्मागतिकी का प्रथम नियम ऊर्जा संरक्षण का ही रूप है — ΔQ = ΔU + ΔW (दी गई ऊष्मा = आंतरिक ऊर्जा परिवर्तन + किया गया कार्य)।",en:"The First Law of Thermodynamics is a form of energy conservation — ΔQ = ΔU + ΔW (heat given = change in internal energy + work done)."}},
+
+{q:{hi:"'ऊष्मागतिकी का द्वितीय नियम' किससे संबंधित है?",en:"The 'Second Law of Thermodynamics' is related to which of the following?"},
+ o:[{hi:"एंट्रॉपी",en:"Entropy"},{hi:"द्रव्यमान",en:"Mass"},{hi:"गति",en:"Motion"},{hi:"आवेश",en:"Charge"}],a:0,
+ ex:{hi:"द्वितीय नियम एंट्रॉपी (अव्यवस्था) की अवधारणा देता है — 'स्वतः प्रक्रिया में ब्रह्मांड की एंट्रॉपी बढ़ती है।' ऊष्मा स्वयं ठंडी वस्तु से गर्म वस्तु की ओर नहीं जाती।",en:"The Second Law introduces entropy — in any spontaneous process, the universe's entropy increases. Heat doesn't flow spontaneously from cold to hot."}},
+
+{q:{hi:"'कार्नो इंजन' की अधिकतम दक्षता किस पर निर्भर करती है?",en:"'Carnot engine's' maximum efficiency depends on which of the following?"},
+ o:[{hi:"ईंधन की मात्रा",en:"Amount of fuel"},{hi:"स्रोत और सिंक के तापमान",en:"Temperatures of source and sink"},{hi:"इंजन का आकार",en:"Engine's size"},{hi:"कार्य का प्रकार",en:"Type of work"}],a:1,
+ ex:{hi:"कार्नो इंजन की दक्षता η = 1 - (T₂/T₁), जहाँ T₁ स्रोत और T₂ सिंक का तापमान (केल्विन में) है। यह ऊष्मा इंजन की सैद्धांतिक अधिकतम दक्षता है — इसे किसी भी व्यावहारिक इंजन में पार नहीं किया जा सकता।",en:"Carnot efficiency η = 1 - (T₂/T₁), with T₁ source and T₂ sink (in Kelvin) — the theoretical maximum for any heat engine."}},
+
+{q:{hi:"'केल्विन स्केल' पर जल का क्वथनांक कितना होता है?",en:"What is water's boiling point on the 'Kelvin scale'?"},
+ o:[{hi:"100 K",en:"100 K"},{hi:"273 K",en:"273 K"},{hi:"373 K",en:"373 K"},{hi:"473 K",en:"473 K"}],a:2,
+ ex:{hi:"केल्विन स्केल पर जल का हिमांक 273.15 K और क्वथनांक 373.15 K होता है। K = °C + 273.15। केल्विन को 'परम तापमान स्केल' भी कहते हैं, इसमें ऋणात्मक मान नहीं होते।",en:"On the Kelvin scale, water freezes at 273.15 K and boils at 373.15 K. K = °C + 273.15. Kelvin is the absolute temperature scale with no negative values."}},
+
+{q:{hi:"'विशिष्ट ऊष्मा' का SI मात्रक क्या है?",en:"What is the SI unit of 'Specific Heat'?"},
+ o:[{hi:"J/kg·K",en:"J/kg·K"},{hi:"J/kg",en:"J/kg"},{hi:"J/K",en:"J/K"},{hi:"J·kg/K",en:"J·kg/K"}],a:0,
+ ex:{hi:"विशिष्ट ऊष्मा (s) = Q/(m·ΔT)। इसका SI मात्रक J/kg·K है। पानी की विशिष्ट ऊष्मा सबसे अधिक (4,186 J/kg·K) होती है — इसलिए यह गर्मी और सर्दी को सहन करता है।",en:"Specific heat (s) = Q/(m·ΔT), SI unit: J/kg·K. Water has the highest value (4,186 J/kg·K), making it thermally stable."}},
+
+{q:{hi:"'गुप्त ऊष्मा' क्या है?",en:"What is 'Latent Heat'?"},
+ o:[{hi:"तापमान बढ़ाने वाली ऊष्मा",en:"Heat that raises temperature"},{hi:"अवस्था परिवर्तन में लगने वाली ऊष्मा",en:"Heat used in state change"},{hi:"कम तापमान की ऊष्मा",en:"Low temperature heat"},{hi:"रासायनिक ऊष्मा",en:"Chemical heat"}],a:1,
+ ex:{hi:"गुप्त ऊष्मा वह ऊष्मा है जो पदार्थ की अवस्था बदलने में लगती है — तापमान नहीं बदलता। बर्फ का पिघलना (80 cal/g), पानी का भाप बनना (540 cal/g) इसके उदाहरण हैं।",en:"Latent heat changes a substance's state without changing temperature — ice melting (80 cal/g), water boiling (540 cal/g)."}},
+
+{q:{hi:"'ऊष्मा का चालन' किस प्रकार होता है?",en:"'Conduction of heat' occurs in which way?"},
+ o:[{hi:"कणों की गति से",en:"By particle motion"},{hi:"द्रव की धारा से",en:"By fluid currents"},{hi:"विद्युत चुम्बकीय तरंगों से",en:"By electromagnetic waves"},{hi:"कंपन से",en:"By vibration"}],a:0,
+ ex:{hi:"चालन (Conduction) में ऊष्मा कणों के कंपन द्वारा एक स्थान से दूसरे स्थान तक पहुँचती है — ठोसों में मुख्यतः। संवहन (Convection) द्रवों में और विकिरण (Radiation) निर्वात में भी होती है।",en:"Conduction transfers heat via particle vibration, mainly in solids. Convection happens in fluids, radiation even in vacuum."}},
+
+{q:{hi:"'थर्मस फ्लास्क' में ऊष्मा का कौन-सा स्थानांतरण रोका जाता है?",en:"Which heat transfer is prevented in a 'Thermos flask'?"},
+ o:[{hi:"केवल चालन",en:"Only conduction"},{hi:"केवल संवहन",en:"Only convection"},{hi:"केवल विकिरण",en:"Only radiation"},{hi:"तीनों (चालन, संवहन, विकिरण)",en:"All three (conduction, convection, radiation)"}],a:3,
+ ex:{hi:"थर्मस फ्लास्क में दोहरी दीवार (निर्वात), चाँदी का लेप और सीलबंद ढक्कन के कारण तीनों प्रकार के ऊष्मा स्थानांतरण रोके जाते हैं। इससे गर्म पदार्थ गर्म और ठंडा पदार्थ ठंडा रहता है।",en:"A thermos flask blocks all three heat transfers via double walls (vacuum), silver coating and sealed lid — keeping hot things hot and cold things cold."}},
+
+{q:{hi:"'विकिरण' द्वारा ऊष्मा किस प्रकार संचारित होती है?",en:"Heat is transferred by 'Radiation' in which manner?"},
+ o:[{hi:"कणों की गति से",en:"By particle motion"},{hi:"द्रव धारा से",en:"By fluid currents"},{hi:"विद्युत चुम्बकीय तरंगों से",en:"By electromagnetic waves"},{hi:"ध्वनि तरंगों से",en:"By sound waves"}],a:2,
+ ex:{hi:"विकिरण में ऊष्मा विद्युत चुम्बकीय तरंगों के रूप में संचारित होती है — इसके लिए माध्यम की आवश्यकता नहीं होती। सूर्य से पृथ्वी तक ऊष्मा इसी प्रकार पहुँचती है।",en:"Radiation transfers heat as electromagnetic waves, needing no medium — the Sun's heat reaches Earth this way."}},
+
+{q:{hi:"'स्टीफ़न-बोल्ट्ज़मान नियम' किससे संबंधित है?",en:"'Stefan-Boltzmann Law' is related to which of the following?"},
+ o:[{hi:"विकिरण उत्सर्जन",en:"Radiation emission"},{hi:"चालन",en:"Conduction"},{hi:"संवहन",en:"Convection"},{hi:"प्रकाश",en:"Light"}],a:0,
+ ex:{hi:"स्टीफ़न-बोल्ट्ज़मान नियम — 'किसी कृष्णिका द्वारा उत्सर्जित ऊर्जा उसके परम तापमान की चतुर्थ घात के अनुक्रमानुपाती होती है।' E = σT⁴, जहाँ σ स्टीफ़न नियतांक है।",en:"Stefan-Boltzmann Law — a blackbody's radiated energy is proportional to the fourth power of its absolute temperature: E = σT⁴, where σ is the Stefan constant."}},
+
+/* ============ खंड B — भौतिकी: चुम्बकत्व (Q13–24) ============ */
+{q:{hi:"चुम्बक के कितने ध्रुव होते हैं?",en:"How many poles does a magnet have?"},
+ o:[{hi:"1",en:"1"},{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"}],a:1,
+ ex:{hi:"प्रत्येक चुम्बक के दो ध्रुव होते हैं — उत्तरी (N) और दक्षिणी (S)। समान ध्रुव प्रतिकर्षित और विपरीत ध्रुव आकर्षित करते हैं। एकल ध्रुव (monopole) कभी नहीं मिलता।",en:"Every magnet has two poles — North (N) and South (S). Like poles repel, unlike attract. A magnetic monopole has never been found."}},
+
+{q:{hi:"'पृथ्वी का चुम्बकीय ध्रुव' कहाँ होता है?",en:"Where is the 'Earth's magnetic pole' located?"},
+ o:[{hi:"भौगोलिक ध्रुव पर",en:"At geographic poles"},{hi:"भौगोलिक ध्रुव के पास",en:"Near geographic poles"},{hi:"भूमध्य रेखा पर",en:"At the equator"},{hi:"पृथ्वी के केंद्र में",en:"At Earth's centre"}],a:1,
+ ex:{hi:"पृथ्वी के चुम्बकीय ध्रुव भौगोलिक ध्रुवों के पास हैं, लेकिन पूर्णतः उन पर नहीं। पृथ्वी का उत्तरी चुम्बकीय ध्रुव वास्तव में दक्षिणी चुम्बकीय ध्रुव है — इसलिए चुम्बकीय सुई उत्तर की ओर इंगित करती है।",en:"Earth's magnetic poles are near but not exactly at geographic poles. Its magnetic north pole is actually a south magnetic pole — hence compass needles point north."}},
+
+{q:{hi:"'चुम्बकीय क्षेत्र' का SI मात्रक क्या है?",en:"What is the SI unit of 'Magnetic Field'?"},
+ o:[{hi:"टेस्ला",en:"Tesla"},{hi:"वेबर",en:"Weber"},{hi:"हेनरी",en:"Henry"},{hi:"ओम",en:"Ohm"}],a:0,
+ ex:{hi:"चुम्बकीय क्षेत्र की तीव्रता (B) का SI मात्रक टेस्ला (T) है। 1 टेस्ला = 1 वेबर/मीटर²। निकोला टेस्ला के नाम पर। वेबर चुम्बकीय फ्लक्स का मात्रक है।",en:"Magnetic field intensity (B) has SI unit Tesla (T). 1 T = 1 Weber/m². Named after Nikola Tesla. Weber is the unit of magnetic flux."}},
+
+{q:{hi:"'फ्लेमिंग का बाएँ हाथ का नियम' किससे संबंधित है?",en:"'Fleming's Left Hand Rule' is related to which of the following?"},
+ o:[{hi:"विद्युत मोटर",en:"Electric motor"},{hi:"विद्युत जनित्र",en:"Electric generator"},{hi:"ट्रांसफॉर्मर",en:"Transformer"},{hi:"बैटरी",en:"Battery"}],a:0,
+ ex:{hi:"फ्लेमिंग का बाएँ हाथ का नियम विद्युत मोटर के लिए — अंगूठा (बल), तर्जनी (चुम्बकीय क्षेत्र) और मध्यमा (धारा) परस्पर लंबवत। इससे धारावाही चालक पर चुम्बकीय बल की दिशा मिलती है।",en:"Fleming's Left Hand Rule applies to electric motors — thumb (force), forefinger (magnetic field) and middle finger (current) are mutually perpendicular."}},
+
+{q:{hi:"'फ्लेमिंग का दाएँ हाथ का नियम' किससे संबंधित है?",en:"'Fleming's Right Hand Rule' is related to which of the following?"},
+ o:[{hi:"विद्युत मोटर",en:"Electric motor"},{hi:"विद्युत जनित्र",en:"Electric generator"},{hi:"गैल्वेनोमीटर",en:"Galvanometer"},{hi:"ट्रांसफॉर्मर",en:"Transformer"}],a:1,
+ ex:{hi:"फ्लेमिंग का दाएँ हाथ का नियम विद्युत जनित्र के लिए — प्रेरित धारा की दिशा ज्ञात करने के लिए। अंगूठा (गति), तर्जनी (क्षेत्र) और मध्यमा (धारा)।",en:"Fleming's Right Hand Rule applies to electric generators — thumb (motion), forefinger (field), middle finger (induced current)."}},
+
+{q:{hi:"'ट्रांसफॉर्मर' किस सिद्धांत पर कार्य करता है?",en:"A 'Transformer' works on which principle?"},
+ o:[{hi:"स्व-प्रेरण",en:"Self induction"},{hi:"अन्योन्य प्रेरण",en:"Mutual induction"},{hi:"विद्युत अपघटन",en:"Electrolysis"},{hi:"प्रकाश विद्युत",en:"Photoelectric"}],a:1,
+ ex:{hi:"ट्रांसफॉर्मर अन्योन्य प्रेरण (Mutual Induction) के सिद्धांत पर कार्य करता है। यह AC वोल्टता को बढ़ाता (step-up) या घटाता (step-down) है। DC पर यह कार्य नहीं करता।",en:"A transformer works on mutual induction, increasing (step-up) or decreasing (step-down) AC voltage. It does not work on DC."}},
+
+{q:{hi:"'विद्युत मोटर' किस ऊर्जा को यांत्रिक ऊर्जा में बदलता है?",en:"An 'electric motor' converts which energy into mechanical energy?"},
+ o:[{hi:"रासायनिक ऊर्जा",en:"Chemical energy"},{hi:"विद्युत ऊर्जा",en:"Electrical energy"},{hi:"ऊष्मा ऊर्जा",en:"Heat energy"},{hi:"सौर ऊर्जा",en:"Solar energy"}],a:1,
+ ex:{hi:"विद्युत मोटर विद्युत ऊर्जा को यांत्रिक ऊर्जा में बदलती है — जबकि विद्युत जनित्र यांत्रिक से विद्युत ऊर्जा बनाता है। पंखे, वाशिंग मशीन, मिक्सर में मोटर का उपयोग होता है।",en:"An electric motor converts electrical energy to mechanical energy; a generator does the reverse. Fans, washing machines and mixers use motors."}},
+
+{q:{hi:"'चुम्बकीय पदार्थ' के कितने प्रकार होते हैं?",en:"How many types of 'Magnetic materials' are there?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"3 प्रकार — अनुचुम्बकीय (Paramagnetic, जैसे एल्युमिनियम), प्रतिचुम्बकीय (Diamagnetic, जैसे ताँबा, पानी) और लौहचुम्बकीय (Ferromagnetic, जैसे लोहा, निकल, कोबाल्ट)।",en:"Three types — Paramagnetic (aluminium), Diamagnetic (copper, water) and Ferromagnetic (iron, nickel, cobalt)."}},
+
+{q:{hi:"'सुपर कंडक्टर' क्या होता है?",en:"What is a 'Superconductor'?"},
+ o:[{hi:"अत्यधिक प्रतिरोध वाला",en:"High resistance material"},{hi:"शून्य प्रतिरोध वाला",en:"Zero resistance material"},{hi:"अचालक",en:"Insulator"},{hi:"अर्धचालक",en:"Semiconductor"}],a:1,
+ ex:{hi:"सुपर कंडक्टर वे पदार्थ हैं जिनका प्रतिरोध अत्यंत कम तापमान (क्रांतिक तापमान) पर शून्य हो जाता है। उदाहरण — पारा (4.2 K पर)। इसका उपयोग MRI, मैग्लेव ट्रेन में होता है।",en:"Superconductors have zero resistance below a critical temperature — e.g., mercury at 4.2 K. Used in MRI machines and maglev trains."}},
+
+{q:{hi:"'मैग्लेव ट्रेन' किस सिद्धांत पर चलती है?",en:"'Maglev trains' run on which principle?"},
+ o:[{hi:"घर्षण",en:"Friction"},{hi:"चुम्बकीय उत्प्लावन",en:"Magnetic levitation"},{hi:"विद्युत धारा",en:"Electric current"},{hi:"गुरुत्वाकर्षण",en:"Gravity"}],a:1,
+ ex:{hi:"मैग्लेव (Maglev) ट्रेन चुम्बकीय उत्प्लावन सिद्धांत पर चलती है — चुम्बकीय बल से ट्रेन पटरी से ऊपर उठी रहती है। इससे घर्षण नहीं होता और गति 600 km/h तक हो सकती है। जापान, चीन, जर्मनी में चलती हैं।",en:"Maglev trains use magnetic levitation to float above tracks, eliminating friction — reaching up to 600 km/h in Japan, China and Germany."}},
+
+{q:{hi:"'MRI' में किसका उपयोग होता है?",en:"'MRI' uses which of the following?"},
+ o:[{hi:"X-रे",en:"X-rays"},{hi:"अल्ट्रासाउंड",en:"Ultrasound"},{hi:"शक्तिशाली चुम्बकीय क्षेत्र और रेडियो तरंगें",en:"Strong magnetic field and radio waves"},{hi:"गामा किरणें",en:"Gamma rays"}],a:2,
+ ex:{hi:"MRI (Magnetic Resonance Imaging) में शक्तिशाली चुम्बकीय क्षेत्र और रेडियो तरंगों का उपयोग होता है — इसमें कोई हानिकारक विकिरण नहीं। यह शरीर के अंगों की स्पष्ट छवि देता है।",en:"MRI uses strong magnetic fields and radio waves without harmful radiation, giving clear images of body organs."}},
+
+{q:{hi:"'प्रेरित विद्युत वाहक बल' (EMF) की खोज किसने की?",en:"Who discovered 'induced electromotive force' (EMF)?"},
+ o:[{hi:"ओर्स्टेड",en:"Oersted"},{hi:"फैराडे",en:"Faraday"},{hi:"एम्पीयर",en:"Ampère"},{hi:"ओम",en:"Ohm"}],a:1,
+ ex:{hi:"माइकल फैराडे ने 1831 में विद्युत चुम्बकीय प्रेरण (Electromagnetic Induction) की खोज की। इसके अनुसार चुम्बकीय फ्लक्स में परिवर्तन से EMF उत्पन्न होता है — इसी पर विद्युत जनित्र और ट्रांसफॉर्मर आधारित हैं।",en:"Michael Faraday discovered electromagnetic induction in 1831 — a changing magnetic flux induces EMF. Generators and transformers work on this."}},
+
+/* ============ खंड C — भौतिकी: आधुनिक भौतिकी और परमाणु (Q25–36) ============ */
+{q:{hi:"'नाभिकीय विखंडन' में क्या होता है?",en:"What happens in 'nuclear fission'?"},
+ o:[{hi:"हल्के नाभिक जुड़ते हैं",en:"Light nuclei fuse"},{hi:"भारी नाभिक टूटता है",en:"Heavy nucleus splits"},{hi:"इलेक्ट्रॉन निकलते हैं",en:"Electrons emit"},{hi:"प्रोटॉन जुड़ते हैं",en:"Protons fuse"}],a:1,
+ ex:{hi:"नाभिकीय विखंडन में भारी नाभिक (जैसे यूरेनियम-235) न्यूट्रॉन से टकराकर टूटता है और भारी ऊर्जा मुक्त होती है। परमाणु बम और परमाणु ऊर्जा संयंत्र इसी सिद्धांत पर आधारित हैं।",en:"In nuclear fission, a heavy nucleus (e.g., U-235) splits on neutron impact, releasing huge energy — the basis of atomic bombs and nuclear power plants."}},
+
+{q:{hi:"'नाभिकीय संलयन' में क्या होता है?",en:"What happens in 'nuclear fusion'?"},
+ o:[{hi:"भारी नाभिक टूटता है",en:"Heavy nucleus splits"},{hi:"हल्के नाभिक जुड़कर भारी बनते हैं",en:"Light nuclei fuse to form heavier one"},{hi:"प्रोटॉन नष्ट होते हैं",en:"Protons are destroyed"},{hi:"न्यूट्रॉन बनते हैं",en:"Neutrons form"}],a:1,
+ ex:{hi:"नाभिकीय संलयन में हल्के नाभिक (हाइड्रोजन) जुड़कर भारी नाभिक (हीलियम) बनाते हैं — सूर्य और तारों की ऊर्जा इसी से आती है। हाइड्रोजन बम इस सिद्धांत पर बना। इसे नियंत्रित करना कठिन है।",en:"Nuclear fusion combines light nuclei (hydrogen) into heavier ones (helium), powering the Sun and stars. The hydrogen bomb is based on it; controlling it is difficult."}},
+
+{q:{hi:"'अर्ध-आयु' (Half-life) क्या है?",en:"What is 'Half-life'?"},
+ o:[{hi:"आधा जीवन",en:"Half of life"},{hi:"वह समय जिसमें रेडियोधर्मी पदार्थ आधा रह जाता है",en:"Time taken by half of a radioactive substance to decay"},{hi:"पूर्ण जीवन",en:"Full life"},{hi:"आधा वजन",en:"Half weight"}],a:1,
+ ex:{hi:"अर्ध-आयु वह समय है जिसमें किसी रेडियोधर्मी पदार्थ का आधा भाग क्षय हो जाता है। जैसे — कार्बन-14 की अर्ध-आयु 5,730 वर्ष है, जिसका उपयोग कार्बन डेटिंग में होता है।",en:"Half-life is the time for half of a radioactive substance to decay — e.g., Carbon-14's 5,730 years is used in carbon dating."}},
+
+{q:{hi:"'कार्बन डेटिंग' का उपयोग किसके लिए होता है?",en:"'Carbon dating' is used for which of the following?"},
+ o:[{hi:"खनिज की आयु",en:"Age of minerals"},{hi:"जीवाश्म और प्राचीन वस्तुओं की आयु",en:"Age of fossils and ancient objects"},{hi:"तापमान मापन",en:"Measuring temperature"},{hi:"वायु प्रदूषण",en:"Air pollution"}],a:1,
+ ex:{hi:"कार्बन डेटिंग में कार्बन-14 समस्थानिक की मात्रा से जीवाश्म, प्राचीन लकड़ी और पुरातात्विक वस्तुओं की आयु (50,000 वर्ष तक) ज्ञात की जाती है। इसकी खोज विलार्ड लिब्बी ने की।",en:"Carbon dating uses the C-14 isotope to determine the age of fossils, ancient wood and archaeological objects (up to 50,000 years). Discovered by Willard Libby."}},
+
+{q:{hi:"'अल्फा कण' किसके समान होता है?",en:"An 'alpha particle' is identical to which of the following?"},
+ o:[{hi:"इलेक्ट्रॉन",en:"Electron"},{hi:"हीलियम नाभिक",en:"Helium nucleus"},{hi:"प्रोटॉन",en:"Proton"},{hi:"न्यूट्रॉन",en:"Neutron"}],a:1,
+ ex:{hi:"अल्फा कण हीलियम नाभिक (₂He⁴) के समान होता है — जिसमें 2 प्रोटॉन और 2 न्यूट्रॉन होते हैं। इसमें +2 आवेश होता है। इसे रदरफोर्ड ने खोजा। β-कण इलेक्ट्रॉन के समान और γ-किरणें विद्युत चुम्बकीय तरंगें हैं।",en:"An alpha particle is like a helium nucleus (₂He⁴) — 2 protons, 2 neutrons, +2 charge. Discovered by Rutherford. Beta = electron; gamma = electromagnetic waves."}},
+
+{q:{hi:"'रेडियोएक्टिवता' की खोज किसने की?",en:"Who discovered 'radioactivity'?"},
+ o:[{hi:"मैरी क्यूरी",en:"Marie Curie"},{hi:"हेनरी बेक्वेरल",en:"Henri Becquerel"},{hi:"रदरफोर्ड",en:"Rutherford"},{hi:"मैडम क्यूरी और पियरे",en:"Madame Curie and Pierre"}],a:1,
+ ex:{hi:"हेनरी बेक्वेरल ने 1896 में रेडियोएक्टिवता की खोज की — यूरेनियम लवणों का अध्ययन करते हुए। मैरी और पियरे क्यूरी ने रेडियम और पोलोनियम की खोज की और नोबेल पुरस्कार जीते।",en:"Henri Becquerel discovered radioactivity in 1896 while studying uranium salts. Marie and Pierre Curie discovered radium and polonium, winning Nobel Prizes."}},
+
+{q:{hi:"'रेडियम' की खोज किसने की?",en:"Who discovered 'radium'?"},
+ o:[{hi:"बेक्वेरल",en:"Becquerel"},{hi:"मैरी क्यूरी और पियरे क्यूरी",en:"Marie Curie and Pierre Curie"},{hi:"रदरफोर्ड",en:"Rutherford"},{hi:"आइंस्टीन",en:"Einstein"}],a:1,
+ ex:{hi:"रेडियम की खोज 1898 में मैरी क्यूरी और पियरे क्यूरी ने की। मैरी क्यूरी को दो बार नोबेल पुरस्कार मिला — भौतिकी (1903) और रसायन (1911)। वे पहली महिला नोबेल विजेता थीं।",en:"Radium was discovered in 1898 by Marie and Pierre Curie. Marie Curie won two Nobel Prizes — Physics (1903) and Chemistry (1911) — the first woman Nobel laureate."}},
+
+{q:{hi:"'परमाणु बम' किस अभिक्रिया पर आधारित है?",en:"An 'atomic bomb' is based on which reaction?"},
+ o:[{hi:"नाभिकीय संलयन",en:"Nuclear fusion"},{hi:"नाभिकीय विखंडन",en:"Nuclear fission"},{hi:"रासायनिक अभिक्रिया",en:"Chemical reaction"},{hi:"विद्युत अपघटन",en:"Electrolysis"}],a:1,
+ ex:{hi:"परमाणु बम नाभिकीय विखंडन पर आधारित है — यूरेनियम-235 या प्लूटोनियम-239 का श्रृंखलाबद्ध अभिक्रिया से विस्फोट। हिरोशिमा (6 अगस्त 1945) और नागासाकी (9 अगस्त 1945) में गिराए गए।",en:"Atomic bombs use nuclear fission of U-235 or Pu-239 in a chain reaction — dropped on Hiroshima (6 Aug 1945) and Nagasaki (9 Aug 1945)."}},
+
+{q:{hi:"'हाइड्रोजन बम' किस पर आधारित है?",en:"A 'hydrogen bomb' is based on which of the following?"},
+ o:[{hi:"विखंडन",en:"Fission"},{hi:"संलयन",en:"Fusion"},{hi:"रासायनिक",en:"Chemical"},{hi:"विद्युत",en:"Electric"}],a:1,
+ ex:{hi:"हाइड्रोजन बम नाभिकीय संलयन पर आधारित है — हाइड्रोजन समस्थानिकों (ड्यूटेरियम, ट्रिटियम) का संलयन। यह परमाणु बम से अधिक शक्तिशाली है। इसे 'थर्मोन्यूक्लियर बम' भी कहते हैं।",en:"A hydrogen bomb uses nuclear fusion of hydrogen isotopes (deuterium, tritium). It is more powerful than an atomic bomb and is also called a thermonuclear bomb."}},
+
+{q:{hi:"'आइंस्टीन का द्रव्यमान-ऊर्जा समीकरण' क्या है?",en:"What is 'Einstein's mass-energy equation'?"},
+ o:[{hi:"E = mc",en:"E = mc"},{hi:"E = mc²",en:"E = mc²"},{hi:"E = m/c²",en:"E = m/c²"},{hi:"E = m²c",en:"E = m²c"}],a:1,
+ ex:{hi:"आइंस्टीन का समीकरण E = mc² — 'द्रव्यमान ऊर्जा में बदला जा सकता है और ऊर्जा द्रव्यमान में।' यहाँ c प्रकाश की गति (3×10⁸ m/s) है। यह परमाणु ऊर्जा का आधार है।",en:"Einstein's equation E = mc² shows mass and energy are interconvertible, with c being the speed of light (3×10⁸ m/s) — the basis of nuclear energy."}},
+
+{q:{hi:"'प्रकाश विद्युत प्रभाव' में फोटॉन क्या करते हैं?",en:"In the 'photoelectric effect', what do photons do?"},
+ o:[{hi:"इलेक्ट्रॉन छोड़ते हैं",en:"Release electrons"},{hi:"प्रोटॉन छोड़ते हैं",en:"Release protons"},{hi:"न्यूट्रॉन बनाते हैं",en:"Create neutrons"},{hi:"नाभिक तोड़ते हैं",en:"Break nuclei"}],a:0,
+ ex:{hi:"प्रकाश विद्युत प्रभाव में धातु की सतह पर आपतित फोटॉन इलेक्ट्रॉनों को बाहर निकालते हैं। इसकी व्याख्या आइंस्टीन ने 1905 में की और 1921 में नोबेल पुरस्कार मिला। सौर सेल इसी सिद्धांत पर बने हैं।",en:"In the photoelectric effect, photons hitting a metal surface eject electrons. Explained by Einstein in 1905 (Nobel 1921). Solar cells work on this principle."}},
+
+{q:{hi:"'परमाणु रिएक्टर' में 'मॉडरेटर' का कार्य क्या है?",en:"What is the function of a 'moderator' in a nuclear reactor?"},
+ o:[{hi:"न्यूट्रॉन की गति बढ़ाना",en:"Increase neutron speed"},{hi:"न्यूट्रॉन की गति धीमी करना",en:"Slow down neutrons"},{hi:"ऊष्मा निकालना",en:"Remove heat"},{hi:"नियंत्रण करना",en:"Control reaction"}],a:1,
+ ex:{hi:"मॉडरेटर न्यूट्रॉन की गति धीमी करता है ताकि श्रृंखलाबद्ध अभिक्रिया नियंत्रित रहे। भारी जल (D₂O), ग्रेफाइट और हल्का जल मॉडरेटर के रूप में उपयोग होते हैं। नियंत्रण छड़ें (बोरॉन, कैडमियम) अभिक्रिया को नियंत्रित करती हैं।",en:"A moderator slows neutrons for a controlled chain reaction — heavy water (D₂O), graphite or light water are used. Control rods (boron, cadmium) regulate the reaction."}},
+
+/* ============ खंड D — भौतिकी: यंत्र और मापन (Q37–48) ============ */
+{q:{hi:"'आवृत्ति' का मात्रक क्या है?",en:"What is the unit of 'frequency'?"},
+ o:[{hi:"हर्ट्ज़",en:"Hertz"},{hi:"डेसिबल",en:"Decibel"},{hi:"वाट",en:"Watt"},{hi:"न्यूटन",en:"Newton"}],a:0,
+ ex:{hi:"आवृत्ति का SI मात्रक हर्ट्ज़ (Hz) है — जो हेनरिक हर्ट्ज़ के नाम पर है। 1 हर्ट्ज़ = 1 कंपन/सेकंड। मानव कान 20-20,000 Hz सुन सकता है।",en:"Frequency's SI unit is Hertz (Hz), after Heinrich Hertz. 1 Hz = 1 cycle/second. Human ears hear 20–20,000 Hz."}},
+
+{q:{hi:"'बैरोमीटर' क्या मापता है?",en:"What does a 'barometer' measure?"},
+ o:[{hi:"तापमान",en:"Temperature"},{hi:"वायुमंडलीय दाब",en:"Atmospheric pressure"},{hi:"आर्द्रता",en:"Humidity"},{hi:"वर्षा",en:"Rainfall"}],a:1,
+ ex:{hi:"बैरोमीटर वायुमंडलीय दाब मापता है। इसका आविष्कार इवांजेलिस्टा टोरिसेली ने 1643 में किया। इससे मौसम का पूर्वानुमान लगाया जाता है।",en:"A barometer measures atmospheric pressure, invented by Evangelista Torricelli in 1643 — used for weather forecasting."}},
+
+{q:{hi:"'हाइड्रोमीटर' क्या मापता है?",en:"What does a 'hydrometer' measure?"},
+ o:[{hi:"आर्द्रता",en:"Humidity"},{hi:"द्रव का घनत्व",en:"Density of liquid"},{hi:"वायु दाब",en:"Air pressure"},{hi:"तापमान",en:"Temperature"}],a:1,
+ ex:{hi:"हाइड्रोमीटर द्रव के घनत्व और विशिष्ट गुरुत्व को मापता है। इसका उपयोग दूध, बैटरी के एसिड, वाइन की शुद्धता जाँचने में होता है। 'लैक्टोमीटर' दूध की शुद्धता के लिए हाइड्रोमीटर ही है।",en:"A hydrometer measures a liquid's density and specific gravity — used to test milk, battery acid and wine purity. A lactometer is a hydrometer for milk."}},
+
+{q:{hi:"'स्फिग्मोमैनोमीटर' क्या मापता है?",en:"What does a 'sphygmomanometer' measure?"},
+ o:[{hi:"हृदय गति",en:"Heart rate"},{hi:"रक्तचाप",en:"Blood pressure"},{hi:"श्वसन दर",en:"Respiration rate"},{hi:"तापमान",en:"Temperature"}],a:1,
+ ex:{hi:"स्फिग्मोमैनोमीटर रक्तचाप (Blood Pressure) मापता है। सामान्य रक्तचाप 120/80 mmHg होता है — जिसमें 120 सिस्टोलिक और 80 डायस्टोलिक होता है।",en:"A sphygmomanometer measures blood pressure. Normal BP is 120/80 mmHg — 120 systolic, 80 diastolic."}},
+
+{q:{hi:"'ECG' किसकी जाँच करता है?",en:"'ECG' tests which of the following?"},
+ o:[{hi:"मस्तिष्क",en:"Brain"},{hi:"हृदय",en:"Heart"},{hi:"गुर्दा",en:"Kidney"},{hi:"यकृत",en:"Liver"}],a:1,
+ ex:{hi:"ECG (Electrocardiogram) हृदय की विद्युत गतिविधि रिकॉर्ड करता है — दिल की धड़कन, अनियमितता और हृदय रोग की जाँच के लिए। EEG मस्तिष्क की और EMG मांसपेशियों की जाँच करता है।",en:"ECG records the heart's electrical activity for detecting heart disease and irregularities. EEG tests the brain; EMG tests muscles."}},
+
+{q:{hi:"'अल्ट्रासाउंड' की आवृत्ति कितनी होती है?",en:"What is the frequency of 'ultrasound'?"},
+ o:[{hi:"20 Hz से कम",en:"Below 20 Hz"},{hi:"20-20,000 Hz",en:"20–20,000 Hz"},{hi:"20,000 Hz से अधिक",en:"Above 20,000 Hz"},{hi:"1,00,000 Hz से अधिक",en:"Above 1,00,000 Hz"}],a:2,
+ ex:{hi:"अल्ट्रासाउंड की आवृत्ति 20,000 Hz से अधिक होती है — जिसे मानव कान नहीं सुन सकता। इसका उपयोग चिकित्सा (सोनोग्राफी), उद्योग (सफाई) और समुद्र की गहराई मापने (SONAR) में होता है। चमगादड़ इसका उपयोग करते हैं।",en:"Ultrasound has frequency above 20,000 Hz, inaudible to humans. Used in sonography, industry and SONAR; bats use it for echolocation."}},
+
+{q:{hi:"'लेसर' का उपयोग कहाँ नहीं होता?",en:"Where is 'LASER' NOT used?"},
+ o:[{hi:"नेत्र शल्य चिकित्सा",en:"Eye surgery"},{hi:"बारकोड स्कैनर",en:"Barcode scanner"},{hi:"CD/DVD प्लेयर",en:"CD/DVD player"},{hi:"सूर्य की रोशनी बढ़ाने में",en:"Increasing sunlight"}],a:3,
+ ex:{hi:"लेसर का उपयोग — नेत्र शल्य चिकित्सा (LASIK), बारकोड स्कैनर, CD/DVD, कटाई, वेल्डिंग, संचार। यह सूर्य की रोशनी बढ़ाने में उपयोग नहीं होता। LASER = Light Amplification by Stimulated Emission of Radiation।",en:"LASER is used in eye surgery (LASIK), barcode scanners, CD/DVD, cutting, welding and communication — not to increase sunlight."}},
+
+{q:{hi:"'रेडार' का पूरा नाम क्या है?",en:"What is the full form of 'RADAR'?"},
+ o:[{hi:"Radio Detection and Ranging",en:"Radio Detection and Ranging"},{hi:"Radio Data and Reading",en:"Radio Data and Reading"},{hi:"Radio Distance and Rate",en:"Radio Distance and Rate"},{hi:"Rapid Detection and Range",en:"Rapid Detection and Range"}],a:0,
+ ex:{hi:"RADAR = Radio Detection and Ranging। यह रेडियो तरंगों द्वारा वस्तुओं की दूरी, दिशा और गति का पता लगाता है। इसका उपयोग विमानन, मौसम पूर्वानुमान, सैन्य और समुद्री नेविगेशन में होता है।",en:"RADAR = Radio Detection and Ranging — uses radio waves to detect objects' distance, direction and speed. Used in aviation, weather forecasting, military and navigation."}},
+
+{q:{hi:"'रिक्टर स्केल' किसे मापता है?",en:"What does the 'Richter scale' measure?"},
+ o:[{hi:"वर्षा",en:"Rainfall"},{hi:"भूकंप",en:"Earthquake"},{hi:"तूफ़ान",en:"Cyclone"},{hi:"बाढ़",en:"Flood"}],a:1,
+ ex:{hi:"रिक्टर स्केल भूकंप की तीव्रता (Magnitude) मापता है। यह चार्ल्स रिक्टर ने 1935 में विकसित किया। रिक्टर 7.0 से अधिक भूकंप विनाशकारी होते हैं। भारत में भूकंप ज़ोन: II, III, IV, V।",en:"The Richter scale measures earthquake magnitude, developed by Charles Richter in 1935. Above 7.0 is destructive. India has seismic zones II–V."}},
+
+{q:{hi:"'हाइग्रोमीटर' क्या मापता है?",en:"What does a 'hygrometer' measure?"},
+ o:[{hi:"आर्द्रता",en:"Humidity"},{hi:"तापमान",en:"Temperature"},{hi:"वायु दाब",en:"Air pressure"},{hi:"वर्षा",en:"Rainfall"}],a:0,
+ ex:{hi:"हाइग्रोमीटर वायुमंडल की आर्द्रता (Humidity) मापता है — वाष्प की मात्रा। इसका उपयोग मौसम विज्ञान, कृषि और औद्योगिक प्रक्रियाओं में होता है।",en:"A hygrometer measures atmospheric humidity — the amount of water vapour. Used in meteorology, agriculture and industrial processes."}},
+
+{q:{hi:"'एनीमोमीटर' क्या मापता है?",en:"What does an 'anemometer' measure?"},
+ o:[{hi:"वर्षा",en:"Rainfall"},{hi:"पवन की गति",en:"Wind speed"},{hi:"तापमान",en:"Temperature"},{hi:"आर्द्रता",en:"Humidity"}],a:1,
+ ex:{hi:"एनीमोमीटर पवन की गति और दिशा मापता है। इसका उपयोग मौसम विज्ञान और पवन ऊर्जा उत्पादन में होता है। भारत में पवन ऊर्जा के लिए गुजरात, तमिलनाडु, कर्नाटक प्रमुख हैं।",en:"An anemometer measures wind speed and direction, used in meteorology and wind energy — Gujarat, Tamil Nadu and Karnataka lead in Indian wind power."}},
+
+/* ============ खंड E — रसायन: धातुकर्म (Q49–60) ============ */
+{q:{hi:"'धातुकर्म' (Metallurgy) क्या है?",en:"What is 'Metallurgy'?"},
+ o:[{hi:"धातु की खोज",en:"Discovery of metals"},{hi:"अयस्क से धातु निकालने की विधि",en:"Method of extracting metal from ore"},{hi:"धातु का उपयोग",en:"Use of metals"},{hi:"मिश्र धातु बनाना",en:"Making alloys"}],a:1,
+ ex:{hi:"धातुकर्म वह विज्ञान है जिसमें अयस्कों से धातुएँ निकाली जाती हैं, शुद्ध की जाती हैं और उपयोगी बनाई जाती हैं। इसकी प्रमुख विधियाँ — गालन, भर्जन, अपचयन और विद्युत अपघटन।",en:"Metallurgy is the science of extracting, refining and processing metals from ores through roasting, calcination, reduction and electrolysis."}},
+
+{q:{hi:"'बॉक्साइट' किस धातु का अयस्क है?",en:"'Bauxite' is the ore of which metal?"},
+ o:[{hi:"लोहा",en:"Iron"},{hi:"एल्युमिनियम",en:"Aluminium"},{hi:"ताँबा",en:"Copper"},{hi:"जस्ता",en:"Zinc"}],a:1,
+ ex:{hi:"बॉक्साइट (Al₂O₃·2H₂O) एल्युमिनियम का मुख्य अयस्क है। भारत में ओडिशा, झारखंड, गुजरात, महाराष्ट्र में पाया जाता है। एल्युमिनियम विद्युत का अच्छा चालक और हल्का धातु है — विमान बनाने में उपयोग होता है।",en:"Bauxite (Al₂O₃·2H₂O) is aluminium's main ore, found in Odisha, Jharkhand, Gujarat and Maharashtra. Aluminium is light and conductive, used in aircraft."}},
+
+{q:{hi:"'हेमेटाइट' किस धातु का अयस्क है?",en:"'Haematite' is the ore of which metal?"},
+ o:[{hi:"ताँबा",en:"Copper"},{hi:"लोहा",en:"Iron"},{hi:"एल्युमिनियम",en:"Aluminium"},{hi:"सीसा",en:"Lead"}],a:1,
+ ex:{hi:"हेमेटाइट (Fe₂O₃) लोहे का सबसे महत्वपूर्ण अयस्क है। इसमें ~70% लोहा होता है। भारत में ओडिशा, झारखंड, कर्नाटक, छत्तीसगढ़ में पाया जाता है। अन्य अयस्क — मैग्नेटाइट, सिडेराइट, लिमोनाइट।",en:"Haematite (Fe₂O₃) is iron's most important ore, with ~70% iron, found in Odisha, Jharkhand, Karnataka and Chhattisgarh. Others: magnetite, siderite, limonite."}},
+
+{q:{hi:"'चाल्कोपाइराइट' किस धातु का अयस्क है?",en:"'Chalcopyrite' is the ore of which metal?"},
+ o:[{hi:"ताँबा",en:"Copper"},{hi:"जस्ता",en:"Zinc"},{hi:"सीसा",en:"Lead"},{hi:"टिन",en:"Tin"}],a:0,
+ ex:{hi:"चाल्कोपाइराइट (CuFeS₂) ताँबे का प्रमुख अयस्क है — जिसमें ~34% ताँबा होता है। भारत में खेतड़ी (राजस्थान), सिंहभूम (झारखंड), मालांजखंड (MP) प्रमुख हैं।",en:"Chalcopyrite (CuFeS₂) is copper's main ore, with ~34% copper. India's deposits: Khetri (Rajasthan), Singhbhum (Jharkhand), Malanjkhand (MP)."}},
+
+{q:{hi:"'गैलेना' किस धातु का अयस्क है?",en:"'Galena' is the ore of which metal?"},
+ o:[{hi:"सीसा",en:"Lead"},{hi:"ताँबा",en:"Copper"},{hi:"जस्ता",en:"Zinc"},{hi:"चाँदी",en:"Silver"}],a:0,
+ ex:{hi:"गैलेना (PbS) सीसे (Lead) का मुख्य अयस्क है। इसमें चाँदी भी मिली रहती है। सीसा भारी, मुलायम और विषैला धातु है — जिसका उपयोग बैटरी, केबल और विकिरण कवच में होता है।",en:"Galena (PbS) is lead's main ore, often containing silver. Lead is heavy, soft and toxic, used in batteries, cables and radiation shields."}},
+
+{q:{hi:"'स्फेलेराइट' किस धातु का अयस्क है?",en:"'Sphalerite' is the ore of which metal?"},
+ o:[{hi:"जस्ता",en:"Zinc"},{hi:"ताँबा",en:"Copper"},{hi:"लोहा",en:"Iron"},{hi:"निकल",en:"Nickel"}],a:0,
+ ex:{hi:"स्फेलेराइट (ZnS) जस्ते (Zinc) का मुख्य अयस्क है। जस्ते का उपयोग जंगरोधी लेप (galvanization), पीतल बनाने और बैटरी में होता है। भारत में ज़ावर (राजस्थान) प्रमुख खनन केंद्र है।",en:"Sphalerite (ZnS) is zinc's main ore, used for galvanisation, brass and batteries. Zawar (Rajasthan) is India's main zinc mine."}},
+
+{q:{hi:"'सोने' का शुद्धतम रूप क्या है?",en:"What is the purest form of 'gold'?"},
+ o:[{hi:"24 कैरेट",en:"24 carat"},{hi:"22 कैरेट",en:"22 carat"},{hi:"18 कैरेट",en:"18 carat"},{hi:"14 कैरेट",en:"14 carat"}],a:0,
+ ex:{hi:"24 कैरेट सोना शुद्धतम (99.9%) होता है, पर बहुत मुलायम — इसलिए गहने में 22 कैरेट (91.6%) का उपयोग होता है। इसमें ताँबा या चाँदी मिली होती है। 'हॉलमार्क' सोने की शुद्धता का प्रमाण है।",en:"24 carat gold (99.9%) is purest but too soft, so jewellery uses 22 carat (91.6%) mixed with copper or silver. The 'Hallmark' certifies gold purity."}},
+
+{q:{hi:"'अयस्क' और 'खनिज' में क्या अंतर है?",en:"What is the difference between an 'ore' and a 'mineral'?"},
+ o:[{hi:"कोई अंतर नहीं",en:"No difference"},{hi:"अयस्क = लाभदायक खनिज, खनिज = सामान्य",en:"Ore = profitable mineral, mineral = general"},{hi:"अयस्क = अधातु",en:"Ore = non-metal"},{hi:"खनिज = केवल धातु",en:"Mineral = only metal"}],a:1,
+ ex:{hi:"खनिज (Mineral) वे प्राकृतिक पदार्थ हैं जो पृथ्वी की पपड़ी में पाए जाते हैं। जब इनसे धातु आर्थिक रूप से लाभदायक ढंग से निकाली जा सके, तो उसे 'अयस्क' (Ore) कहते हैं। सभी अयस्क खनिज हैं, पर सभी खनिज अयस्क नहीं।",en:"Minerals are naturally occurring substances in Earth's crust. When a mineral yields metal profitably, it's an 'ore'. All ores are minerals, not vice versa."}},
+
+{q:{hi:"'जंग लगना' किस अभिक्रिया से होता है?",en:"Rusting occurs due to which reaction?"},
+ o:[{hi:"अपचयन",en:"Reduction"},{hi:"ऑक्सीकरण",en:"Oxidation"},{hi:"विद्युत अपघटन",en:"Electrolysis"},{hi:"बहुलकीकरण",en:"Polymerisation"}],a:1,
+ ex:{hi:"जंग लगना ऑक्सीकरण अभिक्रिया है — लोहा वायु की ऑक्सीजन और नमी से क्रिया करके हाइड्रेटेड आयरन ऑक्साइड (Fe₂O₃·xH₂O) बनाता है। इसे रोकने के लिए पेंट, ग्रीस, गैल्वेनाइजिंग और मिश्र धातु बनाई जाती है।",en:"Rusting is oxidation — iron reacts with oxygen and moisture to form hydrated iron oxide (Fe₂O₃·xH₂O). Prevented by paint, grease, galvanisation and alloying."}},
+
+{q:{hi:"'गैल्वेनाइजिंग' में लोहे पर किसकी परत चढ़ाई जाती है?",en:"In 'galvanisation', iron is coated with which metal?"},
+ o:[{hi:"ताँबा",en:"Copper"},{hi:"जस्ता",en:"Zinc"},{hi:"निकल",en:"Nickel"},{hi:"क्रोमियम",en:"Chromium"}],a:1,
+ ex:{hi:"गैल्वेनाइजिंग में लोहे पर जस्ते (Zinc) की पतली परत चढ़ाई जाती है, जो उसे जंग से बचाती है। जस्ता पहले ऑक्सीकृत होता है और लोहे की रक्षा करता है — इसे 'बलिदानी क्षरण' कहते हैं।",en:"Galvanisation coats iron with a thin zinc layer to prevent rusting. Zinc oxidises first, protecting iron — called 'sacrificial protection'."}},
+
+{q:{hi:"'मिश्र धातु' (Alloy) बनाने का मुख्य उद्देश्य क्या है?",en:"What is the main purpose of making an 'alloy'?"},
+ o:[{hi:"वजन बढ़ाना",en:"Increase weight"},{hi:"गुणों को सुधारना",en:"Improve properties"},{hi:"रंग बदलना",en:"Change colour"},{hi:"सस्ता बनाना",en:"Make cheaper"}],a:1,
+ ex:{hi:"मिश्र धातु बनाने का उद्देश्य धातु के गुणों को सुधारना है — जैसे स्टील में कठोरता, पीतल में चमक, स्टेनलेस स्टील में जंग-रोधकता। शुद्ध धातु अक्सर मुलायम और कम उपयोगी होती है।",en:"Alloys improve metal properties — steel's hardness, brass's shine, stainless steel's rust resistance. Pure metals are often too soft."}},
+
+/* ============ खंड F — रसायन: पर्यावरण रसायन (Q61–72) ============ */
+{q:{hi:"'हरित रसायन' (Green Chemistry) का मुख्य उद्देश्य क्या है?",en:"What is the main goal of 'Green Chemistry'?"},
+ o:[{hi:"अधिक उत्पादन",en:"More production"},{hi:"हानिकारक पदार्थों को कम करना",en:"Reduce hazardous substances"},{hi:"लागत कम करना",en:"Lower cost"},{hi:"रंग बदलना",en:"Change colour"}],a:1,
+ ex:{hi:"हरित रसायन रासायनिक प्रक्रियाओं में हानिकारक पदार्थों के उपयोग और उत्पादन को कम करने की अवधारणा है — जिससे पर्यावरण और मानव स्वास्थ्य की रक्षा हो। इसके जनक पॉल ट्रेंड हैं।",en:"Green Chemistry reduces hazardous substance use and generation to protect the environment and human health. Its father is Paul Trost."}},
+
+{q:{hi:"'ओज़ोन परत' के क्षरण का मुख्य कारण क्या है?",en:"What is the main cause of 'ozone layer' depletion?"},
+ o:[{hi:"CO₂",en:"CO₂"},{hi:"CFC (क्लोरोफ्लोरोकार्बन)",en:"CFC (Chlorofluorocarbons)"},{hi:"SO₂",en:"SO₂"},{hi:"मीथेन",en:"Methane"}],a:1,
+ ex:{hi:"ओज़ोन परत के क्षरण का मुख्य कारण CFC (Chlorofluorocarbons) हैं — जो रेफ्रिजरेटर, AC और स्प्रे में उपयोग होते थे। मॉन्ट्रियल प्रोटोकॉल (1987) से इनका उपयोग प्रतिबंधित किया गया।",en:"Ozone depletion is mainly caused by CFCs used in refrigerators, ACs and sprays. The Montreal Protocol (1987) restricted their use."}},
+
+{q:{hi:"'ग्रीनहाउस गैस' नहीं है —",en:"Which is NOT a 'greenhouse gas'?"},
+ o:[{hi:"CO₂",en:"CO₂"},{hi:"मीथेन",en:"Methane"},{hi:"नाइट्रोजन",en:"Nitrogen"},{hi:"नाइट्रस ऑक्साइड",en:"Nitrous oxide"}],a:2,
+ ex:{hi:"नाइट्रोजन (N₂) ग्रीनहाउस गैस नहीं है — यह वायुमंडल का 78% है लेकिन ऊष्मा नहीं रोकती। मुख्य ग्रीनहाउस गैसें — जल वाष्प, CO₂, मीथेन, नाइट्रस ऑक्साइड, ओज़ोन और CFC।",en:"Nitrogen (N₂) is not a greenhouse gas — despite being 78% of the atmosphere, it doesn't trap heat. Main GHGs: water vapour, CO₂, methane, N₂O, ozone and CFCs."}},
+
+{q:{hi:"'ग्लोबल वार्मिंग' का मुख्य कारण क्या है?",en:"What is the main cause of 'Global Warming'?"},
+ o:[{hi:"सौर गतिविधि",en:"Solar activity"},{hi:"ग्रीनहाउस गैसों का बढ़ना",en:"Increasing greenhouse gases"},{hi:"ज्वालामुखी",en:"Volcanoes"},{hi:"चुम्बकीय क्षेत्र",en:"Magnetic field"}],a:1,
+ ex:{hi:"ग्लोबल वार्मिंग का मुख्य कारण मानव गतिविधियों से बढ़ती ग्रीनहाउस गैसें हैं — जो जीवाश्म ईंधन, वन कटाई, उद्योग और कृषि से निकलती हैं। इससे तापमान बढ़ रहा है और जलवायु परिवर्तन हो रहा है।",en:"Global warming is mainly due to rising greenhouse gases from human activities — fossil fuels, deforestation, industry and agriculture — causing rising temperatures and climate change."}},
+
+{q:{hi:"'ब्लीचिंग पाउडर' का उपयोग पानी शुद्ध करने में क्यों होता है?",en:"Why is 'bleaching powder' used to purify water?"},
+ o:[{hi:"रंग हटाने के लिए",en:"To remove colour"},{hi:"कीटाणु नष्ट करने के लिए",en:"To kill germs"},{hi:"स्वाद बदलने के लिए",en:"To change taste"},{hi:"गंध देने के लिए",en:"To add fragrance"}],a:1,
+ ex:{hi:"ब्लीचिंग पाउडर (CaOCl₂) पानी में क्लोरीन छोड़ता है, जो कीटाणुओं और जीवाणुओं को नष्ट करता है। इसलिए इसका उपयोग पीने के पानी और स्विमिंग पूल को शुद्ध करने में होता है।",en:"Bleaching powder (CaOCl₂) releases chlorine in water, killing germs and bacteria — hence used to purify drinking water and swimming pools."}},
+
+{q:{hi:"'BOD' और 'COD' किससे संबंधित हैं?",en:"'BOD' and 'COD' are related to which of the following?"},
+ o:[{hi:"वायु प्रदूषण",en:"Air pollution"},{hi:"जल प्रदूषण",en:"Water pollution"},{hi:"मृदा प्रदूषण",en:"Soil pollution"},{hi:"ध्वनि प्रदूषण",en:"Noise pollution"}],a:1,
+ ex:{hi:"BOD (Biochemical Oxygen Demand) और COD (Chemical Oxygen Demand) जल प्रदूषण के सूचक हैं। अधिक BOD/COD का अर्थ अधिक प्रदूषण। स्वच्छ जल में BOD कम होता है, प्रदूषित जल में अधिक।",en:"BOD and COD are water pollution indicators. Higher BOD/COD means more pollution; clean water has low BOD."}},
+
+{q:{hi:"'पर्यावरण मित्र' ईंधन कौन-सा है?",en:"Which is an 'eco-friendly' fuel?"},
+ o:[{hi:"कोयला",en:"Coal"},{hi:"पेट्रोल",en:"Petrol"},{hi:"CNG और हाइड्रोजन",en:"CNG and hydrogen"},{hi:"डीज़ल",en:"Diesel"}],a:2,
+ ex:{hi:"CNG (Compressed Natural Gas) और हाइड्रोजन पर्यावरण मित्र ईंधन हैं — इनसे कम प्रदूषण होता है। CNG में सल्फर और कण कम होते हैं। हाइड्रोजन का एकमात्र उत्पाद जल वाष्प है।",en:"CNG and hydrogen are eco-friendly fuels producing less pollution. CNG has low sulphur and particulates; hydrogen's only byproduct is water vapour."}},
+
+{q:{hi:"'सीवेज जल' के उपचार में कौन-सी प्रक्रिया होती है?",en:"Which process is used in 'sewage water' treatment?"},
+ o:[{hi:"केवल भौतिक",en:"Only physical"},{hi:"केवल रासायनिक",en:"Only chemical"},{hi:"भौतिक, रासायनिक और जैविक",en:"Physical, chemical and biological"},{hi:"केवल जैविक",en:"Only biological"}],a:2,
+ ex:{hi:"सीवेज उपचार में तीन चरण होते हैं — भौतिक (छानना, अवसादन), रासायनिक (क्लोरीनीकरण, अवक्षेपण) और जैविक (सूक्ष्मजीवों द्वारा अपघटन)। इससे जल पुनः उपयोग योग्य बनता है।",en:"Sewage treatment has three stages — physical (screening, sedimentation), chemical (chlorination, precipitation) and biological (microbial decomposition) — making water reusable."}},
+
+{q:{hi:"'अम्लीय वर्षा' का pH मान कितना होता है?",en:"What is the pH of 'acid rain'?"},
+ o:[{hi:"7 से कम (लगभग 5.6)",en:"Below 7 (about 5.6)"},{hi:"7 से अधिक",en:"Above 7"},{hi:"7 के बराबर",en:"Equal to 7"},{hi:"9 से अधिक",en:"Above 9"}],a:0,
+ ex:{hi:"सामान्य वर्षा का pH ~5.6 होता है (CO₂ घुलने से)। जब SO₂ और NO₂ के कारण pH 5.6 से कम हो जाए, तो उसे 'अम्लीय वर्षा' कहते हैं। इससे इमारतें, फसलें और जल-जीव प्रभावित होते हैं।",en:"Normal rain has pH ~5.6 (due to dissolved CO₂). When SO₂ and NO₂ push it below 5.6, it becomes 'acid rain', damaging buildings, crops and aquatic life."}},
+
+{q:{hi:"'जल का कठोरता' किसके कारण होती है?",en:"'Hardness of water' is caused by which of the following?"},
+ o:[{hi:"सोडियम और पोटैशियम",en:"Sodium and Potassium"},{hi:"कैल्शियम और मैग्नीशियम लवण",en:"Calcium and Magnesium salts"},{hi:"लोहा और ताँबा",en:"Iron and Copper"},{hi:"क्लोरीन",en:"Chlorine"}],a:1,
+ ex:{hi:"जल की कठोरता कैल्शियम और मैग्नीशियम के घुलनशील लवणों (बाइकार्बोनेट, सल्फेट, क्लोराइड) के कारण होती है। अस्थायी कठोरता उबालने से दूर होती है, स्थायी कठोरता के लिए आयन-विनिमय या धोने का सोडा उपयोग होता है।",en:"Water hardness is caused by dissolved calcium and magnesium salts (bicarbonates, sulphates, chlorides). Temporary hardness is removed by boiling; permanent by ion exchange or washing soda."}},
+
+{q:{hi:"'भूमिगत जल' के अत्यधिक दोहन से क्या समस्या होती है?",en:"What problem arises from excessive 'groundwater' extraction?"},
+ o:[{hi:"जल स्तर बढ़ता है",en:"Water level rises"},{hi:"जल स्तर गिरता है और भूमि धँसती है",en:"Water table falls and land subsides"},{hi:"कोई समस्या नहीं",en:"No problem"},{hi:"वर्षा बढ़ती है",en:"Rainfall increases"}],a:1,
+ ex:{hi:"अत्यधिक भूमिगत जल निकालने से जल स्तर गिरता है, कुओं में पानी सूखता है, भूमि धँसती है और आर्सेनिक/फ्लोराइड जैसे खनिज बढ़ते हैं। बिहार और पंजाब में यह गंभीर समस्या है।",en:"Excessive groundwater extraction lowers the water table, dries wells, causes land subsidence and increases arsenic/fluoride. Bihar and Punjab face this severely."}},
+
+{q:{hi:"'ध्वनि प्रदूषण' का मुख्य स्रोत क्या है?",en:"What is the main source of 'noise pollution'?"},
+ o:[{hi:"वाहन और उद्योग",en:"Vehicles and industry"},{hi:"पक्षी",en:"Birds"},{hi:"पेड़",en:"Trees"},{hi:"वर्षा",en:"Rainfall"}],a:0,
+ ex:{hi:"ध्वनि प्रदूषण के मुख्य स्रोत — वाहन, उद्योग, लाउडस्पीकर, निर्माण कार्य, विमान। ध्वनि की तीव्रता डेसिबल (dB) में मापी जाती है। 85 dB से अधिक ध्वनि स्वास्थ्य के लिए हानिकारक है।",en:"Noise pollution mainly comes from vehicles, industry, loudspeakers, construction and aircraft. Measured in decibels (dB); above 85 dB is harmful."}},
+
+/* ============ खंड G — रसायन: भोजन और दैनिक जीवन (Q73–82) ============ */
+{q:{hi:"'खाद्य परिरक्षण' में नमक और चीनी का उपयोग क्यों होता है?",en:"Why are salt and sugar used in 'food preservation'?"},
+ o:[{hi:"स्वाद बढ़ाने के लिए",en:"To add taste"},{hi:"जल की मात्रा घटाकर सूक्ष्मजीवों को रोकने के लिए",en:"By reducing water to stop microbes"},{hi:"रंग देने के लिए",en:"To add colour"},{hi:"वजन बढ़ाने के लिए",en:"To increase weight"}],a:1,
+ ex:{hi:"नमक और चीनी परासरण (Osmosis) द्वारा सूक्ष्मजीवों से जल निकाल लेते हैं, जिससे वे मर जाते हैं। इसलिए अचार, मुरब्बा, जैम में नमक/चीनी डालकर परिरक्षण होता है।",en:"Salt and sugar draw water out of microbes via osmosis, killing them. Hence pickles, murabba and jam are preserved with salt/sugar."}},
+
+{q:{hi:"'विटामिन का खोज' किसने की?",en:"Who discovered 'vitamins'?"},
+ o:[{hi:"लुई पाश्चर",en:"Louis Pasteur"},{hi:"कैसिमिर फंक",en:"Casimir Funk"},{hi:"रॉबर्ट कोच",en:"Robert Koch"},{hi:"एडवर्ड जेनर",en:"Edward Jenner"}],a:1,
+ ex:{hi:"विटामिन की खोज कैसिमिर फंक ने 1912 में की — उन्होंने 'वाइटल एमीन' शब्द दिया, जो बाद में 'विटामिन' बना। उन्होंने थायमिन (B1) की खोज भी की।",en:"Vitamins were discovered by Casimir Funk in 1912, who coined 'vital amine' — later 'vitamin'. He also discovered thiamine (B1)."}},
+
+{q:{hi:"'सूर्य की रोशनी' से शरीर में कौन-सा विटामिन बनता है?",en:"Which vitamin is synthesised in the body from 'sunlight'?"},
+ o:[{hi:"विटामिन A",en:"Vitamin A"},{hi:"विटामिन C",en:"Vitamin C"},{hi:"विटामिन D",en:"Vitamin D"},{hi:"विटामिन K",en:"Vitamin K"}],a:2,
+ ex:{hi:"सूर्य की पराबैंगनी किरणें त्वचा में कोलेस्ट्रॉल को विटामिन D में बदलती हैं। इसलिए विटामिन D को 'सनशाइन विटामिन' कहते हैं। इसकी कमी से बच्चों में रिकेट्स और बड़ों में ऑस्टियोमलेशिया होता है।",en:"UV rays convert skin cholesterol to Vitamin D — hence 'sunshine vitamin'. Deficiency causes rickets in children and osteomalacia in adults."}},
+
+{q:{hi:"'मक्खन' में कौन-सा विटामिन सबसे अधिक होता है?",en:"Which vitamin is most abundant in 'butter'?"},
+ o:[{hi:"विटामिन A",en:"Vitamin A"},{hi:"विटामिन C",en:"Vitamin C"},{hi:"विटामिन B12",en:"Vitamin B12"},{hi:"विटामिन K",en:"Vitamin K"}],a:0,
+ ex:{hi:"मक्खन, घी, दूध, अंडे की जर्दी और गाजर में विटामिन A प्रचुर मात्रा में होता है। यह दृष्टि, त्वचा और प्रतिरक्षा के लिए आवश्यक है। इसकी कमी से रतौंधी होती है।",en:"Butter, ghee, milk, egg yolk and carrots are rich in Vitamin A — essential for vision, skin and immunity; deficiency causes night blindness."}},
+
+{q:{hi:"'ग्लूकोज़' का रासायनिक सूत्र क्या है?",en:"What is the chemical formula of 'glucose'?"},
+ o:[{hi:"C₆H₁₂O₆",en:"C₆H₁₂O₆"},{hi:"C₁₂H₂₂O₁₁",en:"C₁₂H₂₂O₁₁"},{hi:"C₆H₆O₆",en:"C₆H₆O₆"},{hi:"CH₄O",en:"CH₄O"}],a:0,
+ ex:{hi:"ग्लूकोज़ = C₆H₁₂O₆। यह सबसे सरल शर्करा (मोनोसेकेराइड) है — शरीर की मुख्य ऊर्जा। इसका उपयोग ड्रिप में, मिठाई बनाने में और फलों में प्राकृतिक रूप से होता है। C₁₂H₂₂O₁₁ = सुक्रोज़।",en:"Glucose = C₆H₁₂O₆, the simplest sugar (monosaccharide) and main body energy source, used in drips, sweets and naturally in fruits. C₁₂H₂₂O₁₁ = sucrose."}},
+
+{q:{hi:"'चीनी' (टेबल शुगर) का रासायनिक नाम क्या है?",en:"What is the chemical name of 'table sugar'?"},
+ o:[{hi:"ग्लूकोज़",en:"Glucose"},{hi:"फ्रक्टोज़",en:"Fructose"},{hi:"सुक्रोज़",en:"Sucrose"},{hi:"लैक्टोज़",en:"Lactose"}],a:2,
+ ex:{hi:"टेबल शुगर = सुक्रोज़ (C₁₂H₂₂O₁₁) — जो गन्ना और चुकंदर से बनता है। यह ग्लूकोज़ और फ्रक्टोज़ से मिलकर बना डाइसेकेराइड है। दूध में लैक्टोज़ होता है।",en:"Table sugar = sucrose (C₁₂H₂₂O₁₁) from sugarcane and beetroot — a disaccharide of glucose and fructose. Milk contains lactose."}},
+
+{q:{hi:"'प्रोटीन' के निर्माण की इकाई क्या है?",en:"What is the building unit of 'proteins'?"},
+ o:[{hi:"ग्लूकोज़",en:"Glucose"},{hi:"अमीनो अम्ल",en:"Amino acids"},{hi:"वसा अम्ल",en:"Fatty acids"},{hi:"न्यूक्लियोटाइड",en:"Nucleotides"}],a:1,
+ ex:{hi:"प्रोटीन अमीनो अम्लों से बने होते हैं — जिनमें ~20 प्रकार के अमीनो अम्ल होते हैं। इन्हें पेप्टाइड बंधों से जोड़ा जाता है। शरीर की वृद्धि, मरम्मत, एंजाइम और हार्मोन के लिए आवश्यक।",en:"Proteins are made of ~20 amino acids linked by peptide bonds — essential for growth, repair, enzymes and hormones."}},
+
+{q:{hi:"'वसा' का ऊर्जा मान कार्बोहाइड्रेट से कितना अधिक होता है?",en:"How much more energy does 'fat' provide than carbohydrates?"},
+ o:[{hi:"समान",en:"Same"},{hi:"~2 गुना",en:"~2 times"},{hi:"~3 गुना",en:"~3 times"},{hi:"~5 गुना",en:"~5 times"}],a:1,
+ ex:{hi:"1 ग्राम वसा से ~9 कैलोरी ऊर्जा मिलती है, जबकि 1 ग्राम कार्बोहाइड्रेट/प्रोटीन से ~4 कैलोरी। इसलिए वसा ऊर्जा का संकेंद्रित स्रोत है। शरीर अतिरिक्त ऊर्जा वसा में संचित करता है।",en:"1 g fat gives ~9 calories, versus ~4 calories for carbohydrate/protein. Fat is a concentrated energy source; excess energy is stored as fat."}},
+
+{q:{hi:"'वनस्पति तेल' में कौन-सा वसा अम्ल अधिक होता है?",en:"Which fatty acid is dominant in 'vegetable oils'?"},
+ o:[{hi:"संतृप्त",en:"Saturated"},{hi:"असंतृप्त",en:"Unsaturated"},{hi:"ट्रांस",en:"Trans"},{hi:"स्टेरॉल",en:"Sterol"}],a:1,
+ ex:{hi:"वनस्पति तेलों (सरसों, सूरजमुखी, जैतून) में असंतृप्त वसा अम्ल अधिक होते हैं, जो हृदय के लिए अच्छे हैं। घी, मक्खन, मांस में संतृप्त वसा अधिक होते हैं।",en:"Vegetable oils (mustard, sunflower, olive) are rich in unsaturated fats, good for the heart. Ghee, butter and meat contain more saturated fats."}},
+
+{q:{hi:"'ट्रांस वसा' किसके लिए हानिकारक है?",en:"'Trans fats' are harmful to which of the following?"},
+ o:[{hi:"फेफड़े",en:"Lungs"},{hi:"हृदय",en:"Heart"},{hi:"गुर्दा",en:"Kidney"},{hi:"यकृत",en:"Liver"}],a:1,
+ ex:{hi:"ट्रांस वसा (जो वनस्पति घी, मार्जरीन, पैकेज्ड स्नैक्स में होते हैं) हृदय रोग का खतरा बढ़ाते हैं — LDL (खराब) कोलेस्ट्रॉल बढ़ाते और HDL (अच्छा) घटाते हैं। FSSAI ने 2022 से ट्रांस वसा पर प्रतिबंध लगाया।",en:"Trans fats (in vanaspati, margarine, packaged snacks) raise heart disease risk by increasing LDL and lowering HDL. FSSAI banned them from 2022."}},
+
+/* ============ खंड H — जीव विज्ञान: आनुवंशिकी और विकास (Q83–92) ============ */
+{q:{hi:"'आनुवंशिकी का जनक' किसे कहा जाता है?",en:"Who is called the 'Father of Genetics'?"},
+ o:[{hi:"डार्विन",en:"Darwin"},{hi:"ग्रेगर मेंडल",en:"Gregor Mendel"},{hi:"लीनियस",en:"Linnaeus"},{hi:"वाटसन",en:"Watson"}],a:1,
+ ex:{hi:"ग्रेगर जोहान मेंडल (1822-1884) को 'आनुवंशिकी का जनक' कहा जाता है। उन्होंने मटर के पौधों पर प्रयोग करके आनुवंशिकता के नियम दिए — प्रभाविता और पृथक्करण का नियम।",en:"Gregor Johann Mendel (1822–1884) is called the 'Father of Genetics'. His pea plant experiments gave the laws of dominance and segregation."}},
+
+{q:{hi:"'मेंडल' ने अपने प्रयोग किस पौधे पर किए?",en:"'Mendel' performed his experiments on which plant?"},
+ o:[{hi:"गेहूँ",en:"Wheat"},{hi:"मटर (Pisum sativum)",en:"Pea (Pisum sativum)"},{hi:"चावल",en:"Rice"},{hi:"मक्का",en:"Maize"}],a:1,
+ ex:{hi:"मेंडल ने मटर के पौधे (Pisum sativum) पर 1856-1863 तक प्रयोग किए — क्योंकि इसमें स्पष्ट गुण होते हैं, आसानी से उगाया जाता है और स्व-परागण होता है। उन्होंने 7 गुणों का अध्ययन किया।",en:"Mendel experimented on pea plants (Pisum sativum) from 1856–1863 due to their clear traits, easy cultivation and self-pollination, studying 7 traits."}},
+
+{q:{hi:"'DNA' की संरचना का पता किसने लगाया?",en:"Who discovered the structure of 'DNA'?"},
+ o:[{hi:"मेंडल",en:"Mendel"},{hi:"वाटसन और क्रिक",en:"Watson and Crick"},{hi:"डार्विन",en:"Darwin"},{hi:"मॉर्गन",en:"Morgan"}],a:1,
+ ex:{hi:"DNA की डबल हेलिक्स संरचना का पता 1953 में जेम्स वाटसन और फ्रांसिस क्रिक ने लगाया — रोज़लिंड फ्रैंकलिन के X-रे विवर्तन चित्रों के आधार पर। उन्हें 1962 में नोबेल मिला।",en:"Watson and Crick discovered DNA's double helix in 1953, based on Rosalind Franklin's X-ray diffraction images, winning the 1962 Nobel."}},
+
+{q:{hi:"'गुणसूत्र' (Chromosome) किससे बने होते हैं?",en:"'Chromosomes' are made of which of the following?"},
+ o:[{hi:"केवल DNA",en:"Only DNA"},{hi:"DNA और प्रोटीन",en:"DNA and protein"},{hi:"केवल प्रोटीन",en:"Only protein"},{hi:"RNA और वसा",en:"RNA and fat"}],a:1,
+ ex:{hi:"गुणसूत्र DNA और प्रोटीन (हिस्टोन) से बने होते हैं। मानव में 46 गुणसूत्र (23 जोड़े) होते हैं — जिनमें से 22 जोड़े ऑटोसोम और 1 जोड़ा सेक्स क्रोमोसोम (XX/XY)।",en:"Chromosomes consist of DNA and protein (histones). Humans have 46 (23 pairs) — 22 pairs of autosomes and 1 pair of sex chromosomes (XX/XY)."}},
+
+{q:{hi:"'विकास का सिद्धांत' किसने दिया?",en:"Who gave the 'Theory of Evolution'?"},
+ o:[{hi:"लैमार्क",en:"Lamarck"},{hi:"चार्ल्स डार्विन",en:"Charles Darwin"},{hi:"मेंडल",en:"Mendel"},{hi:"हेकल",en:"Haeckel"}],a:1,
+ ex:{hi:"चार्ल्स डार्विन ने 1859 में 'ऑन द ओरिजिन ऑफ स्पीशीज़' में विकास का सिद्धांत दिया — 'प्राकृतिक चयन' (Natural Selection) द्वारा। उन्होंने HMS Beagle यात्रा में गैलापागोस द्वीपों का अध्ययन किया।",en:"Charles Darwin's 1859 'On the Origin of Species' gave the Theory of Evolution by Natural Selection, informed by his HMS Beagle voyage to the Galápagos."}},
+
+{q:{hi:"'प्राकृतिक चयन' क्या है?",en:"What is 'natural selection'?"},
+ o:[{hi:"मानव द्वारा चयन",en:"Human-driven selection"},{hi:"प्रकृति द्वारा अनुकूल जीवों का चयन",en:"Nature's selection of fitter organisms"},{hi:"आनुवंशिक उत्परिवर्तन",en:"Genetic mutation"},{hi:"कृत्रिम प्रजनन",en:"Artificial breeding"}],a:1,
+ ex:{hi:"प्राकृतिक चयन में प्रकृति उन जीवों को जीवित रहने देती है जो वातावरण के अनुकूल हैं — वे प्रजनन करके अपने गुण आगे बढ़ाते हैं। इसे 'सर्वाइवल ऑफ द फिटेस्ट' कहते हैं।",en:"Natural selection favours organisms best adapted to their environment — they survive and reproduce, passing on traits. Also called 'Survival of the Fittest'."}},
+
+{q:{hi:"'उत्परिवर्तन' (Mutation) क्या है?",en:"What is 'Mutation'?"},
+ o:[{hi:"कोशिका विभाजन",en:"Cell division"},{hi:"DNA में अचानक परिवर्तन",en:"Sudden change in DNA"},{hi:"प्रोटीन संश्लेषण",en:"Protein synthesis"},{hi:"हार्मोन स्राव",en:"Hormone secretion"}],a:1,
+ ex:{hi:"उत्परिवर्तन DNA में अचानक और स्थायी परिवर्तन है — जो विकिरण, रसायन, विषाणु या त्रुटि से हो सकता है। यह विकास का आधार है और कैंसर का कारण भी हो सकता है।",en:"Mutation is a sudden, permanent change in DNA from radiation, chemicals, viruses or errors. It underlies evolution but can also cause cancer."}},
+
+{q:{hi:"'लिंग-निर्धारण' मानव में किससे होता है?",en:"Sex determination in humans is done by which of the following?"},
+ o:[{hi:"माता के गुणसूत्र",en:"Mother's chromosome"},{hi:"पिता के गुणसूत्र",en:"Father's chromosome"},{hi:"दोनों",en:"Both"},{hi:"वातावरण",en:"Environment"}],a:1,
+ ex:{hi:"मानव में लिंग-निर्धारण पिता के गुणसूत्र से होता है। माता में XX होता है, इसलिए हमेशा X देती है। पिता XY में X दे तो बालिका (XX) और Y दे तो बालक (XY)।",en:"In humans, the father determines sex. The mother (XX) always gives X; the father (XY) gives X for a girl or Y for a boy."}},
+
+{q:{hi:"'मानव जीनोम परियोजना' कब पूरी हुई?",en:"When was the 'Human Genome Project' completed?"},
+ o:[{hi:"1995",en:"1995"},{hi:"2000",en:"2000"},{hi:"2003",en:"2003"},{hi:"2010",en:"2010"}],a:2,
+ ex:{hi:"मानव जीनोम परियोजना (HGP) 1990 में शुरू हुई और 2003 में पूरी हुई। इसमें मानव के ~20,000-25,000 जीनों का नक्शा तैयार किया गया। इससे चिकित्सा और आनुवंशिकी में क्रांति आई।",en:"The Human Genome Project ran 1990–2003, mapping ~20,000–25,000 human genes — revolutionising medicine and genetics."}},
+
+{q:{hi:"'क्लोनिंग' का पहला सफल प्रयोग किस जीव पर हुआ?",en:"The first successful 'cloning' experiment was on which organism?"},
+ o:[{hi:"चूहा",en:"Mouse"},{hi:"भेड़ (डॉली)",en:"Sheep (Dolly)"},{hi:"गाय",en:"Cow"},{hi:"बंदर",en:"Monkey"}],a:1,
+ ex:{hi:"पहली सफल क्लोनिंग 1996 में भेड़ 'डॉली' पर हुई — इयान विल्मुट के नेतृत्व में रोज़लिन इंस्टिट्यूट, स्कॉटलैंड में। यह वयस्क कोशिका से बनाई गई पहली क्लोन थी।",en:"The first successful cloning was of the sheep 'Dolly' in 1996 by Ian Wilmut's team at Roslin Institute, Scotland — the first clone from an adult cell."}},
+
+/* ============ खंड I — जीव विज्ञान: पारिस्थितिकी और सूक्ष्मजीव (Q93–100) ============ */
+{q:{hi:"'पारिस्थितिकी तंत्र' में 'उत्पादक' कौन होते हैं?",en:"Who are the 'producers' in an ecosystem?"},
+ o:[{hi:"जंतु",en:"Animals"},{hi:"हरे पौधे",en:"Green plants"},{hi:"बैक्टीरिया",en:"Bacteria"},{hi:"कवक",en:"Fungi"}],a:1,
+ ex:{hi:"हरे पौधे (प्रकाश संश्लेषण द्वारा) उत्पादक हैं — जो सूर्य की ऊर्जा को भोजन में बदलते हैं। जंतु उपभोक्ता हैं। बैक्टीरिया और कवक अपघटक हैं — जो मृत पदार्थ को विघटित करते हैं।",en:"Green plants (via photosynthesis) are producers converting solar energy to food. Animals are consumers; bacteria and fungi are decomposers."}},
+
+{q:{hi:"'खाद्य श्रृंखला' में कितने स्तर होते हैं?",en:"How many trophic levels are in a food chain?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"4-5 (प्रायः)",en:"4–5 (usually)"}],a:3,
+ ex:{hi:"खाद्य श्रृंखला में प्रायः 4-5 स्तर होते हैं — उत्पादक → प्राथमिक उपभोक्ता (शाकाहारी) → द्वितीयक उपभोक्ता (मांसाहारी) → तृतीयक उपभोक्ता → अपघटक। ऊर्जा का केवल 10% अगले स्तर तक पहुँचता है।",en:"Food chains usually have 4–5 levels — producer → primary consumer → secondary → tertiary → decomposer. Only 10% energy passes to the next level."}},
+
+{q:{hi:"'जैव-आवर्धन' (Biomagnification) क्या है?",en:"What is 'Biomagnification'?"},
+ o:[{hi:"जीवों का बढ़ना",en:"Growth of organisms"},{hi:"खाद्य श्रृंखला में विषैले पदार्थों का संचय",en:"Accumulation of toxins in food chain"},{hi:"जनसंख्या वृद्धि",en:"Population growth"},{hi:"पौधों की वृद्धि",en:"Plant growth"}],a:1,
+ ex:{hi:"जैव-आवर्धन में विषैले पदार्थ (जैसे DDT, पारा) खाद्य श्रृंखला में ऊपर के स्तर पर अधिक संकेंद्रित होते जाते हैं। इसलिए मानव और बड़े जंतुओं में इनकी मात्रा सबसे अधिक होती है।",en:"Biomagnification concentrates toxins (DDT, mercury) up the food chain, highest in top predators and humans."}},
+
+{q:{hi:"'पारिस्थितिक पिरामिड' के कितने प्रकार होते हैं?",en:"How many types of 'ecological pyramids' are there?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"3 प्रकार — संख्या का पिरामिड, जैव-मात्रा का पिरामिड और ऊर्जा का पिरामिड। ऊर्जा का पिरामिड सदैव सीधा (upright) होता है — क्योंकि ऊर्जा हर स्तर पर घटती है।",en:"Three types — pyramid of numbers, biomass and energy. The energy pyramid is always upright as energy decreases at each level."}},
+
+{q:{hi:"'खाद्य जाल' (Food Web) क्या है?",en:"What is a 'Food Web'?"},
+ o:[{hi:"एक खाद्य श्रृंखला",en:"A single food chain"},{hi:"अनेक जुड़ी खाद्य श्रृंखलाएँ",en:"Multiple interconnected food chains"},{hi:"पौधों का समूह",en:"Group of plants"},{hi:"जंतुओं का समूह",en:"Group of animals"}],a:1,
+ ex:{hi:"खाद्य जाल अनेक जुड़ी खाद्य श्रृंखलाओं का नेटवर्क है — जो पारिस्थितिक तंत्र में वास्तविक भोजन संबंधों को दर्शाता है। यह खाद्य श्रृंखला से अधिक जटिल और स्थिर होता है।",en:"A food web is a network of interconnected food chains, reflecting real feeding relationships and being more stable than a single chain."}},
+
+{q:{hi:"'जीवाणु' की खोज किसने की?",en:"Who discovered 'bacteria'?"},
+ o:[{hi:"लुई पाश्चर",en:"Louis Pasteur"},{hi:"एंटोनी वान ल्यूवेनहुक",en:"Antonie van Leeuwenhoek"},{hi:"रॉबर्ट कोच",en:"Robert Koch"},{hi:"एडवर्ड जेनर",en:"Edward Jenner"}],a:1,
+ ex:{hi:"एंटोनी वान ल्यूवेनहुक ने 1676 में पहली बार जीवाणुओं को सूक्ष्मदर्शी से देखा। उन्हें 'सूक्ष्मजीव विज्ञान का जनक' कहा जाता है। रॉबर्ट कोच ने TB और हैजा के जीवाणु खोजे।",en:"Antonie van Leeuwenhoek first observed bacteria under a microscope in 1676 — called the 'Father of Microbiology'. Robert Koch discovered TB and cholera bacteria."}},
+
+{q:{hi:"'विषाणु' (Virus) की खोज किसने की?",en:"Who discovered 'viruses'?"},
+ o:[{hi:"पाश्चर",en:"Pasteur"},{hi:"दिमित्री इवानोव्स्की",en:"Dmitri Ivanovsky"},{hi:"कोच",en:"Koch"},{hi:"ल्यूवेनहुक",en:"Leeuwenhoek"}],a:1,
+ ex:{hi:"विषाणु की खोज 1892 में दिमित्री इवानोव्स्की ने की — तंबाकू के मोज़ेक रोग के अध्ययन से। विषाणु जीवित और निर्जीव के बीच की स्थिति में होते हैं और केवल परपोषी कोशिका के अंदर ही प्रजनन करते हैं।",en:"Viruses were discovered by Dmitri Ivanovsky in 1892 while studying tobacco mosaic disease. They lie between living and non-living and reproduce only inside host cells."}},
+
+{q:{hi:"'टीकाकरण' का आविष्कार किसने किया?",en:"Who invented 'vaccination'?"},
+ o:[{hi:"लुई पाश्चर",en:"Louis Pasteur"},{hi:"एडवर्ड जेनर",en:"Edward Jenner"},{hi:"रॉबर्ट कोच",en:"Robert Koch"},{hi:"फ्लेमिंग",en:"Fleming"}],a:1,
+ ex:{hi:"एडवर्ड जेनर ने 1796 में चेचक (Smallpox) के लिए पहला टीका विकसित किया — गाय के चेचक (Cowpox) से। इसलिए उन्हें 'टीकाकरण का जनक' कहते हैं। लुई पाशर ने रेबीज़ का टीका बनाया।",en:"Edward Jenner developed the first vaccine (smallpox) in 1796 using cowpox — hence 'Father of Vaccination'. Louis Pasteur made the rabies vaccine."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! विज्ञान पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your science command is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को दोहराएँ।"; enMsg = "Good job! Revise the wrong answers."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। विज्ञान के मूल तथ्य दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the science basics."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
