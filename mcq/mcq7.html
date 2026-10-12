@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>BPSC मॉक टेस्ट 7 — 100 प्रश्न (नए क्षेत्र) | BPSC Mock Test 7</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#0d2b52,#164a8a);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#a9c6ea;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#a9c6ea;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--saffron),var(--green));
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#d8f0ee;color:#0c5a55;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 BPSC मॉक टेस्ट — 7
+              <small>BPSC Mock Test 7 · नए क्षेत्र / Fresh Topics</small>
+              <small id="sectionLabel">खंड A — भारतीय दर्शन और धार्मिक आंदोलन</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   BPSC मॉक टेस्ट 7 — 100 प्रश्न (नए क्षेत्र)
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — भारतीय दर्शन और धार्मिक आंदोलन", en:"Section A — Indian Philosophy & Religious Movements"},
+  {hi:"खंड B — दिल्ली सल्तनत और क्षेत्रीय साम्राज्य", en:"Section B — Delhi Sultanate & Regional Kingdoms"},
+  {hi:"खंड C — क्रांतिकारी आंदोलन और स्वतंत्रता संग्राम", en:"Section C — Revolutionary Movements & Freedom Struggle"},
+  {hi:"खंड D — मुद्रा, बैंकिंग और वित्तीय संस्थान", en:"Section D — Currency, Banking & Financial Institutions"},
+  {hi:"खंड E — वायुमंडल, महासागर और जलवायु", en:"Section E — Atmosphere, Oceans & Climate"},
+  {hi:"खंड F — रासायनिक अभिक्रियाएँ और तत्व", en:"Section F — Chemical Reactions & Elements"},
+  {hi:"खंड G — रोग, उपचार और स्वास्थ्य कार्यक्रम", en:"Section G — Diseases, Treatment & Health Programs"},
+  {hi:"खंड H — बिहार विशेष: प्रशासन, राजनीति, न्यायपालिका", en:"Section H — Bihar Special: Administration & Politics"},
+  {hi:"खंड I — कंप्यूटर, इंटरनेट और आधुनिक तकनीक", en:"Section I — Computer, Internet & Modern Technology"}
+];
+const SECTION_STARTS = [0, 12, 24, 36, 48, 60, 72, 82, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — भारतीय दर्शन और धार्मिक आंदोलन (Q1–12) ============ */
+{q:{hi:"भारतीय दर्शन के छह प्रमुख संप्रदायों में 'योग' के प्रवर्तक कौन हैं?",en:"Who founded the 'Yoga' school among the six schools of Indian philosophy?"},
+ o:[{hi:"कपिल",en:"Kapila"},{hi:"पतंजलि",en:"Patanjali"},{hi:"गौतम",en:"Gautama"},{hi:"कणाद",en:"Kanada"}],a:1,
+ ex:{hi:"योग दर्शन के प्रवर्तक महर्षि पतंजलि हैं। उन्होंने 'योगसूत्र' की रचना की — इसमें आठ अंगों वाला अष्टांग योग वर्णित है।",en:"The Yoga school was founded by sage Patanjali, who wrote the 'Yoga Sutras' describing Ashtanga Yoga."}},
+
+{q:{hi:"'न्याय दर्शन' के प्रवर्तक कौन हैं?",en:"Who founded the 'Nyaya' school of philosophy?"},
+ o:[{hi:"कणाद",en:"Kanada"},{hi:"गौतम",en:"Gautama"},{hi:"जैमिनी",en:"Jaimini"},{hi:"व्यास",en:"Vyasa"}],a:1,
+ ex:{hi:"न्याय दर्शन के प्रवर्तक महर्षि गौतम हैं। यह तर्कशास्त्र और ज्ञान के साधनों पर केंद्रित है। 'न्यायसूत्र' इसका मूल ग्रंथ है।",en:"The Nyaya school was founded by sage Gautama, focusing on logic and means of knowledge. Nyaya Sutra is its foundational text."}},
+
+{q:{hi:"बौद्ध धर्म के 'चार आर्य सत्य' में पहला सत्य क्या है?",en:"What is the first of Buddha's 'Four Noble Truths'?"},
+ o:[{hi:"दुःख का कारण",en:"Cause of suffering"},{hi:"दुःख का निरोध",en:"Cessation of suffering"},{hi:"दुःख है",en:"There is suffering"},{hi:"दुःख का मार्ग",en:"Path to end suffering"}],a:2,
+ ex:{hi:"चार आर्य सत्य — (1) दुःख है (2) दुःख का कारण है (3) दुःख का निरोध संभव है (4) दुःख निरोध का मार्ग अष्टांगिक मार्ग है।",en:"Four Noble Truths — (1) There is suffering (2) Its cause (3) Its cessation is possible (4) The Eightfold Path leads to cessation."}},
+
+{q:{hi:"जैन धर्म के पाँच 'महाव्रतों' में 'अस्तेय' का अर्थ क्या है?",en:"What does 'Asteya' mean among the five vows of Jainism?"},
+ o:[{hi:"अहिंसा",en:"Non-violence"},{hi:"सत्य",en:"Truth"},{hi:"चोरी न करना",en:"Non-stealing"},{hi:"संचय न करना",en:"Non-possession"}],a:2,
+ ex:{hi:"जैन धर्म के पाँच महाव्रत — अहिंसा, सत्य, अस्तेय (चोरी न करना), ब्रह्मचर्य और अपरिग्रह (संचय न करना)।",en:"The five vows in Jainism — Ahimsa, Satya, Asteya (non-stealing), Brahmacharya and Aparigraha (non-possession)."}},
+
+{q:{hi:"सिख धर्म के संस्थापक गुरु नानक का जन्म कहाँ हुआ था?",en:"Where was Guru Nanak, founder of Sikhism, born?"},
+ o:[{hi:"लाहौर",en:"Lahore"},{hi:"ननकाना साहिब",en:"Nankana Sahib"},{hi:"अमृतसर",en:"Amritsar"},{hi:"करतारपुर",en:"Kartarpur"}],a:1,
+ ex:{hi:"गुरु नानक का जन्म 1469 में ननकाना साहिब (अब पाकिस्तान के पंजाब) में हुआ। उन्होंने 'एक ओंकार' का संदेश दिया।",en:"Guru Nanak was born in 1469 at Nankana Sahib (now in Punjab, Pakistan). He preached 'Ek Onkar' (One God)."}},
+
+{q:{hi:"सिख धर्म के कुल कितने गुरु हुए हैं?",en:"How many Gurus does Sikhism have in total?"},
+ o:[{hi:"9",en:"9"},{hi:"10",en:"10"},{hi:"11",en:"11"},{hi:"12",en:"12"}],a:1,
+ ex:{hi:"सिख धर्म में 10 गुरु हुए — गुरु नानक से गुरु गोबिंद सिंह तक। गुरु गोबिंद सिंह ने 1708 में गुरु ग्रंथ साहिब को शाश्वत गुरु घोषित किया।",en:"Sikhism has 10 Gurus — from Guru Nanak to Guru Gobind Singh, who declared Guru Granth Sahib the eternal Guru in 1708."}},
+
+{q:{hi:"'अद्वैत वेदांत' के प्रवर्तक कौन थे?",en:"Who propounded 'Advaita Vedanta'?"},
+ o:[{hi:"रामानुज",en:"Ramanuja"},{hi:"मध्व",en:"Madhva"},{hi:"आदि शंकराचार्य",en:"Adi Shankaracharya"},{hi:"निम्बार्क",en:"Nimbarka"}],a:2,
+ ex:{hi:"आदि शंकराचार्य (788–820 ई.) ने अद्वैत वेदांत का प्रतिपादन किया — आत्मा और ब्रह्म एक हैं। उन्होंने चार मठों की स्थापना की।",en:"Adi Shankaracharya (788–820 CE) propounded Advaita Vedanta — Atman and Brahman are one. He established four mathas."}},
+
+{q:{hi:"भक्ति आंदोलन के संत कबीर का जन्म कहाँ हुआ था?",en:"Where was Bhakti saint Kabir born?"},
+ o:[{hi:"वाराणसी",en:"Varanasi"},{hi:"मगहर",en:"Maghar"},{hi:"प्रयागराज",en:"Prayagraj"},{hi:"मथुरा",en:"Mathura"}],a:0,
+ ex:{hi:"कबीर का जन्म 1440 में वाराणसी में हुआ और मृत्यु मगहर (उत्तर प्रदेश) में हुई। वे निर्गुण भक्ति के प्रमुख संत थे।",en:"Kabir was born in 1440 in Varanasi and died at Maghar (UP). He was a leading saint of Nirguna Bhakti."}},
+
+{q:{hi:"चैतन्य महाप्रभु किस भक्ति संप्रदाय से जुड़े थे?",en:"Chaitanya Mahaprabhu was associated with which Bhakti sect?"},
+ o:[{hi:"राम भक्ति",en:"Rama Bhakti"},{hi:"कृष्ण भक्ति",en:"Krishna Bhakti"},{hi:"शिव भक्ति",en:"Shiva Bhakti"},{hi:"देवी भक्ति",en:"Devi Bhakti"}],a:1,
+ ex:{hi:"चैतन्य महाप्रभु (1486–1534) बंगाल के कृष्ण भक्ति संप्रदाय के प्रवर्तक थे। उन्होंने 'हरे कृष्ण' संकीर्तन को लोकप्रिय बनाया।",en:"Chaitanya Mahaprabhu (1486–1534) founded the Krishna Bhakti sect in Bengal and popularised 'Hare Krishna' sankirtan."}},
+
+{q:{hi:"मीराबाई किस भक्ति परंपरा से संबंधित थीं?",en:"Mirabai was associated with which Bhakti tradition?"},
+ o:[{hi:"राम भक्ति",en:"Rama Bhakti"},{hi:"कृष्ण भक्ति",en:"Krishna Bhakti"},{hi:"शिव भक्ति",en:"Shiva Bhakti"},{hi:"दुर्गा भक्ति",en:"Durga Bhakti"}],a:1,
+ ex:{hi:"मीराबाई (1498–1547) राजस्थान की कृष्ण भक्त कवयित्री थीं। उन्होंने 'प्रेम दीवानी' और भजनों की रचना की।",en:"Mirabai (1498–1547) was a Krishna-devotee poetess from Rajasthan who composed 'Prem Diwani' and bhajans."}},
+
+{q:{hi:"सूफी संप्रदाय की 'चिश्ती परंपरा' भारत में किसने स्थापित की?",en:"Who established the Chishti order of Sufism in India?"},
+ o:[{hi:"ख्वाजा मोइनुद्दीन चिश्ती",en:"Khwaja Moinuddin Chishti"},{hi:"निजामुद्दीन औलिया",en:"Nizamuddin Auliya"},{hi:"बाबा फरीद",en:"Baba Farid"},{hi:"सलीम चिश्ती",en:"Salim Chishti"}],a:0,
+ ex:{hi:"ख्वाजा मोइनुद्दीन चिश्ती ने 1192 में अजमेर (राजस्थान) में चिश्ती परंपरा की स्थापना की। उनका मकबरा अजमेर शरीफ है।",en:"Khwaja Moinuddin Chishti established the Chishti order in Ajmer (Rajasthan) in 1192. His shrine is Ajmer Sharif."}},
+
+{q:{hi:"'ब्रह्म समाज' की स्थापना किसने की?",en:"Who founded 'Brahmo Samaj'?"},
+ o:[{hi:"स्वामी दयानंद सरस्वती",en:"Swami Dayanand Saraswati"},{hi:"राजा राममोहन राय",en:"Raja Ram Mohan Roy"},{hi:"स्वामी विवेकानंद",en:"Swami Vivekananda"},{hi:"ईश्वरचंद्र विद्यासागर",en:"Ishwar Chandra Vidyasagar"}],a:1,
+ ex:{hi:"ब्रह्म समाज की स्थापना 1828 में राजा राममोहन राय ने कोलकाता में की। इसने मूर्तिपूजा, जाति भेद और सती प्रथा का विरोध किया।",en:"Brahmo Samaj was founded in 1828 by Raja Ram Mohan Roy in Kolkata, opposing idol worship, casteism and Sati."}},
+
+/* ============ खंड B — दिल्ली सल्तनत और क्षेत्रीय साम्राज्य (Q13–24) ============ */
+{q:{hi:"दिल्ली सल्तनत के गुलाम वंश का संस्थापक कौन था?",en:"Who founded the Slave Dynasty of the Delhi Sultanate?"},
+ o:[{hi:"इल्तुतमिश",en:"Iltutmish"},{hi:"कुतुबुद्दीन ऐबक",en:"Qutb-ud-din Aibak"},{hi:"बलबन",en:"Balban"},{hi:"रज़िया",en:"Razia"}],a:1,
+ ex:{hi:"कुतुबुद्दीन ऐबक ने 1206 में गुलाम वंश की स्थापना की। वे मुहम्मद गोरी के गुलाम थे और 'लाख बख्श' कहलाए।",en:"Qutb-ud-din Aibak founded the Slave Dynasty in 1206. He was a slave of Muhammad Ghori, known as 'Lakh Baksh'."}},
+
+{q:{hi:"दिल्ली सल्तनत की पहली महिला शासक कौन थीं?",en:"Who was the first woman ruler of the Delhi Sultanate?"},
+ o:[{hi:"चाँद बीबी",en:"Chand Bibi"},{hi:"रज़िया सुल्तान",en:"Razia Sultan"},{hi:"नूरजहाँ",en:"Noorjahan"},{hi:"मुमताज",en:"Mumtaz"}],a:1,
+ ex:{hi:"रज़िया सुल्तान (1236–1240) दिल्ली सल्तनत की पहली और एकमात्र महिला शासक थीं। वे इल्तुतमिश की पुत्री थीं।",en:"Razia Sultan (1236–1240) was the first and only woman ruler of the Delhi Sultanate. She was Iltutmish's daughter."}},
+
+{q:{hi:"अलाउद्दीन खिलजी ने किस मंगोल आक्रमण को विफल किया?",en:"Which Mongol invasion did Alauddin Khilji repel?"},
+ o:[{hi:"चंगेज़ खान का",en:"Genghis Khan's"},{hi:"हलाकू खान का",en:"Hulagu Khan's"},{hi:"कुतलुग ख्वाजा और अन्य का",en:"Kutlugh Khwaja and others'"},{hi:"तैमूर का",en:"Timur's"}],a:2,
+ ex:{hi:"अलाउद्दीन खिलजी ने कई मंगोल आक्रमणों को विफल किया — कुतलुग ख्वाजा, अली बेग, तरगी और इकबालमंद के नेतृत्व वाले। उन्होंने सिवाना का किला बनवाया।",en:"Alauddin Khilji repelled several Mongol invasions under Kutlugh Khwaja, Ali Beg, Targhi and Iqbalmand. He built Siri Fort."}},
+
+{q:{hi:"मुहम्मद बिन तुगलक ने कौन-सी नई मुद्रा शुरू की थी?",en:"Which new currency did Muhammad bin Tughlaq introduce?"},
+ o:[{hi:"सोने का सिक्का",en:"Gold coin"},{hi:"ताम्र (प्रतीकात्मक) सिक्का",en:"Copper (token) coin"},{hi:"चाँदी का सिक्का",en:"Silver coin"},{hi:"कागज़ी मुद्रा",en:"Paper currency"}],a:1,
+ ex:{hi:"मुहम्मद बिन तुगलक ने 1329–30 में ताम्र (प्रतीकात्मक) सिक्के जारी किए। यह प्रयोग विफल रहा क्योंकि लोगों ने नकली सिक्के बनाने शुरू कर दिए।",en:"Muhammad bin Tughlaq introduced copper (token) coins in 1329-30. The experiment failed due to widespread counterfeiting."}},
+
+{q:{hi:"फिरोज़ शाह तुगलक ने किन नहरों का निर्माण कराया?",en:"Which canals did Firoz Shah Tughlaq build?"},
+ o:[{hi:"यमुना और सतलुज नहरें",en:"Yamuna and Sutlej canals"},{hi:"गंगा और यमुना नहरें",en:"Ganga and Yamuna canals"},{hi:"सिरसा और फतेहाबाद नहरें",en:"Sirsa and Fatehabad canals"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"फिरोज़ शाह तुगलक ने 5 नहरों का निर्माण कराया — यमुना, सतलुज (सिरसा तक), फिरोज़ाबाद, फतेहाबाद और सरस्वती। ये सिंचाई के लिए थीं।",en:"Firoz Shah Tughlaq built 5 canals — Yamuna, Sutlej (to Sirsa), Firozabad, Fatehabad and Saraswati — for irrigation."}},
+
+{q:{hi:"सैयद वंश के संस्थापक कौन थे?",en:"Who founded the Sayyid Dynasty?"},
+ o:[{hi:"खिज्र खान",en:"Khizr Khan"},{hi:"मुबारक शाह",en:"Mubarak Shah"},{hi:"मुहम्मद शाह",en:"Muhammad Shah"},{hi:"अलाउद्दीन आलम शाह",en:"Alauddin Alam Shah"}],a:0,
+ ex:{hi:"खिज्र खान ने 1414 में सैयद वंश की स्थापना की। उन्होंने तैमूर के प्रतिनिधि के रूप में शासन किया।",en:"Khizr Khan founded the Sayyid Dynasty in 1414, ruling as Timur's representative."}},
+
+{q:{hi:"लोदी वंश का अंतिम शासक कौन था?",en:"Who was the last ruler of the Lodi Dynasty?"},
+ o:[{hi:"बहलोल लोदी",en:"Bahlol Lodi"},{hi:"सिकंदर लोदी",en:"Sikandar Lodi"},{hi:"इब्राहिम लोदी",en:"Ibrahim Lodi"},{hi:"दौलत खान लोदी",en:"Daulat Khan Lodi"}],a:2,
+ ex:{hi:"इब्राहिम लोदी लोदी वंश का अंतिम शासक था। उसे 1526 में पानीपत के पहले युद्ध में बाबर ने पराजित किया।",en:"Ibrahim Lodi was the last Lodi ruler, defeated by Babur in the First Battle of Panipat in 1526."}},
+
+{q:{hi:"'इक़्ता प्रथा' किस सल्तनत काल में प्रचलित थी?",en:"The 'Iqta system' was prevalent in which period?"},
+ o:[{hi:"मौर्य काल",en:"Mauryan period"},{hi:"मुगल काल",en:"Mughal period"},{hi:"दिल्ली सल्तनत",en:"Delhi Sultanate"},{hi:"गुप्त काल",en:"Gupta period"}],a:2,
+ ex:{hi:"इक़्ता प्रथा दिल्ली सल्तनत में प्रचलित थी। इसमें सैन्य अधिकारियों को 'इक़्ता' (भूमि) आवंटित की जाती थी और वे उससे राजस्व वसूलते थे।",en:"The Iqta system was prevalent in the Delhi Sultanate, where military officers received land (Iqta) and collected revenue."}},
+
+{q:{hi:"बहमनी साम्राज्य की स्थापना किसने की?",en:"Who founded the Bahmani Kingdom?"},
+ o:[{hi:"हसन गंगू",en:"Hasan Gangu"},{hi:"महमूद गवाँ",en:"Mahmud Gawan"},{hi:"फिरोज़ शाह बहमनी",en:"Firoz Shah Bahmani"},{hi:"अलाउद्दीन बहमन शाह",en:"Alauddin Bahman Shah"}],a:3,
+ ex:{hi:"बहमनी साम्राज्य की स्थापना 1347 में अलाउद्दीन बहमन शाह (हसन गंगू) ने की। इसकी राजधानी गुलबर्गा और बाद में बीदर थी।",en:"The Bahmani Kingdom was founded in 1347 by Alauddin Bahman Shah (Hasan Gangu). Its capital was Gulbarga and later Bidar."}},
+
+{q:{hi:"विजयनगर साम्राज्य का सबसे प्रसिद्ध शासक कौन था?",en:"Who was the most famous ruler of the Vijayanagara Empire?"},
+ o:[{hi:"हरिहर",en:"Harihara"},{hi:"बुक्का",en:"Bukka"},{hi:"कृष्णदेवराय",en:"Krishnadevaraya"},{hi:"रामराय",en:"Ramaraya"}],a:2,
+ ex:{hi:"कृष्णदेवराय (1509–1529) विजयनगर के सबसे प्रसिद्ध शासक थे। उनके दरबार में 'अष्टदिग्गज' थे और उन्होंने 'अमुक्तमाल्यद' की रचना की।",en:"Krishnadevaraya (1509-1529) was the most famous Vijayanagara ruler, with the 'Ashtadiggajas' in his court. He wrote 'Amuktamalyada'."}},
+
+{q:{hi:"तैमूर ने भारत पर आक्रमण किस वर्ष किया?",en:"In which year did Timur invade India?"},
+ o:[{hi:"1398",en:"1398"},{hi:"1400",en:"1400"},{hi:"1410",en:"1410"},{hi:"1415",en:"1415"}],a:0,
+ ex:{hi:"तैमूर ने 1398 में दिल्ली पर आक्रमण किया। उसने दिल्ली को लूटा और हज़ारों लोगों को मार डाला। इससे तुगलक वंश कमजोर पड़ गया।",en:"Timur invaded Delhi in 1398, plundering the city and killing thousands. This weakened the Tughlaq dynasty."}},
+
+{q:{hi:"पानीपत का पहला युद्ध किनके बीच लड़ा गया?",en:"The First Battle of Panipat was fought between whom?"},
+ o:[{hi:"अकबर और हेमू",en:"Akbar and Hemu"},{hi:"बाबर और इब्राहिम लोदी",en:"Babur and Ibrahim Lodi"},{hi:"अहमद शाह अब्दाली और मराठे",en:"Ahmad Shah Abdali and Marathas"},{hi:"बाबर और राणा साँगा",en:"Babur and Rana Sanga"}],a:1,
+ ex:{hi:"पानीपत का पहला युद्ध 21 अप्रैल 1526 को बाबर और इब्राहिम लोदी के बीच लड़ा गया। बाबर की जीत ने मुगल साम्राज्य की स्थापना की।",en:"The First Battle of Panipat was fought on 21 April 1526 between Babur and Ibrahim Lodi. Babur's victory established the Mughal Empire."}},
+
+{q:{hi:"'सिक्का' और 'खुतबा' का महत्व क्या था?",en:"What was the significance of 'Sikka' and 'Khutba'?"},
+ o:[{hi:"धार्मिक अनुष्ठान",en:"Religious rituals"},{hi:"संप्रभुता के प्रतीक",en:"Symbols of sovereignty"},{hi:"व्यापार के साधन",en:"Trade instruments"},{hi:"कर व्यवस्था",en:"Tax system"}],a:1,
+ ex:{hi:"भारतीय इतिहास में 'सिक्का' (मुद्रा जारी करना) और 'खुतबा' (शुक्रवार के उपदेश में शासक का नाम) — संप्रभुता के प्रतीक माने जाते थे।",en:"In Indian history, 'Sikka' (minting coins) and 'Khutba' (mentioning the ruler's name in Friday sermons) were symbols of sovereignty."}},
+
+/* ============ खंड C — क्रांतिकारी आंदोलन (Q25–36) ============ */
+{q:{hi:"'अनुशीलन समिति' की स्थापना किसने की?",en:"Who founded the 'Anushilan Samiti'?"},
+ o:[{hi:"अरविंद घोष",en:"Aurobindo Ghosh"},{hi:"वी.डी. सावरकर",en:"V.D. Savarkar"},{hi:"बारिन्द्र कुमार घोष",en:"Barindra Kumar Ghosh"},{hi:"प्रोमथ नाथ मित्र",en:"Pramathanath Mitra"}],a:3,
+ ex:{hi:"अनुशीलन समिति की स्थापना 1902 में प्रोमथ नाथ मित्र ने की। यह बंगाल का प्रमुख क्रांतिकारी संगठन था।",en:"Anushilan Samiti was founded in 1902 by Pramathanath Mitra. It was Bengal's leading revolutionary organisation."}},
+
+{q:{hi:"ग़दर पार्टी की स्थापना कहाँ हुई थी?",en:"Where was the Ghadar Party founded?"},
+ o:[{hi:"लंदन",en:"London"},{hi:"सैन फ्रांसिस्को",en:"San Francisco"},{hi:"बर्लिन",en:"Berlin"},{hi:"टोक्यो",en:"Tokyo"}],a:1,
+ ex:{hi:"ग़दर पार्टी की स्थापना 1913 में सैन फ्रांसिस्को (अमेरिका) में लाला हरदयाल और सोहन सिंह भकना ने की। इसका मुख्यालय 'युगांतर आश्रम' था।",en:"Ghadar Party was founded in 1913 in San Francisco (USA) by Lala Har Dayal and Sohan Singh Bhakna. Its headquarters was 'Yugantar Ashram'."}},
+
+{q:{hi:"'हिंदुस्तान सोशलिस्ट रिपब्लिकन एसोसिएशन' (HSRA) की स्थापना कब हुई?",en:"When was the 'Hindustan Socialist Republican Association' (HSRA) founded?"},
+ o:[{hi:"1925",en:"1925"},{hi:"1928",en:"1928"},{hi:"1930",en:"1930"},{hi:"1931",en:"1931"}],a:1,
+ ex:{hi:"HSRA की स्थापना सितंबर 1928 में फिरोज़ शाह कोटला (दिल्ली) में हुई। इसके प्रमुख नेता भगत सिंह, चंद्रशेखर आज़ाद और सुखदेव थे।",en:"HSRA was founded in September 1928 at Feroz Shah Kotla (Delhi). Its leaders included Bhagat Singh, Chandrashekhar Azad and Sukhdev."}},
+
+{q:{hi:"काकोरी षड्यंत्र किस वर्ष हुआ?",en:"In which year did the Kakori Conspiracy take place?"},
+ o:[{hi:"1924",en:"1924"},{hi:"1925",en:"1925"},{hi:"1927",en:"1927"},{hi:"1929",en:"1929"}],a:1,
+ ex:{hi:"काकोरी षड्यंत्र 9 अगस्त 1925 को हुआ — काकोरी (UP) के पास ट्रेन लूट। राम प्रसाद बिस्मिल, अशफ़ाक़ उल्ला खाँ, राजेंद्र लाहिड़ी और ठाकुर रोशन सिंह को फाँसी दी गई।",en:"The Kakori Conspiracy (9 August 1925) was a train robbery near Kakori (UP). Ram Prasad Bismil, Ashfaqullah Khan, Rajendra Lahiri and Thakur Roshan Singh were hanged."}},
+
+{q:{hi:"'चटगाँव शस्त्रागार धावा' किसने किया?",en:"Who led the 'Chittagong Armoury Raid'?"},
+ o:[{hi:"भगत सिंह",en:"Bhagat Singh"},{hi:"सूर्य सेन",en:"Surya Sen"},{hi:"चंद्रशेखर आज़ाद",en:"Chandrashekhar Azad"},{hi:"बटुकेश्वर दत्त",en:"Batukeshwar Dutt"}],a:1,
+ ex:{hi:"चटगाँव शस्त्रागार धावा 18 अप्रैल 1930 को सूर्य सेन (मास्टर दा) के नेतृत्व में हुआ। यह बंगाल का प्रमुख क्रांतिकारी अभियान था।",en:"The Chittagong Armoury Raid (18 April 1930) was led by Surya Sen (Master Da), a major revolutionary action in Bengal."}},
+
+{q:{hi:"'आज़ाद हिंद फ़ौज' (INA) की स्थापना पहली बार किसने की?",en:"Who first founded the 'Azad Hind Fauj' (INA)?"},
+ o:[{hi:"सुभाष चंद्र बोस",en:"Subhash Chandra Bose"},{hi:"रास बिहारी बोस",en:"Rash Behari Bose"},{hi:"मोहन सिंह",en:"Mohan Singh"},{hi:"शाह नवाज़ खान",en:"Shah Nawaz Khan"}],a:1,
+ ex:{hi:"INA की पहली स्थापना 1942 में रास बिहारी बोस ने की। बाद में सुभाष चंद्र बोस ने 1943 में इसका पुनर्गठन किया।",en:"INA was first founded by Rash Behari Bose in 1942. Subhash Chandra Bose reorganised it in 1943."}},
+
+{q:{hi:"सुभाष चंद्र बोस ने 'आज़ाद हिंद सरकार' की स्थापना कब की?",en:"When did Subhash Chandra Bose establish the 'Azad Hind Government'?"},
+ o:[{hi:"1942",en:"1942"},{hi:"1943",en:"1943"},{hi:"1944",en:"1944"},{hi:"1945",en:"1945"}],a:1,
+ ex:{hi:"आज़ाद हिंद सरकार की स्थापना 21 अक्टूबर 1943 को सिंगापुर में हुई। इसका मुख्यालय सिंगापुर और बाद में रंगून था।",en:"Azad Hind Government was established on 21 October 1943 in Singapore. Its headquarters was Singapore, later Rangoon."}},
+
+{q:{hi:"'रॉयल इंडियन नेवी विद्रोह' किस वर्ष हुआ?",en:"In which year did the 'Royal Indian Navy Mutiny' take place?"},
+ o:[{hi:"1942",en:"1942"},{hi:"1944",en:"1944"},{hi:"1946",en:"1946"},{hi:"1947",en:"1947"}],a:2,
+ ex:{hi:"रॉयल इंडियन नेवी विद्रोह 18 फरवरी 1946 को मुंबई में शुरू हुआ — 'तलवार' जहाज़ से। यह ब्रिटिश शासन के विरुद्ध अंतिम बड़ा विद्रोह था।",en:"The Royal Indian Navy Mutiny began on 18 February 1946 in Mumbai, starting from the ship 'Talwar'. It was the last major revolt against British rule."}},
+
+{q:{hi:"'कैबिनेट मिशन योजना' किस वर्ष भारत आई?",en:"In which year did the 'Cabinet Mission Plan' come to India?"},
+ o:[{hi:"1942",en:"1942"},{hi:"1945",en:"1945"},{hi:"1946",en:"1946"},{hi:"1947",en:"1947"}],a:2,
+ ex:{hi:"कैबिनेट मिशन मार्च 1946 में भारत आया। इसके सदस्य थे — पेथिक लॉरेंस, स्टैफर्ड क्रिप्स और ए.वी. अलेक्जेंडर।",en:"The Cabinet Mission came to India in March 1946. Its members were Pethick-Lawrence, Stafford Cripps and A.V. Alexander."}},
+
+{q:{hi:"भारत के विभाजन की 'रेडक्लिफ लाइन' किसने खींची?",en:"Who drew the 'Radcliffe Line' for India's partition?"},
+ o:[{hi:"लॉर्ड माउंटबेटन",en:"Lord Mountbatten"},{hi:"सर सिरिल रेडक्लिफ",en:"Sir Cyril Radcliffe"},{hi:"सर स्टैफर्ड क्रिप्स",en:"Sir Stafford Cripps"},{hi:"लॉर्ड वेवेल",en:"Lord Wavell"}],a:1,
+ ex:{hi:"रेडक्लिफ लाइन सर सिरिल रेडक्लिफ की अध्यक्षता वाली सीमा आयोग ने खींची — 17 अगस्त 1947 को घोषित। यह भारत-पाकिस्तान की सीमा है।",en:"The Radcliffe Line was drawn by the Boundary Commission chaired by Sir Cyril Radcliffe, announced on 17 August 1947 as the India-Pakistan border."}},
+
+{q:{hi:"'मुस्लिम लीग' की स्थापना किस वर्ष हुई?",en:"In which year was the 'Muslim League' founded?"},
+ o:[{hi:"1905",en:"1905"},{hi:"1906",en:"1906"},{hi:"1916",en:"1916"},{hi:"1930",en:"1930"}],a:1,
+ ex:{hi:"मुस्लिम लीग की स्थापना 30 दिसंबर 1906 को ढाका में हुई। इसके संस्थापकों में आगा खान, नवाब सलीमुल्लाह खान और वकार-उल-मुल्क शामिल थे।",en:"The Muslim League was founded on 30 December 1906 in Dhaka by Aga Khan, Nawab Salimullah Khan and Waqar-ul-Mulk."}},
+
+/* ============ खंड D — मुद्रा, बैंकिंग, वित्तीय संस्थान (Q37–48) ============ */
+{q:{hi:"भारत में मुद्रा नोट कहाँ छापे जाते हैं?",en:"Where are currency notes printed in India?"},
+ o:[{hi:"दिल्ली और मुंबई",en:"Delhi and Mumbai"},{hi:"नासिक और देवास",en:"Nashik and Dewas"},{hi:"मैसूर और सालबोनी",en:"Mysuru and Salboni"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"भारत में मुद्रा नोट 4 स्थानों पर छापे जाते हैं — नासिक (महाराष्ट्र), देवास (MP), मैसूर (कर्नाटक) और सालबोनी (पश्चिम बंगाल)। सिक्के मुंबई, कोलकाता, हैदराबाद और नोएडा में ढाले जाते हैं।",en:"Currency notes are printed at 4 places — Nashik (MH), Dewas (MP), Mysuru (KA) and Salboni (WB). Coins are minted at Mumbai, Kolkata, Hyderabad and Noida."}},
+
+{q:{hi:"'बैंक दर' और 'रेपो दर' में मुख्य अंतर क्या है?",en:"What is the main difference between 'Bank Rate' and 'Repo Rate'?"},
+ o:[{hi:"कोई अंतर नहीं",en:"No difference"},{hi:"बैंक दर दीर्घकालिक, रेपो दर अल्पकालिक",en:"Bank Rate is long-term, Repo Rate short-term"},{hi:"बैंक दर RBI लगाता है, रेपो सरकार",en:"Bank Rate by RBI, Repo by Government"},{hi:"बैंक दर केवल विदेशी बैंकों के लिए",en:"Bank Rate only for foreign banks"}],a:1,
+ ex:{hi:"बैंक दर = RBI द्वारा दीर्घकालिक ऋण पर ब्याज दर। रेपो दर = RBI द्वारा अल्पकालिक (1–14 दिन) ऋण पर ब्याज दर। दोनों में बैंक दर आमतौर पर अधिक होती है।",en:"Bank Rate = RBI's long-term lending rate. Repo Rate = RBI's short-term (1–14 days) lending rate. Bank Rate is usually higher."}},
+
+{q:{hi:"'NEFT' और 'RTGS' में मुख्य अंतर क्या है?",en:"What is the main difference between 'NEFT' and 'RTGS'?"},
+ o:[{hi:"कोई नहीं",en:"None"},{hi:"NEFT में न्यूनतम सीमा, RTGS में अधिकतम सीमा",en:"NEFT has minimum, RTGS has maximum limits"},{hi:"NEFT में न्यूनतम राशि की कोई सीमा नहीं, RTGS में ₹2 लाख न्यूनतम",en:"NEFT has no minimum, RTGS has ₹2 lakh minimum"},{hi:"NEFT केवल विदेशी लेनदेन",en:"NEFT for foreign transactions only"}],a:2,
+ ex:{hi:"NEFT में न्यूनतम राशि की कोई सीमा नहीं (₹1 से भी शुरू)। RTGS में न्यूनतम ₹2 लाख। NEFT बैच प्रोसेसिंग में होती है, RTGS रियल-टाइम में।",en:"NEFT has no minimum (even ₹1). RTGS has a minimum of ₹2 lakh. NEFT processes in batches; RTGS is real-time."}},
+
+{q:{hi:"'FEMA' का पूरा नाम क्या है?",en:"What is the full form of FEMA?"},
+ o:[{hi:"Foreign Exchange Management Act",en:"Foreign Exchange Management Act"},{hi:"Foreign Exchange Monetary Act",en:"Foreign Exchange Monetary Act"},{hi:"Federal Exchange Management Act",en:"Federal Exchange Management Act"},{hi:"Financial Exchange Management Act",en:"Financial Exchange Management Act"}],a:0,
+ ex:{hi:"FEMA = Foreign Exchange Management Act, 1999 — इसने FERA (1973) को प्रतिस्थापित किया। यह विदेशी मुद्रा लेनदेन को नियंत्रित करता है।",en:"FEMA = Foreign Exchange Management Act, 1999, replacing FERA (1973). It regulates foreign exchange transactions."}},
+
+{q:{hi:"'देश का विदेशी मुद्रा भंडार' कौन रखता है?",en:"Who maintains the country's foreign exchange reserves?"},
+ o:[{hi:"वित्त मंत्रालय",en:"Ministry of Finance"},{hi:"SBI",en:"SBI"},{hi:"RBI",en:"RBI"},{hi:"SEBI",en:"SEBI"}],a:2,
+ ex:{hi:"देश का विदेशी मुद्रा भंडार (Forex) RBI के पास रहता है। इसमें विदेशी मुद्रा, स्वर्ण और SDR (Special Drawing Rights) शामिल हैं।",en:"The country's forex reserves are held by RBI, comprising foreign currency, gold and SDRs."}},
+
+{q:{hi:"'भुगतान संतुलन' (BOP) में क्या शामिल नहीं होता?",en:"What is NOT included in the Balance of Payments (BOP)?"},
+ o:[{hi:"वस्तुओं का आयात-निर्यात",en:"Imports and exports of goods"},{hi:"सेवाओं का आयात-निर्यात",en:"Imports and exports of services"},{hi:"पूंजी हस्तांतरण",en:"Capital transfers"},{hi:"केवल घरेलू लेनदेन",en:"Only domestic transactions"}],a:3,
+ ex:{hi:"BOP में एक देश के सभी अंतर्राष्ट्रीय आर्थिक लेनदेन दर्ज होते हैं। इसमें चालू खाता (वस्तुएँ, सेवाएँ) और पूंजी खाता शामिल हैं। घरेलू लेनदेन BOP का हिस्सा नहीं हैं।",en:"BOP records all international economic transactions, including current account (goods, services) and capital account. Domestic transactions are not included."}},
+
+{q:{hi:"'FDI' और 'FPI' में मुख्य अंतर क्या है?",en:"What is the main difference between 'FDI' and 'FPI'?"},
+ o:[{hi:"कोई नहीं",en:"None"},{hi:"FDI में प्रबंधन नियंत्रण, FPI में केवल निवेश",en:"FDI has management control, FPI is only investment"},{hi:"FDI केवल सरकारी",en:"FDI is only government"},{hi:"FPI में 10% से अधिक हिस्सेदारी",en:"FPI has more than 10% stake"}],a:1,
+ ex:{hi:"FDI (Foreign Direct Investment) में कंपनी का प्रबंधन नियंत्रण होता है (10%+ हिस्सेदारी)। FPI (Foreign Portfolio Investment) में केवल वित्तीय निवेश होता है, नियंत्रण नहीं।",en:"FDI involves management control (10%+ stake). FPI is only financial investment without control."}},
+
+{q:{hi:"'बैंकिंग लोकपाल' योजना का उद्देश्य क्या है?",en:"What is the objective of the 'Banking Ombudsman' scheme?"},
+ o:[{hi:"बैंक के मुनाफे को बढ़ाना",en:"Increase bank profits"},{hi:"ग्राहक शिकायतों का निपटारा",en:"Redress customer complaints"},{hi:"ऋण वितरण",en:"Loan disbursement"},{hi:"ब्याज दर तय करना",en:"Fix interest rates"}],a:1,
+ ex:{hi:"बैंकिंग लोकपाल योजना 1995 में शुरू हुई — बैंक ग्राहकों की शिकायतों का तेज़ और निष्पक्ष निपटारा करने के लिए। अब इसे 'Integrated Ombudsman Scheme' (2021) में मिला दिया गया है।",en:"Banking Ombudsman (1995) ensures speedy, fair redressal of customer complaints. Now merged into the Integrated Ombudsman Scheme (2021)."}},
+
+{q:{hi:"'मुद्रा अवमूल्यन' और 'मुद्रा अधिमूल्यन' में क्या अंतर है?",en:"What is the difference between 'devaluation' and 'revaluation'?"},
+ o:[{hi:"कोई नहीं",en:"None"},{hi:"अवमूल्यन = मूल्य घटाना, अधिमूल्यन = मूल्य बढ़ाना",en:"Devaluation = decrease, Revaluation = increase"},{hi:"ये बाज़ार शक्तियाँ हैं",en:"These are market forces"},{hi:"ये केवल सोने पर लागू",en:"Only applies to gold"}],a:1,
+ ex:{hi:"मुद्रा अवमूल्यन = सरकार द्वारा मुद्रा का मूल्य जानबूझकर घटाना। मुद्रा अधिमूल्यन = जानबूझकर बढ़ाना। ये सरकारी निर्णय हैं, जबकि मूल्यह्रास/वृद्धि बाज़ार शक्तियों से होती हैं।",en:"Devaluation = deliberate reduction of currency value by government. Revaluation = deliberate increase. These are policy decisions, unlike market-driven depreciation/appreciation."}},
+
+{q:{hi:"भारत में 'लेखा परीक्षा' (Audit) किसके द्वारा की जाती है?",en:"Who conducts audit in India?"},
+ o:[{hi:"RBI",en:"RBI"},{hi:"CAG",en:"CAG"},{hi:"SEBI",en:"SEBI"},{hi:"वित्त मंत्रालय",en:"Ministry of Finance"}],a:1,
+ ex:{hi:"भारत में सरकारी लेखा परीक्षा CAG (Comptroller and Auditor General) द्वारा की जाती है। CAG अनुच्छेद 148 के तहत गठित होता है और 6 वर्ष या 65 वर्ष तक पद पर रहता है।",en:"Government audit in India is conducted by the CAG (Article 148), serving 6 years or until age 65."}},
+
+{q:{hi:"भारत में 'स्वर्ण मौद्रिकीकरण योजना' कब शुरू हुई?",en:"When was the 'Gold Monetisation Scheme' launched in India?"},
+ o:[{hi:"2013",en:"2013"},{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"}],a:2,
+ ex:{hi:"स्वर्ण मौद्रिकीकरण योजना नवंबर 2015 में शुरू हुई। इसका उद्देश्य घरेलू सोने को बैंकिंग प्रणाली में लाना और आयात कम करना है।",en:"The Gold Monetisation Scheme was launched in November 2015 to bring household gold into the banking system and reduce imports."}},
+
+{q:{hi:"'बैंक बोर्ड ब्यूरो' (BBB) की स्थापना कब हुई?",en:"When was the 'Banks Board Bureau' (BBB) established?"},
+ o:[{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"},{hi:"2018",en:"2018"}],a:2,
+ ex:{hi:"बैंक बोर्ड ब्यूरो की स्थापना अप्रैल 2016 में हुई। इसका उद्देश्य सार्वजनिक क्षेत्र के बैंकों के लिए शीर्ष नेतृत्व की नियुक्ति करना था। इसे 2022 में FSIB (Financial Services Institutions Bureau) से बदल दिया गया।",en:"The Banks Board Bureau was established in April 2016 for top-level appointments in PSBs. It was replaced by FSIB in 2022."}},
+
+/* ============ खंड E — वायुमंडल, महासागर, जलवायु (Q49–60) ============ */
+{q:{hi:"वायुमंडल की किस परत में मौसम की घटनाएँ होती हैं?",en:"In which layer of the atmosphere do weather phenomena occur?"},
+ o:[{hi:"समतापमंडल",en:"Stratosphere"},{hi:"क्षोभमंडल",en:"Troposphere"},{hi:"मध्यमंडल",en:"Mesosphere"},{hi:"तापमंडल",en:"Thermosphere"}],a:1,
+ ex:{hi:"मौसम की सभी घटनाएँ क्षोभमंडल (Troposphere) में होती हैं — बादल, वर्षा, तूफ़ान। यह वायुमंडल की सबसे निचली परत है (0–8/18 किमी)।",en:"All weather phenomena occur in the Troposphere (0-8/18 km), the lowest atmospheric layer."}},
+
+{q:{hi:"महासागरों में सबसे गहरा स्थान कौन-सा है?",en:"What is the deepest point in the oceans?"},
+ o:[{hi:"प्यूर्टो रिको ट्रेंच",en:"Puerto Rico Trench"},{hi:"मारियाना ट्रेंच",en:"Mariana Trench"},{hi:"जावा ट्रेंच",en:"Java Trench"},{hi:"टोंगा ट्रेंच",en:"Tonga Trench"}],a:1,
+ ex:{hi:"मारियाना ट्रेंच (प्रशांत महासागर) विश्व का सबसे गहरा स्थान है — 'चैलेंजर डीप' की गहराई ~11,034 मीटर।",en:"The Mariana Trench (Pacific Ocean) is the deepest point — 'Challenger Deep' at ~11,034 m."}},
+
+{q:{hi:"'एल नीनो' प्रभाव का भारतीय मानसून पर क्या असर पड़ता है?",en:"What is the impact of 'El Niño' on the Indian monsoon?"},
+ o:[{hi:"वर्षा बढ़ती है",en:"Increases rainfall"},{hi:"वर्षा घटती है",en:"Decreases rainfall"},{hi:"कोई असर नहीं",en:"No impact"},{hi:"तापमान घटता है",en:"Decreases temperature"}],a:1,
+ ex:{hi:"एल नीनो के दौरान प्रशांत महासागर का तापमान बढ़ता है और भारतीय मानसून कमजोर पड़ता है — वर्षा घटती है और सूखा पड़ सकता है।",en:"During El Niño, Pacific Ocean temperatures rise, weakening the Indian monsoon and reducing rainfall, potentially causing drought."}},
+
+{q:{hi:"'ला नीना' का भारतीय मानसून पर क्या असर होता है?",en:"What is the impact of 'La Niña' on the Indian monsoon?"},
+ o:[{hi:"वर्षा बढ़ती है",en:"Increases rainfall"},{hi:"वर्षा घटती है",en:"Decreases rainfall"},{hi:"कोई असर नहीं",en:"No impact"},{hi:"सूखा पड़ता है",en:"Causes drought"}],a:0,
+ ex:{hi:"ला नीना में प्रशांत महासागर का तापमान घटता है, जिससे भारतीय मानसून मजबूत होता है और वर्षा बढ़ती है।",en:"During La Niña, Pacific temperatures drop, strengthening the Indian monsoon and increasing rainfall."}},
+
+{q:{hi:"भारत में सबसे बड़ी प्रवाल भित्ति कहाँ स्थित है?",en:"Where is India's largest coral reef located?"},
+ o:[{hi:"लक्षद्वीप",en:"Lakshadweep"},{hi:"अंडमान-निकोबार",en:"Andaman-Nicobar"},{hi:"गोवा",en:"Goa"},{hi:"तमिलनाडु",en:"Tamil Nadu"}],a:1,
+ ex:{hi:"अंडमान-निकोबार भारत की सबसे बड़ी प्रवाल भित्ति है। इसे 'भारत की ग्रेट बैरियर रीफ' कहा जाता है। लक्षद्वीप में भी प्रवाल भित्तियाँ हैं।",en:"The Andaman-Nicobar has India's largest coral reef, called 'India's Great Barrier Reef'. Lakshadweep also has reefs."}},
+
+{q:{hi:"महासागरों में सर्वाधिक लवणता किस क्षेत्र में होती है?",en:"Where is ocean salinity highest?"},
+ o:[{hi:"भूमध्य रेखा",en:"Equator"},{hi:"उपोष्ण कटिबंधीय क्षेत्र",en:"Subtropical regions"},{hi:"ध्रुवीय क्षेत्र",en:"Polar regions"},{hi:"उपध्रुवीय क्षेत्र",en:"Subpolar regions"}],a:1,
+ ex:{hi:"उपोष्ण कटिबंधीय (Subtropical) क्षेत्रों में वर्षा कम और वाष्पीकरण अधिक होता है, इसलिए लवणता सर्वाधिक (~37%) होती है। मृत सागर की लवणता ~240% है।",en:"Subtropical regions have low rainfall and high evaporation, giving salinity of ~37%. The Dead Sea has ~240% salinity."}},
+
+{q:{hi:"'कोपेन वर्गीकरण' किससे संबंधित है?",en:"The 'Koeppen classification' is related to which of the following?"},
+ o:[{hi:"मिट्टी",en:"Soils"},{hi:"जलवायु",en:"Climate"},{hi:"वनस्पति",en:"Vegetation"},{hi:"नदियाँ",en:"Rivers"}],a:1,
+ ex:{hi:"कोपेन वर्गीकरण जलवायु का वर्गीकरण है, जो तापमान, वर्षा और वनस्पति पर आधारित है। भारत में 6 प्रमुख जलवायु प्रकार पाए जाते हैं।",en:"The Koeppen classification classifies climate based on temperature, rainfall and vegetation. India has 6 major climate types."}},
+
+{q:{hi:"'आईटीजेड' (ITCZ) का पूरा नाम क्या है?",en:"What is the full form of 'ITCZ'?"},
+ o:[{hi:"Inter Tropical Cyclone Zone",en:"Inter Tropical Cyclone Zone"},{hi:"Inter Tropical Convergence Zone",en:"Inter Tropical Convergence Zone"},{hi:"Indian Tropical Climate Zone",en:"Indian Tropical Climate Zone"},{hi:"International Trade Current Zone",en:"International Trade Current Zone"}],a:1,
+ ex:{hi:"ITCZ = Inter Tropical Convergence Zone — भूमध्य रेखा के पास वह क्षेत्र जहाँ उत्तर-पूर्वी और दक्षिण-पूर्वी व्यापारिक हवाएँ मिलती हैं। यह मानसून को प्रभावित करता है।",en:"ITCZ = Inter Tropical Convergence Zone — where NE and SE trade winds meet near the equator, influencing monsoons."}},
+
+{q:{hi:"'सुनामी' शब्द किस भाषा से आया है?",en:"From which language is the word 'Tsunami' derived?"},
+ o:[{hi:"चीनी",en:"Chinese"},{hi:"जापानी",en:"Japanese"},{hi:"कोरियाई",en:"Korean"},{hi:"थाई",en:"Thai"}],a:1,
+ ex:{hi:"'सुनामी' जापानी भाषा से आया है — 'त्सु' (बंदरगाह) और 'नामी' (लहर)। यह समुद्र के नीचे भूकंप या ज्वालामुखी विस्फोट से उत्पन्न विशाल लहर है।",en:"'Tsunami' is Japanese for 'harbour wave' (tsu = harbour, nami = wave). It is caused by undersea earthquakes or volcanic eruptions."}},
+
+{q:{hi:"'चिनूक' हवा कहाँ चलती है?",en:"Where does the 'Chinook' wind blow?"},
+ o:[{hi:"भारत",en:"India"},{hi:"उत्तरी अमेरिका",en:"North America"},{hi:"यूरोप",en:"Europe"},{hi:"ऑस्ट्रेलिया",en:"Australia"}],a:1,
+ ex:{hi:"'चिनूक' उत्तरी अमेरिका (रॉकी पर्वत के पूर्वी ढलान) में चलने वाली गर्म, शुष्क हवा है — इसे 'स्नो ईटर' भी कहा जाता है।",en:"'Chinook' is a warm, dry wind on the eastern slopes of the Rockies in North America, also called the 'Snow Eater'."}},
+
+{q:{hi:"'टाइफून' और 'हरिकेन' में क्या अंतर है?",en:"What is the difference between 'Typhoon' and 'Hurricane'?"},
+ o:[{hi:"कोई नहीं",en:"None"},{hi:"केवल नाम, क्षेत्र अलग",en:"Only names, different regions"},{hi:"टाइफून = प्रशांत, हरिकेन = अटलांटिक",en:"Typhoon = Pacific, Hurricane = Atlantic"},{hi:"तीव्रता अलग",en:"Different intensities"}],a:2,
+ ex:{hi:"ट्रॉपिकल साइक्लोन को अलग-अलग क्षेत्रों में अलग नाम से जाना जाता है — 'टाइफून' उत्तर-पश्चिमी प्रशांत में, 'हरिकेन' अटलांटिक और उत्तर-पूर्वी प्रशांत में, 'साइक्लोन' हिंद महासागर में।",en:"Tropical cyclones are called Typhoons in the NW Pacific, Hurricanes in the Atlantic/NE Pacific, and Cyclones in the Indian Ocean."}},
+
+{q:{hi:"भारत में सबसे अधिक तूफ़ान किस राज्य के तट पर आते हैं?",en:"Which Indian state's coast receives the most cyclones?"},
+ o:[{hi:"गुजरात",en:"Gujarat"},{hi:"ओडिशा",en:"Odisha"},{hi:"केरल",en:"Kerala"},{hi:"तमिलनाडु",en:"Tamil Nadu"}],a:1,
+ ex:{hi:"ओडिशा भारत में सबसे अधिक उष्णकटिबंधीय तूफ़ानों का सामना करने वाला राज्य है, क्योंकि यह बंगाल की खाड़ी के तट पर स्थित है।",en:"Odisha faces the most tropical cyclones in India due to its location on the Bay of Bengal coast."}},
+
+/* ============ खंड F — रासायनिक अभिक्रियाएँ और तत्व (Q61–72) ============ */
+{q:{hi:"आधुनिक आवर्त सारणी में कुल कितने आवर्त (periods) हैं?",en:"How many periods are there in the modern periodic table?"},
+ o:[{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"},{hi:"9",en:"9"}],a:1,
+ ex:{hi:"आधुनिक आवर्त सारणी में 7 आवर्त और 18 समूह हैं। मेंडलीफ ने पहली आवर्त सारणी बनाई थी।",en:"The modern periodic table has 7 periods and 18 groups. Mendeleev created the first periodic table."}},
+
+{q:{hi:"सबसे हल्का तत्व कौन-सा है?",en:"Which is the lightest element?"},
+ o:[{hi:"हीलियम",en:"Helium"},{hi:"हाइड्रोजन",en:"Hydrogen"},{hi:"लिथियम",en:"Lithium"},{hi:"कार्बन",en:"Carbon"}],a:1,
+ ex:{hi:"हाइड्रोजन विश्व का सबसे हल्का तत्व है — परमाणु संख्या 1, परमाणु भार 1.008। यह ब्रह्मांड का सबसे प्रचुर तत्व भी है (~75%)।",en:"Hydrogen is the lightest element (atomic number 1, weight 1.008) and the most abundant in the universe (~75%)."}},
+
+{q:{hi:"नोबल गैसों की संख्या कितनी है?",en:"How many noble gases are there?"},
+ o:[{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"}],a:1,
+ ex:{hi:"6 नोबल गैसें हैं — हीलियम, नियॉन, आर्गन, क्रिप्टॉन, ज़ेनॉन और रेडॉन। इनके बाहरी कोश में इलेक्ट्रॉन पूर्ण होते हैं, इसलिए ये निष्क्रिय हैं।",en:"There are 6 noble gases — Helium, Neon, Argon, Krypton, Xenon and Radon. They are inert due to complete outer shells."}},
+
+{q:{hi:"'हैलोजन' समूह में कौन-कौन से तत्व हैं?",en:"Which elements are in the 'Halogen' group?"},
+ o:[{hi:"F, Cl, Br, I, At",en:"F, Cl, Br, I, At"},{hi:"He, Ne, Ar, Kr, Xe",en:"He, Ne, Ar, Kr, Xe"},{hi:"Li, Na, K, Rb, Cs",en:"Li, Na, K, Rb, Cs"},{hi:"Fe, Co, Ni, Cu, Zn",en:"Fe, Co, Ni, Cu, Zn"}],a:0,
+ ex:{hi:"हैलोजन समूह (Group 17) में फ्लोरीन (F), क्लोरीन (Cl), ब्रोमीन (Br), आयोडीन (I) और एस्टेटीन (At) शामिल हैं।",en:"Halogens (Group 17) include Fluorine, Chlorine, Bromine, Iodine and Astatine."}},
+
+{q:{hi:"सबसे विद्युत-धनात्मक तत्व कौन-सा है?",en:"Which is the most electropositive element?"},
+ o:[{hi:"सोडियम",en:"Sodium"},{hi:"पोटैशियम",en:"Potassium"},{hi:"सीज़ियम",en:"Caesium"},{hi:"लिथियम",en:"Lithium"}],a:2,
+ ex:{hi:"सीज़ियम (Cs) सबसे विद्युत-धनात्मक तत्व है। यह आवर्त सारणी में सबसे नीचे बाएँ कोने के पास है। सबसे विद्युत-ऋणात्मक तत्व फ्लोरीन है।",en:"Caesium (Cs) is the most electropositive element. Fluorine is the most electronegative."}},
+
+{q:{hi:"'उत्प्रेरक' (Catalyst) क्या करता है?",en:"What does a 'catalyst' do?"},
+ o:[{hi:"अभिक्रिया रोकता है",en:"Stops reaction"},{hi:"अभिक्रिया की दर बढ़ाता है",en:"Increases reaction rate"},{hi:"तापमान बढ़ाता है",en:"Increases temperature"},{hi:"कोई परिवर्तन नहीं",en:"No change"}],a:1,
+ ex:{hi:"उत्प्रेरक अभिक्रिया की दर बढ़ाता है लेकिन स्वयं अभिक्रिया में भाग नहीं लेता और अंत में अपरिवर्तित रहता है। उदाहरण: मैंगनीज़ डाइऑक्साइड (MnO₂)।",en:"A catalyst increases reaction rate without being consumed. Example: Manganese dioxide (MnO₂)."}},
+
+{q:{hi:"'ऑक्सीकरण' (Oxidation) में क्या होता है?",en:"What happens in 'Oxidation'?"},
+ o:[{hi:"इलेक्ट्रॉन ग्रहण",en:"Gain of electrons"},{hi:"इलेक्ट्रॉन त्याग",en:"Loss of electrons"},{hi:"कोई परिवर्तन नहीं",en:"No change"},{hi:"प्रोटॉन ग्रहण",en:"Gain of protons"}],a:1,
+ ex:{hi:"ऑक्सीकरण में इलेक्ट्रॉन का त्याग होता है (या हाइड्रोजन का ह्रास / ऑक्सीजन का योग)। अपचयन (Reduction) में इलेक्ट्रॉन का ग्रहण होता है।",en:"Oxidation involves loss of electrons (or loss of hydrogen / gain of oxygen). Reduction is the gain of electrons."}},
+
+{q:{hi:"मीथेन का रासायनिक सूत्र क्या है?",en:"What is the chemical formula of methane?"},
+ o:[{hi:"CH₄",en:"CH₄"},{hi:"C₂H₆",en:"C₂H₆"},{hi:"C₂H₄",en:"C₂H₄"},{hi:"C₂H₂",en:"C₂H₂"}],a:0,
+ ex:{hi:"मीथेन = CH₄ (प्राकृतिक गैस का मुख्य घटक)। C₂H₆ = ईथेन, C₂H₄ = एथिलीन, C₂H₂ = एसिटिलीन।",en:"Methane = CH₄ (main component of natural gas). C₂H₆ = Ethane, C₂H₄ = Ethylene, C₂H₂ = Acetylene."}},
+
+{q:{hi:"'पॉलिथीन' किस प्रकार का बहुलक है?",en:"'Polythene' is which type of polymer?"},
+ o:[{hi:"प्राकृतिक",en:"Natural"},{hi:"संश्लेषित",en:"Synthetic"},{hi:"अर्ध-संश्लेषित",en:"Semi-synthetic"},{hi:"जैविक",en:"Biological"}],a:1,
+ ex:{hi:"पॉलिथीन एक संश्लेषित बहुलक है, जो एथिलीन (C₂H₄) के बहुलकीकरण से बनता है। इसका उपयोग थैलियों, पाइप और कंटेनरों में होता है।",en:"Polythene is a synthetic polymer made from polymerisation of ethylene (C₂H₄). It is used in bags, pipes and containers."}},
+
+{q:{hi:"साबुन किस प्रकार की अभिक्रिया से बनता है?",en:"Soap is made by which type of reaction?"},
+ o:[{hi:"बहुलकीकरण",en:"Polymerisation"},{hi:"साबुनीकरण",en:"Saponification"},{hi:"उत्प्रेरण",en:"Catalysis"},{hi:"विद्युत अपघटन",en:"Electrolysis"}],a:1,
+ ex:{hi:"साबुन वसा/तेल और सोडियम हाइड्रॉक्साइड (NaOH) की अभिक्रिया से बनता है — इसे 'साबुनीकरण' (Saponification) कहा जाता है। उत्पाद साबुन और ग्लिसरॉल होते हैं।",en:"Soap is made by reacting fat/oil with NaOH — called 'saponification'. Products are soap and glycerol."}},
+
+{q:{hi:"यूरिया में नाइट्रोजन की मात्रा लगभग कितनी होती है?",en:"What is the nitrogen content of urea?"},
+ o:[{hi:"21%",en:"21%"},{hi:"33%",en:"33%"},{hi:"46%",en:"46%"},{hi:"50%",en:"50%"}],a:2,
+ ex:{hi:"यूरिया (CO(NH₂)₂) में नाइट्रोजन की मात्रा ~46% होती है, जो इसे सबसे संकेंद्रित नाइट्रोजन उर्वरक बनाती है।",en:"Urea (CO(NH₂)₂) contains ~46% nitrogen, making it the most concentrated nitrogen fertiliser."}},
+
+{q:{hi:"'सोडियम' (Na) को जल में डालने पर क्या होता है?",en:"What happens when 'Sodium' (Na) is added to water?"},
+ o:[{hi:"कोई प्रतिक्रिया नहीं",en:"No reaction"},{hi:"धीमी अभिक्रिया",en:"Slow reaction"},{hi:"तीव्र अभिक्रिया और आग",en:"Vigorous reaction and fire"},{hi:"रंग बदलता है",en:"Changes colour"}],a:2,
+ ex:{hi:"सोडियम जल के साथ तीव्र अभिक्रिया करता है — हाइड्रोजन गैस निकलती है और आग लग सकती है। इसलिए इसे केरोसिन तेल में रखा जाता है।",en:"Sodium reacts vigorously with water, releasing hydrogen and possibly catching fire. Hence it is stored in kerosene."}},
+
+/* ============ खंड G — रोग, उपचार, स्वास्थ्य कार्यक्रम (Q73–82) ============ */
+{q:{hi:"डायबिटीज (मधुमेह) किस हार्मोन की कमी से होता है?",en:"Diabetes is caused by deficiency of which hormone?"},
+ o:[{hi:"थायरॉक्सिन",en:"Thyroxine"},{hi:"इंसुलिन",en:"Insulin"},{hi:"एड्रेनालिन",en:"Adrenaline"},{hi:"एस्ट्रोजन",en:"Estrogen"}],a:1,
+ ex:{hi:"डायबिटीज इंसुलिन हार्मोन की कमी या अप्रभावी होने से होता है। इंसुलिन अग्न्याशय में बनता है और रक्त शर्करा को नियंत्रित करता है।",en:"Diabetes is caused by deficiency or ineffectiveness of insulin (produced by the pancreas), which regulates blood sugar."}},
+
+{q:{hi:"'एचआईवी' का पूरा नाम क्या है?",en:"What is the full form of 'HIV'?"},
+ o:[{hi:"Human Immune Virus",en:"Human Immune Virus"},{hi:"Human Immunodeficiency Virus",en:"Human Immunodeficiency Virus"},{hi:"Highly Infectious Virus",en:"Highly Infectious Virus"},{hi:"Human Influenza Virus",en:"Human Influenza Virus"}],a:1,
+ ex:{hi:"HIV = Human Immunodeficiency Virus। यह AIDS (Acquired Immunodeficiency Syndrome) का कारण बनता है और शरीर की प्रतिरक्षा प्रणाली को कमजोर करता है।",en:"HIV = Human Immunodeficiency Virus, which causes AIDS (Acquired Immunodeficiency Syndrome) by weakening the immune system."}},
+
+{q:{hi:"भारत में 'पोलियो उन्मूलन' की घोषणा कब हुई?",en:"When was 'polio eradication' declared in India?"},
+ o:[{hi:"2011",en:"2011"},{hi:"2012",en:"2012"},{hi:"2014",en:"2014"},{hi:"2016",en:"2016"}],a:2,
+ ex:{hi:"भारत को मार्च 2014 में WHO द्वारा 'पोलियो मुक्त' घोषित किया गया। अंतिम पोलियो मामला जनवरी 2011 में हावड़ा (पश्चिम बंगाल) में दर्ज हुआ था।",en:"India was declared polio-free by WHO in March 2014. The last case was reported in January 2011 in Howrah (West Bengal)."}},
+
+{q:{hi:"हेपेटाइटिस-B किस अंग को प्रभावित करता है?",en:"Hepatitis-B affects which organ?"},
+ o:[{hi:"गुर्दा",en:"Kidney"},{hi:"यकृत",en:"Liver"},{hi:"हृदय",en:"Heart"},{hi:"फेफड़ा",en:"Lung"}],a:1,
+ ex:{hi:"हेपेटाइटिस-B यकृत (Liver) को प्रभावित करता है और इससे यकृत कैंसर हो सकता है। इसका टीका उपलब्ध है और इसे भारत सरकार ने राष्ट्रीय टीकाकरण कार्यक्रम में शामिल किया है।",en:"Hepatitis-B affects the liver and can cause liver cancer. Its vaccine is included in India's national immunisation programme."}},
+
+{q:{hi:"'एनीमिया' किसकी कमी से होता है?",en:"'Anaemia' is caused by deficiency of which nutrient?"},
+ o:[{hi:"विटामिन C",en:"Vitamin C"},{hi:"कैल्शियम",en:"Calcium"},{hi:"आयरन और हीमोग्लोबिन",en:"Iron and haemoglobin"},{hi:"प्रोटीन",en:"Protein"}],a:2,
+ ex:{hi:"एनीमिया (रक्ताल्पता) आयरन की कमी से होता है, जिससे हीमोग्लोबिन कम बनता है। भारत में महिलाओं और बच्चों में यह व्यापक समस्या है।",en:"Anaemia is caused by iron deficiency leading to low haemoglobin. It is widespread among women and children in India."}},
+
+{q:{hi:"'बीसीजी' टीका किस रोग से बचाता है?",en:"'BCG' vaccine protects against which disease?"},
+ o:[{hi:"पोलियो",en:"Polio"},{hi:"टीबी",en:"TB"},{hi:"खसरा",en:"Measles"},{hi:"हेपेटाइटिस",en:"Hepatitis"}],a:1,
+ ex:{hi:"BCG (Bacillus Calmette-Guérin) टीका टीबी (तपेदिक) से बचाता है। इसे जन्म के तुरंत बाद लगाया जाता है।",en:"BCG (Bacillus Calmette-Guérin) vaccine protects against TB (tuberculosis) and is given right after birth."}},
+
+{q:{hi:"'राष्ट्रीय स्वास्थ्य मिशन' की स्थापना कब हुई?",en:"When was the 'National Health Mission' established?"},
+ o:[{hi:"2005",en:"2005"},{hi:"2008",en:"2008"},{hi:"2013",en:"2013"},{hi:"2015",en:"2015"}],a:2,
+ ex:{hi:"राष्ट्रीय स्वास्थ्य मिशन (NHM) 2013 में स्थापित किया गया — NRHM (2005) और NUHM (2005) को मिलाकर। इसका उद्देश्य सार्वभौमिक स्वास्थ्य सेवा है।",en:"The National Health Mission (NHM) was established in 2013, merging NRHM and NUHM (2005). It aims for universal health coverage."}},
+
+{q:{hi:"भारत में 'आयुर्वेद' किस प्रकार की चिकित्सा प्रणाली है?",en:"'Ayurveda' in India is which type of medical system?"},
+ o:[{hi:"आधुनिक",en:"Modern"},{hi:"पारंपरिक",en:"Traditional"},{hi:"होम्योपैथी",en:"Homeopathy"},{hi:"यूनानी",en:"Unani"}],a:1,
+ ex:{hi:"आयुर्वेद भारत की पारंपरिक चिकित्सा प्रणाली है, जो 5000+ वर्ष पुरानी है। यह त्रिदोष (वात, पित्त, कफ) सिद्धांत पर आधारित है। इसके जनक धन्वंतरि माने जाते हैं।",en:"Ayurveda is India's traditional medical system, over 5000 years old, based on Tridosha (Vata, Pitta, Kapha). Dhanvantari is considered its founder."}},
+
+{q:{hi:"'स्वास्थ्य' के लिए WHO की परिभाषा में क्या शामिल है?",en:"WHO's definition of 'health' includes what?"},
+ o:[{hi:"केवल शारीरिक स्वास्थ्य",en:"Only physical health"},{hi:"केवल मानसिक स्वास्थ्य",en:"Only mental health"},{hi:"शारीरिक, मानसिक और सामाजिक",en:"Physical, mental and social"},{hi:"केवल रोगमुक्त होना",en:"Only absence of disease"}],a:2,
+ ex:{hi:"WHO के अनुसार स्वास्थ्य केवल रोग की अनुपस्थिति नहीं है — यह पूर्ण शारीरिक, मानसिक और सामाजिक कल्याण की स्थिति है।",en:"WHO defines health as complete physical, mental and social well-being, not merely absence of disease."}},
+
+{q:{hi:"'मातृ मृत्यु दर' (MMR) कम करने के लिए भारत में कौन-सी योजना चल रही है?",en:"Which scheme is running in India to reduce 'Maternal Mortality Rate' (MMR)?"},
+ o:[{hi:"जननी सुरक्षा योजना",en:"Janani Suraksha Yojana"},{hi:"प्रधानमंत्री मातृ वंदना योजना",en:"Pradhan Mantri Matru Vandana Yojana"},{hi:"जननी शिशु सुरक्षा कार्यक्रम",en:"Janani Shishu Suraksha Karyakram"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"मातृ मृत्यु दर कम करने के लिए भारत में कई योजनाएँ चल रही हैं — जननी सुरक्षा योजना (2005), प्रधानमंत्री मातृ वंदना योजना (2017), जननी शिशु सुरक्षा कार्यक्रम (2011)।",en:"To reduce MMR, India runs several schemes — Janani Suraksha Yojana (2005), PM Matru Vandana Yojana (2017), Janani Shishu Suraksha Karyakram (2011)."}},
+
+/* ============ खंड H — बिहार विशेष: प्रशासन, राजनीति (Q83–92) ============ */
+{q:{hi:"बिहार विधानमंडल किस प्रकार का है?",en:"Bihar legislature is which type?"},
+ o:[{hi:"एकसदनीय",en:"Unicameral"},{hi:"द्विसदनीय",en:"Bicameral"},{hi:"त्रिसदनीय",en:"Tricameral"},{hi:"कोई विधानमंडल नहीं",en:"No legislature"}],a:1,
+ ex:{hi:"बिहार का विधानमंडल द्विसदनीय है — विधानसभा (243 सदस्य) और विधान परिषद (75 सदस्य)। बिहार भारत के उन 6 राज्यों में से एक है जहाँ विधान परिषद है।",en:"Bihar has a bicameral legislature — Assembly (243) and Council (75). Bihar is one of 6 Indian states with a Legislative Council."}},
+
+{q:{hi:"बिहार विधानसभा में कुल कितने सदस्य होते हैं?",en:"How many members does the Bihar Legislative Assembly have?"},
+ o:[{hi:"230",en:"230"},{hi:"243",en:"243"},{hi:"250",en:"250"},{hi:"275",en:"275"}],a:1,
+ ex:{hi:"बिहार विधानसभा में 243 निर्वाचित सदस्य होते हैं। यदि आंग्ल-भारतीय समुदाय का प्रतिनिधि मनोनीत हो तो 244 तक हो सकती है।",en:"The Bihar Legislative Assembly has 243 elected members (up to 244 with one nominated Anglo-Indian member)."}},
+
+{q:{hi:"बिहार विधान परिषद में कुल कितने सदस्य होते हैं?",en:"How many members does the Bihar Legislative Council have?"},
+ o:[{hi:"60",en:"60"},{hi:"75",en:"75"},{hi:"90",en:"90"},{hi:"100",en:"100"}],a:1,
+ ex:{hi:"बिहार विधान परिषद में 75 सदस्य होते हैं — 27 विधानसभा द्वारा, 27 स्थानीय निकायों द्वारा, 6 शिक्षकों द्वारा, 6 स्नातकों द्वारा और 9 राज्यपाल द्वारा मनोनीत।",en:"Bihar Legislative Council has 75 members — 27 by Assembly, 27 by local bodies, 6 by teachers, 6 by graduates, 9 nominated by Governor."}},
+
+{q:{hi:"पटना उच्च न्यायालय की स्थापना कब हुई?",en:"When was the Patna High Court established?"},
+ o:[{hi:"1912",en:"1912"},{hi:"1916",en:"1916"},{hi:"1935",en:"1935"},{hi:"1947",en:"1947"}],a:1,
+ ex:{hi:"पटना उच्च न्यायालय की स्थापना 1 मार्च 1916 को हुई। यह भारत के सबसे पुराने उच्च न्यायालयों में से एक है। इसका क्षेत्राधिकार बिहार पर है।",en:"Patna High Court was established on 1 March 1916. It is one of India's oldest High Courts, with jurisdiction over Bihar."}},
+
+{q:{hi:"बिहार से राज्यसभा में कितने सदस्य चुने जाते हैं?",en:"How many Rajya Sabha members are elected from Bihar?"},
+ o:[{hi:"14",en:"14"},{hi:"16",en:"16"},{hi:"18",en:"18"},{hi:"20",en:"20"}],a:1,
+ ex:{hi:"बिहार से राज्यसभा में 16 सदस्य चुने जाते हैं। ये विधानसभा के निर्वाचित सदस्यों द्वारा आनुपातिक प्रतिनिधित्व प्रणाली से चुने जाते हैं।",en:"Bihar elects 16 members to the Rajya Sabha through proportional representation by the elected Assembly members."}},
+
+{q:{hi:"बिहार से लोकसभा में कितने सदस्य चुने जाते हैं?",en:"How many Lok Sabha members are elected from Bihar?"},
+ o:[{hi:"30",en:"30"},{hi:"35",en:"35"},{hi:"40",en:"40"},{hi:"45",en:"45"}],a:2,
+ ex:{hi:"बिहार से लोकसभा में 40 सदस्य चुने जाते हैं। यह उत्तर प्रदेश (80), महाराष्ट्र (48) और पश्चिम बंगाल (42) के बाद चौथा सबसे बड़ा राज्य है।",en:"Bihar elects 40 members to Lok Sabha — the fourth largest after UP (80), Maharashtra (48) and West Bengal (42)."}},
+
+{q:{hi:"बिहार में पहली महिला मुख्यमंत्री कौन थीं?",en:"Who was Bihar's first woman Chief Minister?"},
+ o:[{hi:"राबड़ी देवी",en:"Rabri Devi"},{hi:"मीरा कुमार",en:"Meira Kumar"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"कोई नहीं",en:"None"}],a:0,
+ ex:{hi:"राबड़ी देवी बिहार की पहली महिला मुख्यमंत्री थीं (1997–2005, बीच में कुछ अंतराल के साथ)। वे लालू प्रसाद यादव की पत्नी हैं।",en:"Rabri Devi was Bihar's first woman Chief Minister (1997–2005, with brief breaks). She is Lalu Prasad Yadav's wife."}},
+
+{q:{hi:"बिहार के पहले उपमुख्यमंत्री कौन थे?",en:"Who was Bihar's first Deputy Chief Minister?"},
+ o:[{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"कर्पूरी ठाकुर",en:"Karpoori Thakur"},{hi:"सतीश प्रसाद सिंह",en:"Satish Prasad Singh"},{hi:"रामसुंदर दास",en:"Ramsundar Das"}],a:0,
+ ex:{hi:"अनुग्रह नारायण सिंह बिहार के पहले उपमुख्यमंत्री और वित्त मंत्री थे (1946)। उन्हें 'बिहार विभूति' कहा जाता है।",en:"Anugrah Narayan Singh was Bihar's first Deputy Chief Minister and Finance Minister (1946). He is called 'Bihar Vibhuti'."}},
+
+{q:{hi:"बिहार के पहले राज्यपाल कौन थे?",en:"Who was Bihar's first Governor?"},
+ o:[{hi:"जयरामदास दौलतराम",en:"Jairamdas Daulatram"},{hi:"आर.आर. दिवाकर",en:"R.R. Diwakar"},{hi:"जाकिर हुसैन",en:"Zakir Husain"},{hi:"मदभूषण",en:"Madbhushan"}],a:0,
+ ex:{hi:"स्वतंत्रता के बाद बिहार के पहले राज्यपाल जयरामदास दौलतराम थे (1947–1948)। बिहार में 1936 से राज्यपाल का पद अस्तित्व में आया, जब यह उड़ीसा से अलग प्रांत बना।",en:"Jairamdas Daulatram was Bihar's first Governor after independence (1947–1948). The post was created in 1936 when Bihar became a separate province."}},
+
+{q:{hi:"बिहार में 'जन-नायक' के नाम से किसे जाना जाता है?",en:"Who is known as 'Jan-Nayak' in Bihar?"},
+ o:[{hi:"लालू प्रसाद यादव",en:"Lalu Prasad Yadav"},{hi:"कर्पूरी ठाकुर",en:"Karpoori Thakur"},{hi:"नीतीश कुमार",en:"Nitish Kumar"},{hi:"रामविलास पासवान",en:"Ram Vilas Paswan"}],a:1,
+ ex:{hi:"कर्पूरी ठाकुर को 'जन-नायक' कहा जाता है। वे दो बार बिहार के मुख्यमंत्री रहे और उन्हें मरणोपरांत 2024 में भारत रत्न से सम्मानित किया गया।",en:"Karpoori Thakur is called 'Jan-Nayak'. He was Bihar CM twice and was posthumously awarded Bharat Ratna in 2024."}},
+
+/* ============ खंड I — कंप्यूटर, इंटरनेट, तकनीक (Q93–100) ============ */
+{q:{hi:"भारत का पहला सुपर कंप्यूटर कौन-सा था?",en:"What was India's first supercomputer?"},
+ o:[{hi:"PARAM 8000",en:"PARAM 8000"},{hi:"CRAY X-MP",en:"CRAY X-MP"},{hi:"HEC-2M",en:"HEC-2M"},{hi:"IBM 1401",en:"IBM 1401"}],a:0,
+ ex:{hi:"PARAM 8000 भारत का पहला सुपर कंप्यूटर था, जिसे 1991 में C-DAC (पुणे) ने विकसित किया। इसके जनक विजय भाटकर हैं।",en:"PARAM 8000 was India's first supercomputer, developed in 1991 by C-DAC (Pune). Its architect was Vijay Bhatkar."}},
+
+{q:{hi:"'सॉफ्टवेयर' और 'हार्डवेयर' में क्या अंतर है?",en:"What is the difference between 'software' and 'hardware'?"},
+ o:[{hi:"कोई नहीं",en:"None"},{hi:"सॉफ्टवेयर = भौतिक, हार्डवेयर = निर्देश",en:"Software = physical, Hardware = instructions"},{hi:"सॉफ्टवेयर = निर्देश/प्रोग्राम, हार्डवेयर = भौतिक भाग",en:"Software = instructions/programs, Hardware = physical parts"},{hi:"दोनों भौतिक हैं",en:"Both are physical"}],a:2,
+ ex:{hi:"हार्डवेयर = कंप्यूटर के भौतिक भाग (CPU, RAM, मदरबोर्ड)। सॉफ्टवेयर = प्रोग्राम और निर्देश (OS, ऐप्स)। सॉफ्टवेयर के बिना हार्डवेयर काम नहीं कर सकता।",en:"Hardware = physical parts (CPU, RAM, motherboard). Software = programs and instructions (OS, apps). Hardware cannot work without software."}},
+
+{q:{hi:"निम्न में से कौन-सा ऑपरेटिंग सिस्टम नहीं है?",en:"Which of the following is NOT an operating system?"},
+ o:[{hi:"Windows",en:"Windows"},{hi:"Linux",en:"Linux"},{hi:"Oracle",en:"Oracle"},{hi:"macOS",en:"macOS"}],a:2,
+ ex:{hi:"Oracle एक डेटाबेस मैनेजमेंट सिस्टम (DBMS) है, ऑपरेटिंग सिस्टम नहीं। Windows, Linux, macOS और Android ऑपरेटिंग सिस्टम हैं।",en:"Oracle is a Database Management System (DBMS), not an OS. Windows, Linux, macOS and Android are operating systems."}},
+
+{q:{hi:"'क्लाउड कंप्यूटिंग' का मुख्य लाभ क्या है?",en:"What is the main advantage of 'cloud computing'?"},
+ o:[{hi:"सस्ता हार्डवेयर",en:"Cheaper hardware"},{hi:"इंटरनेट पर डेटा और सेवाओं तक पहुँच",en:"Access to data and services over the internet"},{hi:"तेज़ प्रिंटिंग",en:"Faster printing"},{hi:"कोई लाभ नहीं",en:"No benefit"}],a:1,
+ ex:{hi:"क्लाउड कंप्यूटिंग में डेटा और एप्लीकेशन इंटरनेट पर सर्वर पर होते हैं, जिन्हें कहीं से भी एक्सेस किया जा सकता है। उदाहरण: AWS, Google Cloud, Azure।",en:"Cloud computing stores data and applications on internet servers accessible from anywhere. Examples: AWS, Google Cloud, Azure."}},
+
+{q:{hi:"'AI', 'ML' और 'DL' में क्या संबंध है?",en:"What is the relationship between 'AI', 'ML' and 'DL'?"},
+ o:[{hi:"सभी अलग-अलग हैं",en:"All are separate"},{hi:"AI ⊃ ML ⊃ DL",en:"AI ⊃ ML ⊃ DL"},{hi:"DL ⊃ ML ⊃ AI",en:"DL ⊃ ML ⊃ AI"},{hi:"सभी समान हैं",en:"All are the same"}],a:1,
+ ex:{hi:"AI (कृत्रिम बुद्धिमत्ता) सबसे व्यापक है। ML (मशीन लर्निंग) AI का उपसमुच्चय है। DL (डीप लर्निंग) ML का उपसमुच्चय है — यह न्यूरल नेटवर्क का उपयोग करता है।",en:"AI (Artificial Intelligence) is broadest. ML (Machine Learning) is a subset of AI. DL (Deep Learning), using neural networks, is a subset of ML."}},
+
+{q:{hi:"'ब्लॉकचेन' तकनीक का मुख्य लाभ क्या है?",en:"What is the main advantage of 'blockchain' technology?"},
+ o:[{hi:"तेज़ इंटरनेट",en:"Faster internet"},{hi:"विकेंद्रीकृत और अपरिवर्तनीय रिकॉर्ड",en:"Decentralised and immutable records"},{hi:"सस्ता सर्वर",en:"Cheaper servers"},{hi:"कोई लाभ नहीं",en:"No advantage"}],a:1,
+ ex:{hi:"ब्लॉकचेन एक विकेंद्रीकृत डिजिटल लेजर है, जिसमें डेटा को बदलना या हटाना लगभग असंभव है। इसका उपयोग क्रिप्टोकरेंसी, सप्लाई चेन और स्मार्ट कॉन्ट्रैक्ट्स में होता है।",en:"Blockchain is a decentralised digital ledger where data is nearly impossible to alter. Used in cryptocurrency, supply chain and smart contracts."}},
+
+{q:{hi:"'5G' तकनीक में 'G' का अर्थ क्या है?",en:"In '5G' technology, what does 'G' stand for?"},
+ o:[{hi:"Giga",en:"Giga"},{hi:"Generation",en:"Generation"},{hi:"Gigabyte",en:"Gigabyte"},{hi:"Global",en:"Global"}],a:1,
+ ex:{hi:"5G में 'G' का अर्थ Generation (पीढ़ी) है। 5G पाँचवीं पीढ़ी की मोबाइल नेटवर्क तकनीक है, जो 4G से ~10 गुना तेज़ है। भारत में 5G अक्टूबर 2022 में शुरू हुआ।",en:"'G' in 5G stands for Generation. India launched 5G in October 2022 — about 10x faster than 4G."}},
+
+{q:{hi:"'फ़िशिंग' (Phishing) किस प्रकार का साइबर अपराध है?",en:"'Phishing' is which type of cybercrime?"},
+ o:[{hi:"हार्डवेयर चोरी",en:"Hardware theft"},{hi:"फर्जी ईमेल/लिंक से जानकारी चुराना",en:"Stealing information via fake emails/links"},{hi:"सॉफ्टवेयर विकास",en:"Software development"},{hi:"डेटा बैकअप",en:"Data backup"}],a:1,
+ ex:{hi:"फ़िशिंग में हमलावर फर्जी ईमेल, वेबसाइट या मैसेज के ज़रिए उपयोगकर्ता की व्यक्तिगत जानकारी (पासवर्ड, OTP, बैंक विवरण) चुराते हैं।",en:"In phishing, attackers steal personal information (passwords, OTP, bank details) via fake emails, websites or messages."}},
+
+{q:{hi:"'इंटरनेट ऑफ थिंग्स' (IoT) का मुख्य उद्देश्य क्या है?",en:"What is the main objective of the 'Internet of Things' (IoT)?"},
+ o:[{hi:"केवल मोबाइल जोड़ना",en:"Only connect mobiles"},{hi:"उपकरणों को इंटरनेट से जोड़ना",en:"Connect devices to the internet"},{hi:"सोशल मीडिया",en:"Social media"},{hi:"ईमेल",en:"Email"}],a:1,
+ ex:{hi:"IoT का उद्देश्य रोज़मर्रा के उपकरणों (स्मार्ट होम, वियरेबल्स, वाहन, सेंसर) को इंटरनेट से जोड़कर उन्हें डेटा भेजने, प्राप्त करने और नियंत्रित करने में सक्षम बनाना है।",en:"IoT connects everyday devices (smart home, wearables, vehicles, sensors) to the internet to send, receive and control data."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! आप BPSC के लिए तैयार हैं।"; enMsg = "Outstanding! You are ready for BPSC."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। नोट्स दोबारा पढ़ें और पुनः प्रयास करें।"; enMsg = "Decent start. Re-read the notes and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
