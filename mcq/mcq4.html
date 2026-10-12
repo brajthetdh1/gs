@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>BPSC मॉक टेस्ट 4 — 100 प्रश्न (नए क्षेत्र) | BPSC Mock Test 4</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#0d2b52,#164a8a);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#a9c6ea;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#a9c6ea;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--saffron),var(--green));
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e6f6e6;color:#0f7b0f;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 BPSC मॉक टेस्ट — 4
+              <small>BPSC Mock Test 4 · नए क्षेत्र / New Areas</small>
+              <small id="sectionLabel">खंड A — संविधान निर्माण और मौलिक अधिकार</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   BPSC मॉक टेस्ट 4 — 100 प्रश्न (नए क्षेत्र)
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — संविधान निर्माण और मौलिक अधिकार", en:"Section A — Constitution Making & Fundamental Rights"},
+  {hi:"खंड B — राज्य सरकार और न्यायपालिका", en:"Section B — State Government & Judiciary"},
+  {hi:"खंड C — पंचायती राज और स्थानीय शासन", en:"Section C — Panchayati Raj & Local Governance"},
+  {hi:"खंड D — कृषि और उद्योग", en:"Section D — Agriculture & Industry"},
+  {hi:"खंड E — परिवहन, ऊर्जा और बुनियादी ढाँचा", en:"Section E — Transport, Energy & Infrastructure"},
+  {hi:"खंड F — सरकारी योजनाएँ", en:"Section F — Government Schemes"},
+  {hi:"खंड F2 — पर्यावरण, आपदा और सामाजिक मुद्दे", en:"Section F2 — Environment, Disaster & Social Issues"},
+  {hi:"खंड G — विदेश नीति और रक्षा", en:"Section G — Foreign Policy & Defence"},
+  {hi:"खंड H — भाषा, साहित्य, मीडिया और विविध", en:"Section H — Language, Literature, Media & Misc"}
+];
+const SECTION_STARTS = [0, 12, 24, 34, 46, 58, 70, 82, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — संविधान निर्माण और मौलिक अधिकार (Q1–12) ============ */
+{q:{hi:"संविधान सभा की पहली बैठक कब हुई?",en:"When was the first meeting of the Constituent Assembly held?"},
+ o:[{hi:"9 दिसंबर 1946",en:"9 December 1946"},{hi:"26 नवंबर 1949",en:"26 November 1949"},{hi:"26 जनवरी 1950",en:"26 January 1950"},{hi:"15 अगस्त 1947",en:"15 August 1947"}],a:0,
+ ex:{hi:"संविधान सभा की पहली बैठक 9 दिसंबर 1946 को हुई। सच्चिदानंद सिन्हा को अस्थायी अध्यक्ष चुना गया।",en:"The first meeting of the Constituent Assembly was held on 9 December 1946. Sachchidananda Sinha was elected temporary chairman."}},
+
+{q:{hi:"संविधान की प्रारूप समिति (Drafting Committee) के अध्यक्ष कौन थे?",en:"Who was the Chairman of the Drafting Committee of the Constitution?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"जवाहरलाल नेहरू",en:"Jawaharlal Nehru"},{hi:"डॉ. बी.आर. आंबेडकर",en:"Dr. B.R. Ambedkar"},{hi:"सरदार पटेल",en:"Sardar Patel"}],a:2,
+ ex:{hi:"डॉ. बी.आर. आंबेडकर प्रारूप समिति के अध्यक्ष थे और उन्हें 'भारतीय संविधान का जनक' कहा जाता है।",en:"Dr. B.R. Ambedkar was the Chairman of the Drafting Committee and is called the 'Father of the Indian Constitution'."}},
+
+{q:{hi:"संविधान सभा के स्थायी अध्यक्ष कौन थे?",en:"Who was the permanent President of the Constituent Assembly?"},
+ o:[{hi:"डॉ. बी.आर. आंबेडकर",en:"Dr. B.R. Ambedkar"},{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"जवाहरलाल नेहरू",en:"Jawaharlal Nehru"},{hi:"सच्चिदानंद सिन्हा",en:"Sachchidananda Sinha"}],a:1,
+ ex:{hi:"डॉ. राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष थे। वे बाद में भारत के पहले राष्ट्रपति बने।",en:"Dr. Rajendra Prasad was the permanent President of the Constituent Assembly. He later became India's first President."}},
+
+{q:{hi:"'उद्देश्य प्रस्ताव' (Objectives Resolution) किसने प्रस्तुत किया?",en:"Who moved the 'Objectives Resolution'?"},
+ o:[{hi:"जवाहरलाल नेहरू",en:"Jawaharlal Nehru"},{hi:"डॉ. आंबेडकर",en:"Dr. Ambedkar"},{hi:"सरदार पटेल",en:"Sardar Patel"},{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"}],a:0,
+ ex:{hi:"'उद्देश्य प्रस्ताव' 13 दिसंबर 1946 को जवाहरलाल नेहरू ने प्रस्तुत किया — इसी ने संविधान की बुनियादी दिशा तय की।",en:"The Objectives Resolution was moved by Jawaharlal Nehru on 13 December 1946, laying the foundational direction of the Constitution."}},
+
+{q:{hi:"संविधान सभा ने संविधान को कब अंगीकृत (adopted) किया?",en:"When did the Constituent Assembly adopt the Constitution?"},
+ o:[{hi:"26 नवंबर 1949",en:"26 November 1949"},{hi:"26 जनवरी 1950",en:"26 January 1950"},{hi:"9 दिसंबर 1946",en:"9 December 1946"},{hi:"15 अगस्त 1947",en:"15 August 1947"}],a:0,
+ ex:{hi:"26 नवंबर 1949 को संविधान अंगीकृत हुआ — इसलिए 26 नवंबर को संविधान दिवस मनाया जाता है।",en:"The Constitution was adopted on 26 November 1949 — observed as Constitution Day."}},
+
+{q:{hi:"भारतीय संविधान कब लागू हुआ?",en:"When did the Indian Constitution come into force?"},
+ o:[{hi:"26 नवंबर 1949",en:"26 November 1949"},{hi:"26 जनवरी 1950",en:"26 January 1950"},{hi:"15 अगस्त 1947",en:"15 August 1947"},{hi:"9 दिसंबर 1946",en:"9 December 1946"}],a:1,
+ ex:{hi:"संविधान 26 जनवरी 1950 को लागू हुआ — इस दिन को गणतंत्र दिवस के रूप में मनाया जाता है।",en:"The Constitution came into force on 26 January 1950 — celebrated as Republic Day."}},
+
+{q:{hi:"अनुच्छेद 15 किससे संबंधित है?",en:"Article 15 deals with which of the following?"},
+ o:[{hi:"समानता का अधिकार",en:"Right to Equality"},{hi:"भेदभाव का निषेध",en:"Prohibition of Discrimination"},{hi:"अस्पृश्यता का अंत",en:"Abolition of Untouchability"},{hi:"शोषण के विरुद्ध अधिकार",en:"Right against Exploitation"}],a:1,
+ ex:{hi:"अनुच्छेद 15 — धर्म, नस्ल, जाति, लिंग या जन्मस्थान के आधार पर भेदभाव का निषेध।",en:"Article 15 — Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth."}},
+
+{q:{hi:"अनुच्छेद 16 किससे संबंधित है?",en:"Article 16 deals with which of the following?"},
+ o:[{hi:"लोक नियोजन में समान अवसर",en:"Equality of opportunity in public employment"},{hi:"शिक्षा का अधिकार",en:"Right to Education"},{hi:"धर्म की स्वतंत्रता",en:"Freedom of Religion"},{hi:"संपत्ति का अधिकार",en:"Right to Property"}],a:0,
+ ex:{hi:"अनुच्छेद 16 — लोक नियोजन में समान अवसर की बात करता है। इसी के तहत OBC, SC/ST को आरक्षण दिया जाता है।",en:"Article 16 — guarantees equality of opportunity in public employment. Reservation for OBC, SC/ST is based on this."}},
+
+{q:{hi:"अनुच्छेद 17 किससे संबंधित है?",en:"Article 17 deals with which of the following?"},
+ o:[{hi:"भेदभाव का निषेध",en:"Prohibition of Discrimination"},{hi:"अस्पृश्यता का अंत",en:"Abolition of Untouchability"},{hi:"बंधुआ मज़दूरी",en:"Bonded Labour"},{hi:"धर्म की स्वतंत्रता",en:"Freedom of Religion"}],a:1,
+ ex:{hi:"अनुच्छेद 17 — अस्पृश्यता का अंत। इसे किसी भी रूप में लागू करना दंडनीय अपराध है।",en:"Article 17 — Abolition of Untouchability. Its practice in any form is a punishable offence."}},
+
+{q:{hi:"अनुच्छेद 19 में कितनी स्वतंत्रताएँ दी गई हैं?",en:"How many freedoms are guaranteed under Article 19?"},
+ o:[{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"}],a:1,
+ ex:{hi:"अनुच्छेद 19 के तहत 6 स्वतंत्रताएँ हैं — भाषण, सभा, संगठन, आवागमन, निवास और व्यवसाय।",en:"Article 19 guarantees 6 freedoms — speech, assembly, association, movement, residence and profession."}},
+
+{q:{hi:"अनुच्छेद 21 किससे संबंधित है?",en:"Article 21 deals with which of the following?"},
+ o:[{hi:"समानता का अधिकार",en:"Right to Equality"},{hi:"प्राण और दैहिक स्वतंत्रता का अधिकार",en:"Right to Life and Personal Liberty"},{hi:"धर्म की स्वतंत्रता",en:"Freedom of Religion"},{hi:"शिक्षा का अधिकार",en:"Right to Education"}],a:1,
+ ex:{hi:"अनुच्छेद 21 — प्राण और दैहिक स्वतंत्रता का अधिकार। इसमें शिक्षा, स्वास्थ्य, स्वच्छ पर्यावरण और निजता शामिल हैं।",en:"Article 21 — Right to Life and Personal Liberty, including education, health, clean environment and privacy."}},
+
+{q:{hi:"अनुच्छेद 25–28 किस अधिकार से संबंधित हैं?",en:"Articles 25–28 are related to which right?"},
+ o:[{hi:"समानता का अधिकार",en:"Right to Equality"},{hi:"धर्म की स्वतंत्रता का अधिकार",en:"Right to Freedom of Religion"},{hi:"शोषण के विरुद्ध अधिकार",en:"Right against Exploitation"},{hi:"संवैधानिक उपचार",en:"Right to Constitutional Remedies"}],a:1,
+ ex:{hi:"अनुच्छेद 25–28 — धर्म की स्वतंत्रता का अधिकार। इसमें धर्म का पालन, प्रचार और शिक्षण संस्थाओं के अधिकार शामिल हैं।",en:"Articles 25–28 — Right to Freedom of Religion, covering practice, propagation and educational institutions."}},
+
+/* ============ खंड B — राज्य सरकार और न्यायपालिका (Q13–24) ============ */
+{q:{hi:"मुख्यमंत्री की नियुक्ति कौन करता है?",en:"Who appoints the Chief Minister?"},
+ o:[{hi:"राष्ट्रपति",en:"President"},{hi:"राज्यपाल",en:"Governor"},{hi:"विधानसभा अध्यक्ष",en:"Speaker"},{hi:"प्रधानमंत्री",en:"Prime Minister"}],a:1,
+ ex:{hi:"मुख्यमंत्री की नियुक्ति राज्यपाल द्वारा की जाती है। वह विधानसभा में बहुमत दल का नेता होता है।",en:"The Chief Minister is appointed by the Governor. He is the leader of the majority party in the Legislative Assembly."}},
+
+{q:{hi:"राज्यपाल का कार्यकाल कितना होता है?",en:"What is the term of a Governor?"},
+ o:[{hi:"4 वर्ष",en:"4 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"},{hi:"7 वर्ष",en:"7 years"}],a:1,
+ ex:{hi:"राज्यपाल का कार्यकाल 5 वर्ष होता है, लेकिन वह राष्ट्रपति के प्रसादपर्यंत पद पर रहता है।",en:"A Governor's term is 5 years, but he holds office during the President's pleasure."}},
+
+{q:{hi:"विधान परिषद का गठन या समापन कौन कर सकता है?",en:"Who can create or abolish a Legislative Council?"},
+ o:[{hi:"राष्ट्रपति",en:"President"},{hi:"राज्यपाल",en:"Governor"},{hi:"संसद",en:"Parliament"},{hi:"राज्य विधानसभा",en:"State Assembly"}],a:2,
+ ex:{hi:"विधान परिषद का गठन या समापन संसद द्वारा किया जा सकता है। इसके लिए संबंधित राज्य की विधानसभा को प्रस्ताव पारित करना होता है।",en:"Parliament can create or abolish a Legislative Council on a resolution passed by the concerned state's Assembly."}},
+
+{q:{hi:"भारत में विधान परिषद वाले राज्य कितने हैं?",en:"How many Indian states have a Legislative Council?"},
+ o:[{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"}],a:2,
+ ex:{hi:"भारत में 6 राज्यों में विधान परिषद है — उत्तर प्रदेश, बिहार, महाराष्ट्र, कर्नाटक, आंध्र प्रदेश और तेलंगाना।",en:"Six states have a Legislative Council — Uttar Pradesh, Bihar, Maharashtra, Karnataka, Andhra Pradesh and Telangana."}},
+
+{q:{hi:"सर्वोच्च न्यायालय की स्थापना कब हुई?",en:"When was the Supreme Court established?"},
+ o:[{hi:"15 अगस्त 1947",en:"15 August 1947"},{hi:"26 नवंबर 1949",en:"26 November 1949"},{hi:"26 जनवरी 1950",en:"26 January 1950"},{hi:"28 जनवरी 1950",en:"28 January 1950"}],a:2,
+ ex:{hi:"सर्वोच्च न्यायालय की स्थापना 26 जनवरी 1950 को हुई। इसका उद्घाटन 28 जनवरी 1950 को हुआ।",en:"The Supreme Court was established on 26 January 1950. It was inaugurated on 28 January 1950."}},
+
+{q:{hi:"सर्वोच्च न्यायालय के न्यायाधीशों की सेवानिवृत्ति आयु कितनी है?",en:"What is the retirement age of Supreme Court judges?"},
+ o:[{hi:"60 वर्ष",en:"60 years"},{hi:"62 वर्ष",en:"62 years"},{hi:"65 वर्ष",en:"65 years"},{hi:"70 वर्ष",en:"70 years"}],a:2,
+ ex:{hi:"सर्वोच्च न्यायालय के न्यायाधीश 65 वर्ष की आयु तक पद पर रहते हैं। उच्च न्यायालय के न्यायाधीश 62 वर्ष तक।",en:"Supreme Court judges serve until age 65. High Court judges until age 62."}},
+
+{q:{hi:"भारत के पहले मुख्य न्यायाधीश कौन थे?",en:"Who was the first Chief Justice of India?"},
+ o:[{hi:"एम.सी. महाजन",en:"M.C. Mahajan"},{hi:"एच.जे. कानिया",en:"H.J. Kania"},{hi:"पी.बी. गजेंद्रगडकर",en:"P.B. Gajendragadkar"},{hi:"वाई.वी. चंद्रचूड़",en:"Y.V. Chandrachud"}],a:1,
+ ex:{hi:"हीरालाल जेकिसनदास कानिया (H.J. Kania) भारत के पहले मुख्य न्यायाधीश थे (1950–1951)।",en:"Hiralal Jekisundas Kania (H.J. Kania) was India's first Chief Justice (1950–1951)."}},
+
+{q:{hi:"न्यायिक समीक्षा (Judicial Review) का अधिकार किस अनुच्छेद से मिलता है?",en:"Judicial Review power comes from which Article?"},
+ o:[{hi:"अनुच्छेद 13",en:"Article 13"},{hi:"अनुच्छेद 32",en:"Article 32"},{hi:"अनुच्छेद 226",en:"Article 226"},{hi:"अनुच्छेद 368",en:"Article 368"}],a:0,
+ ex:{hi:"अनुच्छेद 13 — न्यायिक समीक्षा का आधार। सर्वोच्च न्यायालय मौलिक अधिकारों के उल्लंघन पर कानून को असंवैधानिक घोषित कर सकता है।",en:"Article 13 — basis of Judicial Review. The Supreme Court can declare a law unconstitutional if it violates Fundamental Rights."}},
+
+{q:{hi:"'हैबियस कॉर्पस' (Habeas Corpus) का अर्थ क्या है?",en:"What does 'Habeas Corpus' mean?"},
+ o:[{hi:"'आपके पास शरीर है'",en:"'You may have the body'"},{hi:"'हम आदेश देते हैं'",en:"'We command'"},{hi:"'किस अधिकार से'",en:"'By what authority'"},{hi:"'निषेध करना'",en:"'To forbid'"}],a:0,
+ ex:{hi:"'हैबियस कॉर्पस' का अर्थ 'आपके पास शरीर है' — यह बंदी प्रत्यक्षीकरण की रिट है, जो अवैध हिरासत के विरुद्ध जारी होती है।",en:"'Habeas Corpus' means 'You may have the body' — a writ against illegal detention."}},
+
+{q:{hi:"'जनहित याचिका' (PIL) का पूरा नाम क्या है?",en:"What is the full form of PIL?"},
+ o:[{hi:"Public Interest Litigation",en:"Public Interest Litigation"},{hi:"Public Investigation Law",en:"Public Investigation Law"},{hi:"Personal Interest Litigation",en:"Personal Interest Litigation"},{hi:"Public Industrial Law",en:"Public Industrial Law"}],a:0,
+ ex:{hi:"PIL = Public Interest Litigation (जनहित याचिका)। यह न्यायमूर्ति पी.एन. भगवती और वी.आर. कृष्ण अय्यर के समय प्रचलित हुई।",en:"PIL = Public Interest Litigation. It became popular during the time of Justices P.N. Bhagwati and V.R. Krishna Iyer."}},
+
+{q:{hi:"लोकपाल किस स्तर पर कार्य करता है?",en:"Lokpal functions at which level?"},
+ o:[{hi:"राज्य स्तर",en:"State level"},{hi:"केंद्र स्तर",en:"Central level"},{hi:"जिला स्तर",en:"District level"},{hi:"पंचायत स्तर",en:"Panchayat level"}],a:1,
+ ex:{hi:"लोकपाल केंद्र स्तर पर भ्रष्टाचार के विरुद्ध कार्य करता है। राज्य स्तर पर लोकायुक्त होता है। लोकपाल अधिनियम 2013 में पारित हुआ।",en:"Lokpal works at the central level against corruption. At the state level, it is Lokayukta. The Lokpal Act was passed in 2013."}},
+
+{q:{hi:"सर्वोच्च न्यायालय के मुख्य न्यायाधीश की नियुक्ति कौन करता है?",en:"Who appoints the Chief Justice of India?"},
+ o:[{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति",en:"President"},{hi:"संसद",en:"Parliament"},{hi:"कानून मंत्री",en:"Law Minister"}],a:1,
+ ex:{hi:"सर्वोच्च न्यायालय के मुख्य न्यायाधीश और अन्य न्यायाधीशों की नियुक्ति राष्ट्रपति द्वारा की जाती है।",en:"The Chief Justice of India and other judges are appointed by the President."}},
+
+/* ============ खंड C — पंचायती राज और स्थानीय शासन (Q25–34) ============ */
+{q:{hi:"73वें संविधान संशोधन में कौन-सी अनुसूची जोड़ी गई?",en:"Which Schedule was added by the 73rd Constitutional Amendment?"},
+ o:[{hi:"नौवीं",en:"Ninth"},{hi:"दसवीं",en:"Tenth"},{hi:"ग्यारहवीं",en:"Eleventh"},{hi:"बारहवीं",en:"Twelfth"}],a:2,
+ ex:{hi:"73वें संशोधन (1992) ने ग्यारहवीं अनुसूची जोड़ी, जिसमें पंचायतों के 29 विषय हैं।",en:"The 73rd Amendment (1992) added the Eleventh Schedule with 29 subjects for Panchayats."}},
+
+{q:{hi:"74वें संविधान संशोधन में कौन-सी अनुसूची जोड़ी गई?",en:"Which Schedule was added by the 74th Constitutional Amendment?"},
+ o:[{hi:"दसवीं",en:"Tenth"},{hi:"ग्यारहवीं",en:"Eleventh"},{hi:"बारहवीं",en:"Twelfth"},{hi:"तेरहवीं",en:"Thirteenth"}],a:2,
+ ex:{hi:"74वें संशोधन (1992) ने बारहवीं अनुसूची जोड़ी, जिसमें नगरीय निकायों के 18 विषय हैं।",en:"The 74th Amendment (1992) added the Twelfth Schedule with 18 subjects for urban local bodies."}},
+
+{q:{hi:"पंचायती राज व्यवस्था लागू करने वाला भारत का पहला राज्य कौन था?",en:"Which was India's first state to implement Panchayati Raj?"},
+ o:[{hi:"बिहार",en:"Bihar"},{hi:"राजस्थान",en:"Rajasthan"},{hi:"महाराष्ट्र",en:"Maharashtra"},{hi:"गुजरात",en:"Gujarat"}],a:1,
+ ex:{hi:"राजस्थान ने 2 अक्टूबर 1959 को नागौर में पंचायती राज लागू करने वाला पहला राज्य बना।",en:"Rajasthan became the first state to implement Panchayati Raj on 2 October 1959 in Nagaur."}},
+
+{q:{hi:"अनुच्छेद 40 किससे संबंधित है?",en:"Article 40 deals with which of the following?"},
+ o:[{hi:"ग्राम पंचायतों का संगठन",en:"Organisation of Village Panchayats"},{hi:"नगरीय निकाय",en:"Urban Bodies"},{hi:"सहकारी समितियाँ",en:"Cooperative Societies"},{hi:"अनुसूचित क्षेत्र",en:"Scheduled Areas"}],a:0,
+ ex:{hi:"अनुच्छेद 40 (DPSP) — राज्य ग्राम पंचायतों का संगठन करेगा। यह पंचायती राज का संवैधानिक आधार है।",en:"Article 40 (DPSP) — the State shall organise village panchayats. It is the constitutional basis for Panchayati Raj."}},
+
+{q:{hi:"ग्राम सभा में कौन-कौन शामिल होते हैं?",en:"Who constitutes the Gram Sabha?"},
+ o:[{hi:"केवल पंचायत सदस्य",en:"Only Panchayat members"},{hi:"गाँव के सभी पंजीकृत मतदाता",en:"All registered voters of the village"},{hi:"केवल ग्राम प्रधान",en:"Only the village head"},{hi:"केवल भूमिधारक",en:"Only landowners"}],a:1,
+ ex:{hi:"ग्राम सभा में गाँव के सभी पंजीकृत मतदाता शामिल होते हैं। यह पंचायती राज की सबसे निचली इकाई है।",en:"The Gram Sabha includes all registered voters of the village. It is the lowest unit of Panchayati Raj."}},
+
+{q:{hi:"पंचायत चुनाव कौन कराता है?",en:"Who conducts Panchayat elections?"},
+ o:[{hi:"भारत निर्वाचन आयोग",en:"Election Commission of India"},{hi:"राज्य निर्वाचन आयोग",en:"State Election Commission"},{hi:"जिलाधिकारी",en:"District Magistrate"},{hi:"ग्राम प्रधान",en:"Village Head"}],a:1,
+ ex:{hi:"पंचायत और नगरीय निकायों के चुनाव राज्य निर्वाचन आयोग द्वारा कराए जाते हैं।",en:"Panchayat and urban local body elections are conducted by the State Election Commission."}},
+
+{q:{hi:"PESA अधिनियम किस वर्ष पारित हुआ?",en:"In which year was the PESA Act passed?"},
+ o:[{hi:"1992",en:"1992"},{hi:"1993",en:"1993"},{hi:"1996",en:"1996"},{hi:"1998",en:"1998"}],a:2,
+ ex:{hi:"PESA (Panchayats Extension to Scheduled Areas) अधिनियम 1996 में पारित हुआ। यह पाँचवीं अनुसूची क्षेत्रों में लागू होता है।",en:"PESA (Panchayats Extension to Scheduled Areas) Act was passed in 1996, applicable to Fifth Schedule areas."}},
+
+{q:{hi:"पंचायती राज व्यवस्था में कितने स्तर होते हैं?",en:"How many tiers are there in the Panchayati Raj system?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"पंचायती राज की तीन स्तरीय व्यवस्था है — ग्राम पंचायत (ग्राम स्तर), पंचायत समिति (प्रखंड स्तर) और जिला परिषद (जिला स्तर)।",en:"The Panchayati Raj has three tiers — Gram Panchayat (village), Panchayat Samiti (block) and Zila Parishad (district)."}},
+
+{q:{hi:"बलवंत राय मेहता समिति का संबंध किससे है?",en:"Balwant Rai Mehta Committee is related to which of the following?"},
+ o:[{hi:"शिक्षा",en:"Education"},{hi:"पंचायती राज",en:"Panchayati Raj"},{hi:"कृषि",en:"Agriculture"},{hi:"उद्योग",en:"Industry"}],a:1,
+ ex:{hi:"बलवंत राय मेहता समिति (1957) ने त्रिस्तरीय पंचायती राज व्यवस्था की सिफारिश की। यह पंचायती राज की जननी मानी जाती है।",en:"The Balwant Rai Mehta Committee (1957) recommended a three-tier Panchayati Raj system. It is considered the mother of Panchayati Raj."}},
+
+{q:{hi:"अशोक मेहता समिति ने पंचायती राज पर क्या सिफारिश की?",en:"What did the Ashok Mehta Committee recommend on Panchayati Raj?"},
+ o:[{hi:"त्रिस्तरीय व्यवस्था",en:"Three-tier system"},{hi:"द्विस्तरीय व्यवस्था",en:"Two-tier system"},{hi:"एकस्तरीय व्यवस्था",en:"Single-tier system"},{hi:"पंचायती राज समाप्त करना",en:"Abolish Panchayati Raj"}],a:1,
+ ex:{hi:"अशोक मेहता समिति (1977) ने द्विस्तरीय पंचायती राज व्यवस्था की सिफारिश की — जिला परिषद और मंडल पंचायत।",en:"The Ashok Mehta Committee (1977) recommended a two-tier system — Zila Parishad and Mandal Panchayat."}},
+
+/* ============ खंड D — कृषि और उद्योग (Q35–46) ============ */
+{q:{hi:"भारत में हरित क्रांति के जनक कौन हैं?",en:"Who is the father of the Green Revolution in India?"},
+ o:[{hi:"वर्गीज़ कुरियन",en:"Verghese Kurien"},{hi:"एम.एस. स्वामीनाथन",en:"M.S. Swaminathan"},{hi:"नॉर्मन बोरलॉग",en:"Norman Borlaug"},{hi:"हीरा लाल",en:"Hira Lal"}],a:1,
+ ex:{hi:"एम.एस. स्वामीनाथन को भारत में हरित क्रांति का जनक कहा जाता है। उन्हें 'कृषि वैज्ञानिक' के रूप में भी जाना जाता है।",en:"M.S. Swaminathan is called the father of India's Green Revolution."}},
+
+{q:{hi:"श्वेत क्रांति के जनक कौन हैं?",en:"Who is the father of the White Revolution?"},
+ o:[{hi:"एम.एस. स्वामीनाथन",en:"M.S. Swaminathan"},{hi:"वर्गीज़ कुरियन",en:"Verghese Kurien"},{hi:"आर.के. पचौरी",en:"R.K. Pachauri"},{hi:"नॉर्मन बोरलॉग",en:"Norman Borlaug"}],a:1,
+ ex:{hi:"वर्गीज़ कुरियन को 'श्वेत क्रांति' (ऑपरेशन फ्लड) का जनक कहा जाता है। इसने भारत को दूध उत्पादन में आत्मनिर्भर बनाया।",en:"Verghese Kurien is called the father of the White Revolution (Operation Flood), making India self-sufficient in milk production."}},
+
+{q:{hi:"नीली क्रांति का संबंध किससे है?",en:"Blue Revolution is related to which of the following?"},
+ o:[{hi:"दूध उत्पादन",en:"Milk production"},{hi:"मछली उत्पादन",en:"Fish production"},{hi:"अंडा उत्पादन",en:"Egg production"},{hi:"तेल उत्पादन",en:"Oil production"}],a:1,
+ ex:{hi:"नीली क्रांति मछली उत्पादन से संबंधित है। इसके जनक डॉ. हीरालाल चौधरी माने जाते हैं।",en:"Blue Revolution is related to fish production, pioneered by Dr. Hiralal Chaudhary."}},
+
+{q:{hi:"खरीफ फसलें कब बोई जाती हैं?",en:"When are Kharif crops sown?"},
+ o:[{hi:"अक्टूबर-नवंबर",en:"October-November"},{hi:"जून-जुलाई",en:"June-July"},{hi:"मार्च-अप्रैल",en:"March-April"},{hi:"दिसंबर-जनवरी",en:"December-January"}],a:1,
+ ex:{hi:"खरीफ फसलें मानसून के आगमन पर जून-जुलाई में बोई जाती हैं — जैसे धान, मक्का, ज्वार, बाजरा, कपास।",en:"Kharif crops are sown in June-July with monsoon onset — rice, maize, jowar, bajra, cotton."}},
+
+{q:{hi:"रबी फसलें कब बोई जाती हैं?",en:"When are Rabi crops sown?"},
+ o:[{hi:"जून-जुलाई",en:"June-July"},{hi:"अक्टूबर-नवंबर",en:"October-November"},{hi:"मार्च-अप्रैल",en:"March-April"},{hi:"अगस्त-सितंबर",en:"August-September"}],a:1,
+ ex:{hi:"रबी फसलें सर्दियों में अक्टूबर-नवंबर में बोई जाती हैं — जैसे गेहूँ, जौ, चना, मटर, सरसों।",en:"Rabi crops are sown in October-November in winters — wheat, barley, gram, peas, mustard."}},
+
+{q:{hi:"भारत में गेहूँ उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in wheat production in India?"},
+ o:[{hi:"पंजाब",en:"Punjab"},{hi:"उत्तर प्रदेश",en:"Uttar Pradesh"},{hi:"हरियाणा",en:"Haryana"},{hi:"मध्य प्रदेश",en:"Madhya Pradesh"}],a:1,
+ ex:{hi:"गेहूँ उत्पादन में उत्तर प्रदेश पहले स्थान पर है, इसके बाद मध्य प्रदेश और पंजाब आते हैं।",en:"Uttar Pradesh leads in wheat production, followed by Madhya Pradesh and Punjab."}},
+
+{q:{hi:"भारत में चावल उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in rice production in India?"},
+ o:[{hi:"पंजाब",en:"Punjab"},{hi:"पश्चिम बंगाल",en:"West Bengal"},{hi:"उत्तर प्रदेश",en:"Uttar Pradesh"},{hi:"आंध्र प्रदेश",en:"Andhra Pradesh"}],a:1,
+ ex:{hi:"चावल उत्पादन में पश्चिम बंगाल पहले स्थान पर है, इसके बाद उत्तर प्रदेश और पंजाब आते हैं।",en:"West Bengal leads in rice production, followed by Uttar Pradesh and Punjab."}},
+
+{q:{hi:"भारत में चाय उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in tea production in India?"},
+ o:[{hi:"पश्चिम बंगाल",en:"West Bengal"},{hi:"असम",en:"Assam"},{hi:"तमिलनाडु",en:"Tamil Nadu"},{hi:"केरल",en:"Kerala"}],a:1,
+ ex:{hi:"चाय उत्पादन में असम पहले स्थान पर है — भारत का लगभग 50% चाय यहीं पैदा होता है।",en:"Assam leads in tea production — about 50% of India's tea is produced there."}},
+
+{q:{hi:"भारत में कपास उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in cotton production in India?"},
+ o:[{hi:"महाराष्ट्र",en:"Maharashtra"},{hi:"गुजरात",en:"Gujarat"},{hi:"तेलंगाना",en:"Telangana"},{hi:"राजस्थान",en:"Rajasthan"}],a:1,
+ ex:{hi:"कपास उत्पादन में गुजरात पहले स्थान पर है, इसके बाद महाराष्ट्र और तेलंगाना आते हैं।",en:"Gujarat leads in cotton production, followed by Maharashtra and Telangana."}},
+
+{q:{hi:"MSP का पूरा नाम क्या है?",en:"What is the full form of MSP?"},
+ o:[{hi:"Maximum Support Price",en:"Maximum Support Price"},{hi:"Minimum Support Price",en:"Minimum Support Price"},{hi:"Minimum Sale Price",en:"Minimum Sale Price"},{hi:"Maximum Sale Price",en:"Maximum Sale Price"}],a:1,
+ ex:{hi:"MSP = Minimum Support Price (न्यूनतम समर्थन मूल्य)। यह किसानों को उनकी फसल का न्यूनतम मूल्य सुनिश्चित करता है। CACP इसकी सिफारिश करता है।",en:"MSP = Minimum Support Price. It ensures a minimum price for farmers' crops. CACP recommends it."}},
+
+{q:{hi:"भारत में औद्योगिक नीति में उदारीकरण किस वर्ष प्रारंभ हुआ?",en:"In which year did industrial policy liberalisation begin in India?"},
+ o:[{hi:"1985",en:"1985"},{hi:"1991",en:"1991"},{hi:"1995",en:"1995"},{hi:"2000",en:"2000"}],a:1,
+ ex:{hi:"1991 में नई औद्योगिक नीति के तहत उदारीकरण, निजीकरण और वैश्वीकरण (LPG) प्रारंभ हुआ।",en:"In 1991, Liberalisation, Privatisation and Globalisation (LPG) began under the New Industrial Policy."}},
+
+{q:{hi:"SIDBI का पूरा नाम क्या है?",en:"What is the full form of SIDBI?"},
+ o:[{hi:"Small Industries Development Bank of India",en:"Small Industries Development Bank of India"},{hi:"State Industries Development Bank of India",en:"State Industries Development Bank of India"},{hi:"Small Investment Development Bank of India",en:"Small Investment Development Bank of India"},{hi:"Small Industries Department Bank of India",en:"Small Industries Department Bank of India"}],a:0,
+ ex:{hi:"SIDBI = Small Industries Development Bank of India, स्थापना 1990 में। यह MSME को वित्तीय सहायता देता है।",en:"SIDBI = Small Industries Development Bank of India, established in 1990. It provides finance to MSMEs."}},
+
+/* ============ खंड E — परिवहन, ऊर्जा और बुनियादी ढाँचा (Q47–58) ============ */
+{q:{hi:"भारत का सबसे लंबा राष्ट्रीय राजमार्ग कौन-सा है?",en:"Which is India's longest National Highway?"},
+ o:[{hi:"NH 44",en:"NH 44"},{hi:"NH 48",en:"NH 48"},{hi:"NH 19",en:"NH 19"},{hi:"NH 27",en:"NH 27"}],a:0,
+ ex:{hi:"NH 44 (पूर्व में NH 7) भारत का सबसे लंबा राष्ट्रीय राजमार्ग है, जो श्रीनगर से कन्याकुमारी तक ~3,745 किमी लंबा है।",en:"NH 44 (erstwhile NH 7) is India's longest highway, ~3,745 km from Srinagar to Kanyakumari."}},
+
+{q:{hi:"भारत की पहली ट्रेन कब चली थी?",en:"When did India's first train run?"},
+ o:[{hi:"15 अगस्त 1850",en:"15 August 1850"},{hi:"16 अप्रैल 1853",en:"16 April 1853"},{hi:"26 जनवरी 1850",en:"26 January 1850"},{hi:"1 अप्रैल 1854",en:"1 April 1854"}],a:1,
+ ex:{hi:"भारत की पहली ट्रेन 16 अप्रैल 1853 को बोरीबंदर (मुंबई) से ठाणे तक चली — 34 किमी की दूरी।",en:"India's first train ran on 16 April 1853 from Bori Bunder (Mumbai) to Thane — a distance of 34 km."}},
+
+{q:{hi:"भारत की पहली मेट्रो रेल कहाँ शुरू हुई?",en:"Where did India's first Metro rail start?"},
+ o:[{hi:"दिल्ली",en:"Delhi"},{hi:"कोलकाता",en:"Kolkata"},{hi:"मुंबई",en:"Mumbai"},{hi:"चेन्नई",en:"Chennai"}],a:1,
+ ex:{hi:"भारत की पहली मेट्रो रेल कोलकाता में 1984 में शुरू हुई। दिल्ली मेट्रो 2002 में शुरू हुई।",en:"India's first Metro started in Kolkata in 1984. Delhi Metro began in 2002."}},
+
+{q:{hi:"राष्ट्रीय जलमार्ग-1 (NW-1) किस नदी पर स्थित है?",en:"National Waterway-1 (NW-1) is on which river?"},
+ o:[{hi:"ब्रह्मपुत्र",en:"Brahmaputra"},{hi:"गंगा",en:"Ganga"},{hi:"गोदावरी",en:"Godavari"},{hi:"नर्मदा",en:"Narmada"}],a:1,
+ ex:{hi:"राष्ट्रीय जलमार्ग-1 गंगा-भागीरथी-हुगली नदी प्रणाली पर है — हल्दिया से प्रयागराज तक (लगभग 1,620 किमी)।",en:"NW-1 is on the Ganga-Bhagirathi-Hooghly river system — Haldia to Prayagraj (about 1,620 km)."}},
+
+{q:{hi:"भारत में सौर ऊर्जा उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in solar energy production in India?"},
+ o:[{hi:"गुजरात",en:"Gujarat"},{hi:"राजस्थान",en:"Rajasthan"},{hi:"कर्नाटक",en:"Karnataka"},{hi:"तमिलनाडु",en:"Tamil Nadu"}],a:1,
+ ex:{hi:"सौर ऊर्जा उत्पादन में राजस्थान पहले स्थान पर है — भड़ला सोलर पार्क विश्व के सबसे बड़े सोलर पार्कों में से एक है।",en:"Rajasthan leads in solar energy — Bhadla Solar Park is one of the world's largest solar parks."}},
+
+{q:{hi:"भारत में पवन ऊर्जा उत्पादन में अग्रणी राज्य कौन-सा है?",en:"Which state leads in wind energy production in India?"},
+ o:[{hi:"गुजरात",en:"Gujarat"},{hi:"तमिलनाडु",en:"Tamil Nadu"},{hi:"कर्नाटक",en:"Karnataka"},{hi:"महाराष्ट्र",en:"Maharashtra"}],a:1,
+ ex:{hi:"पवन ऊर्जा उत्पादन में तमिलनाडु पहले स्थान पर है, इसके बाद गुजरात और कर्नाटक आते हैं।",en:"Tamil Nadu leads in wind energy, followed by Gujarat and Karnataka."}},
+
+{q:{hi:"भारत का सबसे बड़ा परमाणु ऊर्जा संयंत्र कौन-सा है?",en:"Which is India's largest nuclear power plant?"},
+ o:[{hi:"तारापुर",en:"Tarapur"},{hi:"कुडनकुलम",en:"Kudankulam"},{hi:"रावतभाटा",en:"Rawatbhata"},{hi:"कलपक्कम",en:"Kalpakkam"}],a:1,
+ ex:{hi:"कुडनकुलम (तमिलनाडु) भारत का सबसे बड़ा परमाणु ऊर्जा संयंत्र है — रूस के सहयोग से निर्मित।",en:"Kudankulam (Tamil Nadu) is India's largest nuclear power plant, built with Russian collaboration."}},
+
+{q:{hi:"'गोल्डन क्वाड्रिलेटरल' परियोजना किससे संबंधित है?",en:"'Golden Quadrilateral' project is related to which of the following?"},
+ o:[{hi:"रेल मार्ग",en:"Railways"},{hi:"राष्ट्रीय राजमार्ग",en:"National Highways"},{hi:"जलमार्ग",en:"Waterways"},{hi:"वायुमार्ग",en:"Airways"}],a:1,
+ ex:{hi:"गोल्डन क्वाड्रिलेटरल भारत के चार महानगरों — दिल्ली, मुंबई, चेन्नई और कोलकाता — को जोड़ने वाला राजमार्ग नेटवर्क है।",en:"The Golden Quadrilateral is a highway network connecting Delhi, Mumbai, Chennai and Kolkata."}},
+
+{q:{hi:"कोकण रेलवे किन दो राज्यों को जोड़ती है?",en:"The Konkan Railway connects which two states?"},
+ o:[{hi:"महाराष्ट्र और कर्नाटक",en:"Maharashtra and Karnataka"},{hi:"महाराष्ट्र और गोवा",en:"Maharashtra and Goa"},{hi:"कर्नाटक और केरल",en:"Karnataka and Kerala"},{hi:"गोवा और कर्नाटक",en:"Goa and Karnataka"}],a:0,
+ ex:{hi:"कोकण रेलवे महाराष्ट्र (रोहा) से कर्नाटक (मंगलुरु) तक जाती है, बीच में गोवा से गुजरती है। इसका संचालन कोकण रेलवे कॉर्पोरेशन करता है।",en:"The Konkan Railway runs from Roha (Maharashtra) to Mangaluru (Karnataka), passing through Goa."}},
+
+{q:{hi:"भारत में हवाई अड्डों का संचालन कौन करता है?",en:"Who operates airports in India?"},
+ o:[{hi:"Indian Railways",en:"Indian Railways"},{hi:"Airports Authority of India",en:"Airports Authority of India"},{hi:"DGCA",en:"DGCA"},{hi:"Ministry of Aviation",en:"Ministry of Aviation"}],a:1,
+ ex:{hi:"भारतीय विमानपत्तन प्राधिकरण (AAI) भारत में हवाई अड्डों का संचालन और प्रबंधन करता है। इसकी स्थापना 1995 में हुई।",en:"The Airports Authority of India (AAI) manages airports in India. It was established in 1995."}},
+
+{q:{hi:"'भारतनेट' परियोजना का उद्देश्य क्या है?",en:"What is the objective of the 'BharatNet' project?"},
+ o:[{hi:"सड़क निर्माण",en:"Road construction"},{hi:"ग्रामीण ब्रॉडबैंड कनेक्टिविटी",en:"Rural broadband connectivity"},{hi:"रेल विद्युतीकरण",en:"Railway electrification"},{hi:"सौर ऊर्जा",en:"Solar energy"}],a:1,
+ ex:{hi:"भारतनेट परियोजना का उद्देश्य ग्रामीण क्षेत्रों में ब्रॉडबैंड कनेक्टिविटी पहुँचाना है। यह डिजिटल इंडिया का हिस्सा है।",en:"BharatNet aims to provide broadband connectivity to rural areas as part of Digital India."}},
+
+{q:{hi:"भारत में रेलवे का राष्ट्रीयकरण कब हुआ?",en:"When was Indian Railways nationalised?"},
+ o:[{hi:"1947",en:"1947"},{hi:"1950",en:"1950"},{hi:"1951",en:"1951"},{hi:"1952",en:"1952"}],a:2,
+ ex:{hi:"भारतीय रेलवे का राष्ट्रीयकरण 1951 में हुआ और इसे ज़ोनल प्रणाली में संगठित किया गया।",en:"Indian Railways was nationalised in 1951 and organised into zonal systems."}},
+
+/* ============ खंड F — सरकारी योजनाएँ (Q59–70) ============ */
+{q:{hi:"महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार गारंटी अधिनियम (MGNREGA) किस वर्ष पारित हुआ?",en:"In which year was MGNREGA passed?"},
+ o:[{hi:"2004",en:"2004"},{hi:"2005",en:"2005"},{hi:"2006",en:"2006"},{hi:"2008",en:"2008"}],a:1,
+ ex:{hi:"MGNREGA 2005 में पारित हुआ और 2006 में लागू हुआ। यह ग्रामीण परिवारों को 100 दिन के रोजगार की गारंटी देता है।",en:"MGNREGA was passed in 2005 and implemented in 2006. It guarantees 100 days of employment to rural households."}},
+
+{q:{hi:"प्रधानमंत्री जन धन योजना (PMJDY) किस वर्ष प्रारंभ हुई?",en:"In which year was Pradhan Mantri Jan Dhan Yojana (PMJDY) launched?"},
+ o:[{hi:"2013",en:"2013"},{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"}],a:1,
+ ex:{hi:"PMJDY 28 अगस्त 2014 को प्रारंभ हुई। इसका उद्देश्य हर परिवार को बैंक खाता, बीमा और पेंशन सुविधा देना है।",en:"PMJDY was launched on 28 August 2014 to provide bank accounts, insurance and pension to every household."}},
+
+{q:{hi:"'बेटी बचाओ बेटी पढ़ाओ' योजना कब प्रारंभ हुई?",en:"When was 'Beti Bachao Beti Padhao' launched?"},
+ o:[{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"},{hi:"2017",en:"2017"}],a:1,
+ ex:{hi:"'बेटी बचाओ बेटी पढ़ाओ' 22 जनवरी 2015 को पानीपत (हरियाणा) से प्रारंभ हुई। इसका उद्देश्य बालिका शिक्षा और लिंग अनुपात सुधारना है।",en:"'Beti Bachao Beti Padhao' was launched on 22 January 2015 from Panipat, Haryana, to improve girls' education and sex ratio."}},
+
+{q:{hi:"'उज्ज्वला योजना' किससे संबंधित है?",en:"'Ujjwala Yojana' is related to which of the following?"},
+ o:[{hi:"गैस कनेक्शन",en:"Gas connection"},{hi:"शौचालय",en:"Toilets"},{hi:"बिजली",en:"Electricity"},{hi:"आवास",en:"Housing"}],a:0,
+ ex:{hi:"प्रधानमंत्री उज्ज्वला योजना (2016) के तहत गरीब महिलाओं को मुफ्त LPG गैस कनेक्शन दिया जाता है।",en:"Under PM Ujjwala Yojana (2016), free LPG connections are provided to poor women."}},
+
+{q:{hi:"'प्रधानमंत्री आवास योजना' का उद्देश्य क्या है?",en:"What is the objective of 'Pradhan Mantri Awas Yojana'?"},
+ o:[{hi:"किसानों की सहायता",en:"Farmer support"},{hi:"सभी को पक्का घर",en:"Housing for all"},{hi:"बालिका शिक्षा",en:"Girls' education"},{hi:"रोजगार सृजन",en:"Employment generation"}],a:1,
+ ex:{hi:"प्रधानमंत्री आवास योजना (2015) का लक्ष्य 2022 तक सभी के लिए पक्का घर उपलब्ध कराना है। इसमें ग्रामीण और शहरी दोनों घटक हैं।",en:"PMAY (2015) aims to provide a pucca house for all by 2022, with rural and urban components."}},
+
+{q:{hi:"'प्रधानमंत्री फसल बीमा योजना' किस वर्ष प्रारंभ हुई?",en:"When was 'Pradhan Mantri Fasal Bima Yojana' launched?"},
+ o:[{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"},{hi:"2017",en:"2017"}],a:2,
+ ex:{hi:"PMFBY 2016 में प्रारंभ हुई। यह किसानों को प्राकृतिक आपदाओं से फसल नुकसान पर बीमा सुरक्षा देती है।",en:"PMFBY was launched in 2016 to provide crop insurance against natural calamities."}},
+
+{q:{hi:"'स्किल इंडिया मिशन' किस वर्ष प्रारंभ हुआ?",en:"When was 'Skill India Mission' launched?"},
+ o:[{hi:"2013",en:"2013"},{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"}],a:2,
+ ex:{hi:"स्किल इंडिया मिशन 15 जुलाई 2015 को प्रारंभ हुआ। इसका लक्ष्य युवाओं को रोजगार योग्य बनाना है।",en:"Skill India Mission was launched on 15 July 2015 to make youth employable."}},
+
+{q:{hi:"'स्टैंड अप इंडिया' योजना किसके लिए है?",en:"'Stand Up India' scheme is for whom?"},
+ o:[{hi:"किसानों",en:"Farmers"},{hi:"SC/ST और महिला उद्यमियों",en:"SC/ST and women entrepreneurs"},{hi:"छात्रों",en:"Students"},{hi:"वरिष्ठ नागरिकों",en:"Senior citizens"}],a:1,
+ ex:{hi:"स्टैंड अप इंडिया (2016) के तहत SC/ST और महिला उद्यमियों को ₹10 लाख से ₹1 करोड़ तक का ऋण दिया जाता है।",en:"Under Stand Up India (2016), SC/ST and women entrepreneurs get loans from ₹10 lakh to ₹1 crore."}},
+
+{q:{hi:"'मुद्रा योजना' के तहत कितने प्रकार के ऋण मिलते हैं?",en:"How many types of loans are given under 'MUDRA Yojana'?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"MUDRA योजना के तहत 3 प्रकार के ऋण हैं — शिशु (₹50,000 तक), किशोर (₹50,000–₹5 लाख) और तरुण (₹5–10 लाख)।",en:"Under MUDRA, three types of loans — Shishu (up to ₹50,000), Kishor (₹50,000–₹5 lakh) and Tarun (₹5–10 lakh)."}},
+
+{q:{hi:"'नमामि गंगे' कार्यक्रम किससे संबंधित है?",en:"'Namami Gange' programme is related to which of the following?"},
+ o:[{hi:"गंगा की सफाई",en:"Cleaning of Ganga"},{hi:"हिमालय संरक्षण",en:"Himalaya conservation"},{hi:"वन्यजीव संरक्षण",en:"Wildlife conservation"},{hi:"वायु प्रदूषण",en:"Air pollution"}],a:0,
+ ex:{hi:"नमामि गंगे कार्यक्रम 2014 में प्रारंभ हुआ — गंगा नदी की सफाई, संरक्षण और पुनर्जीवन के लिए।",en:"Namami Gange was launched in 2014 for cleaning, conservation and rejuvenation of the Ganga."}},
+
+{q:{hi:"'जननी सुरक्षा योजना' का उद्देश्य क्या है?",en:"What is the objective of 'Janani Suraksha Yojana'?"},
+ o:[{hi:"बालिका शिक्षा",en:"Girls' education"},{hi:"मातृ मृत्यु दर कम करना",en:"Reducing maternal mortality"},{hi:"टीकाकरण",en:"Vaccination"},{hi:"पोषण",en:"Nutrition"}],a:1,
+ ex:{hi:"जननी सुरक्षा योजना (2005) गर्भवती महिलाओं को संस्थागत प्रसव के लिए प्रोत्साहित करती है, जिससे मातृ मृत्यु दर घटे।",en:"Janani Suraksha Yojana (2005) encourages institutional delivery to reduce maternal mortality."}},
+
+{q:{hi:"'स्वच्छ भारत मिशन' के तहत क्या लक्ष्य रखा गया था?",en:"What was the target of 'Swachh Bharat Mission'?"},
+ o:[{hi:"खुले में शौच मुक्त भारत",en:"Open Defecation Free India"},{hi:"हर घर बिजली",en:"Electricity for all"},{hi:"हर घर नल जल",en:"Tap water for all"},{hi:"साक्षर भारत",en:"Literate India"}],a:0,
+ ex:{hi:"स्वच्छ भारत मिशन (2014) का लक्ष्य 2 अक्टूबर 2019 तक खुले में शौच मुक्त (ODF) भारत बनाना था।",en:"Swachh Bharat Mission (2014) aimed to make India Open Defecation Free (ODF) by 2 October 2019."}},
+
+/* ============ खंड F2 — पर्यावरण, आपदा और सामाजिक मुद्दे (Q71–82) ============ */
+{q:{hi:"राष्ट्रीय हरित अधिकरण (NGT) की स्थापना किस वर्ष हुई?",en:"When was the National Green Tribunal (NGT) established?"},
+ o:[{hi:"2008",en:"2008"},{hi:"2009",en:"2009"},{hi:"2010",en:"2010"},{hi:"2012",en:"2012"}],a:2,
+ ex:{hi:"NGT की स्थापना 2010 में हुई। यह पर्यावरण संरक्षण से जुड़े मामलों की त्वरित सुनवाई करता है।",en:"The NGT was established in 2010 for speedy disposal of environmental cases."}},
+
+{q:{hi:"वायु गुणवत्ता सूचकांक (AQI) में 401–500 के बीच क्या स्थिति होती है?",en:"What is the AQI status between 401–500?"},
+ o:[{hi:"अच्छा",en:"Good"},{hi:"मध्यम",en:"Moderate"},{hi:"खराब",en:"Poor"},{hi:"गंभीर",en:"Severe"}],a:3,
+ ex:{hi:"AQI 401–500 'गंभीर' (Severe) श्रेणी है। 0–50 अच्छा, 51–100 संतोषजनक, 101–200 मध्यम, 201–300 खराब, 301–400 बहुत खराब।",en:"AQI 401–500 is 'Severe'. 0–50 Good, 51–100 Satisfactory, 101–200 Moderate, 201–300 Poor, 301–400 Very Poor."}},
+
+{q:{hi:"दिल्ली में वायु प्रदूषण का मुख्य कारण क्या है?",en:"What is the main cause of air pollution in Delhi?"},
+ o:[{hi:"औद्योगिक धुआँ",en:"Industrial smoke"},{hi:"पराली जलाना और वाहन प्रदूषण",en:"Stubble burning and vehicular pollution"},{hi:"जहाज़",en:"Ships"},{hi:"रेल",en:"Trains"}],a:1,
+ ex:{hi:"दिल्ली में वायु प्रदूषण का मुख्य कारण पड़ोसी राज्यों में पराली जलाना और वाहन प्रदूषण है। सर्दियों में स्थिति और खराब होती है।",en:"The main causes of Delhi's air pollution are stubble burning in neighbouring states and vehicular pollution, worsening in winter."}},
+
+{q:{hi:"'गंगा एक्शन प्लान' किस वर्ष प्रारंभ हुआ?",en:"When was the 'Ganga Action Plan' launched?"},
+ o:[{hi:"1975",en:"1975"},{hi:"1985",en:"1985"},{hi:"1995",en:"1995"},{hi:"2014",en:"2014"}],a:1,
+ ex:{hi:"गंगा एक्शन प्लान 1985 में प्रारंभ हुआ — गंगा की सफाई के लिए भारत सरकार की पहली प्रमुख पहल।",en:"The Ganga Action Plan was launched in 1985 — the first major government initiative to clean the Ganga."}},
+
+{q:{hi:"NDMA का पूरा नाम क्या है?",en:"What is the full form of NDMA?"},
+ o:[{hi:"National Defence Management Authority",en:"National Defence Management Authority"},{hi:"National Disaster Management Authority",en:"National Disaster Management Authority"},{hi:"National Development Management Authority",en:"National Development Management Authority"},{hi:"National Data Management Authority",en:"National Data Management Authority"}],a:1,
+ ex:{hi:"NDMA = National Disaster Management Authority, स्थापना 2005 में। इसका अध्यक्ष प्रधानमंत्री होता है।",en:"NDMA = National Disaster Management Authority, established in 2005. The Prime Minister is its Chairman."}},
+
+{q:{hi:"NDRF का मुख्य कार्य क्या है?",en:"What is the main function of NDRF?"},
+ o:[{hi:"सीमा सुरक्षा",en:"Border security"},{hi:"आपदा में बचाव कार्य",en:"Disaster rescue operations"},{hi:"अपराध नियंत्रण",en:"Crime control"},{hi:"आतंकवाद विरोधी",en:"Anti-terrorism"}],a:1,
+ ex:{hi:"NDRF = National Disaster Response Force। यह आपदाओं के समय राहत और बचाव कार्य करता है। इसकी स्थापना 2006 में हुई।",en:"NDRF = National Disaster Response Force. It carries out relief and rescue during disasters. Established in 2006."}},
+
+{q:{hi:"भोपाल गैस त्रासदी किस वर्ष हुई थी?",en:"In which year did the Bhopal Gas Tragedy occur?"},
+ o:[{hi:"1979",en:"1979"},{hi:"1982",en:"1982"},{hi:"1984",en:"1984"},{hi:"1986",en:"1986"}],a:2,
+ ex:{hi:"भोपाल गैस त्रासदी 2-3 दिसंबर 1984 की रात हुई। यूनियन कार्बाइड कारखाने से मिथाइल आइसोसाइनेट गैस लीक हुई।",en:"The Bhopal Gas Tragedy occurred on the night of 2-3 December 1984 due to a methyl isocyanate leak at the Union Carbide plant."}},
+
+{q:{hi:"चिपको आंदोलन के प्रमुख नेता कौन थे?",en:"Who was the main leader of the Chipko Movement?"},
+ o:[{hi:"मेधा पाटकर",en:"Medha Patkar"},{hi:"सुंदरलाल बहुगुणा",en:"Sunderlal Bahuguna"},{hi:"अन्ना हजारे",en:"Anna Hazare"},{hi:"बाबा आमटे",en:"Baba Amte"}],a:1,
+ ex:{hi:"चिपको आंदोलन (1973) के प्रमुख नेता सुंदरलाल बहुगुणा और चंडी प्रसाद भट्ट थे। यह वन संरक्षण आंदोलन था।",en:"The Chipko Movement (1973) was led by Sunderlal Bahuguna and Chandi Prasad Bhatt. It was a forest conservation movement."}},
+
+{q:{hi:"'साइलेंट वैली' किस राज्य में स्थित है?",en:"'Silent Valley' is located in which state?"},
+ o:[{hi:"कर्नाटक",en:"Karnataka"},{hi:"केरल",en:"Kerala"},{hi:"तमिलनाडु",en:"Tamil Nadu"},{hi:"आंध्र प्रदेश",en:"Andhra Pradesh"}],a:1,
+ ex:{hi:"साइलेंट वैली केरल में स्थित है। यह एक राष्ट्रीय उद्यान है और जैव विविधता के लिए प्रसिद्ध है।",en:"Silent Valley is in Kerala. It is a national park famous for biodiversity."}},
+
+{q:{hi:"CPCB का पूरा नाम क्या है?",en:"What is the full form of CPCB?"},
+ o:[{hi:"Central Pollution Control Board",en:"Central Pollution Control Board"},{hi:"Central Pollution Commission Board",en:"Central Pollution Commission Board"},{hi:"Central Public Control Board",en:"Central Public Control Board"},{hi:"Central Pollution Council Bureau",en:"Central Pollution Council Bureau"}],a:0,
+ ex:{hi:"CPCB = Central Pollution Control Board, स्थापना 1974 में। यह देश में प्रदूषण नियंत्रण के लिए नीतियाँ बनाता है।",en:"CPCB = Central Pollution Control Board, established in 1974 for pollution control policies."}},
+
+{q:{hi:"भारत की जनसंख्या नीति पहली बार किस वर्ष घोषित हुई?",en:"In which year was India's population policy first announced?"},
+ o:[{hi:"1952",en:"1952"},{hi:"1976",en:"1976"},{hi:"1980",en:"1980"},{hi:"2000",en:"2000"}],a:1,
+ ex:{hi:"भारत में पहली राष्ट्रीय जनसंख्या नीति 1976 में घोषित हुई। वर्तमान राष्ट्रीय जनसंख्या नीति 2000 की है।",en:"India's first National Population Policy was announced in 1976. The current one is from 2000."}},
+
+{q:{hi:"'मिड-डे मील' योजना का उद्देश्य क्या है?",en:"What is the objective of the 'Mid-Day Meal' scheme?"},
+ o:[{hi:"गरीब बच्चों को भोजन",en:"Food for poor children"},{hi:"शिक्षकों का वेतन",en:"Teacher salaries"},{hi:"स्कूल निर्माण",en:"School construction"},{hi:"कंप्यूटर शिक्षा",en:"Computer education"}],a:0,
+ ex:{hi:"मिड-डे मील योजना (1995) का उद्देश्य सरकारी स्कूलों में बच्चों को पका हुआ भोजन देना है — जिससे नामांकन और पोषण बढ़े।",en:"The Mid-Day Meal scheme (1995) provides cooked meals to children in government schools to improve enrolment and nutrition."}},
+
+/* ============ खंड G — विदेश नीति और रक्षा (Q83–92) ============ */
+{q:{hi:"गुटनिरपेक्ष आंदोलन (NAM) के संस्थापकों में कौन शामिल थे?",en:"Who were the founders of the Non-Aligned Movement (NAM)?"},
+ o:[{hi:"नेहरू, टीटो, नासिर, सुकर्णो, न्क्रुमा",en:"Nehru, Tito, Nasser, Sukarno, Nkrumah"},{hi:"नेहरू, गांधी, पटेल, प्रसाद, आंबेडकर"},{hi:"टैगोर, बोस, नेहरू, पटेल"},{hi:"राजाजी, राधाकृष्णन, नेहरू, पटेल"}],a:0,
+ ex:{hi:"NAM के संस्थापक — जवाहरलाल नेहरू (भारत), मार्शल टीटो (यूगोस्लाविया), गमाल अब्देल नासिर (मिस्र), सुकर्णो (इंडोनेशिया) और क्वामे न्क्रुमा (घाना)।",en:"Founders of NAM — Nehru (India), Tito (Yugoslavia), Nasser (Egypt), Sukarno (Indonesia) and Nkrumah (Ghana)."}},
+
+{q:{hi:"'पंचशील' सिद्धांत कब स्थापित हुए?",en:"When were the 'Panchsheel' principles established?"},
+ o:[{hi:"1947",en:"1947"},{hi:"1950",en:"1950"},{hi:"1954",en:"1954"},{hi:"1962",en:"1962"}],a:2,
+ ex:{hi:"पंचशील सिद्धांत 29 अप्रैल 1954 को भारत और चीन के बीच एक समझौते के रूप में स्थापित हुए — पाँच सिद्धांतों पर आधारित।",en:"Panchsheel was established on 29 April 1954 as an agreement between India and China, based on five principles."}},
+
+{q:{hi:"भारत-चीन युद्ध किस वर्ष हुआ था?",en:"In which year did the India-China war take place?"},
+ o:[{hi:"1959",en:"1959"},{hi:"1962",en:"1962"},{hi:"1965",en:"1965"},{hi:"1971",en:"1971"}],a:1,
+ ex:{hi:"भारत-चीन युद्ध 1962 में हुआ। यह अक्सर '1962 का भारत-चीन युद्ध' कहा जाता है।",en:"The India-China war took place in 1962."}},
+
+{q:{hi:"बांग्लादेश किस वर्ष स्वतंत्र हुआ?",en:"In which year did Bangladesh gain independence?"},
+ o:[{hi:"1965",en:"1965"},{hi:"1971",en:"1971"},{hi:"1974",en:"1974"},{hi:"1975",en:"1975"}],a:1,
+ ex:{hi:"बांग्लादेश 1971 में भारत-पाकिस्तान युद्ध के बाद स्वतंत्र हुआ। भारत ने बांग्लादेश की मुक्ति में महत्वपूर्ण भूमिका निभाई।",en:"Bangladesh gained independence in 1971 after the India-Pakistan war, in which India played a major role."}},
+
+{q:{hi:"कारगिल युद्ध किस वर्ष हुआ था?",en:"In which year did the Kargil War take place?"},
+ o:[{hi:"1997",en:"1997"},{hi:"1998",en:"1998"},{hi:"1999",en:"1999"},{hi:"2001",en:"2001"}],a:2,
+ ex:{hi:"कारगिल युद्ध 1999 में हुआ। ऑपरेशन विजय के तहत भारतीय सेना ने पाकिस्तानी घुसपैठियों को खदेड़ा।",en:"The Kargil War was fought in 1999. Operation Vijay pushed back Pakistani infiltrators."}},
+
+{q:{hi:"भारत ने किस वर्ष सर्जिकल स्ट्राइक की थी?",en:"In which year did India carry out surgical strikes?"},
+ o:[{hi:"2014",en:"2014"},{hi:"2015",en:"2015"},{hi:"2016",en:"2016"},{hi:"2017",en:"2017"}],a:2,
+ ex:{hi:"भारत ने 29 सितंबर 2016 को पाकिस्तान अधिकृत कश्मीर में आतंकी ठिकानों पर सर्जिकल स्ट्राइक की थी।",en:"India carried out surgical strikes on terror launch pads in PoK on 29 September 2016."}},
+
+{q:{hi:"भारत के पहले चीफ ऑफ डिफेंस स्टाफ (CDS) कौन थे?",en:"Who was India's first Chief of Defence Staff (CDS)?"},
+ o:[{hi:"बिपिन रावत",en:"Bipin Rawat"},{hi:"मनोज मुकुंद नरवणे",en:"Manoj Mukund Naravane"},{hi:"करमबीर सिंह",en:"Karambir Singh"},{hi:"राकेश कुमार सिंह भदौरिया",en:"Rakesh Kumar Singh Bhadauria"}],a:0,
+ ex:{hi:"जनरल बिपिन रावत भारत के पहले CDS बने (2019)। उनका निधन हेलीकॉप्टर दुर्घटना में हुआ (2021)।",en:"General Bipin Rawat became India's first CDS (2019). He died in a helicopter crash in 2021."}},
+
+{q:{hi:"भारत ने दूसरा परमाणु परीक्षण (पोखरण-II) किस वर्ष किया?",en:"In which year did India conduct its second nuclear test (Pokhran-II)?"},
+ o:[{hi:"1974",en:"1974"},{hi:"1984",en:"1984"},{hi:"1998",en:"1998"},{hi:"2000",en:"2000"}],a:2,
+ ex:{hi:"भारत ने 11 और 13 मई 1998 को पोखरण-II के तहत 5 परमाणु परीक्षण किए। पहला परीक्षण (स्माइलिंग बुद्धा) 1974 में हुआ था।",en:"India conducted five nuclear tests under Pokhran-II on 11 and 13 May 1998. The first test (Smiling Buddha) was in 1974."}},
+
+{q:{hi:"NSG का पूरा नाम क्या है?",en:"What is the full form of NSG?"},
+ o:[{hi:"National Security Guard",en:"National Security Guard"},{hi:"Nuclear Suppliers Group",en:"Nuclear Suppliers Group"},{hi:"National Service Group",en:"National Service Group"},{hi:"Nuclear Safety Group",en:"Nuclear Safety Group"}],a:1,
+ ex:{hi:"NSG = Nuclear Suppliers Group, 48 देशों का समूह जो परमाणु व्यापार को नियंत्रित करता है। भारत NSG का सदस्य नहीं है।",en:"NSG = Nuclear Suppliers Group, a 48-nation group regulating nuclear trade. India is not a member."}},
+
+{q:{hi:"भारत का सबसे बड़ा रक्षा निर्यात उत्पाद कौन-सा है?",en:"Which is India's biggest defence export product?"},
+ o:[{hi:"टैंक",en:"Tanks"},{hi:"ब्रह्मोस मिसाइल",en:"BrahMos Missile"},{hi:"विमानवाहक पोत",en:"Aircraft carrier"},{hi:"धनुष तोप",en:"Dhanush gun"}],a:1,
+ ex:{hi:"ब्रह्मोस मिसाइल भारत का सबसे बड़ा रक्षा निर्यात उत्पाद बन गया है। इसे फिलीपींस को निर्यात किया गया है।",en:"BrahMos missile has become India's biggest defence export, exported to the Philippines."}},
+
+/* ============ खंड H — भाषा, साहित्य, मीडिया और विविध (Q93–100) ============ */
+{q:{hi:"साहित्य अकादमी की स्थापना किस वर्ष हुई?",en:"When was the Sahitya Akademi established?"},
+ o:[{hi:"1950",en:"1950"},{hi:"1952",en:"1952"},{hi:"1954",en:"1954"},{hi:"1956",en:"1956"}],a:2,
+ ex:{hi:"साहित्य अकादमी की स्थापना 12 मार्च 1954 को हुई। यह भारत की राष्ट्रीय साहित्य अकादमी है।",en:"The Sahitya Akademi was established on 12 March 1954. It is India's national academy of letters."}},
+
+{q:{hi:"'दादा साहेब फाल्के पुरस्कार' किस क्षेत्र में दिया जाता है?",en:"The 'Dadasaheb Phalke Award' is given in which field?"},
+ o:[{hi:"संगीत",en:"Music"},{hi:"सिनेमा",en:"Cinema"},{hi:"साहित्य",en:"Literature"},{hi:"खेल",en:"Sports"}],a:1,
+ ex:{hi:"दादा साहेब फाल्के पुरस्कार भारतीय सिनेमा का सर्वोच्च सम्मान है। पहला पुरस्कार 1969 में देविका रानी को मिला था।",en:"The Dadasaheb Phalke Award is Indian cinema's highest honour. The first award went to Devika Rani in 1969."}},
+
+{q:{hi:"ऑस्कर जीतने वाली पहली भारतीय कौन थीं?",en:"Who was the first Indian to win an Oscar?"},
+ o:[{hi:"ए.आर. रहमान",en:"A.R. Rahman"},{hi:"भानु अथैया",en:"Bhanu Athaiya"},{hi:"रसूल पूकुट्टी",en:"Rasool Pookutty"},{hi:"गुलजार",en:"Gulzar"}],a:1,
+ ex:{hi:"भानु अथैया ने 1983 में 'गांधी' फिल्म के लिए सर्वश्रेष्ठ कॉस्ट्यूम डिज़ाइन का ऑस्कर जीता — पहली भारतीय।",en:"Bhanu Athaiya won the Oscar for Best Costume Design for 'Gandhi' in 1983 — the first Indian."}},
+
+{q:{hi:"दूरदर्शन की शुरुआत किस वर्ष हुई?",en:"When did Doordarshan begin?"},
+ o:[{hi:"1956",en:"1956"},{hi:"1959",en:"1959"},{hi:"1965",en:"1965"},{hi:"1972",en:"1972"}],a:1,
+ ex:{hi:"दूरदर्शन की शुरुआत 15 सितंबर 1959 को दिल्ली में हुई — यह भारत का पहला टेलीविज़न प्रसारण था।",en:"Doordarshan began on 15 September 1959 in Delhi as India's first television broadcast."}},
+
+{q:{hi:"आकाशवाणी (All India Radio) की स्थापना किस वर्ष हुई?",en:"When was All India Radio established?"},
+ o:[{hi:"1927",en:"1927"},{hi:"1936",en:"1936"},{hi:"1947",en:"1947"},{hi:"1950",en:"1950"}],a:1,
+ ex:{hi:"आकाशवाणी की स्थापना 8 जून 1936 को हुई। इसे 'भारत का रेडियो' भी कहा जाता है।",en:"All India Radio was established on 8 June 1936."}},
+
+{q:{hi:"'नेशनल बुक ट्रस्ट' की स्थापना किस वर्ष हुई?",en:"When was the National Book Trust established?"},
+ o:[{hi:"1957",en:"1957"},{hi:"1962",en:"1962"},{hi:"1965",en:"1965"},{hi:"1970",en:"1970"}],a:0,
+ ex:{hi:"नेशनल बुक ट्रस्ट की स्थापना 1957 में हुई। यह सस्ती पुस्तकें उपलब्ध कराने और पठन संस्कृति को बढ़ावा देने का कार्य करती है।",en:"National Book Trust was established in 1957 to provide affordable books and promote reading."}},
+
+{q:{hi:"भारतीय प्रेस परिषद (Press Council of India) की स्थापना कब हुई?",en:"When was the Press Council of India established?"},
+ o:[{hi:"1956",en:"1956"},{hi:"1960",en:"1960"},{hi:"1965",en:"1965"},{hi:"1966",en:"1966"}],a:3,
+ ex:{hi:"प्रेस परिषद की स्थापना 1966 में हुई। यह प्रेस की स्वतंत्रता की रक्षा और पत्रकारिता के स्तर को ऊँचा उठाने का कार्य करती है।",en:"The Press Council of India was established in 1966 to protect press freedom and raise journalistic standards."}},
+
+{q:{hi:"भारत में फिल्मों का पहला प्रदर्शन कब हुआ था?",en:"When was the first film shown in India?"},
+ o:[{hi:"1896",en:"1896"},{hi:"1900",en:"1900"},{hi:"1913",en:"1913"},{hi:"1920",en:"1920"}],a:0,
+ ex:{hi:"भारत में पहली बार फिल्म 7 जुलाई 1896 को मुंबई के वाटसन होटल में लूमियर बंधुओं द्वारा दिखाई गई थी।",en:"The first film was shown in India on 7 July 1896 at Watson's Hotel, Mumbai, by the Lumière brothers."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! आप BPSC के लिए तैयार हैं।"; enMsg = "Outstanding! You are ready for BPSC."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। नोट्स दोबारा पढ़ें और पुनः प्रयास करें।"; enMsg = "Decent start. Re-read the notes and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
