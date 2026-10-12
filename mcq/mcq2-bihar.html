@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>बिहार विशेष — 100 प्रश्न | Bihar Special for BPSC</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#0f4c1e,#138808);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#b8e6c0;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#b8e6c0;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#f4a300);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e6f6e6;color:#0f7b0f;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 बिहार विशेष — 100 प्रश्न
+              <small>Bihar Special · BPSC Focus · सम्पूर्ण अभ्यास</small>
+              <small id="sectionLabel">खंड A — बिहार: प्राचीन इतिहास</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   बिहार विशेष — 100 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — बिहार: प्राचीन इतिहास", en:"Section A — Bihar: Ancient History"},
+  {hi:"खंड B — बिहार: मध्यकालीन इतिहास", en:"Section B — Bihar: Medieval History"},
+  {hi:"खंड C — बिहार: आधुनिक इतिहास और स्वतंत्रता संग्राम", en:"Section C — Bihar: Modern History & Freedom Struggle"},
+  {hi:"खंड D — बिहार: भूगोल और जलवायु", en:"Section D — Bihar: Geography & Climate"},
+  {hi:"खंड E — बिहार: नदियाँ और सिंचाई", en:"Section E — Bihar: Rivers & Irrigation"},
+  {hi:"खंड F — बिहार: कृषि, उद्योग और अर्थव्यवस्था", en:"Section F — Bihar: Agriculture, Industry & Economy"},
+  {hi:"खंड G — बिहार: कला, संस्कृति और पर्व", en:"Section G — Bihar: Art, Culture & Festivals"},
+  {hi:"खंड H — बिहार: प्रशासन, राजनीति, शिक्षा", en:"Section H — Bihar: Administration, Politics, Education"},
+  {hi:"खंड I — बिहार: सरकारी योजनाएँ और समसामयिकी", en:"Section I — Bihar: Government Schemes & Current Affairs"}
+];
+const SECTION_STARTS = [0, 12, 24, 36, 48, 60, 72, 82, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — बिहार: प्राचीन इतिहास (Q1–12) ============ */
+{q:{hi:"मगध महाजनपद की प्राचीन राजधानी कौन-सी थी?",en:"What was the ancient capital of the Magadha Mahajanapada?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"राजगृह (गिरिव्रज)",en:"Rajgriha (Girivraja)"},{hi:"वैशाली",en:"Vaishali"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"मगध महाजनपद की प्रारंभिक राजधानी राजगृह (गिरिव्रज, वर्तमान राजगीर) थी। बाद में उदयिन ने इसे पाटलिपुत्र (पटना) स्थानांतरित किया — 5वीं शताब्दी ई.पू. में।",en:"The initial capital of Magadha was Rajgriha (Girivraja, modern Rajgir). Later, Udayin shifted it to Pataliputra (Patna) in the 5th century BCE."}},
+
+{q:{hi:"'अंग महाजनपद' की राजधानी कौन-सी थी?",en:"What was the capital of 'Anga Mahajanapada'?"},
+ o:[{hi:"चंपा",en:"Champa"},{hi:"राजगृह",en:"Rajgriha"},{hi:"मिथिला",en:"Mithila"},{hi:"कौशांबी",en:"Kaushambi"}],a:0,
+ ex:{hi:"अंग महाजनपद की राजधानी चंपा (चंपापुरी) थी, जो वर्तमान भागलपुर जिले में गंगा-चंपा संगम पर स्थित थी। यह बिहार का 16 महाजनपदों में से एक था।",en:"The capital of Anga Mahajanapada was Champa (Champapuri), located at the Ganga-Champa confluence in modern Bhagalpur district — one of Bihar's 16 Mahajanapadas."}},
+
+{q:{hi:"बिहार में 'लिच्छवी गणराज्य' की राजधानी कहाँ थी?",en:"Where was the capital of the 'Lichhavi Republic' in Bihar?"},
+ o:[{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"राजगृह",en:"Rajgriha"},{hi:"मुंगेर",en:"Munger"}],a:0,
+ ex:{hi:"लिच्छवी गणराज्य की राजधानी वैशाली थी। इसे विश्व का पहला गणतंत्र माना जाता है, जहाँ प्रतिनिधियों के माध्यम से शासन होता था।",en:"The Lichhavi Republic's capital was Vaishali, considered the world's first republic, governed through representatives."}},
+
+{q:{hi:"बिहार में 'वज्जि संघ' में कितने गणराज्य शामिल थे?",en:"How many republics were part of the 'Vajji Sangh' in Bihar?"},
+ o:[{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"},{hi:"9",en:"9"}],a:2,
+ ex:{hi:"वज्जि संघ में 8 गणराज्य शामिल थे — लिच्छवी, विदेह, ज्ञातृक, वज्जि आदि। इसका केंद्र वैशाली था और यह विश्व के पहले संघीय गणराज्यों में से एक था।",en:"The Vajji Sangh had 8 republics — Lichhavi, Videha, Jnatrika, Vajji etc. — centred at Vaishali, one of the world's first federal republics."}},
+
+{q:{hi:"बुद्ध की माता 'मायादेवी' का संबंध किस क्षेत्र से था?",en:"Buddha's mother 'Mayadevi' belonged to which region?"},
+ o:[{hi:"मगध",en:"Magadha"},{hi:"कोलिय गणराज्य (देवदह)",en:"Koliya Republic (Devdaha)"},{hi:"वैशाली",en:"Vaishali"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"बुद्ध की माता मायादेवी कोलिय गणराज्य की राजकुमारी थीं, जिसकी राजधानी देवदह थी (वर्तमान नेपाल के रूपनदेही में)। बुद्ध की पत्नी यशोधरा भी कोलिय कन्या थीं।",en:"Buddha's mother Mayadevi was princess of the Koliya Republic, whose capital was Devdaha (in modern Rupandehi, Nepal). Buddha's wife Yashodhara was also a Koliya princess."}},
+
+{q:{hi:"'अजातशत्रु' ने किस नदी पर 'पाटलिग्राम' बसाया था?",en:"On which river did 'Ajatashatru' found 'Pataligrama'?"},
+ o:[{hi:"गंगा",en:"Ganga"},{hi:"सोन",en:"Son"},{hi:"गंडक",en:"Gandak"},{hi:"कोसी",en:"Kosi"}],a:0,
+ ex:{hi:"अजातशत्रु ने गंगा नदी के तट पर पाटलिग्राम बसाया, जो बाद में पाटलिपुत्र (पटना) बना। उदयिन ने इसे मगध की राजधानी बनाया। पाटलिपुत्र मौर्य साम्राज्य का गौरवशाली केंद्र था।",en:"Ajatashatru founded Pataligrama on the Ganga's bank, later becoming Pataliputra (Patna). Udayin made it Magadha's capital, and it became the Mauryan Empire's pride."}},
+
+{q:{hi:"मगध में 'नंद वंश' का अंतिम शासक कौन था?",en:"Who was the last ruler of the 'Nanda dynasty' in Magadha?"},
+ o:[{hi:"महापद्मनंद",en:"Mahapadmananda"},{hi:"धनानंद",en:"Dhanananda"},{hi:"उदयिन",en:"Udayin"},{hi:"कालाशोक",en:"Kalashoka"}],a:1,
+ ex:{hi:"धनानंद नंद वंश का अंतिम शासक था। उसे चंद्रगुप्त मौर्य और चाणक्य ने 322 ई.पू. में पराजित किया। नंद वंश मगध (बिहार) का पहला विशाल साम्राज्य था।",en:"Dhanananda was the last Nanda ruler, defeated by Chandragupta Maurya and Chanakya in 322 BCE. The Nandas were Magadha's (Bihar's) first great empire."}},
+
+{q:{hi:"'कलिंग युद्ध' के बाद अशोक ने किस धर्म को अपनाया?",en:"After the 'Kalinga War', Ashoka embraced which religion?"},
+ o:[{hi:"हिंदू",en:"Hinduism"},{hi:"जैन",en:"Jainism"},{hi:"बौद्ध",en:"Buddhism"},{hi:"अजीविक",en:"Ajivika"}],a:2,
+ ex:{hi:"261 ई.पू. में कलिंग युद्ध के बाद अशोक ने बौद्ध धर्म अपनाया और 'धम्म' का प्रचार किया। उन्होंने अपने पुत्र महेंद्र और पुत्री संघमित्रा को श्रीलंका भेजा। बिहार में अशोक के अनेक स्तूप और स्तंभ हैं।",en:"After the Kalinga War (261 BCE), Ashoka embraced Buddhism and propagated 'Dhamma'. He sent his son Mahendra and daughter Sanghamitra to Sri Lanka. Many stupas and pillars of Ashoka stand in Bihar."}},
+
+{q:{hi:"बिहार में 'बराबर की गुफाएँ' किस लिए प्रसिद्ध हैं?",en:"The 'Barabar Caves' in Bihar are famous for which of the following?"},
+ o:[{hi:"बौद्ध स्तूप",en:"Buddhist stupas"},{hi:"अशोक के शिलालेख",en:"Ashoka's rock edicts"},{hi:"जैन मूर्तियाँ",en:"Jain idols"},{hi:"गुप्तकालीन चित्र",en:"Gupta-era paintings"}],a:1,
+ ex:{hi:"बराबर की गुफाएँ (जहानाबाद जिला, बिहार) मौर्य काल की हैं और इनमें अशोक के शिलालेख मिले हैं। ये भारत की सबसे प्राचीन चट्टान-कटी गुफाएँ हैं और अजीविक संप्रदाय से संबंधित हैं।",en:"The Barabar Caves (Jehanabad district, Bihar) belong to the Mauryan era and contain Ashoka's rock edicts. They are India's oldest rock-cut caves, associated with the Ajivika sect."}},
+
+{q:{hi:"'शेरशाह सूरी' का जन्म कहाँ हुआ था?",en:"Where was 'Sher Shah Suri' born?"},
+ o:[{hi:"सासाराम",en:"Sasaram"},{hi:"आरा",en:"Arrah"},{hi:"पटना",en:"Patna"},{hi:"भोजपुर",en:"Bhojpur"}],a:0,
+ ex:{hi:"शेरशाह सूरी का जन्म 1472 में सासाराम (रोहतास जिला, बिहार) में हुआ। उनका असली नाम फरीद खान था। उन्होंने 1540 में हुमायूँ को हराकर सूरी साम्राज्य की स्थापना की।",en:"Sher Shah Suri was born in 1472 at Sasaram (Rohtas district, Bihar). His original name was Farid Khan. He defeated Humayun in 1540 to establish the Sur Empire."}},
+
+{q:{hi:"'विक्रमशिला विश्वविद्यालय' की स्थापना किसने की?",en:"Who founded 'Vikramshila University'?"},
+ o:[{hi:"अशोक",en:"Ashoka"},{hi:"धर्मपाल",en:"Dharmapala"},{hi:"हर्षवर्धन",en:"Harshavardhana"},{hi:"कुमारगुप्त",en:"Kumaragupta"}],a:1,
+ ex:{hi:"विक्रमशिला विश्वविद्यालय की स्थापना 8वीं शताब्दी में पाल राजा धर्मपाल ने की — भागलपुर जिले (बिहार) में। यह बौद्ध शिक्षा का केंद्र था और इसे बख्तियार खिलजी ने 1203 में नष्ट किया।",en:"Vikramshila University was founded in the 8th century by Pala king Dharmapala in Bhagalpur district (Bihar). A centre of Buddhist learning, it was destroyed by Bakhtiyar Khilji in 1203."}},
+
+/* ============ खंड B — बिहार: मध्यकालीन इतिहास (Q13–24) ============ */
+{q:{hi:"बिहार में मुस्लिम शासन की स्थापना किसने की?",en:"Who established Muslim rule in Bihar?"},
+ o:[{hi:"मुहम्मद गोरी",en:"Muhammad Ghori"},{hi:"बख्तियार खिलजी",en:"Bakhtiyar Khilji"},{hi:"कुतुबुद्दीन ऐबक",en:"Qutb-ud-din Aibak"},{hi:"इल्तुतमिश",en:"Iltutmish"}],a:1,
+ ex:{hi:"बख्तियार खिलजी ने 1193-1203 के बीच बिहार और बंगाल में मुस्लिम शासन स्थापित किया। उसने नालंदा और विक्रमशिला विश्वविद्यालयों को नष्ट किया और ओदंतपुरी (बिहार शरीफ) में अपना मुख्यालय बनाया।",en:"Bakhtiyar Khilji established Muslim rule in Bihar and Bengal between 1193-1203. He destroyed Nalanda and Vikramshila universities and made Odantapuri (Bihar Sharif) his headquarters."}},
+
+{q:{hi:"'बिहार शरीफ' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Bihar Sharif'?"},
+ o:[{hi:"ओदंतपुरी",en:"Odantapuri"},{hi:"नालंदा",en:"Nalanda"},{hi:"राजगृह",en:"Rajgriha"},{hi:"वैशाली",en:"Vaishali"}],a:0,
+ ex:{hi:"बिहार शरीफ का प्राचीन नाम ओदंतपुरी था। यहाँ एक बौद्ध महाविहार था, जिसे बख्तियार खिलजी ने नष्ट किया और यहीं से उसने बिहार पर शासन किया। 'बिहार' नाम इसी 'विहार' से पड़ा।",en:"Bihar Sharif's ancient name was Odantapuri, home to a great Buddhist Mahavihara destroyed by Bakhtiyar Khilji. The name 'Bihar' derives from 'Vihara'."}},
+
+{q:{hi:"'सिकंदर लोदी' ने बिहार में किसे पराजित किया?",en:"Whom did 'Sikandar Lodi' defeat in Bihar?"},
+ o:[{hi:"हुसैन शाह",en:"Hussain Shah"},{hi:"शेरशाह सूरी के पिता हसन खान",en:"Hasan Khan, Sher Shah's father"},{hi:"इब्राहिम लोदी",en:"Ibrahim Lodi"},{hi:"महमूद शाह",en:"Mahmud Shah"}],a:1,
+ ex:{hi:"सिकंदर लोदी (1489-1517) ने बिहार पर आक्रमण किया और हसन खान (शेरशाह के पिता) को हराया। हसन खान सासाराम के जागीरदार थे। यह बिहार में लोदी वंश की सत्ता का विस्तार था।",en:"Sikandar Lodi (1489–1517) invaded Bihar and defeated Hasan Khan (Sher Shah's father), the jagirdar of Sasaram — extending Lodi rule in Bihar."}},
+
+{q:{hi:"'शेरशाह सूरी' की राजधानी कौन-सी थी?",en:"What was the capital of 'Sher Shah Suri'?"},
+ o:[{hi:"दिल्ली",en:"Delhi"},{hi:"आगरा",en:"Agra"},{hi:"सासाराम",en:"Sasaram"},{hi:"पटना",en:"Patna"}],a:0,
+ ex:{hi:"शेरशाह की राजधानी दिल्ली थी, लेकिन उनका जन्मस्थान सासाराम (बिहार) था। उन्होंने ग्रैंड ट्रंक रोड बनवाई, रुपये का चलन शुरू किया और 'दीनार' चाँदी का सिक्का जारी किया। उनका मकबरा सासाराम में है।",en:"Sher Shah's capital was Delhi, though he was born at Sasaram (Bihar). He built the Grand Trunk Road, introduced the Rupiya and issued silver Dinars. His tomb is at Sasaram."}},
+
+{q:{hi:"'अफगान शासन' के बाद बिहार में किस वंश का शासन आया?",en:"After Afghan rule, which dynasty ruled Bihar?"},
+ o:[{hi:"मुगल",en:"Mughal"},{hi:"मराठा",en:"Maratha"},{hi:"ब्रिटिश",en:"British"},{hi:"पाल",en:"Pala"}],a:0,
+ ex:{hi:"शेरशाह सूरी की मृत्यु (1545) के बाद मुगल शासन बिहार में स्थापित हुआ। अकबर ने 1576 में बंगाल अभियान के दौरान बिहार को मुगल साम्राज्य में पूर्ण रूप से मिलाया।",en:"After Sher Shah Suri's death (1545), Mughal rule was established in Bihar. Akbar fully integrated Bihar into the Mughal Empire during his 1576 Bengal campaign."}},
+
+{q:{hi:"मुगल काल में बिहार का प्रमुख 'सूबा' (प्रांत) किस नाम से जाना जाता था?",en:"During Mughal rule, Bihar's main province was known by which name?"},
+ o:[{hi:"सूबा-ए-बिहार",en:"Suba-e-Bihar"},{hi:"सूबा-ए-पटना",en:"Suba-e-Patna"},{hi:"सूबा-ए-मगध",en:"Suba-e-Magadh"},{hi:"सूबा-ए-तिरहुत",en:"Suba-e-Tirhut"}],a:0,
+ ex:{hi:"अकबर ने 1580 में बिहार को 'सूबा-ए-बिहार' के रूप में संगठित किया, जिसकी राजधानी पटना थी। इसके प्रथम सूबेदार राजा मानसिंह थे। पटना मुगल काल में 'आजिमाबाद' भी कहलाता था।",en:"Akbar organised Bihar as 'Suba-e-Bihar' in 1580 with Patna as capital. Its first Subedar was Raja Man Singh. Patna was also called 'Azimabad' in the Mughal era."}},
+
+{q:{hi:"'पटना' का मुगलकालीन नाम क्या था?",en:"What was Patna's Mughal-era name?"},
+ o:[{hi:"आजिमाबाद",en:"Azimabad"},{hi:"मुंगेर",en:"Munger"},{hi:"बिहार शरीफ",en:"Bihar Sharif"},{hi:"सासाराम",en:"Sasaram"}],a:0,
+ ex:{hi:"मुगल काल में पटना का नाम 'आजिमाबाद' रखा गया था — मुगल शहजादे आजिम-उश-शान के नाम पर (1704)। 1912 तक यह 'आजिमाबाद' नाम से जाना जाता रहा।",en:"In the Mughal era, Patna was renamed 'Azimabad' after prince Azim-us-Shan (1704) and remained so until 1912."}},
+
+{q:{hi:"'बिहार' नाम का पहला प्रयोग किस काल में हुआ?",en:"When was the name 'Bihar' first used?"},
+ o:[{hi:"मौर्य काल",en:"Mauryan period"},{hi:"गुप्त काल",en:"Gupta period"},{hi:"तुर्क काल",en:"Turkish period"},{hi:"मुगल काल",en:"Mughal period"}],a:2,
+ ex:{hi:"'बिहार' नाम का पहला प्रयोग तुर्क काल (13वीं शताब्दी) में हुआ — जब बख्तियार खिलजी ने ओदंतपुरी (बिहार शरीफ) को अपना केंद्र बनाया। 'विहार' (बौद्ध मठ) शब्द से यह नाम पड़ा।",en:"The name 'Bihar' was first used in the Turkish period (13th century) when Bakhtiyar Khilji centred at Odantapuri (Bihar Sharif), derived from 'Vihara' (Buddhist monastery)."}},
+
+{q:{hi:"'राजगीर' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Rajgir'?"},
+ o:[{hi:"राजगृह",en:"Rajgriha"},{hi:"गिरिव्रज",en:"Girivraja"},{hi:"दोनों",en:"Both"},{hi:"मगध",en:"Magadha"}],a:2,
+ ex:{hi:"राजगीर का प्राचीन नाम 'राजगृह' और 'गिरिव्रज' दोनों था। यह मगध की प्रथम राजधानी और बुद्ध तथा महावीर दोनों की साधना स्थली रही। इसके चारों ओर पाँच पहाड़ियाँ हैं।",en:"Rajgir was anciently known as both 'Rajgriha' and 'Girivraja'. It was Magadha's first capital and a meditation site for Buddha and Mahavira, encircled by five hills."}},
+
+{q:{hi:"बिहार में 'पाल वंश' की स्थापना किसने की?",en:"Who founded the 'Pala dynasty' in Bihar?"},
+ o:[{hi:"धर्मपाल",en:"Dharmapala"},{hi:"गोपाल",en:"Gopala"},{hi:"देवपाल",en:"Devapala"},{hi:"महिपाल",en:"Mahipala"}],a:1,
+ ex:{hi:"पाल वंश की स्थापना 750 ई. में गोपाल ने की। यह बंगाल और बिहार पर शासन करने वाला बौद्ध राजवंश था। इसके प्रमुख शासक धर्मपाल, देवपाल और महिपाल थे। इसने नालंदा और विक्रमशिला को संरक्षण दिया।",en:"The Pala dynasty was founded in 750 CE by Gopala. This Buddhist dynasty ruled Bengal and Bihar, with Dharmapala, Devapala and Mahipala as key rulers, patronising Nalanda and Vikramshila."}},
+
+{q:{hi:"बिहार पर 'कर्नाटक (तुगलक)' आक्रमण के बाद कौन-सा राजवंश फला-फूला?",en:"After the 'Karnataka (Tughlaq) invasion', which dynasty flourished in Bihar?"},
+ o:[{hi:"शर्की",en:"Sharqi"},{hi:"पाल",en:"Pala"},{hi:"चंदेल",en:"Chandela"},{hi:"गुप्त",en:"Gupta"}],a:0,
+ ex:{hi:"14वीं-15वीं शताब्दी में बिहार में 'शर्की' और 'राजगोंड' जैसे स्थानीय राजवंश फले-फूले। बिहार शरीफ के आसपास 'इब्राहिम शर्की' और 'हुसैन शाह' का प्रभाव रहा। बिहार में 15वीं शताब्दी तक राजनीतिक अस्थिरता रही।",en:"Local dynasties like Sharqi and Rajgond flourished in 14th–15th century Bihar. Ibrahim Sharqi and Hussain Shah influenced the Bihar Sharif region amid 15th-century political instability."}},
+
+{q:{hi:"'मुंगेर' का पुराना नाम क्या था?",en:"What was the old name of 'Munger'?"},
+ o:[{hi:"मुद्गल",en:"Mudgal"},{hi:"मोगधा",en:"Mogadha"},{hi:"मगध",en:"Magadha"},{hi:"मुंगेरिका",en:"Mungerika"}],a:0,
+ ex:{hi:"मुंगेर का प्राचीन नाम 'मुद्गल' या 'मुद्गलपुर' था। यह प्राचीन काल से सामरिक महत्व का केंद्र था और मुगल काल में मुंगेर किला प्रसिद्ध था। आज यह बिहार का एक प्रमुख शिक्षा केंद्र है।",en:"Munger's ancient name was 'Mudgal' or 'Mudgalpur'. It was strategically important since ancient times, with a famous Mughal-era fort, and is a key education centre today."}},
+
+/* ============ खंड C — बिहार: आधुनिक इतिहास और स्वतंत्रता संग्राम (Q25–36) ============ */
+{q:{hi:"बिहार में 'बक्सर का युद्ध' (1764) का क्या प्रभाव पड़ा?",en:"What was the impact of the 'Battle of Buxar' (1764) on Bihar?"},
+ o:[{hi:"स्वतंत्र बिहार",en:"Independent Bihar"},{hi:"ब्रिटिश शासन की स्थापना",en:"Establishment of British rule"},{hi:"मुगल शासन",en:"Mughal rule"},{hi:"मराठा शासन",en:"Maratha rule"}],a:1,
+ ex:{hi:"बक्सर का युद्ध (22 अक्टूबर 1764) बिहार में ब्रिटिश शासन की नींव था। इस युद्ध में मेजर मुनरो ने मीर कासिम, शुजा-उद-दौला और शाह आलम-II की संयुक्त सेना को हराया। अंग्रेजों ने 1765 में दीवानी अधिकार प्राप्त किए।",en:"The Battle of Buxar (22 October 1764) established British rule in Bihar. Major Munro defeated the combined forces of Mir Qasim, Shuja-ud-Daulah and Shah Alam II. The British acquired Diwani rights in 1765."}},
+
+{q:{hi:"'बिहार' को बंगाल से अलग करने की घोषणा कब हुई?",en:"When was the announcement to separate 'Bihar' from Bengal made?"},
+ o:[{hi:"1905",en:"1905"},{hi:"1911",en:"1911"},{hi:"1912",en:"1912"},{hi:"1936",en:"1936"}],a:1,
+ ex:{hi:"1911 में दिल्ली दरबार में राजा जॉर्ज-V ने बंगाल विभाजन रद्द करते हुए बिहार को अलग प्रांत बनाने की घोषणा की। 22 मार्च 1912 को बिहार-उड़ीसा प्रांत अस्तित्व में आया। इसलिए 22 मार्च 'बिहार दिवस' है।",en:"At the 1911 Delhi Durbar, King George V announced Bihar as a separate province while annulling the Bengal partition. On 22 March 1912, Bihar-Orissa Province came into being — hence 22 March is Bihar Diwas."}},
+
+{q:{hi:"बिहार के 'पटना उच्च न्यायालय' की स्थापना कब हुई?",en:"When was the 'Patna High Court' established?"},
+ o:[{hi:"1912",en:"1912"},{hi:"1916",en:"1916"},{hi:"1936",en:"1936"},{hi:"1947",en:"1947"}],a:1,
+ ex:{hi:"पटना उच्च न्यायालय की स्थापना 1 मार्च 1916 को हुई — पटना में। यह बिहार-उड़ीसा प्रांत के लिए था। 1936 में उड़ीसा के अलग होने पर यह केवल बिहार का उच्च न्यायालय बना।",en:"Patna High Court was established on 1 March 1916 at Patna for the Bihar-Orissa Province. After Orissa separated in 1936, it became Bihar's High Court."}},
+
+{q:{hi:"'बिहार कांग्रेस' के पहले अध्यक्ष कौन थे?",en:"Who was the first president of the 'Bihar Congress'?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"मजहरुल हक",en:"Mazharul Haque"},{hi:"सच्चिदानंद सिन्हा",en:"Sachchidananda Sinha"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"}],a:2,
+ ex:{hi:"बिहार प्रांतीय कांग्रेस कमेटी की पहली बैठक 1908 में हुई और सच्चिदानंद सिन्हा इसके पहले अध्यक्ष बने। वे पटना उच्च न्यायालय के पहले भारतीय न्यायाधीश भी थे।",en:"The first Bihar Provincial Congress Committee meeting was held in 1908 with Sachchidananda Sinha as its first president. He was also Patna High Court's first Indian judge."}},
+
+{q:{hi:"बिहार में 'राजकीय जनसंख्या आयोग' की स्थापना कब हुई?",en:"When was Bihar's 'State Population Commission' established?"},
+ o:[{hi:"1990",en:"1990"},{hi:"2000",en:"2000"},{hi:"2007",en:"2007"},{hi:"2012",en:"2012"}],a:2,
+ ex:{hi:"बिहार राज्य जनसंख्या आयोग की स्थापना 2007 में हुई। इसका उद्देश्य जनसंख्या स्थिरीकरण, स्वास्थ्य सुधार और परिवार नियोजन को बढ़ावा देना है। बिहार भारत का पहला राज्य है जिसने ऐसा आयोग बनाया।",en:"Bihar State Population Commission was established in 2007 to stabilise population, improve health and promote family planning. Bihar was India's first state to create such a commission."}},
+
+{q:{hi:"'चंपारण सत्याग्रह' में कितने किसानों की गवाही दर्ज हुई थी?",en:"How many farmers' testimonies were recorded during the 'Champaran Satyagraha'?"},
+ o:[{hi:"~8,000",en:"~8,000"},{hi:"~15,000",en:"~15,000"},{hi:"~20,000",en:"~20,000"},{hi:"~50,000",en:"~50,000"}],a:0,
+ ex:{hi:"चंपारण सत्याग्रह (1917) के दौरान लगभग 8,000 किसानों की गवाही दर्ज की गई थी। गांधीजी के नेतृत्व में 'चंपारण जाँच आयोग' बना, जिसने 'तीनकठिया' प्रथा को अवैध ठहराया। यह भारत में गांधीजी का पहला सत्याग्रह था।",en:"Around 8,000 farmers' testimonies were recorded during the Champaran Satyagraha (1917). Under Gandhi, the Champaran Inquiry Committee declared the Tinkathia system illegal — his first Satyagraha in India."}},
+
+{q:{hi:"बिहार में 'मुज़फ़्फ़रपुर' किस आंदोलन से जुड़ा है?",en:"'Muzaffarpur' in Bihar is associated with which movement?"},
+ o:[{hi:"चंपारण सत्याग्रह",en:"Champaran Satyagraha"},{hi:"1857 का विद्रोह",en:"1857 Revolt"},{hi:"असहयोग आंदोलन",en:"Non-Cooperation Movement"},{hi:"भारत छोड़ो आंदोलन",en:"Quit India Movement"}],a:0,
+ ex:{hi:"मुज़फ़्फ़रपुर गांधीजी के चंपारण आगमन से पहले का पहला पड़ाव था — अप्रैल 1917 में। यहाँ उन्होंने जे.बी. कृपलानी और प्रो. मलकानी से मुलाकात की। यह 'मिथिला' क्षेत्र का प्रवेश द्वार भी है।",en:"Muzaffarpur was Gandhi's first stop before Champaran in April 1917, where he met J.B. Kripalani and Prof. Malkani. It is also the gateway to the Mithila region."}},
+
+{q:{hi:"बिहार में 1942 के 'भारत छोड़ो आंदोलन' के प्रमुख नेता कौन थे?",en:"Who were the main leaders of the 1942 'Quit India Movement' in Bihar?"},
+ o:[{hi:"राजेंद्र प्रसाद",en:"Rajendra Prasad"},{hi:"जय प्रकाश नारायण",en:"Jayaprakash Narayan"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"1942 के भारत छोड़ो आंदोलन में बिहार के प्रमुख नेता थे — डॉ. राजेंद्र प्रसाद, जय प्रकाश नारायण, अनुग्रह नारायण सिंह, श्री कृष्ण सिंह, कर्पूरी ठाकुर आदि। जयप्रकाश ने 'आज़ाद दस्ता' बनाया और नेपाल चले गए।",en:"Bihar's main leaders of the 1942 Quit India Movement were Dr. Rajendra Prasad, Jayaprakash Narayan, Anugrah Narayan Singh, Shri Krishna Singh and Karpoori Thakur. JP formed the 'Azad Dasta' and fled to Nepal."}},
+
+{q:{hi:"'सच्चिदानंद सिन्हा' संविधान सभा के किस पद पर थे?",en:"What position did 'Sachchidananda Sinha' hold in the Constituent Assembly?"},
+ o:[{hi:"स्थायी अध्यक्ष",en:"Permanent President"},{hi:"अस्थायी अध्यक्ष",en:"Temporary President"},{hi:"उपाध्यक्ष",en:"Vice President"},{hi:"महासचिव",en:"Secretary"}],a:1,
+ ex:{hi:"सच्चिदानंद सिन्हा (1871-1950) संविधान सभा के अस्थायी अध्यक्ष थे — 9 दिसंबर 1946 को पहली बैठक में। उन्होंने बिहार के विकास और शिक्षा में महत्वपूर्ण योगदान दिया और 1916 में पटना HC के पहले भारतीय न्यायाधीश बने।",en:"Sachchidananda Sinha (1871–1950) was the temporary President of the Constituent Assembly at its first meeting on 9 December 1946. He contributed greatly to Bihar's development and was Patna HC's first Indian judge (1916)."}},
+
+{q:{hi:"बिहार में 'किसान सभा' की स्थापना कहाँ हुई?",en:"Where was the 'Bihar Kisan Sabha' founded?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"बिहटा",en:"Bihta"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"बिहार किसान सभा की पहली बैठक 1929 में बिहटा (पटना के पास) में हुई — स्वामी सहजानंद सरस्वती के नेतृत्व में। इसने ज़मींदारी और बेगार प्रथा के विरुद्ध आंदोलन किया। यह भारत में किसान आंदोलन की शुरुआत थी।",en:"The first Bihar Kisan Sabha meeting was held in 1929 at Bihta (near Patna) under Swami Sahajanand Saraswati, campaigning against zamindari and forced labour — the start of India's peasant movement."}},
+
+{q:{hi:"बिहार में 'साइमन कमीशन' का विरोध कहाँ हुआ?",en:"Where was the 'Simon Commission' protested in Bihar?"},
+ o:[{hi:"पटना और मुज़फ़्फ़रपुर",en:"Patna and Muzaffarpur"},{hi:"गया और भागलपुर",en:"Gaya and Bhagalpur"},{hi:"दरभंगा और मुंगेर",en:"Darbhanga and Munger"},{hi:"सारण और चंपारण",en:"Saran and Champaran"}],a:0,
+ ex:{hi:"साइमन कमीशन (1928) का बिहार में पटना और मुज़फ़्फ़रपुर में जोरदार विरोध हुआ। पटना में 'साइमन गो बैक' के नारे लगे। इस आंदोलन में बिहार के छात्रों और नेताओं ने बड़ी संख्या में भाग लिया।",en:"The Simon Commission (1928) faced strong protests in Bihar at Patna and Muzaffarpur, with slogans like 'Simon Go Back'. Students and leaders participated in large numbers."}},
+
+{q:{hi:"बिहार में 'शेरशाह सूरी' ने कौन-सी मुद्रा जारी की?",en:"Which currency did 'Sher Shah Suri' issue in Bihar?"},
+ o:[{hi:"रुपया (चाँदी का)",en:"Rupiya (silver)"},{hi:"दीनार (स्वर्ण का)",en:"Dinar (gold)"},{hi:"दोनों",en:"Both"},{hi:"केवल ताँबे का सिक्का",en:"Only copper coin"}],a:2,
+ ex:{hi:"शेरशाह सूरी ने तीन प्रकार की मुद्राएँ जारी कीं — चाँदी का 'रुपया' (178 ग्रेन), स्वर्ण का 'मोहर' और ताँबे का 'दाम'। रुपये का चलन आज भी भारत में है। यह उनका महत्वपूर्ण आर्थिक सुधार था।",en:"Sher Shah issued three currencies — silver 'Rupiya' (178 grains), gold 'Mohur' and copper 'Dam'. The Rupiya continues in India today — a significant economic reform."}},
+
+/* ============ खंड D — बिहार: भूगोल और जलवायु (Q37–48) ============ */
+{q:{hi:"बिहार का कुल क्षेत्रफल कितना है?",en:"What is the total area of Bihar?"},
+ o:[{hi:"~84,000 वर्ग किमी",en:"~84,000 sq km"},{hi:"~94,163 वर्ग किमी",en:"~94,163 sq km"},{hi:"~1,04,000 वर्ग किमी",en:"~1,04,000 sq km"},{hi:"~1,14,000 वर्ग किमी",en:"~1,14,000 sq km"}],a:1,
+ ex:{hi:"बिहार का कुल क्षेत्रफल ~94,163 वर्ग किमी है, जो भारत के कुल क्षेत्रफल का 2.86% है। यह भारत का 12वाँ सबसे बड़ा राज्य है (क्षेत्रफल में)।",en:"Bihar's total area is ~94,163 sq km — 2.86% of India's area. It is India's 12th-largest state by area."}},
+
+{q:{hi:"क्षेत्रफल की दृष्टि से बिहार भारत में कौन-से स्थान पर है?",en:"Where does Bihar rank in India by area?"},
+ o:[{hi:"10वाँ",en:"10th"},{hi:"12वाँ",en:"12th"},{hi:"14वाँ",en:"14th"},{hi:"16वाँ",en:"16th"}],a:1,
+ ex:{hi:"क्षेत्रफल में बिहार भारत का 12वाँ सबसे बड़ा राज्य है। जनसंख्या में यह तीसरा सबसे बड़ा राज्य है (2011 जनगणना के अनुसार 10.4 करोड़) — UP और महाराष्ट्र के बाद।",en:"Bihar is India's 12th-largest state by area and third-largest by population (10.4 crore in 2011 census), after UP and Maharashtra."}},
+
+{q:{hi:"बिहार किस अक्षांश के बीच स्थित है?",en:"Between which latitudes is Bihar located?"},
+ o:[{hi:"24°20' से 27°31' उत्तरी",en:"24°20' to 27°31' N"},{hi:"22°00' से 25°00' उत्तरी",en:"22°00' to 25°00' N"},{hi:"26°00' से 30°00' उत्तरी",en:"26°00' to 30°00' N"},{hi:"20°00' से 24°00' उत्तरी",en:"20°00' to 24°00' N"}],a:0,
+ ex:{hi:"बिहार 24°20' से 27°31' उत्तरी अक्षांश और 82°19' से 88°17' पूर्वी देशांतर के बीच स्थित है। कर्क रेखा (23°30' N) बिहार से नहीं गुजरती — यह झारखंड से गुजरती है।",en:"Bihar lies between 24°20'–27°31' N latitude and 82°19'–88°17' E longitude. The Tropic of Cancer (23°30' N) does not pass through Bihar — it passes through Jharkhand."}},
+
+{q:{hi:"बिहार के उत्तर में कौन-सा देश स्थित है?",en:"Which country is located north of Bihar?"},
+ o:[{hi:"भूटान",en:"Bhutan"},{hi:"नेपाल",en:"Nepal"},{hi:"चीन",en:"China"},{hi:"बांग्लादेश",en:"Bangladesh"}],a:1,
+ ex:{hi:"बिहार के उत्तर में नेपाल स्थित है। बिहार-नेपाल सीमा की लंबाई ~725 किमी है, जो 7 जिलों से गुजरती है — पश्चिम चंपारण, पूर्वी चंपारण, सीतामढ़ी, मधुबनी, सुपौल, अररिया और किशनगंज।",en:"Nepal lies north of Bihar. The Bihar-Nepal border is ~725 km, passing through 7 districts — West Champaran, East Champaran, Sitamarhi, Madhubani, Supaul, Araria and Kishanganj."}},
+
+{q:{hi:"बिहार की जलवायु कैसी है?",en:"What is Bihar's climate like?"},
+ o:[{hi:"शुष्क और अत्यधिक गर्म",en:"Arid and extremely hot"},{hi:"उष्णकटिबंधीय मानसूनी",en:"Tropical monsoon"},{hi:"भूमध्यसागरीय",en:"Mediterranean"},{hi:"शीतोष्ण",en:"Temperate"}],a:1,
+ ex:{hi:"बिहार की जलवायु उष्णकटिबंधीय मानसूनी है — ग्रीष्मकाल (मार्च-मई) में 40°C+ तापमान, मानसून (जून-सितंबर) में वर्षा, सर्दी (नवंबर-फरवरी) में 8-10°C तक। औसत वार्षिक वर्षा 1,000-1,200 मिमी होती है।",en:"Bihar has a tropical monsoon climate — summer (March–May) above 40°C, monsoon rains (June–September), winter (Nov–Feb) down to 8–10°C. Average annual rainfall: 1,000–1,200 mm."}},
+
+{q:{hi:"बिहार में कितनी प्राकृतिक भू-आकृति इकाइयाँ हैं?",en:"How many natural physiographic units does Bihar have?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"बिहार में 3 प्राकृतिक भू-आकृति इकाइयाँ हैं — उत्तर का पर्वतीय क्षेत्र (शिवालिक), मध्य का गंगा का मैदान (उपजाऊ), दक्षिण का पठारी क्षेत्र (छोटा नागपुर का विस्तार)। 90% भाग मैदानी है।",en:"Bihar has 3 physiographic units — the northern hills (Shivalik), the central Ganga plain (fertile), and the southern plateau (Chota Nagpur extension). 90% is plain."}},
+
+{q:{hi:"बिहार में सबसे अधिक वर्षा किस क्षेत्र में होती है?",en:"Which region of Bihar receives the highest rainfall?"},
+ o:[{hi:"उत्तर-पश्चिम",en:"North-west"},{hi:"उत्तर-पूर्व (किशनगंज, पूर्णिया)",en:"North-east (Kishanganj, Purnia)"},{hi:"दक्षिण",en:"South"},{hi:"दक्षिण-पश्चिम",en:"South-west"}],a:1,
+ ex:{hi:"बिहार में उत्तर-पूर्वी क्षेत्र (किशनगंज, अररिया, पूर्णिया) में सबसे अधिक वर्षा होती है — ~1,500 मिमी से अधिक। दक्षिण-पश्चिम (रोहतास, कैमूर) में सबसे कम वर्षा (~900 मिमी)।",en:"Bihar's north-eastern region (Kishanganj, Araria, Purnia) receives the highest rainfall (~1,500 mm+). South-west (Rohtas, Kaimur) gets the least (~900 mm)."}},
+
+{q:{hi:"'शिवालिक पर्वतमाला' बिहार के किस भाग में है?",en:"The 'Shivalik range' lies in which part of Bihar?"},
+ o:[{hi:"दक्षिण",en:"South"},{hi:"पूर्व",en:"East"},{hi:"उत्तर (नेपाल सीमा के पास)",en:"North (near Nepal border)"},{hi:"पश्चिम",en:"West"}],a:2,
+ ex:{hi:"शिवालिक पर्वतमाला बिहार के उत्तरी भाग में नेपाल सीमा के पास है — जिसे यहाँ 'तराई' क्षेत्र कहा जाता है। यह पश्चिम चंपारण से किशनगंज तक फैली है और यहाँ साल वन पाए जाते हैं।",en:"The Shivalik range lies in Bihar's northern part near the Nepal border, called the 'Terai' region. It spans from West Champaran to Kishanganj with Sal forests."}},
+
+{q:{hi:"बिहार की सबसे ऊँची चोटी कहाँ स्थित है?",en:"Where is Bihar's highest peak located?"},
+ o:[{hi:"गया",en:"Gaya"},{hi:"जहानाबाद",en:"Jehanabad"},{hi:"पश्चिम चंपारण (सोमेश्वर)",en:"West Champaran (Someshwar)"},{hi:"रोहतास",en:"Rohtas"}],a:2,
+ ex:{hi:"बिहार की सबसे ऊँची चोटी सोमेश्वर पहाड़ी (लगभग 880 मीटर) है — पश्चिम चंपारण जिले में। इसे 'सोमेश्वर की पहाड़ी' कहा जाता है। इसके बाद कैमूर पहाड़ी और राजगीर पहाड़ी आती हैं।",en:"Bihar's highest peak is Someshwar Hill (~880 m) in West Champaran district, followed by Kaimur and Rajgir hills."}},
+
+{q:{hi:"बिहार की मिट्टी में सबसे अधिक कौन-सी पाई जाती है?",en:"Which soil type is most common in Bihar?"},
+ o:[{hi:"काली मिट्टी",en:"Black soil"},{hi:"लाल मिट्टी",en:"Red soil"},{hi:"जलोढ़ मिट्टी",en:"Alluvial soil"},{hi:"लेटराइट मिट्टी",en:"Laterite soil"}],a:2,
+ ex:{hi:"बिहार में मुख्यतः जलोढ़ मिट्टी पाई जाती है — जो उत्तर के मैदानी भाग में फैली है और कृषि के लिए सर्वाधिक उपजाऊ है। दक्षिण में लाल और लेटराइट मिट्टी और कुछ क्षेत्रों में काली मिट्टी भी है।",en:"Alluvial soil predominates in Bihar's northern plains, most fertile for agriculture. Red and laterite soils appear in the south, with patches of black soil."}},
+
+{q:{hi:"बिहार में 'ताल' और 'चौर' क्या हैं?",en:"What are 'Taal' and 'Chaur' in Bihar?"},
+ o:[{hi:"पहाड़",en:"Mountains"},{hi:"प्राकृतिक जलाशय (झील/दलदल)",en:"Natural water bodies (lakes/marshes)"},{hi:"नहरें",en:"Canals"},{hi:"जंगल",en:"Forests"}],a:1,
+ ex:{hi:"बिहार में 'ताल' और 'चौर' प्राकृतिक जलाशय या दलदली भूमि हैं — जो उत्तर बिहार में अधिक पाई जाती हैं। प्रमुख: काँवर ताल (बेगूसराय), गोगाबील (कटिहार), उदाकिशुनगंज आदि। ये मछली उत्पादन और जैव विविधता के लिए महत्वपूर्ण हैं।",en:"'Taal' and 'Chaur' are natural water bodies or marshy lands, mainly in north Bihar — such as Kanwar Taal (Begusarai), Gogabeel (Katihar) — vital for fisheries and biodiversity."}},
+
+/* ============ खंड E — बिहार: नदियाँ और सिंचाई (Q49–60) ============ */
+{q:{hi:"बिहार में सबसे लंबी नदी कौन-सी है?",en:"Which is the longest river in Bihar?"},
+ o:[{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"},{hi:"गंगा",en:"Ganga"},{hi:"सोन",en:"Son"}],a:2,
+ ex:{hi:"गंगा बिहार की सबसे लंबी नदी है — ~445 किमी बिहार में। यह बिहार को दो भागों में विभाजित करती है — उत्तर बिहार (उपजाऊ मैदान) और दक्षिण बिहार (पठारी)। प्रमुख शहर: पटना, भागलपुर, मुंगेर, बक्सर।",en:"The Ganga is Bihar's longest river (~445 km in Bihar), dividing the state into north (fertile plains) and south (plateau). Key cities: Patna, Bhagalpur, Munger, Buxar."}},
+
+{q:{hi:"'बिहार का शोक' किस नदी को कहते हैं?",en:"Which river is called the 'Sorrow of Bihar'?"},
+ o:[{hi:"सोन",en:"Son"},{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"},{hi:"बागमती",en:"Bagmati"}],a:1,
+ ex:{hi:"कोसी नदी को 'बिहार का शोक' कहा जाता है। यह नेपाल में सप्तकोसी के रूप में निकलती है, हिमालय से भारी मात्रा में गाद लाती है और बार-बार अपना मार्ग बदलती है — जिससे उत्तर बिहार में भीषण बाढ़ आती है।",en:"The Kosi is called the 'Sorrow of Bihar'. Rising as Saptakosi in Nepal, it carries heavy silt and frequently shifts course, causing devastating north Bihar floods."}},
+
+{q:{hi:"'सोन नदी' बिहार में कहाँ से निकलती है?",en:"Where does the 'Son river' originate in Bihar?"},
+ o:[{hi:"अमरकंटक",en:"Amarkantak"},{hi:"नेपाल",en:"Nepal"},{hi:"तिब्बत",en:"Tibet"},{hi:"कैमूर",en:"Kaimur"}],a:0,
+ ex:{hi:"सोन नदी अमरकंटक (मध्य प्रदेश) से निकलती है और बिहार में प्रवेश करती है। यह गंगा की सबसे बड़ी दक्षिणी सहायक नदी है और मनेर (पटना के पश्चिम) के पास गंगा में मिलती है। इसकी लंबाई ~780 किमी है।",en:"The Son rises at Amarkantak (MP) and enters Bihar — the Ganga's largest southern tributary, ~780 km long, meeting the Ganga near Maner (west of Patna)."}},
+
+{q:{hi:"बिहार में 'गंडक नदी' किस अन्य नाम से जानी जाती है?",en:"By which other name is the 'Gandak river' known in Bihar?"},
+ o:[{hi:"नारायणी",en:"Narayani"},{hi:"सप्तकोसी",en:"Saptakosi"},{hi:"बागमती",en:"Bagmati"},{hi:"कमला",en:"Kamala"}],a:0,
+ ex:{hi:"गंडक नदी को बिहार में 'नारायणी' या 'काली गंडक' कहा जाता है। यह नेपाल से निकलती है और छपरा (सारण) के पास गंगा में मिलती है। इसके तट पर 'सोनपुर पशु मेला' लगता है।",en:"The Gandak is also called 'Narayani' or 'Kali Gandak' in Bihar. It rises in Nepal and joins the Ganga near Chhapra (Saran). The Sonepur Cattle Fair is held at its bank."}},
+
+{q:{hi:"बिहार में सबसे अधिक बाढ़ किस क्षेत्र में आती है?",en:"Which region of Bihar floods most frequently?"},
+ o:[{hi:"दक्षिण बिहार",en:"South Bihar"},{hi:"उत्तर बिहार",en:"North Bihar"},{hi:"पूर्वी बिहार",en:"East Bihar"},{hi:"पश्चिम बिहार",en:"West Bihar"}],a:1,
+ ex:{hi:"उत्तर बिहार में सबसे अधिक बाढ़ आती है — क्योंकि यहाँ की नदियाँ (कोसी, गंडक, बागमती, कमला, बलान) हिमालय से निकलकर भारी गाद लाती हैं और मैदानी भाग में तलछट जमा होने से बहाव बदल जाता है।",en:"North Bihar floods the most — rivers (Kosi, Gandak, Bagmati, Kamala, Balan) from the Himalayas carry heavy silt, changing course and clogging the plains."}},
+
+{q:{hi:"बिहार में 'फरक्का बैराज' किस नदी पर स्थित है?",en:"On which river is Bihar's 'Farakka Barrage' located?"},
+ o:[{hi:"सोन",en:"Son"},{hi:"गंगा",en:"Ganga"},{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"}],a:1,
+ ex:{hi:"फरक्का बैराज गंगा नदी पर स्थित है — पश्चिम बंगाल में, बिहार सीमा के पास। यह 1975 में बनाया गया। इससे कोलकाता बंदरगाह में जल की उपलब्धता सुनिश्चित की जाती है और बांग्लादेश के साथ जल-बँटवारा होता है।",en:"Farakka Barrage is on the Ganga in West Bengal, near the Bihar border. Built in 1975, it ensures water to Kolkata port and regulates sharing with Bangladesh."}},
+
+{q:{hi:"'कोसी बाँध परियोजना' किसके सहयोग से बनी?",en:"With whose cooperation was the 'Kosi Barrage Project' built?"},
+ o:[{hi:"चीन",en:"China"},{hi:"नेपाल",en:"Nepal"},{hi:"भूटान",en:"Bhutan"},{hi:"बांग्लादेश",en:"Bangladesh"}],a:1,
+ ex:{hi:"कोसी बाँध परियोजना भारत और नेपाल के सहयोग से बनी — 1954 के 'कोसी समझौते' के तहत। बाँध नेपाल के हनुमाननगर में है और इससे बिहार में सिंचाई और बाढ़ नियंत्रण होता है।",en:"The Kosi Barrage was built under India-Nepal cooperation via the 1954 Kosi Agreement, located at Hanumannagar (Nepal), providing irrigation and flood control in Bihar."}},
+
+{q:{hi:"बिहार में 'गंडक नहर' किस क्षेत्र को सिंचाई प्रदान करती है?",en:"The 'Gandak Canal' irrigates which region of Bihar?"},
+ o:[{hi:"उत्तर-पूर्वी बिहार",en:"North-eastern Bihar"},{hi:"उत्तर-पश्चिमी बिहार",en:"North-western Bihar"},{hi:"दक्षिण बिहार",en:"South Bihar"},{hi:"पूर्वी बिहार",en:"East Bihar"}],a:1,
+ ex:{hi:"गंडक नहर उत्तर-पश्चिमी बिहार को सिंचाई प्रदान करती है — पश्चिम चंपारण, पूर्वी चंपारण, सारण और गोपालगंज जिलों को। यह 1964 में बनी और बिहार की सबसे बड़ी नहर प्रणाली में से एक है।",en:"The Gandak Canal irrigates north-western Bihar — West Champaran, East Champaran, Saran and Gopalganj — built in 1964, one of Bihar's largest canal systems."}},
+
+{q:{hi:"'बागमती नदी' बिहार में किन जिलों से बहती है?",en:"The 'Bagmati river' flows through which districts of Bihar?"},
+ o:[{hi:"सीतामढ़ी, मुज़फ़्फ़रपुर, दरभंगा",en:"Sitamarhi, Muzaffarpur, Darbhanga"},{hi:"गया, नवादा",en:"Gaya, Nawada"},{hi:"भागलपुर, मुंगेर",en:"Bhagalpur, Munger"},{hi:"पटना, भोजपुर",en:"Patna, Bhojpur"}],a:0,
+ ex:{hi:"बागमती नदी बिहार में सीतामढ़ी, शिवहर, मुज़फ़्फ़रपुर, दरभंगा, समस्तीपुर, खगड़िया से बहती है और गंगा में मिलती है। नेपाल में इसे 'बागमती' और शिवालिक में 'कमला' कहा जाता है। यह हर वर्ष बाढ़ लाती है।",en:"The Bagmati flows through Sitamarhi, Sheohar, Muzaffarpur, Darbhanga, Samastipur and Khagaria, meeting the Ganga. Called 'Bagmati' in Nepal and 'Kamala' in the Shivaliks, it floods every year."}},
+
+{q:{hi:"'कमला नदी' किस नदी की सहायक है?",en:"The 'Kamala river' is a tributary of which river?"},
+ o:[{hi:"गंडक",en:"Gandak"},{hi:"कोसी",en:"Kosi"},{hi:"बागमती",en:"Bagmati"},{hi:"सोन",en:"Son"}],a:2,
+ ex:{hi:"कमला नदी बागमती की सहायक है। यह नेपाल में निकलती है और मधुबनी, दरभंगा से बहती हुई बागमती में मिलती है। इसके तट पर प्रसिद्ध 'कमला बालान' बाढ़ क्षेत्र है।",en:"The Kamala is a tributary of the Bagmati. It rises in Nepal and flows through Madhubani and Darbhanga, joining the Bagmati. The 'Kamala-Balan' is a famous flood belt."}},
+
+{q:{hi:"बिहार में 'सिंचाई का प्रमुख साधन' कौन-सा है?",en:"What is the main source of irrigation in Bihar?"},
+ o:[{hi:"नहरें",en:"Canals"},{hi:"कुएँ",en:"Wells"},{hi:"नलकूप (ट्यूबवेल)",en:"Tubewells"},{hi:"तालाब",en:"Ponds"}],a:2,
+ ex:{hi:"बिहार में सिंचाई का प्रमुख साधन नलकूप (ट्यूबवेल) है — ~60% क्षेत्र। इसके बाद नहरें (~30%) और कुएँ/तालाब। बिहार में कुल शुद्ध बोया गया क्षेत्र ~55 लाख हेक्टेयर है, जिसमें ~60% सिंचित है।",en:"Tubewells are Bihar's main irrigation source (~60%), followed by canals (~30%) and wells/ponds. Of ~55 lakh hectares net-sown area, ~60% is irrigated."}},
+
+{q:{hi:"'कोसी की विशाल गाद' किस समस्या का कारण है?",en:"The 'heavy silt of the Kosi' causes which problem?"},
+ o:[{hi:"बाढ़",en:"Floods"},{hi:"सूखा",en:"Drought"},{hi:"भूकंप",en:"Earthquakes"},{hi:"चक्रवात",en:"Cyclones"}],a:0,
+ ex:{hi:"कोसी नदी हिमालय से भारी मात्रा में गाद लाती है। मैदान में पहुँचकर इसकी गति घटती है और गाद तलछट बनाती है — जिससे नदी बार-बार मार्ग बदलती है और भीषण बाढ़ लाती है। इसलिए इसे 'बिहार का शोक' कहते हैं।",en:"The Kosi carries heavy silt from the Himalayas. On the plains, its speed drops and silt builds up, forcing the river to shift course and cause severe floods — hence 'Sorrow of Bihar'."}},
+
+/* ============ खंड F — बिहार: कृषि, उद्योग, अर्थव्यवस्था (Q61–72) ============ */
+{q:{hi:"बिहार की अर्थव्यवस्था का मुख्य आधार क्या है?",en:"What is the mainstay of Bihar's economy?"},
+ o:[{hi:"उद्योग",en:"Industry"},{hi:"कृषि",en:"Agriculture"},{hi:"पर्यटन",en:"Tourism"},{hi:"खनन",en:"Mining"}],a:1,
+ ex:{hi:"बिहार की अर्थव्यवस्था मुख्यतः कृषि-आधारित है। राज्य की ~70% जनसंख्या कृषि पर निर्भर है, हालांकि GSDP में कृषि का योगदान ~18-20% है। मुख्य फसलें: धान, गेहूँ, मक्का, दलहन, तिलहन, गन्ना और आलू।",en:"Bihar's economy is largely agriculture-based, with ~70% of the population depending on it, though agriculture contributes ~18–20% of GSDP. Main crops: rice, wheat, maize, pulses, oilseeds, sugarcane and potato."}},
+
+{q:{hi:"बिहार में सबसे अधिक उत्पादित फसल कौन-सी है?",en:"Which is Bihar's most-produced crop?"},
+ o:[{hi:"गेहूँ",en:"Wheat"},{hi:"धान (चावल)",en:"Rice"},{hi:"मक्का",en:"Maize"},{hi:"गन्ना",en:"Sugarcane"}],a:1,
+ ex:{hi:"बिहार में सबसे अधिक उत्पादित फसल धान (चावल) है — ~8-9 मिलियन टन। इसके बाद गेहूँ (~6 मिलियन टन), मक्का और दलहन आते हैं। बिहार भारत का चौथा सबसे बड़ा चावल उत्पादक राज्य है।",en:"Rice is Bihar's most-produced crop (~8–9 million tonnes), followed by wheat (~6 MT), maize and pulses. Bihar is India's fourth-largest rice producer."}},
+
+{q:{hi:"बिहार में 'चीनी मिल' का सबसे बड़ा केंद्र कौन-सा है?",en:"Which is Bihar's biggest sugar mill centre?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"मुज़फ़्फ़रपुर-मोतीहारी",en:"Muzaffarpur-Motihari"},{hi:"दरभंगा",en:"Darbhanga"},{hi:"भागलपुर",en:"Bhagalpur"}],a:1,
+ ex:{hi:"बिहार में चीनी मिलों का सबसे बड़ा केंद्र मुज़फ़्फ़रपुर-मोतीहारी बेल्ट है। मुज़फ़्फ़रपुर को 'चीनी का कटोरा' कहा जाता है। बिहार में ~28 चीनी मिलें हैं। पहली चीनी मिल 1903 में मोतीहारी के पास लगी थी।",en:"Muzaffarpur-Motihari is Bihar's biggest sugar mill belt; Muzaffarpur is called the 'Sugar Bowl'. Bihar has ~28 sugar mills; the first was set up in 1903 near Motihari."}},
+
+{q:{hi:"बिहार में 'भागलपुर' किस उद्योग के लिए प्रसिद्ध है?",en:"Bhagalpur in Bihar is famous for which industry?"},
+ o:[{hi:"चमड़ा उद्योग",en:"Leather industry"},{hi:"रेशम (टसर) उद्योग",en:"Silk (Tussar) industry"},{hi:"कागज़ उद्योग",en:"Paper industry"},{hi:"सीमेंट उद्योग",en:"Cement industry"}],a:1,
+ ex:{hi:"भागलपुर टसर रेशम उत्पादन के लिए विश्व प्रसिद्ध है। इसे 'सिल्क सिटी' कहा जाता है। यह भारत का सबसे बड़ा टसर रेशम उत्पादक केंद्र है। रेशम के अलावा यहाँ 'जहाजपुर' और 'नाथनगर' के हथकरघा भी प्रसिद्ध हैं।",en:"Bhagalpur is world-famous for Tussar silk production, called the 'Silk City'. It is India's largest Tussar silk centre; Jahazpur and Nathnagar handlooms are also renowned."}},
+
+{q:{hi:"बिहार में 'कतिहार' किसके लिए प्रसिद्ध है?",en:"Katihar in Bihar is famous for which of the following?"},
+ o:[{hi:"जूट उत्पादन",en:"Jute production"},{hi:"रेल जंक्शन",en:"Railway junction"},{hi:"चीनी उत्पादन",en:"Sugar production"},{hi:"मत्स्य पालन",en:"Fisheries"}],a:1,
+ ex:{hi:"कतिहार बिहार का महत्वपूर्ण रेल जंक्शन है — जो पूर्वोत्तर भारत का प्रवेश द्वार है। यहाँ से जूट का भी उत्पादन होता है। यह कोसी क्षेत्र का प्रमुख शहर है। कटिहार के पास गोगाबील (रामसर साइट) है।",en:"Katihar is Bihar's key railway junction, gateway to northeast India. It also produces jute and is a major Kosi region city. Gogabeel (a Ramsar site) is nearby."}},
+
+{q:{hi:"बिहार में 'कृषि विपणन' के लिए कौन-सी योजना चल रही है?",en:"Which scheme is running for 'agricultural marketing' in Bihar?"},
+ o:[{hi:"e-NAM",en:"e-NAM"},{hi:"APMC",en:"APMC"},{hi:"मंडी सुधार",en:"Mandi reform"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में कृषि विपणन के लिए e-NAM (National Agriculture Market), APMC मंडियाँ और मंडी सुधार जैसी योजनाएँ चल रही हैं। बिहार ने 2006 में APMC अधिनियम को निरस्त कर दिया था और नई कृषि विपणन नीति अपनाई।",en:"Bihar runs e-NAM, APMC mandis and mandi reforms for agricultural marketing. It repealed the APMC Act in 2006 and adopted a new marketing policy."}},
+
+{q:{hi:"बिहार में 'पटना' किस उद्योग के लिए प्रसिद्ध है?",en:"Patna in Bihar is famous for which industry?"},
+ o:[{hi:"चमड़ा उद्योग",en:"Leather industry"},{hi:"बीड़ी और खाद्य प्रसंस्करण",en:"Bidi and food processing"},{hi:"सीमेंट",en:"Cement"},{hi:"कपड़ा",en:"Textile"}],a:1,
+ ex:{hi:"पटना बीड़ी उद्योग, खाद्य प्रसंस्करण और हस्तशिल्प के लिए प्रसिद्ध है। 'पटना कलम' (लघु चित्रकला) और 'मधुबनी चित्रकला' से जुड़ा है। यह व्यापारिक और प्रशासनिक केंद्र है।",en:"Patna is known for bidi, food processing and handicrafts. It is linked with 'Patna Kalam' (miniature painting) and 'Madhubani painting' as a commercial and administrative hub."}},
+
+{q:{hi:"बिहार में 'मुज़फ़्फ़रपुर' किस फल के लिए प्रसिद्ध है?",en:"Muzaffarpur in Bihar is famous for which fruit?"},
+ o:[{hi:"आम",en:"Mango"},{hi:"लीची",en:"Litchi"},{hi:"केला",en:"Banana"},{hi:"संतरा",en:"Orange"}],a:1,
+ ex:{hi:"मुज़फ़्फ़रपुर शाही लीची के लिए विश्व प्रसिद्ध है। इसे 'लीची की राजधानी' कहा जाता है। मुज़फ़्फ़रपुर की 'शाही लीची' को भौगोलिक संकेत (GI) टैग मिला है। यह बिहार का प्रमुख कृषि-आधारित निर्यात है।",en:"Muzaffarpur is world-famous for 'Shahi Litchi', called the 'Litchi Capital'. Its Shahi Litchi has a GI tag and is a major Bihar agro-export."}},
+
+{q:{hi:"बिहार में 'पटना' के पास 'दीघा' किसलिए महत्वपूर्ण है?",en:"Why is 'Digha' near Patna important?"},
+ o:[{hi:"पर्यटन स्थल",en:"Tourist spot"},{hi:"गंगा पुल और नदी बंदरगाह",en:"Ganga bridge and river port"},{hi:"औद्योगिक क्षेत्र",en:"Industrial area"},{hi:"शैक्षणिक संस्थान",en:"Educational institution"}],a:1,
+ ex:{hi:"दीघा (पटना के पास) महात्मा गांधी सेतु (गंगा पुल) और दीघा-सोनपुर पुल के लिए महत्वपूर्ण है। यह गंगा नदी पर बना एक लंबा पुल है (5,575 मीटर)। साथ ही यहाँ जलमार्ग का भी विकास हो रहा है।",en:"Digha (near Patna) is important for the Mahatma Gandhi Setu (Ganga bridge, 5,575 m) and the Digha-Sonepur rail-cum-road bridge, plus waterway development."}},
+
+{q:{hi:"बिहार में 'मोतीहारी' किसके लिए प्रसिद्ध है?",en:"Motihari in Bihar is famous for which of the following?"},
+ o:[{hi:"चंपारण सत्याग्रह",en:"Champaran Satyagraha"},{hi:"चीनी उद्योग",en:"Sugar industry"},{hi:"गांधी स्मारक",en:"Gandhi memorial"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"मोतीहारी (पूर्वी चंपारण) चंपारण सत्याग्रह (1917) का केंद्र था, चीनी उद्योग के लिए प्रसिद्ध है और यहाँ गांधी स्मारक स्थित है। जॉर्ज ऑरवेल का जन्म भी मोतीहारी में हुआ था (1903)।",en:"Motihari (East Champaran) was the centre of the Champaran Satyagraha (1917), known for sugar industry and the Gandhi memorial. George Orwell was born here (1903)."}},
+
+{q:{hi:"बिहार में 'कृषि विश्वविद्यालय' कहाँ स्थित है?",en:"Where is Bihar's 'Agricultural University' located?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"समस्तीपुर (पूसा)",en:"Samastipur (Pusa)"},{hi:"भागलपुर",en:"Bhagalpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"बिहार कृषि विश्वविद्यालय, सबौर (भागलपुर) और डॉ. राजेंद्र प्रसाद केंद्रीय कृषि विश्वविद्यालय, पूसा (समस्तीपुर) दो प्रमुख कृषि विश्वविद्यालय हैं। पूसा का कृषि अनुसंधान केंद्र बहुत पुराना और प्रतिष्ठित है।",en:"Bihar Agricultural University, Sabour (Bhagalpur) and Dr. Rajendra Prasad Central Agricultural University, Pusa (Samastipur) are the two major agricultural universities. Pusa's research centre is old and prestigious."}},
+
+{q:{hi:"बिहार में 'सिंचाई के अंतर्गत क्षेत्र' कितना है?",en:"What is the 'irrigated area' of Bihar?"},
+ o:[{hi:"~30 लाख हेक्टेयर",en:"~30 lakh hectares"},{hi:"~55 लाख हेक्टेयर",en:"~55 lakh hectares"},{hi:"~75 लाख हेक्टेयर",en:"~75 lakh hectares"},{hi:"~90 लाख हेक्टेयर",en:"~90 lakh hectares"}],a:1,
+ ex:{hi:"बिहार में लगभग 55 लाख हेक्टेयर क्षेत्र सिंचित है, जो कुल बोए गए क्षेत्र का ~60% है। शेष ~40% वर्षा पर निर्भर है। बिहार सरकार का लक्ष्य 2025 तक 80% सिंचित क्षेत्र का है।",en:"About 55 lakh hectares are irrigated in Bihar — ~60% of the cultivated area. The remaining ~40% depends on rainfall; Bihar aims for 80% irrigation by 2025."}},
+
+{q:{hi:"बिहार में 'नीतीश कुमार सरकार' ने कृषि के लिए कौन-सी योजना शुरू की?",en:"Which agricultural scheme was launched by the 'Nitish Kumar government'?"},
+ o:[{hi:"जल-जीवन-हरियाली",en:"Jal-Jeevan-Hariyali"},{hi:"हर खेत को पानी",en:"Har Khet Ko Pani"},{hi:"कृषि रोड मैप",en:"Agriculture Road Map"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"नीतीश कुमार सरकार ने कृषि के लिए 'कृषि रोड मैप' (2008, 2012, 2017, 2023), 'जल-जीवन-हरियाली' (2019), 'हर खेत को पानी' जैसी योजनाएँ शुरू कीं। बिहार देश का पहला राज्य है जिसने कृषि रोड मैप बनाया।",en:"The Nitish Kumar government launched the Agriculture Road Map (2008, 2012, 2017, 2023), 'Jal-Jeevan-Hariyali' (2019) and 'Har Khet Ko Pani'. Bihar was India's first state to make an Agriculture Road Map."}},
+
+/* ============ खंड G — बिहार: कला, संस्कृति, पर्व (Q73–82) ============ */
+{q:{hi:"'मधुबनी चित्रकला' का संबंध किस क्षेत्र से है?",en:"'Madhubani painting' belongs to which region?"},
+ o:[{hi:"मगध",en:"Magadh"},{hi:"मिथिला (मधुबनी, दरभंगा)",en:"Mithila (Madhubani, Darbhanga)"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"मधुबनी चित्रकला (मिथिला पेंटिंग) बिहार के मिथिला क्षेत्र से संबंधित है — मधुबनी, दरभंगा, समस्तीपुर, सहरसा आदि। इसका संबंध सीता-राम विवाह से माना जाता है। इसे GI टैग मिला है और यह बिहार की सांस्कृतिक पहचान है।",en:"Madhubani (Mithila) painting belongs to Bihar's Mithila region — Madhubani, Darbhanga, Samastipur, Saharsa — linked to Sita-Ram's wedding, with a GI tag and a hallmark of Bihar's culture."}},
+
+{q:{hi:"'छठ पूजा' में कितने दिन का अनुष्ठान होता है?",en:"How many days does the 'Chhath Puja' ritual last?"},
+ o:[{hi:"2 दिन",en:"2 days"},{hi:"3 दिन",en:"3 days"},{hi:"4 दिन",en:"4 days"},{hi:"5 दिन",en:"5 days"}],a:2,
+ ex:{hi:"छठ पूजा का अनुष्ठान 4 दिन का होता है — नहाय-खाय, खरना, सायं अर्घ्य (डूबते सूर्य को) और उषा अर्घ्य (उगते सूर्य को)। यह कार्तिक शुक्ल षष्ठी से सप्तमी तक मनाया जाता है।",en:"Chhath Puja is a 4-day ritual — Nahay-Khay, Kharna, Sandhya Arghya (to the setting Sun) and Usha Arghya (to the rising Sun), observed from Kartik Shukla Shashthi to Saptami."}},
+
+{q:{hi:"'जट-जटिन' लोक नृत्य किस क्षेत्र से संबंधित है?",en:"'Jat-Jatin' folk dance belongs to which region?"},
+ o:[{hi:"मगध",en:"Magadh"},{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"जट-जटिन मिथिला क्षेत्र का प्रसिद्ध लोक नृत्य है — जो पति-पत्नी के प्रेम और विरह पर आधारित है। 'जट' पति और 'जटिन' पत्नी को दर्शाता है। यह वर्षा ऋतु और शरद ऋतु में किया जाता है।",en:"Jat-Jatin is a famous folk dance of the Mithila region, based on a couple's love and separation — 'Jat' (husband) and 'Jatin' (wife) — performed in the rainy and autumn seasons."}},
+
+{q:{hi:"'सामा-चकेवा' पर्व किस क्षेत्र में मनाया जाता है?",en:"'Sama-Chakeva' festival is celebrated in which region?"},
+ o:[{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"मगध",en:"Magadh"},{hi:"अंग",en:"Anga"}],a:0,
+ ex:{hi:"सामा-चकेवा मिथिला क्षेत्र में कार्तिक पूर्णिमा से चैत सक्रांति तक मनाया जाता है। यह भाई-बहन के प्रेम का प्रतीक है — जिसमें मिट्टी की मूर्तियाँ बनाई जाती हैं और बहनें भाई की लंबी आयु की कामना करती हैं।",en:"Sama-Chakeva is celebrated in Mithila from Kartik Purnima to Chaitra Sankranti — a symbol of brother-sister love, with clay figurines and sisters praying for their brothers' long life."}},
+
+{q:{hi:"'भोजपुरी' भाषा किस लिपि में लिखी जाती है?",en:"In which script is 'Bhojpuri' written?"},
+ o:[{hi:"मैथिली",en:"Maithili"},{hi:"देवनागरी",en:"Devanagari"},{hi:"बांग्ला",en:"Bengali"},{hi:"उड़िया",en:"Odia"}],a:1,
+ ex:{hi:"भोजपुरी भाषा देवनागरी लिपि में लिखी जाती है। यह बिहार के पश्चिमी भाग, पूर्वी उत्तर प्रदेश और नेपाल के तराई क्षेत्र में बोली जाती है। भोजपुरी दुनिया की 10वीं सबसे अधिक बोली जाने वाली भाषा है (~40 करोड़ वक्ता)।",en:"Bhojpuri is written in Devanagari. It is spoken in western Bihar, eastern UP and Nepal's Terai. It is the world's 10th most-spoken language (~40 crore speakers)."}},
+
+{q:{hi:"'भिखारी ठाकुर' किस भाषा और कला से जुड़े हैं?",en:"'Bhikhari Thakur' is associated with which language and art?"},
+ o:[{hi:"मैथिली",en:"Maithili"},{hi:"भोजपुरी नाच और लोक गीत",en:"Bhojpuri Nach and folk songs"},{hi:"मगही",en:"Magahi"},{hi:"अंगिका",en:"Angika"}],a:1,
+ ex:{hi:"भिखारी ठाकुर (1887-1971) भोजपुरी के महान लोक कलाकार, नाटककार और गीतकार थे। उन्हें 'भोजपुरी का शेक्सपियर' कहा जाता है। 'बिदेसिया' उनकी प्रसिद्ध रचना है। उनका जन्म कुटुंबपुर (सारण, बिहार) में हुआ।",en:"Bhikhari Thakur (1887–1971) was a great Bhojpuri folk artist, playwright and lyricist, called the 'Shakespeare of Bhojpuri'. 'Bidesiya' is his famous work. He was born at Kutumbpur (Saran, Bihar)."}},
+
+{q:{hi:"'मैथिली' भाषा को किस अनुसूची में शामिल किया गया?",en:"In which Schedule was 'Maithili' included?"},
+ o:[{hi:"7वीं अनुसूची",en:"7th Schedule"},{hi:"8वीं अनुसूची",en:"8th Schedule"},{hi:"9वीं अनुसूची",en:"9th Schedule"},{hi:"10वीं अनुसूची",en:"10th Schedule"}],a:1,
+ ex:{hi:"मैथिली को 92वें संविधान संशोधन (2003) द्वारा 8वीं अनुसूची में शामिल किया गया। यह बिहार के मिथिला क्षेत्र और नेपाल की प्रमुख भाषा है। मैथिली की अपनी लिपि 'तिरहुता' (मिथिलाक्षर) भी है।",en:"Maithili was added to the Eighth Schedule by the 92nd Amendment (2003). It is the main language of Bihar's Mithila region and Nepal, with its own 'Tirhuta' (Mithilakshar) script."}},
+
+{q:{hi:"'बिहार का राजकीय पक्षी' कौन-सा है?",en:"What is the 'state bird of Bihar'?"},
+ o:[{hi:"मोर",en:"Peacock"},{hi:"गौरैया",en:"House Sparrow"},{hi:"कबूतर",en:"Pigeon"},{hi:"तोता",en:"Parrot"}],a:1,
+ ex:{hi:"बिहार का राजकीय पक्षी 'गौरैया' (House Sparrow) है — जिसे 2013 में घोषित किया गया। यह एक अद्वितीय चयन है, क्योंकि अधिकांश राज्यों ने मोर को राजकीय पक्षी बनाया है।",en:"Bihar's state bird is the House Sparrow, declared in 2013 — a unique choice, as most states chose the peacock."}},
+
+{q:{hi:"'पटना कलम' किस प्रकार की चित्रकला है?",en:"'Patna Kalam' is which type of painting?"},
+ o:[{hi:"भित्ति चित्रकला",en:"Mural painting"},{hi:"लघु चित्रकला (मुगल शैली)",en:"Miniature painting (Mughal style)"},{hi:"आधुनिक चित्रकला",en:"Modern painting"},{hi:"लोक चित्रकला",en:"Folk painting"}],a:1,
+ ex:{hi:"पटना कलम (Patna Qalam) मुगल लघु चित्रकला की एक शैली है, जो बिहार में विकसित हुई — 18वीं-19वीं शताब्दी में। इसके प्रमुख कलाकार: सेवक राम, शिव लाल, हुलास लाल, फकीर चंद लाल। यह मुगल और स्थानीय शैलियों का संगम थी।",en:"Patna Kalam is a Mughal miniature style developed in Bihar (18th–19th century). Key artists: Sewak Ram, Shiv Lal, Hulas Lal and Fakir Chand Lal — a blend of Mughal and local styles."}},
+
+{q:{hi:"बिहार में 'होली' का कौन-सा विशेष रूप प्रचलित है?",en:"Which special form of 'Holi' is prevalent in Bihar?"},
+ o:[{hi:"फगुआ",en:"Fagua"},{hi:"होलिका दहन",en:"Holika Dahan"},{hi:"रंग-भंग",en:"Rang-Bhang"},{hi:"लठमार होली",en:"Lathmar Holi"}],a:0,
+ ex:{hi:"बिहार में होली को 'फगुआ' कहा जाता है। इसके अलावा 'होलिका दहन' और 'धुरखेल' (मिथिला क्षेत्र में चैत मास में) प्रसिद्ध हैं। बिहार में फगुआ गीत भी लोकप्रिय हैं, जो सामूहिक रूप से गाए जाते हैं।",en:"Holi in Bihar is called 'Fagua'. Holika Dahan and 'Dhurkhel' (in the Mithila region during Chait) are also popular. Bihar's 'Fagua' folk songs are sung in groups."}},
+
+/* ============ खंड H — बिहार: प्रशासन, राजनीति, शिक्षा (Q83–92) ============ */
+{q:{hi:"बिहार विधानसभा में कितने सदस्य होते हैं?",en:"How many members does the Bihar Legislative Assembly have?"},
+ o:[{hi:"230",en:"230"},{hi:"243",en:"243"},{hi:"250",en:"250"},{hi:"255",en:"255"}],a:1,
+ ex:{hi:"बिहार विधानसभा में 243 निर्वाचित सदस्य होते हैं। विधान परिषद में 75 सदस्य। बिहार भारत के उन 6 राज्यों में से एक है जहाँ द्विसदनीय विधानमंडल है।",en:"Bihar's Legislative Assembly has 243 elected members and its Legislative Council has 75. Bihar is one of India's 6 states with a bicameral legislature."}},
+
+{q:{hi:"बिहार से लोकसभा में कितने सदस्य चुने जाते हैं?",en:"How many Lok Sabha members are elected from Bihar?"},
+ o:[{hi:"30",en:"30"},{hi:"35",en:"35"},{hi:"40",en:"40"},{hi:"45",en:"45"}],a:2,
+ ex:{hi:"बिहार से लोकसभा में 40 सदस्य चुने जाते हैं। यह उत्तर प्रदेश (80), महाराष्ट्र (48) और पश्चिम बंगाल (42) के बाद चौथा सबसे बड़ा राज्य है। राज्यसभा में बिहार से 16 सदस्य चुने जाते हैं।",en:"Bihar elects 40 Lok Sabha members — the fourth-largest after UP (80), Maharashtra (48) and West Bengal (42). It elects 16 Rajya Sabha members."}},
+
+{q:{hi:"बिहार के पहले मुख्यमंत्री कौन थे?",en:"Who was Bihar's first Chief Minister?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"श्री कृष्ण सिंह",en:"Shri Krishna Singh"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"बी.पी. मंडल",en:"B.P. Mandal"}],a:1,
+ ex:{hi:"श्री कृष्ण सिंह ('श्री बाबू') बिहार के पहले मुख्यमंत्री थे — 2 अप्रैल 1946 से 31 जनवरी 1961 तक। उनका कार्यकाल भारत के किसी भी CM का सबसे लंबा रहा। उन्हें 'बिहार के शिल्पकार' कहा जाता है।",en:"Shri Krishna Singh ('Sri Babu') was Bihar's first CM, from 2 April 1946 to 31 January 1961 — the longest CM tenure in India. He is called the 'Architect of Bihar'."}},
+
+{q:{hi:"बिहार की पहली महिला मुख्यमंत्री कौन थीं?",en:"Who was Bihar's first woman Chief Minister?"},
+ o:[{hi:"राबड़ी देवी",en:"Rabri Devi"},{hi:"मीरा कुमार",en:"Meera Kumar"},{hi:"रामदुलारी सिन्हा",en:"Ramdulari Sinha"},{hi:"पद्मावती देवी",en:"Padmavati Devi"}],a:0,
+ ex:{hi:"राबड़ी देवी बिहार की पहली महिला मुख्यमंत्री थीं (जुलाई 1997 से)। वे लालू प्रसाद यादव की पत्नी हैं। उन्होंने तीन बार (1997-99, 1999-2000, 2000-2005) मुख्यमंत्री पद संभाला।",en:"Rabri Devi was Bihar's first woman CM from July 1997. She is Lalu Prasad Yadav's wife and served three terms (1997–2005)."}},
+
+{q:{hi:"बिहार में सरकारी नौकरी के लिए किस आयोग द्वारा परीक्षा होती है?",en:"Which commission conducts exams for government jobs in Bihar?"},
+ o:[{hi:"BPSC",en:"BPSC"},{hi:"BSSC",en:"BSSC"},{hi:"CSBC",en:"CSBC"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में तीन प्रमुख आयोग परीक्षा लेते हैं — BPSC (Bihar Public Service Commission), BSSC (Bihar Staff Selection Commission) और CSBC (Central Selection Board of Constable)। BPSC की स्थापना 1949 में हुई।",en:"Three commissions conduct Bihar recruitment exams — BPSC (1949), BSSC and CSBC (for constables)."}},
+
+{q:{hi:"बिहार में IIT कहाँ स्थित है?",en:"Where is IIT located in Bihar?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"},{hi:"भागलपुर",en:"Bhagalpur"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:0,
+ ex:{hi:"IIT पटना की स्थापना 2008 में हुई। यह भारत के पुराने IITs में से एक है और बिहार का सबसे प्रतिष्ठित इंजीनियरिंग संस्थान है। इसका परिसर अमहरा (पटना के पास) में है।",en:"IIT Patna, established in 2008, is one of India's older IITs and Bihar's most prestigious engineering institute, with a campus at Amhara (near Patna)."}},
+
+{q:{hi:"बिहार का पहला विश्वविद्यालय कौन-सा है?",en:"Which is Bihar's first university?"},
+ o:[{hi:"पटना विश्वविद्यालय",en:"Patna University"},{hi:"मगध विश्वविद्यालय",en:"Magadh University"},{hi:"बिहार विश्वविद्यालय",en:"Bihar University"},{hi:"ललित नारायण मिथिला विश्वविद्यालय",en:"Lalit Narayan Mithila University"}],a:0,
+ ex:{hi:"पटना विश्वविद्यालय की स्थापना 1 अक्टूबर 1917 को हुई — बिहार का पहला विश्वविद्यालय और भारत के सबसे पुराने विश्वविद्यालयों में से एक। 1952 में इसे राज्य विश्वविद्यालय का दर्जा मिला।",en:"Patna University, established on 1 October 1917, is Bihar's first university and one of India's oldest. It became a state university in 1952."}},
+
+{q:{hi:"बिहार में 'नालंदा विश्वविद्यालय' का पुनर्निर्माण कब हुआ?",en:"When was 'Nalanda University' re-established in Bihar?"},
+ o:[{hi:"2007",en:"2007"},{hi:"2010",en:"2010"},{hi:"2012",en:"2012"},{hi:"2014",en:"2014"}],a:3,
+ ex:{hi:"नालंदा विश्वविद्यालय का पुनर्निर्माण 2014 में हुआ। यह राजगीर (नालंदा जिला, बिहार) के पास स्थित है। यह एक अंतर्राष्ट्रीय विश्वविद्यालय है और इसे 2007 में भारत सरकार अधिनियम द्वारा मंजूरी मिली थी।",en:"Nalanda University was re-established in 2014 near Rajgir (Nalanda district, Bihar). It is an international university, approved by an Act of Parliament in 2007."}},
+
+{q:{hi:"बिहार में 'केंद्रीय विश्वविद्यालय' कहाँ स्थित है?",en:"Where is the 'Central University' in Bihar located?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"मोतीहारी",en:"Motihari"},{hi:"गया",en:"Gaya"},{hi:"नालंदा",en:"Nalanda"}],a:1,
+ ex:{hi:"महात्मा गांधी केंद्रीय विश्वविद्यालय, मोतीहारी (पूर्वी चंपारण) बिहार का केंद्रीय विश्वविद्यालय है — 2009 में स्थापित। इससे पहले बिहार में कोई केंद्रीय विश्वविद्यालय नहीं था।",en:"Mahatma Gandhi Central University, Motihari (East Champaran), is Bihar's Central University, established in 2009 — the state's first."}},
+
+{q:{hi:"'राजेंद्र कृषि विश्वविद्यालय' (पूसा) किस जिले में स्थित है?",en:"'Rajendra Agricultural University' (Pusa) is in which district?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"समस्तीपुर",en:"Samastipur"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"डॉ. राजेंद्र प्रसाद केंद्रीय कृषि विश्वविद्यालय, पूसा समस्तीपुर जिले में स्थित है। यह 2016 में केंद्रीय विश्वविद्यालय बना। पूसा का कृषि अनुसंधान केंद्र ब्रिटिश काल (1905) से प्रसिद्ध है।",en:"Dr. Rajendra Prasad Central Agricultural University, Pusa, is in Samastipur district, becoming a central university in 2016. The Pusa research centre dates to 1905."}},
+
+/* ============ खंड I — बिहार: सरकारी योजनाएँ और समसामयिकी (Q93–100) ============ */
+{q:{hi:"'मुख्यमंत्री कन्या उत्थान योजना' का उद्देश्य क्या है?",en:"What is the objective of 'Mukhyamantri Kanya Utthan Yojana'?"},
+ o:[{hi:"किसानों की सहायता",en:"Farmer support"},{hi:"बालिकाओं की शिक्षा और सशक्तीकरण",en:"Girls' education and empowerment"},{hi:"रोजगार सृजन",en:"Employment generation"},{hi:"स्वास्थ्य सेवाएँ",en:"Healthcare services"}],a:1,
+ ex:{hi:"मुख्यमंत्री कन्या उत्थान योजना बिहार सरकार की योजना है, जो बालिकाओं की शिक्षा, स्वास्थ्य और विवाह के लिए वित्तीय सहायता प्रदान करती है। इसके तहत जन्म से स्नातक तक किश्तों में राशि मिलती है।",en:"Mukhyamantri Kanya Utthan Yojana provides financial assistance for girls' education, health and marriage in instalments from birth to graduation."}},
+
+{q:{hi:"'मुख्यमंत्री कन्या विवाह योजना' में अधिकतम कितनी राशि मिलती है?",en:"What is the maximum amount under 'Mukhyamantri Kanya Vivah Yojana'?"},
+ o:[{hi:"₹10,000",en:"₹10,000"},{hi:"₹25,000",en:"₹25,000"},{hi:"₹50,000",en:"₹50,000"},{hi:"₹1,00,000",en:"₹1,00,000"}],a:2,
+ ex:{hi:"मुख्यमंत्री कन्या विवाह योजना में गरीब परिवार की बेटियों को विवाह के लिए ₹50,000 की सहायता दी जाती है — जिसमें ₹25,000 कन्या के खाते में और ₹25,000 विवाह सामग्री के लिए।",en:"Under Mukhyamantri Kanya Vivah Yojana, poor families' daughters receive ₹50,000 — ₹25,000 in her account and ₹25,000 for wedding materials."}},
+
+{q:{hi:"'मुख्यमंत्री वृद्धजन पेंशन योजना' में कितनी पेंशन मिलती है?",en:"What pension is given under 'Mukhyamantri Vridhjan Pension Yojana'?"},
+ o:[{hi:"₹200/माह",en:"₹200/month"},{hi:"₹400/माह",en:"₹400/month"},{hi:"₹500/माह",en:"₹500/month"},{hi:"₹1,000/माह",en:"₹1,000/month"}],a:1,
+ ex:{hi:"मुख्यमंत्री वृद्धजन पेंशन योजना (2018 से) के तहत 60 वर्ष से अधिक आयु के लोगों को ₹400 प्रतिमाह पेंशन दी जाती है। बिहार में कई अन्य पेंशन योजनाएँ भी चल रही हैं।",en:"The Mukhyamantri Vridhjan Pension Yojana (since 2018) provides ₹400 monthly pension to people above 60. Bihar runs several other pension schemes too."}},
+
+{q:{hi:"'जल-जीवन-हरियाली' अभियान कब शुरू हुआ?",en:"When was the 'Jal-Jeevan-Hariyali' campaign launched?"},
+ o:[{hi:"2015",en:"2015"},{hi:"2017",en:"2017"},{hi:"2019",en:"2019"},{hi:"2021",en:"2021"}],a:2,
+ ex:{hi:"जल-जीवन-हरियाली अभियान 2019 में शुरू हुआ — बिहार सरकार की महत्वाकांक्षी योजना। इसका उद्देश्य जल संरक्षण, वृक्षारोपण और पर्यावरण संरक्षण है। बिहार ने 2021 तक 22 करोड़ पौधे लगाने का लक्ष्य रखा था।",en:"Jal-Jeevan-Hariyali was launched in 2019 — an ambitious Bihar scheme for water conservation, tree plantation and environmental protection, targeting 22 crore saplings by 2021."}},
+
+{q:{hi:"'सात निश्चय योजना' किसने शुरू की और कब?",en:"Who launched the 'Saat Nishchay Yojana' and when?"},
+ o:[{hi:"लालू प्रसाद, 2000",en:"Lalu Prasad, 2000"},{hi:"नीतीश कुमार, 2015",en:"Nitish Kumar, 2015"},{hi:"जीतन राम मांझी, 2014",en:"Jitan Ram Manjhi, 2014"},{hi:"सुशील कुमार मोदी, 2005",en:"Sushil Kumar Modi, 2005"}],a:1,
+ ex:{hi:"'सात निश्चय योजना' 2015 में नीतीश कुमार ने शुरू की — जिसमें 7 निश्चय थे: शौचालय, बिजली, पक्की सड़क, आंगनवाड़ी, पीने का पानी, छात्रों की साइकिल और कौशल विकास। बाद में 'सात निश्चय-2' भी शुरू हुआ।",en:"'Saat Nishchay' (2015) by Nitish Kumar had 7 resolves: toilets, electricity, pucca roads, anganwadi centres, drinking water, cycles for students and skill development. Later 'Saat Nishchay-2' was launched."}},
+
+{q:{hi:"'हर घर नल का जल' योजना का लक्ष्य क्या है?",en:"What is the goal of 'Har Ghar Nal Ka Jal' scheme?"},
+ o:[{hi:"हर घर बिजली",en:"Electricity for all"},{hi:"हर घर पीने का पानी",en:"Drinking water for every home"},{hi:"हर घर शौचालय",en:"Toilet for every home"},{hi:"हर घर पक्का मकान",en:"Pucca house for all"}],a:1,
+ ex:{hi:"'हर घर नल का जल' योजना बिहार सरकार की महत्वाकांक्षी योजना है — जो जल जीवन मिशन के तहत हर ग्रामीण घर तक पाइप से पीने का पानी पहुँचाने का लक्ष्य रखती है। बिहार इसमें तेज़ी से आगे बढ़ रहा है।",en:"'Har Ghar Nal Ka Jal' is Bihar's flagship scheme under Jal Jeevan Mission to deliver piped drinking water to every rural household, with rapid progress."}},
+
+{q:{hi:"बिहार में 'बालिका साइकिल योजना' कब शुरू हुई?",en:"When was Bihar's 'Balika Cycle Yojana' launched?"},
+ o:[{hi:"2005-06",en:"2005-06"},{hi:"2006-07",en:"2006-07"},{hi:"2008-09",en:"2008-09"},{hi:"2010-11",en:"2010-11"}],a:1,
+ ex:{hi:"'मुख्यमंत्री बालिका साइकिल योजना' 2006-07 में शुरू हुई — जिसमें 9वीं कक्षा में पढ़ने वाली छात्राओं को साइकिल दी जाती है। इससे छात्राओं का स्कूल में नामांकन काफी बढ़ा और यह भारत में अनुकरणीय योजना बनी।",en:"Mukhyamantri Balika Cycle Yojana began in 2006-07, providing cycles to girls in class 9. It boosted female enrolment and became a model scheme in India."}},
+
+{q:{hi:"'बिहार दिवस' हर वर्ष कब मनाया जाता है?",en:"When is 'Bihar Diwas' celebrated every year?"},
+ o:[{hi:"15 अगस्त",en:"15 August"},{hi:"22 मार्च",en:"22 March"},{hi:"26 जनवरी",en:"26 January"},{hi:"1 अप्रैल",en:"1 April"}],a:1,
+ ex:{hi:"बिहार दिवस 22 मार्च को मनाया जाता है — 1912 में इसी दिन बिहार बंगाल से अलग होकर 'बिहार और उड़ीसा' प्रांत बना था। यह पर्व 2011 से बड़े पैमाने पर मनाया जाता है — जिसमें पटना के गांधी मैदान में परेड होती है।",en:"Bihar Diwas is celebrated on 22 March, when Bihar separated from Bengal in 1912 as 'Bihar and Orissa' province. Since 2011, it has been celebrated grandly with a parade at Gandhi Maidan, Patna."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बिहार विशेष पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Bihar Special is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बिहार के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Bihar facts and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
