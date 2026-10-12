@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>आधुनिक इतिहास + बिहार विशेष — 100 प्रश्न | Modern History & Bihar Special</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#7a1e1e,#b83333);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#ffd6d6;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#ffd6d6;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ff6b35);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#fde8e8;color:#a82121;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 आधुनिक इतिहास + बिहार विशेष
+              <small>Modern History + Bihar Special · 100 Questions</small>
+              <small id="sectionLabel">खंड A — यूरोपीय आगमन और 1857 तक</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   आधुनिक इतिहास + बिहार विशेष — 100 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — यूरोपीय आगमन से 1857 तक", en:"Section A — European Advent to 1857"},
+  {hi:"खंड B — कांग्रेस और राष्ट्रीय आंदोलन", en:"Section B — Congress & National Movement"},
+  {hi:"खंड C — गांधी युग", en:"Section C — Gandhian Era"},
+  {hi:"खंड D — क्रांतिकारी और स्वतंत्रता (1920s–1947)", en:"Section D — Revolutionary & Freedom (1920s–1947)"},
+  {hi:"खंड E — बिहार: प्राचीन और मध्यकालीन", en:"Section E — Bihar: Ancient & Medieval"},
+  {hi:"खंड F — बिहार: आधुनिक इतिहास और स्वतंत्रता संग्राम", en:"Section F — Bihar: Modern History & Freedom Struggle"},
+  {hi:"खंड G — बिहार: भूगोल और नदियाँ", en:"Section G — Bihar: Geography & Rivers"},
+  {hi:"खंड H — बिहार: कला, संस्कृति, पर्व", en:"Section H — Bihar: Art, Culture, Festivals"},
+  {hi:"खंड I — बिहार: व्यक्तित्व, विकास, समसामयिकी", en:"Section I — Bihar: Personalities, Development & Current"}
+];
+const SECTION_STARTS = [0, 12, 27, 39, 50, 62, 74, 84, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — यूरोपीय आगमन से 1857 तक (Q1–12) ============ */
+{q:{hi:"भारत में पुर्तगालियों का पहला कारखाना कहाँ स्थापित हुआ?",en:"Where was the first Portuguese factory established in India?"},
+ o:[{hi:"गोवा",en:"Goa"},{hi:"कालीकट",en:"Calicut"},{hi:"कोचीन",en:"Cochin"},{hi:"मुंबई",en:"Mumbai"}],a:1,
+ ex:{hi:"वास्को डी गामा 1498 में कालीकट पहुँचे और पुर्तगालियों का पहला कारखाना 1500 में कालीकट में स्थापित हुआ। पुर्तगाली भारत आने वाले पहले यूरोपीय थे।",en:"Vasco da Gama reached Calicut in 1498; the first Portuguese factory was set up there in 1500. The Portuguese were the first Europeans to reach India."}},
+
+{q:{hi:"भारत में डच ईस्ट इंडिया कंपनी की स्थापना कब हुई?",en:"When was the Dutch East India Company established in India?"},
+ o:[{hi:"1595",en:"1595"},{hi:"1600",en:"1600"},{hi:"1602",en:"1602"},{hi:"1610",en:"1610"}],a:2,
+ ex:{hi:"डच ईस्ट इंडिया कंपनी की स्थापना 1602 में हुई। उनका पहला कारखाना मसूलीपट्टनम (आंध्र प्रदेश) में 1605 में खुला। उन्होंने पुलिकट में अपना मुख्यालय बनाया।",en:"The Dutch East India Company was founded in 1602. Their first factory opened at Masulipatnam (AP) in 1605, with headquarters at Pulicat."}},
+
+{q:{hi:"अंग्रेजी ईस्ट इंडिया कंपनी की स्थापना कब हुई?",en:"When was the English East India Company established?"},
+ o:[{hi:"1599",en:"1599"},{hi:"1600",en:"1600"},{hi:"1601",en:"1601"},{hi:"1612",en:"1612"}],a:1,
+ ex:{hi:"अंग्रेजी ईस्ट इंडिया कंपनी की स्थापना 31 दिसंबर 1600 को रानी एलिज़ाबेथ-I के चार्टर द्वारा हुई। सूरत में पहला कारखाना 1613 में खुला।",en:"The English East India Company was chartered by Queen Elizabeth I on 31 December 1600. Its first factory opened at Surat in 1613."}},
+
+{q:{hi:"भारत में फ्रांसीसी ईस्ट इंडिया कंपनी की स्थापना कब हुई?",en:"When was the French East India Company established in India?"},
+ o:[{hi:"1664",en:"1664"},{hi:"1670",en:"1670"},{hi:"1674",en:"1674"},{hi:"1680",en:"1680"}],a:0,
+ ex:{hi:"फ्रांसीसी ईस्ट इंडिया कंपनी की स्थापना 1664 में कोलबर्ट के प्रयासों से हुई। पांडिचेरी 1673 में फ्रांसीसियों का मुख्यालय बना।",en:"The French East India Company was founded in 1664 through Colbert's efforts. Pondicherry became their headquarters in 1673."}},
+
+{q:{hi:"'प्लासी का युद्ध' किस वर्ष लड़ा गया?",en:"In which year was the 'Battle of Plassey' fought?"},
+ o:[{hi:"1757",en:"1757"},{hi:"1764",en:"1764"},{hi:"1767",en:"1767"},{hi:"1772",en:"1772"}],a:0,
+ ex:{hi:"प्लासी का युद्ध 23 जून 1757 को रॉबर्ट क्लाइव और बंगाल के नवाब सिराज-उद-दौला के बीच लड़ा गया। यह बंगाल में ब्रिटिश शासन की नींव थी।",en:"The Battle of Plassey (23 June 1757) was fought between Robert Clive and Nawab Siraj-ud-Daulah, laying British rule in Bengal."}},
+
+{q:{hi:"'बक्सर का युद्ध' किस वर्ष लड़ा गया?",en:"In which year was the 'Battle of Buxar' fought?"},
+ o:[{hi:"1757",en:"1757"},{hi:"1761",en:"1761"},{hi:"1764",en:"1764"},{hi:"1767",en:"1767"}],a:2,
+ ex:{hi:"बक्सर का युद्ध 22 अक्टूबर 1764 को लड़ा गया — मेजर मुनरो (अंग्रेज) और मीर कासिम, शुजा-उद-दौला तथा शाह आलम-II की संयुक्त सेना के बीच। इससे बंगाल, बिहार और उड़ीसा में ब्रिटिश सत्ता स्थापित हुई।",en:"The Battle of Buxar (22 October 1764) was fought between Major Munro and the combined forces of Mir Qasim, Shuja-ud-Daulah and Shah Alam II. It established British rule in Bengal, Bihar and Odisha."}},
+
+{q:{hi:"बंगाल में द्वैध शासन (Dual Government) किसने लागू किया?",en:"Who introduced the 'Dual Government' in Bengal?"},
+ o:[{hi:"वारेन हेस्टिंग्स",en:"Warren Hastings"},{hi:"रॉबर्ट क्लाइव",en:"Robert Clive"},{hi:"लॉर्ड कॉर्नवालिस",en:"Lord Cornwallis"},{hi:"लॉर्ड वेलेजली",en:"Lord Wellesley"}],a:1,
+ ex:{hi:"रॉबर्ट क्लाइव ने 1765 में बंगाल में द्वैध शासन लागू किया — दीवानी (राजस्व) अंग्रेजों के पास, निजामत (कानून-व्यवस्था) नवाब के पास। यह 1772 में वारेन हेस्टिंग्स ने समाप्त किया।",en:"Robert Clive introduced the Dual Government in Bengal in 1765 — Diwani (revenue) with the British, Nizamat (law & order) with the Nawab. Warren Hastings abolished it in 1772."}},
+
+{q:{hi:"स्थायी बंदोबस्त किसने और कब लागू किया?",en:"Who introduced the 'Permanent Settlement' and when?"},
+ o:[{hi:"लॉर्ड कॉर्नवालिस (1793)",en:"Lord Cornwallis (1793)"},{hi:"वारेन हेस्टिंग्स (1772)",en:"Warren Hastings (1772)"},{hi:"लॉर्ड वेलेजली (1798)",en:"Lord Wellesley (1798)"},{hi:"लॉर्ड डलहौज़ी (1850)",en:"Lord Dalhousie (1850)"}],a:0,
+ ex:{hi:"स्थायी बंदोबस्त लॉर्ड कॉर्नवालिस ने 1793 में लागू किया — बंगाल, बिहार, उड़ीसा और बनारस में। ज़मींदारों को भूमि का स्थायी अधिकार मिला, लेकिन उन्हें राजस्व निश्चित रूप से देना पड़ता था।",en:"The Permanent Settlement was introduced by Lord Cornwallis in 1793 in Bengal, Bihar, Odisha and Banaras, giving zamindars permanent land rights with fixed revenue."}},
+
+{q:{hi:"'सहायक संधि' (Subsidiary Alliance) किसने लागू की?",en:"Who introduced the 'Subsidiary Alliance'?"},
+ o:[{hi:"लॉर्ड डलहौज़ी",en:"Lord Dalhousie"},{hi:"लॉर्ड कॉर्नवालिस",en:"Lord Cornwallis"},{hi:"लॉर्ड वेलेजली",en:"Lord Wellesley"},{hi:"लॉर्ड विलियम बेंटिक",en:"Lord William Bentinck"}],a:2,
+ ex:{hi:"लॉर्ड वेलेजली (1798–1805) ने सहायक संधि प्रणाली लागू की। इसके तहत भारतीय रियासतें अपनी सेना रखने के बजाय अंग्रेजी सेना को भुगतान करती थीं और विदेशी मामलों में स्वतंत्र नहीं रहती थीं। हैदराबाद पहला राज्य था।",en:"Lord Wellesley (1798–1805) introduced the Subsidiary Alliance — Indian rulers kept British troops, paid for them and surrendered foreign policy. Hyderabad was the first to sign."}},
+
+{q:{hi:"'डॉक्ट्रिन ऑफ लैप्स' किसने लागू की?",en:"Who introduced the 'Doctrine of Lapse'?"},
+ o:[{hi:"लॉर्ड कैनिंग",en:"Lord Canning"},{hi:"लॉर्ड डलहौज़ी",en:"Lord Dalhousie"},{hi:"लॉर्ड कर्ज़न",en:"Lord Curzon"},{hi:"लॉर्ड मिंटो",en:"Lord Minto"}],a:1,
+ ex:{hi:"लॉर्ड डलहौज़ी (1848–1856) ने डॉक्ट्रिन ऑफ लैप्स लागू की। इसके तहत जिन रियासतों के शासक की कोई प्राकृतिक उत्तराधिकारी न हो, वे अंग्रेजी साम्राज्य में मिला दी जातीं। इससे सतारा, जैतपुर, नागपुर और झाँसी का विलय हुआ।",en:"Lord Dalhousie (1848–1856) introduced the Doctrine of Lapse — states without a natural heir were annexed. Satara, Jaitpur, Nagpur and Jhansi were annexed under it."}},
+
+{q:{hi:"बिहार में 'छोटा नागपुर' क्षेत्र से कौन-सा विद्रोह जुड़ा है?",en:"Which rebellion is associated with the 'Chota Nagpur' region of Bihar?"},
+ o:[{hi:"संथाल विद्रोह",en:"Santhal Rebellion"},{hi:"कोल विद्रोह",en:"Kol Rebellion"},{hi:"भील विद्रोह",en:"Bhil Rebellion"},{hi:"मुंडा विद्रोह",en:"Munda Rebellion"}],a:1,
+ ex:{hi:"कोल विद्रोह (1831-32) छोटा नागपुर (अब झारखंड) में हुआ — कोल जनजाति ने अंग्रेजों और ज़मींदारों के विरुद्ध विद्रोह किया। यह बिहार क्षेत्र का पहला बड़ा जनजातीय विद्रोह था।",en:"The Kol Rebellion (1831-32) took place in Chota Nagpur (now Jharkhand) — the Kol tribe rose against the British and zamindars. It was the first major tribal revolt in the Bihar region."}},
+
+{q:{hi:"संथाल विद्रोह कब हुआ?",en:"When did the Santhal Rebellion take place?"},
+ o:[{hi:"1831",en:"1831"},{hi:"1855",en:"1855"},{hi:"1857",en:"1857"},{hi:"1875",en:"1875"}],a:1,
+ ex:{hi:"संथाल विद्रोह जून 1855 में हुआ — सिद्धू और कान्हू मुर्मू के नेतृत्व में। यह राजमहल पहाड़ियों (झारखंड-बिहार सीमा) में हुआ और महाजनी प्रथा तथा ज़मींदारी के विरुद्ध था।",en:"The Santhal Rebellion (June 1855) was led by Sidhu and Kanhu Murmu in the Rajmahal hills (Jharkhand-Bihar border) against moneylenders and zamindars."}},
+
+/* ============ खंड B — कांग्रेस और राष्ट्रीय आंदोलन (Q13–27) ============ */
+{q:{hi:"भारतीय राष्ट्रीय कांग्रेस की स्थापना कब हुई?",en:"When was the Indian National Congress founded?"},
+ o:[{hi:"1883",en:"1883"},{hi:"1885",en:"1885"},{hi:"1887",en:"1887"},{hi:"1890",en:"1890"}],a:1,
+ ex:{hi:"INC की स्थापना 28 दिसंबर 1885 को बॉम्बे के गोकुलदास तेजपाल संस्कृत कॉलेज में हुई। संस्थापक ए.ओ. ह्यूम थे और पहले अध्यक्ष डब्ल्यू.सी. बनर्जी।",en:"The INC was founded on 28 December 1885 at Gokuldas Tejpal Sanskrit College, Bombay. Founder: A.O. Hume; first president: W.C. Bannerjee."}},
+
+{q:{hi:"INC के पहले मुस्लिम अध्यक्ष कौन थे?",en:"Who was the INC's first Muslim president?"},
+ o:[{hi:"सैयद अहमद खान",en:"Syed Ahmad Khan"},{hi:"बदरुद्दीन तैयबजी",en:"Badruddin Tyabji"},{hi:"मोहम्मद अली जिन्ना",en:"Muhammad Ali Jinnah"},{hi:"रहीमतुल्ला सयानी",en:"Rahimtulla Sayani"}],a:1,
+ ex:{hi:"बदरुद्दीन तैयबजी INC के पहले मुस्लिम अध्यक्ष थे (1887, मद्रास अधिवेशन)। रहीमतुल्ला सयानी दूसरे मुस्लिम अध्यक्ष थे (1896, कलकत्ता)।",en:"Badruddin Tyabji was the INC's first Muslim president (1887, Madras session); Rahimtulla Sayani was the second (1896, Calcutta)."}},
+
+{q:{hi:"'स्वराज' शब्द सबसे पहले किसने प्रयोग किया?",en:"Who first used the term 'Swaraj'?"},
+ o:[{hi:"महात्मा गांधी",en:"Mahatma Gandhi"},{hi:"बाल गंगाधर तिलक",en:"Bal Gangadhar Tilak"},{hi:"दादाभाई नौरोजी",en:"Dadabhai Naoroji"},{hi:"लाला लाजपत राय",en:"Lala Lajpat Rai"}],a:2,
+ ex:{hi:"दादाभाई नौरोजी ने 1906 के कलकत्ता अधिवेशन में 'स्वराज' शब्द का प्रयोग किया। वे 'भारतीय राष्ट्रीय आंदोलन के पितामह' कहे जाते हैं और उन्होंने 'धन-निष्कासन' सिद्धांत दिया।",en:"Dadabhai Naoroji first used 'Swaraj' at the 1906 Calcutta session. He is called the 'Grand Old Man of India' and gave the 'Drain of Wealth' theory."}},
+
+{q:{hi:"'लाल-बाल-पाल' त्रयी में 'लाल' कौन थे?",en:"Who was 'Lal' in the 'Lal-Bal-Pal' trio?"},
+ o:[{hi:"बाल गंगाधर तिलक",en:"Bal Gangadhar Tilak"},{hi:"लाला लाजपत राय",en:"Lala Lajpat Rai"},{hi:"बिपिन चंद्र पाल",en:"Bipin Chandra Pal"},{hi:"लाल बहादुर शास्त्री",en:"Lal Bahadur Shastri"}],a:1,
+ ex:{hi:"लाल-बाल-पाल = लाला लाजपत राय (लाल), बाल गंगाधर तिलक (बाल), बिपिन चंद्र पाल (पाल)। ये गरम दल के नेता थे और स्वदेशी आंदोलन से जुड़े थे।",en:"Lal-Bal-Pal = Lala Lajpat Rai, Bal Gangadhar Tilak and Bipin Chandra Pal — Extremist leaders associated with the Swadeshi Movement."}},
+
+{q:{hi:"बंगाल का विभाजन किसने और कब किया?",en:"Who partitioned Bengal and when?"},
+ o:[{hi:"लॉर्ड कर्ज़न (1905)",en:"Lord Curzon (1905)"},{hi:"लॉर्ड मिंटो (1906)",en:"Lord Minto (1906)"},{hi:"लॉर्ड रिपन (1885)",en:"Lord Ripon (1885)"},{hi:"लॉर्ड डलहौज़ी (1850)",en:"Lord Dalhousie (1850)"}],a:0,
+ ex:{hi:"लॉर्ड कर्ज़न ने 16 अक्टूबर 1905 को बंगाल का विभाजन किया — पूर्वी बंगाल और असम तथा पश्चिमी बंगाल के रूप में। इससे स्वदेशी आंदोलन भड़का। इसे 1911 में रद्द किया गया।",en:"Lord Curzon partitioned Bengal on 16 October 1905 into East Bengal-Assam and West Bengal, sparking the Swadeshi Movement. It was annulled in 1911."}},
+
+{q:{hi:"मुस्लिम लीग की स्थापना कब और कहाँ हुई?",en:"When and where was the Muslim League founded?"},
+ o:[{hi:"1905, अलीगढ़",en:"1905, Aligarh"},{hi:"1906, ढाका",en:"1906, Dhaka"},{hi:"1916, लखनऊ",en:"1916, Lucknow"},{hi:"1930, लाहौर",en:"1930, Lahore"}],a:1,
+ ex:{hi:"मुस्लिम लीग की स्थापना 30 दिसंबर 1906 को ढाका में हुई — नवाब सलीमुल्लाह खान की अध्यक्षता में। इसके संस्थापकों में आगा खान, नवाब मोहसिन-उल-मुल्क और वकार-उल-मुल्क थे।",en:"The Muslim League was founded on 30 December 1906 in Dhaka under Nawab Salimullah Khan's leadership. Founders included Aga Khan and Waqar-ul-Mulk."}},
+
+{q:{hi:"'लखनऊ पैक्ट' किस वर्ष हुआ?",en:"In which year was the 'Lucknow Pact' signed?"},
+ o:[{hi:"1906",en:"1906"},{hi:"1916",en:"1916"},{hi:"1919",en:"1919"},{hi:"1920",en:"1920"}],a:1,
+ ex:{hi:"लखनऊ पैक्ट दिसंबर 1916 में कांग्रेस और मुस्लिम लीग के बीच हुआ। इसमें हिंदू-मुस्लिम एकता और मुस्लिमों के लिए पृथक निर्वाचन क्षेत्र की मान्यता शामिल थी। उसी अधिवेशन में कांग्रेस और लीग दोनों की बैठक लखनऊ में हुई।",en:"The Lucknow Pact (December 1916) was between Congress and the Muslim League, agreeing on Hindu-Muslim unity and separate electorates for Muslims."}},
+
+{q:{hi:"'मॉर्ले-मिंटो सुधार' किस वर्ष लागू हुए?",en:"When were the 'Morley-Minto Reforms' implemented?"},
+ o:[{hi:"1905",en:"1905"},{hi:"1909",en:"1909"},{hi:"1919",en:"1919"},{hi:"1935",en:"1935"}],a:1,
+ ex:{hi:"मॉर्ले-मिंटो सुधार (भारतीय परिषद अधिनियम 1909) में मुस्लिमों के लिए पृथक निर्वाचन क्षेत्र की व्यवस्था की गई। लॉर्ड मिंटो को 'सांप्रदायिक निर्वाचन का जनक' कहा जाता है।",en:"The Morley-Minto Reforms (Indian Councils Act 1909) introduced separate electorates for Muslims. Lord Minto is called the 'Father of Communal Electorate'."}},
+
+{q:{hi:"'जलियाँवाला बाग नरसंहार' कब और कहाँ हुआ?",en:"When and where did the 'Jallianwala Bagh massacre' take place?"},
+ o:[{hi:"13 अप्रैल 1919, अमृतसर",en:"13 April 1919, Amritsar"},{hi:"10 मई 1857, मेरठ",en:"10 May 1857, Meerut"},{hi:"26 जनवरी 1930, लाहौर",en:"26 January 1930, Lahore"},{hi:"9 अगस्त 1942, बॉम्बे",en:"9 August 1942, Bombay"}],a:0,
+ ex:{hi:"जलियाँवाला बाग नरसंहार 13 अप्रैल 1919 को अमृतसर में हुआ — जनरल डायर के आदेश पर। यह रौलट एक्ट के विरोध में हुए प्रदर्शन के दौरान हुआ। इससे गांधीजी ने असहयोग आंदोलन शुरू किया।",en:"The Jallianwala Bagh massacre (13 April 1919, Amritsar) was ordered by General Dyer during protests against the Rowlatt Act, leading Gandhi to launch Non-Cooperation."}},
+
+{q:{hi:"'रौलट एक्ट' किस वर्ष पारित हुआ?",en:"When was the 'Rowlatt Act' passed?"},
+ o:[{hi:"1909",en:"1909"},{hi:"1915",en:"1915"},{hi:"1919",en:"1919"},{hi:"1935",en:"1935"}],a:2,
+ ex:{hi:"रौलट एक्ट (1919) — इसे 'ब्लैक एक्ट' भी कहा जाता है। इसके तहत सरकार बिना मुकदमा चलाए किसी को भी गिरफ्तार कर सकती थी। इसके विरोध में गांधीजी ने राष्ट्रव्यापी हड़ताल का आह्वान किया।",en:"The Rowlatt Act (1919), also called the 'Black Act', allowed detention without trial. Gandhi called a nationwide strike against it."}},
+
+{q:{hi:"'खिलाफत आंदोलन' किससे संबंधित था?",en:"The 'Khilafat Movement' was related to which of the following?"},
+ o:[{hi:"भारतीय स्वतंत्रता",en:"Indian independence"},{hi:"तुर्की के खलीफा के समर्थन में",en:"Support for the Turkish Caliph"},{hi:"सिख धर्म",en:"Sikhism"},{hi:"किसान अधिकार",en:"Farmers' rights"}],a:1,
+ ex:{hi:"खिलाफत आंदोलन (1919-1924) मुहम्मद अली और शौकत अली के नेतृत्व में तुर्की के खलीफा के समर्थन में था। गांधीजी ने इसे असहयोग आंदोलन से जोड़ा।",en:"The Khilafat Movement (1919-1924), led by Muhammad Ali and Shaukat Ali, supported the Turkish Caliph. Gandhi linked it with Non-Cooperation."}},
+
+{q:{hi:"'चौरी-चौरा कांड' कब हुआ?",en:"When did the 'Chauri Chaura incident' take place?"},
+ o:[{hi:"1920",en:"1920"},{hi:"1922",en:"1922"},{hi:"1925",en:"1925"},{hi:"1930",en:"1930"}],a:1,
+ ex:{hi:"चौरी-चौरा कांड 5 फरवरी 1922 को हुआ — गोरखपुर (UP) जिले में। प्रदर्शनकारियों ने पुलिस थाना जला दिया, जिसमें 22 पुलिसकर्मी मरे। इसके बाद गांधीजी ने असहयोग आंदोलन वापस लिया।",en:"The Chauri Chaura incident (5 February 1922, Gorakhpur, UP) saw protesters burn a police station, killing 22 policemen. Gandhi withdrew the Non-Cooperation Movement afterwards."}},
+
+{q:{hi:"'साइमन कमीशन' भारत कब आया?",en:"When did the 'Simon Commission' arrive in India?"},
+ o:[{hi:"1925",en:"1925"},{hi:"1927",en:"1927"},{hi:"1928",en:"1928"},{hi:"1930",en:"1930"}],a:2,
+ ex:{hi:"साइमन कमीशन 3 फरवरी 1928 को भारत आया। इसमें सातों सदस्य अंग्रेज थे, इसलिए इसका बहिष्कार किया गया। लाहौर में विरोध प्रदर्शन में लाला लाजपत राय घायल हुए और 17 नवंबर 1928 को उनका निधन हुआ।",en:"The Simon Commission arrived in India on 3 February 1928 with all seven British members, so it was boycotted. Lala Lajpat Rai was fatally injured during protests in Lahore and died on 17 November 1928."}},
+
+{q:{hi:"'पूर्ण स्वराज' का प्रस्ताव किस अधिवेशन में पारित हुआ?",en:"In which session was the 'Purna Swaraj' resolution adopted?"},
+ o:[{hi:"कलकत्ता 1928",en:"Calcutta 1928"},{hi:"लाहौर 1929",en:"Lahore 1929"},{hi:"कराची 1931",en:"Karachi 1931"},{hi:"हरिपुरा 1938",en:"Haripura 1938"}],a:1,
+ ex:{hi:"पूर्ण स्वराज का प्रस्ताव दिसंबर 1929 के लाहौर अधिवेशन में पारित हुआ। जवाहरलाल नेहरू अध्यक्ष थे और 26 जनवरी 1930 को 'स्वतंत्रता दिवस' मनाया गया। रावी नदी के किनारे तिरंगा फहराया गया।",en:"The Purna Swaraj resolution was passed at the December 1929 Lahore session under Jawaharlal Nehru. 26 January 1930 was observed as Independence Day, with the tricolour hoisted on the Ravi's banks."}},
+
+{q:{hi:"'गांधी-इरविन समझौता' कब हुआ?",en:"When was the 'Gandhi-Irwin Pact' signed?"},
+ o:[{hi:"1928",en:"1928"},{hi:"1930",en:"1930"},{hi:"1931",en:"1931"},{hi:"1932",en:"1932"}],a:2,
+ ex:{hi:"गांधी-इरविन समझौता 5 मार्च 1931 को हुआ — लंदन में दूसरे गोलमेज सम्मेलन से पहले। गांधीजी ने सविनय अवज्ञा आंदोलन स्थगित किया और ब्रिटेन ने राजनीतिक बंदियों को रिहा किया।",en:"The Gandhi-Irwin Pact (5 March 1931) preceded the Second Round Table Conference. Gandhi suspended Civil Disobedience; the British released political prisoners."}},
+
+{q:{hi:"'पूना पैक्ट' किसके बीच हुआ?",en:"Who signed the 'Poona Pact'?"},
+ o:[{hi:"गांधी-जिन्ना",en:"Gandhi-Jinnah"},{hi:"गांधी-एम्बेडकर",en:"Gandhi-Ambedkar"},{hi:"गांधी-इरविन",en:"Gandhi-Irwin"},{hi:"नेहरू-जिन्ना",en:"Nehru-Jinnah"}],a:1,
+ ex:{hi:"पूना पैक्ट 24 सितंबर 1932 को गांधीजी और डॉ. आंबेडकर के बीच हुआ। इसने दलितों के लिए पृथक निर्वाचन क्षेत्र को हटाकर संयुक्त निर्वाचन क्षेत्र में आरक्षित सीटें तय कीं। यह गांधीजी के अनशन के बाद हुआ।",en:"The Poona Pact (24 September 1932) between Gandhi and Ambedkar replaced separate electorates for Dalits with reserved seats in joint electorates, after Gandhi's fast."}},
+
+{q:{hi:"'भारत छोड़ो आंदोलन' कब शुरू हुआ?",en:"When did the 'Quit India Movement' begin?"},
+ o:[{hi:"8 अगस्त 1930",en:"8 August 1930"},{hi:"8 अगस्त 1935",en:"8 August 1935"},{hi:"8 अगस्त 1942",en:"8 August 1942"},{hi:"8 अगस्त 1945",en:"8 August 1945"}],a:2,
+ ex:{hi:"भारत छोड़ो आंदोलन 8 अगस्त 1942 को AICC के बॉम्बे अधिवेशन में शुरू हुआ। गांधीजी ने 'करो या मरो' का नारा दिया। अगले दिन सभी बड़े नेताओं को गिरफ्तार कर लिया गया।",en:"The Quit India Movement began on 8 August 1942 at the AICC session in Bombay. Gandhi gave the slogan 'Do or Die'; all major leaders were arrested the next day."}},
+
+/* ============ खंड C — गांधी युग (Q28–39) ============ */
+{q:{hi:"महात्मा गांधी का जन्म कब और कहाँ हुआ?",en:"When and where was Mahatma Gandhi born?"},
+ o:[{hi:"2 अक्टूबर 1869, पोरबंदर",en:"2 October 1869, Porbandar"},{hi:"15 अगस्त 1870, राजकोट",en:"15 August 1870, Rajkot"},{hi:"14 नवंबर 1889, अहमदाबाद",en:"14 November 1889, Ahmedabad"},{hi:"26 जनवरी 1875, साबरमती",en:"26 January 1875, Sabarmati"}],a:0,
+ ex:{hi:"महात्मा गांधी का जन्म 2 अक्टूबर 1869 को पोरबंदर (गुजरात) में हुआ। पिता करमचंद गांधी, माता पुतलीबाई। 1893-1914 तक दक्षिण अफ्रीका में रहे और 1915 में भारत लौटे।",en:"Mahatma Gandhi was born on 2 October 1869 at Porbandar (Gujarat) to Karamchand Gandhi and Putlibai. He lived in South Africa 1893–1914 and returned to India in 1915."}},
+
+{q:{hi:"भारत में गांधीजी का पहला सत्याग्रह कहाँ हुआ?",en:"Where did Gandhi's first Satyagraha take place in India?"},
+ o:[{hi:"अहमदाबाद",en:"Ahmedabad"},{hi:"चंपारण (बिहार)",en:"Champaran (Bihar)"},{hi:"खेड़ा",en:"Kheda"},{hi:"बारदोली",en:"Bardoli"}],a:1,
+ ex:{hi:"भारत में गांधीजी का पहला सत्याग्रह 1917 में चंपारण (बिहार) में हुआ — नील किसानों के लिए। इसके बाद 1918 में अहमदाबाद मिल मजदूर आंदोलन और खेड़ा किसान आंदोलन हुए।",en:"Gandhi's first Satyagraha in India was at Champaran (Bihar) in 1917 for indigo farmers, followed by the Ahmedabad mill strike and Kheda peasant movement in 1918."}},
+
+{q:{hi:"'रौलेट सत्याग्रह' के दौरान गांधीजी ने कौन-सा नारा दिया?",en:"What slogan did Gandhi give during the 'Rowlatt Satyagraha'?"},
+ o:[{hi:"करो या मरो",en:"Do or Die"},{hi:"सत्य ही ईश्वर है",en:"Truth is God"},{hi:"सत्याग्रह",en:"Satyagraha"},{hi:"आत्म-शुद्धि",en:"Self-purification"}],a:2,
+ ex:{hi:"रौलट सत्याग्रह (1919) के दौरान गांधीजी ने 'सत्याग्रह' का मार्ग अपनाया — सत्य और अहिंसा के आधार पर। यह उनका पहला राष्ट्रव्यापी आंदोलन था।",en:"During the Rowlatt Satyagraha (1919), Gandhi followed 'Satyagraha' — based on truth and non-violence. It was his first nationwide movement."}},
+
+{q:{hi:"'असहयोग आंदोलन' कब शुरू हुआ?",en:"When did the 'Non-Cooperation Movement' begin?"},
+ o:[{hi:"1919",en:"1919"},{hi:"1920",en:"1920"},{hi:"1922",en:"1922"},{hi:"1930",en:"1930"}],a:1,
+ ex:{hi:"असहयोग आंदोलन 1 अगस्त 1920 को गांधीजी ने शुरू किया — सरकारी नौकरियों, स्कूलों, अदालतों और विदेशी वस्तुओं के बहिष्कार के रूप में। इसे 5 फरवरी 1922 को चौरी-चौरा कांड के बाद वापस लिया गया।",en:"The Non-Cooperation Movement began on 1 August 1920 — boycotting government jobs, schools, courts and foreign goods. Gandhi withdrew it after the Chauri Chaura incident (5 February 1922)."}},
+
+{q:{hi:"'दांडी मार्च' कब शुरू हुआ और कहाँ से?",en:"When did the 'Dandi March' begin and from where?"},
+ o:[{hi:"12 मार्च 1930, साबरमती आश्रम",en:"12 March 1930, Sabarmati Ashram"},{hi:"6 अप्रैल 1930, दांडी",en:"6 April 1930, Dandi"},{hi:"1 जनवरी 1930, अहमदाबाद",en:"1 January 1930, Ahmedabad"},{hi:"26 जनवरी 1930, लाहौर",en:"26 January 1930, Lahore"}],a:0,
+ ex:{hi:"दांडी मार्च 12 मार्च 1930 को साबरमती आश्रम से शुरू हुआ और 6 अप्रैल 1930 को दांडी में समाप्त हुआ (385 किमी)। गांधीजी ने नमक कानून तोड़कर सविनय अवज्ञा आंदोलन की शुरुआत की।",en:"The Dandi March began on 12 March 1930 from Sabarmati Ashram and ended on 6 April 1930 at Dandi (385 km). Gandhi broke the salt law, launching Civil Disobedience."}},
+
+{q:{hi:"गांधीजी ने 'अस्पृश्यता' के लिए कौन-सा शब्द प्रयोग किया?",en:"What term did Gandhi use for 'untouchables'?"},
+ o:[{hi:"दलित",en:"Dalit"},{hi:"हरिजन",en:"Harijan"},{hi:"अंत्यज",en:"Antyaj"},{hi:"शूद्र",en:"Shudra"}],a:1,
+ ex:{hi:"गांधीजी ने 'हरिजन' (हरि के लोग/ईश्वर के लोग) शब्द का प्रयोग किया। उन्होंने 1932 में 'हरिजन सेवक संघ' की स्थापना की और 'हरिजन' अखबार निकाला।",en:"Gandhi used the term 'Harijan' (people of God). He founded the Harijan Sevak Sangh in 1932 and published the 'Harijan' newspaper."}},
+
+{q:{hi:"'व्यक्तिगत सत्याग्रह' कब शुरू हुआ?",en:"When did the 'Individual Satyagraha' begin?"},
+ o:[{hi:"1930",en:"1930"},{hi:"1934",en:"1934"},{hi:"1940",en:"1940"},{hi:"1942",en:"1942"}],a:2,
+ ex:{hi:"व्यक्तिगत सत्याग्रह 17 अक्टूबर 1940 को शुरू हुआ — गांधीजी द्वारा। पहले सत्याग्रही विनोबा भावे थे, दूसरे जवाहरलाल नेहरू। इसका उद्देश्य युद्ध में भारत की भागीदारी का विरोध था।",en:"Individual Satyagraha began on 17 October 1940 with Vinoba Bhave as the first Satyagrahi and Jawaharlal Nehru as the second, opposing India's involvement in the war."}},
+
+{q:{hi:"'करो या मरो' का नारा किस आंदोलन से जुड़ा है?",en:"The slogan 'Do or Die' is associated with which movement?"},
+ o:[{hi:"असहयोग",en:"Non-Cooperation"},{hi:"सविनय अवज्ञा",en:"Civil Disobedience"},{hi:"भारत छोड़ो",en:"Quit India"},{hi:"खिलाफत",en:"Khilafat"}],a:2,
+ ex:{hi:"'करो या मरो' का नारा गांधीजी ने 8 अगस्त 1942 को भारत छोड़ो आंदोलन के दौरान दिया। उन्होंने कहा कि भारत को स्वतंत्र कराने के लिए हर व्यक्ति को अपनी जान देने के लिए तैयार रहना चाहिए।",en:"'Do or Die' was given by Gandhi on 8 August 1942 during the Quit India Movement, urging every Indian to be ready to sacrifice for freedom."}},
+
+{q:{hi:"गांधीजी की हत्या कब और कहाँ हुई?",en:"When and where was Gandhi assassinated?"},
+ o:[{hi:"30 जनवरी 1948, दिल्ली",en:"30 January 1948, Delhi"},{hi:"2 अक्टूबर 1948, पोरबंदर",en:"2 October 1948, Porbandar"},{hi:"15 अगस्त 1947, कलकत्ता",en:"15 August 1947, Calcutta"},{hi:"26 जनवरी 1950, दिल्ली",en:"26 January 1950, Delhi"}],a:0,
+ ex:{hi:"गांधीजी की हत्या 30 जनवरी 1948 को नई दिल्ली के बिड़ला हाउस (बिड़ला भवन) में नाथूराम गोडसे ने की। इस दिन को 'शहीद दिवस' के रूप में मनाया जाता है।",en:"Gandhi was assassinated on 30 January 1948 at Birla House, New Delhi, by Nathuram Godse. The day is observed as Martyrs' Day."}},
+
+{q:{hi:"'हरिजन सेवक संघ' की स्थापना कब हुई?",en:"When was the 'Harijan Sevak Sangh' founded?"},
+ o:[{hi:"1930",en:"1930"},{hi:"1932",en:"1932"},{hi:"1935",en:"1935"},{hi:"1940",en:"1940"}],a:1,
+ ex:{hi:"हरिजन सेवक संघ की स्थापना 30 सितंबर 1932 को हुई — पूना पैक्ट के बाद। इसका मुख्यालय दिल्ली में था और इसके पहले अध्यक्ष घनश्याम दास बिड़ला थे।",en:"Harijan Sevak Sangh was founded on 30 September 1932 after the Poona Pact, headquartered in Delhi with G.D. Birla as its first president."}},
+
+{q:{hi:"'साबरमती आश्रम' की स्थापना कब हुई?",en:"When was the 'Sabarmati Ashram' founded?"},
+ o:[{hi:"1915",en:"1915"},{hi:"1917",en:"1917"},{hi:"1920",en:"1920"},{hi:"1930",en:"1930"}],a:1,
+ ex:{hi:"साबरमती आश्रम (सत्याग्रह आश्रम) की स्थापना 25 मई 1915 को अहमदाबाद के पास हुई। गांधीजी 1930 के दांडी मार्च तक यहीं रहे। अब इसे 'गांधी स्मारक संग्रहालय' कहा जाता है।",en:"Sabarmati Ashram (Satyagraha Ashram) was founded on 25 May 1915 near Ahmedabad. Gandhi lived here until the Dandi March (1930). It is now the Gandhi Memorial Museum."}},
+
+{q:{hi:"'गांधी-जिन्ना वार्ता' विफल क्यों हुई?",en:"Why did the 'Gandhi-Jinnah talks' fail?"},
+ o:[{hi:"व्यक्तिगत मतभेद",en:"Personal differences"},{hi:"जिन्ना की पाकिस्तान की मांग",en:"Jinnah's demand for Pakistan"},{hi:"धन का अभाव",en:"Lack of funds"},{hi:"अंग्रेजों का हस्तक्षेप",en:"British interference"}],a:1,
+ ex:{hi:"गांधी-जिन्ना वार्ता (सितंबर 1944) इसलिए विफल हुई क्योंकि जिन्ना ने पाकिस्तान की मांग पर अड़े रहे — मुस्लिम बहुल क्षेत्रों में अलग राष्ट्र। गांधीजी इसे स्वीकार नहीं कर सके।",en:"The Gandhi-Jinnah talks (September 1944) failed because Jinnah insisted on Pakistan — a separate nation for Muslim-majority areas — which Gandhi rejected."}},
+
+/* ============ खंड D — क्रांतिकारी और स्वतंत्रता (Q40–49) ============ */
+{q:{hi:"'आर्य समाज' की स्थापना किसने की?",en:"Who founded the 'Arya Samaj'?"},
+ o:[{hi:"राजा राममोहन राय",en:"Raja Ram Mohan Roy"},{hi:"स्वामी दयानंद सरस्वती",en:"Swami Dayanand Saraswati"},{hi:"स्वामी विवेकानंद",en:"Swami Vivekananda"},{hi:"ईश्वरचंद्र विद्यासागर",en:"Ishwar Chandra Vidyasagar"}],a:1,
+ ex:{hi:"आर्य समाज की स्थापना 1875 में स्वामी दयानंद सरस्वती ने बॉम्बे में की। उन्होंने 'वेदों की ओर लौटो' का नारा दिया। 'शुद्धि' आंदोलन इनसे जुड़ा है।",en:"Arya Samaj was founded in 1875 by Swami Dayanand Saraswati in Bombay. He gave the slogan 'Back to the Vedas' and led the Shuddhi movement."}},
+
+{q:{hi:"'रामकृष्ण मिशन' की स्थापना किसने की?",en:"Who founded the 'Ramakrishna Mission'?"},
+ o:[{hi:"रामकृष्ण परमहंस",en:"Ramakrishna Paramhansa"},{hi:"स्वामी विवेकानंद",en:"Swami Vivekananda"},{hi:"स्वामी दयानंद",en:"Swami Dayanand"},{hi:"श्री अरविंद",en:"Sri Aurobindo"}],a:1,
+ ex:{hi:"रामकृष्ण मिशन की स्थापना 1897 में स्वामी विवेकानंद ने की। उन्होंने 1893 में शिकागो धर्म सम्मेलन में भारत का प्रतिनिधित्व किया और 'उठो, जागो, तब तक रुको नहीं जब तक लक्ष्य प्राप्त न हो' का नारा दिया।",en:"Ramakrishna Mission was founded in 1897 by Swami Vivekananda, who represented India at the 1893 Chicago Parliament of Religions."}},
+
+{q:{hi:"'हिंदुस्तान रिपब्लिकन एसोसिएशन' कब बनी?",en:"When was the 'Hindustan Republican Association' formed?"},
+ o:[{hi:"1920",en:"1920"},{hi:"1924",en:"1924"},{hi:"1928",en:"1928"},{hi:"1930",en:"1930"}],a:1,
+ ex:{hi:"हिंदुस्तान रिपब्लिकन एसोसिएशन (HRA) की स्थापना 1924 में कानपुर में हुई — सचिंद्रनाथ सान्याल, जोगेश चंद्र चटर्जी, राम प्रसाद बिस्मिल आदि ने। 1928 में इसमें 'सोशलिस्ट' जोड़कर HSRA बना।",en:"The Hindustan Republican Association (HRA) was formed in 1924 at Kanpur by Sachindranath Sanyal, Jogesh Chandra Chatterjee, Ram Prasad Bismil and others. In 1928, 'Socialist' was added, making it HSRA."}},
+
+{q:{hi:"'काकोरी कांड' कब हुआ?",en:"When did the 'Kakori Conspiracy' take place?"},
+ o:[{hi:"1922",en:"1922"},{hi:"1925",en:"1925"},{hi:"1928",en:"1928"},{hi:"1931",en:"1931"}],a:1,
+ ex:{hi:"काकोरी कांड 9 अगस्त 1925 को हुआ — लखनऊ के पास काकोरी में सरकारी खजाना ले जा रही ट्रेन को लूटा गया। राम प्रसाद बिस्मिल, अशफ़ाक़ उल्ला खाँ, राजेंद्र लाहिड़ी और ठाकुर रोशन सिंह को फाँसी दी गई।",en:"The Kakori Conspiracy (9 August 1925) was a train robbery near Kakori (Lucknow). Ram Prasad Bismil, Ashfaqullah Khan, Rajendra Lahiri and Thakur Roshan Singh were hanged."}},
+
+{q:{hi:"भगत सिंह, सुखदेव और राजगुरु को फाँसी कब दी गई?",en:"When were Bhagat Singh, Sukhdev and Rajguru hanged?"},
+ o:[{hi:"23 मार्च 1930",en:"23 March 1930"},{hi:"23 मार्च 1931",en:"23 March 1931"},{hi:"23 मार्च 1932",en:"23 March 1932"},{hi:"23 मार्च 1933",en:"23 March 1933"}],a:1,
+ ex:{hi:"भगत सिंह, सुखदेव और राजगुरु को 23 मार्च 1931 को लाहौर सेंट्रल जेल में फाँसी दी गई। यह दिन 'शहीद दिवस' के रूप में मनाया जाता है। उन्होंने 1929 में सेंट्रल असेंबली में बम फेंका था।",en:"Bhagat Singh, Sukhdev and Rajguru were hanged on 23 March 1931 at Lahore Central Jail. They had thrown bombs in the Central Assembly in 1929."}},
+
+{q:{hi:"'आज़ाद हिंद फ़ौज' की स्थापना पहली बार किसने की?",en:"Who first founded the 'Azad Hind Fauj' (INA)?"},
+ o:[{hi:"सुभाष चंद्र बोस",en:"Subhash Chandra Bose"},{hi:"रास बिहारी बोस",en:"Rash Behari Bose"},{hi:"मोहन सिंह",en:"Mohan Singh"},{hi:"शाहनवाज़ खान",en:"Shah Nawaz Khan"}],a:1,
+ ex:{hi:"आज़ाद हिंद फ़ौज की पहली स्थापना 1942 में रास बिहारी बोस ने की। बाद में सुभाष चंद्र बोस ने 1943 में इसका पुनर्गठन किया और 'तुम मुझे खून दो, मैं तुम्हें आज़ादी दूँगा' का नारा दिया।",en:"The INA was first founded by Rash Behari Bose in 1942. Subhash Chandra Bose reorganised it in 1943, giving the slogan 'Give me blood, I will give you freedom'."}},
+
+{q:{hi:"'बंगाल का विभाजन' किस वर्ष रद्द किया गया?",en:"In which year was the 'Partition of Bengal' annulled?"},
+ o:[{hi:"1908",en:"1908"},{hi:"1911",en:"1911"},{hi:"1915",en:"1915"},{hi:"1919",en:"1919"}],a:1,
+ ex:{hi:"बंगाल का विभाजन 12 दिसंबर 1911 को रद्द किया गया — दिल्ली दरबार में राजा जॉर्ज-V की घोषणा से। इसी अवसर पर राजधानी कलकत्ता से दिल्ली स्थानांतरित की गई (1912)।",en:"The Partition of Bengal was annulled on 12 December 1911 at the Delhi Durbar by King George V, who also announced the shift of the capital from Calcutta to Delhi (1912)."}},
+
+{q:{hi:"'साइमन कमीशन' के विरोध में लाहौर में कौन घायल हुए?",en:"Who was fatally injured during the Lahore protest against the 'Simon Commission'?"},
+ o:[{hi:"भगत सिंह",en:"Bhagat Singh"},{hi:"लाला लाजपत राय",en:"Lala Lajpat Rai"},{hi:"मोतीलाल नेहरू",en:"Motilal Nehru"},{hi:"सुभाष चंद्र बोस",en:"Subhash Chandra Bose"}],a:1,
+ ex:{hi:"30 अक्टूबर 1928 को लाहौर में साइमन कमीशन के विरोध में लाठीचार्ज हुआ, जिसमें लाला लाजपत राय घायल हुए और 17 नवंबर 1928 को उनका निधन हो गया। इसे बदलने के लिए भगत सिंह ने सांडर्स को मारा।",en:"On 30 October 1928, police lathi-charged the anti-Simon Commission protest in Lahore; Lala Lajpat Rai was injured and died on 17 November 1928. Bhagat Singh later killed Saunders in revenge."}},
+
+{q:{hi:"'चंपारण सत्याग्रह' के दौरान किस पद्धति का विरोध हुआ?",en:"Which system was opposed during the 'Champaran Satyagraha'?"},
+ o:[{hi:"रैयतवाड़ी",en:"Ryotwari"},{hi:"तीनकठिया",en:"Tinkathia"},{hi:"महालवाड़ी",en:"Mahalwari"},{hi:"बेगार",en:"Begar"}],a:1,
+ ex:{hi:"चंपारण सत्याग्रह (1917) में 'तीनकठिया' प्रथा का विरोध हुआ — जिसमें किसानों को अपनी 3/20 ज़मीन पर नील उगाना अनिवार्य था। इसके लिए गांधीजी को चंपारण आमंत्रित किया गया था — राजकुमार शुक्ल द्वारा।",en:"The Champaran Satyagraha (1917) opposed the 'Tinkathia' system, which forced farmers to grow indigo on 3/20 of their land. Gandhi was invited by Rajkumar Shukla."}},
+
+{q:{hi:"'अखिल भारतीय किसान सभा' की स्थापना कब हुई?",en:"When was the 'All India Kisan Sabha' founded?"},
+ o:[{hi:"1920",en:"1920"},{hi:"1929",en:"1929"},{hi:"1936",en:"1936"},{hi:"1942",en:"1942"}],a:2,
+ ex:{hi:"अखिल भारतीय किसान सभा की स्थापना 11 अप्रैल 1936 को लखनऊ में हुई। सहजानंद सरस्वती इसके पहले अध्यक्ष बने। इसने किसानों के हितों की रक्षा के लिए काम किया।",en:"All India Kisan Sabha was founded on 11 April 1936 in Lucknow with Swami Sahajanand Saraswati as its first president, to protect farmers' interests."}},
+
+{q:{hi:"'कैबिनेट मिशन' कब भारत आया?",en:"When did the 'Cabinet Mission' come to India?"},
+ o:[{hi:"1942",en:"1942"},{hi:"1945",en:"1945"},{hi:"1946",en:"1946"},{hi:"1947",en:"1947"}],a:2,
+ ex:{hi:"कैबिनेट मिशन मार्च 1946 में भारत आया। सदस्य थे — पेथिक लॉरेंस (अध्यक्ष), स्टैफर्ड क्रिप्स और ए.वी. अलेक्जेंडर। इसने संविधान सभा के गठन का प्रस्ताव दिया।",en:"The Cabinet Mission came to India in March 1946, comprising Pethick-Lawrence (chairman), Stafford Cripps and A.V. Alexander. It proposed a Constituent Assembly."}},
+
+/* ============ खंड E — बिहार: प्राचीन और मध्यकालीन (Q50–61) ============ */
+{q:{hi:"बिहार में 'बुद्ध' को ज्ञान की प्राप्ति कहाँ हुई?",en:"Where did Buddha attain enlightenment in Bihar?"},
+ o:[{hi:"वैशाली",en:"Vaishali"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"राजगीर",en:"Rajgir"},{hi:"नालंदा",en:"Nalanda"}],a:1,
+ ex:{hi:"बुद्ध को बोधगया (बिहार) में बोधि वृक्ष के नीचे वैशाख पूर्णिमा की रात ज्ञान की प्राप्ति हुई। उनका जन्म लुम्बिनी (नेपाल) में, प्रथम उपदेश सारनाथ में, महापरिनिर्वाण कुशीनगर में हुआ।",en:"Buddha attained enlightenment at Bodh Gaya (Bihar) under the Bodhi tree on Vaishakh Purnima. He was born at Lumbini (Nepal), gave his first sermon at Sarnath, and attained Mahaparinirvana at Kushinagar."}},
+
+{q:{hi:"'प्रथम बौद्ध संगीति' कहाँ आयोजित हुई?",en:"Where was the 'First Buddhist Council' held?"},
+ o:[{hi:"राजगृह",en:"Rajgriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"बोधगया",en:"Bodh Gaya"}],a:0,
+ ex:{hi:"प्रथम बौद्ध संगीति बुद्ध के महापरिनिर्वाण के तुरंत बाद (483 ई.पू.) राजगृह (वर्तमान राजगीर) में हुई — महाकस्सप की अध्यक्षता में, अजातशत्रु के संरक्षण में।",en:"The First Buddhist Council was held at Rajgriha (modern Rajgir) in 483 BCE under Mahakassapa's presidency, patronised by Ajatashatru."}},
+
+{q:{hi:"'द्वितीय बौद्ध संगीति' कहाँ हुई?",en:"Where was the 'Second Buddhist Council' held?"},
+ o:[{hi:"राजगृह",en:"Rajgriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"कुशीनगर",en:"Kushinagar"}],a:1,
+ ex:{hi:"द्वितीय बौद्ध संगीति वैशाली में हुई (383 ई.पू.) — कालाशोक के शासनकाल में। इसमें बौद्ध संघ स्थविरवादी और महासांघिक में विभाजित हो गया।",en:"The Second Buddhist Council was held at Vaishali in 383 BCE during Kalashoka's reign, splitting the Sangha into Sthaviravada and Mahasanghika."}},
+
+{q:{hi:"'तृतीय बौद्ध संगीति' किसने बुलाई?",en:"Who convened the 'Third Buddhist Council'?"},
+ o:[{hi:"चंद्रगुप्त मौर्य",en:"Chandragupta Maurya"},{hi:"बिंदुसार",en:"Bindusara"},{hi:"अशोक",en:"Ashoka"},{hi:"कनिष्क",en:"Kanishka"}],a:2,
+ ex:{hi:"तृतीय बौद्ध संगीति अशोक के शासनकाल में पाटलिपुत्र में हुई (250 ई.पू.) — मोग्गलिपुत्त तिस्स की अध्यक्षता में। यहाँ 'अभिधम्म पिटक' की रचना हुई।",en:"The Third Buddhist Council was held at Pataliputra during Ashoka's reign (250 BCE) under Moggaliputta Tissa; the Abhidhamma Pitaka was composed here."}},
+
+{q:{hi:"'चतुर्थ बौद्ध संगीति' किसके शासनकाल में हुई?",en:"During whose reign was the 'Fourth Buddhist Council' held?"},
+ o:[{hi:"अशोक",en:"Ashoka"},{hi:"कनिष्क",en:"Kanishka"},{hi:"हर्षवर्धन",en:"Harshavardhana"},{hi:"समुद्रगुप्त",en:"Samudragupta"}],a:1,
+ ex:{hi:"चतुर्थ बौद्ध संगीति कनिष्क के शासनकाल में कुंडलवन (कश्मीर) में हुई (1st century CE) — वसुमित्र की अध्यक्षता में। इसमें बौद्ध धर्म महायान और हीनयान में विभाजित हुआ।",en:"The Fourth Buddhist Council was held at Kundalvana (Kashmir) during Kanishka's reign (1st century CE) under Vasumitra, splitting Buddhism into Mahayana and Hinayana."}},
+
+{q:{hi:"'महावीर' का जन्म कहाँ हुआ था?",en:"Where was 'Mahavira' born?"},
+ o:[{hi:"वैशाली के पास कुंडग्राम",en:"Kundagram near Vaishali"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"राजगीर",en:"Rajgir"},{hi:"पाटलिपुत्र",en:"Pataliputra"}],a:0,
+ ex:{hi:"महावीर का जन्म 599 ई.पू. में कुंडग्राम (वैशाली जिला, बिहार) में हुआ। वे जैन धर्म के 24वें तीर्थंकर थे। उनके पिता सिद्धार्थ और माता त्रिशला थीं।",en:"Mahavira was born in 599 BCE at Kundagram (Vaishali district, Bihar). He was the 24th Tirthankara of Jainism; his parents were Siddhartha and Trishala."}},
+
+{q:{hi:"'वैशाली' किसलिए प्रसिद्ध है?",en:"'Vaishali' is famous for which of the following?"},
+ o:[{hi:"बुद्ध की जन्मस्थली",en:"Buddha's birthplace"},{hi:"विश्व का पहला गणतंत्र",en:"World's first republic"},{hi:"मौर्य साम्राज्य की राजधानी",en:"Capital of Mauryan Empire"},{hi:"प्रथम बौद्ध संगीति",en:"First Buddhist Council"}],a:1,
+ ex:{hi:"वैशाली को विश्व का पहला गणतंत्र (लिच्छवी गणराज्य) माना जाता है। यह बिहार में स्थित है — जहाँ महावीर का जन्म हुआ और द्वितीय बौद्ध संगीति हुई।",en:"Vaishali is considered the world's first republic (Lichhavi Republic), in Bihar, where Mahavira was born and the Second Buddhist Council was held."}},
+
+{q:{hi:"'अजातशत्रु' किस राजवंश का शासक था?",en:"'Ajatashatru' belonged to which dynasty?"},
+ o:[{hi:"नंद वंश",en:"Nanda dynasty"},{hi:"हर्यक वंश",en:"Haryanka dynasty"},{hi:"शिशुनाग वंश",en:"Shishunaga dynasty"},{hi:"मौर्य वंश",en:"Maurya dynasty"}],a:1,
+ ex:{hi:"अजातशत्रु हर्यक वंश का शासक था (492-460 ई.पू.)। उसने अपने पिता बिंबिसार को मारकर सत्ता हासिल की और मगध साम्राज्य का विस्तार किया। यह बिहार (मगध) का प्रमुख राजवंश था।",en:"Ajatashatru was a Haryanka dynasty ruler (492–460 BCE). He killed his father Bimbisara to seize power and expanded the Magadha empire in Bihar."}},
+
+{q:{hi:"'चंद्रगुप्त मौर्य' की राजधानी कौन-सी थी?",en:"What was 'Chandragupta Maurya's' capital?"},
+ o:[{hi:"राजगृह",en:"Rajgriha"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"वैशाली",en:"Vaishali"},{hi:"कन्नौज",en:"Kannauj"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य (322-298 ई.पू.) की राजधानी पाटलिपुत्र (वर्तमान पटना) थी। उन्होंने चाणक्य के सहयोग से मौर्य साम्राज्य की स्थापना की और 322 ई.पू. में धनानंद को पराजित किया।",en:"Chandragupta Maurya (322–298 BCE) had his capital at Pataliputra (modern Patna). With Chanakya's help, he founded the Mauryan Empire and defeated Dhanananda in 322 BCE."}},
+
+{q:{hi:"'अशोक' का राज्याभिषेक किस वर्ष हुआ?",en:"In which year was 'Ashoka' crowned?"},
+ o:[{hi:"273 ई.पू.",en:"273 BCE"},{hi:"269 ई.पू.",en:"269 BCE"},{hi:"261 ई.पू.",en:"261 BCE"},{hi:"250 ई.पू.",en:"250 BCE"}],a:1,
+ ex:{hi:"अशोक का राज्याभिषेक 269 ई.पू. में हुआ, लेकिन वे 273 ई.पू. में ही सिंहासन पर बैठे थे — 4 वर्ष के युद्ध के बाद। उनके शासनकाल में कलिंग युद्ध (261 ई.पू.) हुआ।",en:"Ashoka was crowned in 269 BCE, though he ascended the throne in 273 BCE after 4 years of war. The Kalinga War (261 BCE) was fought during his reign."}},
+
+{q:{hi:"बिहार में स्थित 'विक्रमशिला विश्वविद्यालय' के संस्थापक कौन थे?",en:"Who founded 'Vikramshila University' in Bihar?"},
+ o:[{hi:"अशोक",en:"Ashoka"},{hi:"धर्मपाल",en:"Dharmapala"},{hi:"हर्षवर्धन",en:"Harshavardhana"},{hi:"कुमारगुप्त",en:"Kumaragupta"}],a:1,
+ ex:{hi:"विक्रमशिला विश्वविद्यालय की स्थापना 8वीं शताब्दी में पाल वंश के शासक धर्मपाल ने की। यह भागलपुर जिले (बिहार) में स्थित था। इसका पुस्तकालय बहुत प्रसिद्ध था। बख्तियार खिलजी ने इसे नष्ट किया।",en:"Vikramshila University was founded in the 8th century by Pala ruler Dharmapala in Bhagalpur district (Bihar). Its library was famous. Bakhtiyar Khilji destroyed it."}},
+
+{q:{hi:"बिहार में 'मगध साम्राज्य' की स्थापना किसने की?",en:"Who founded the 'Magadha Empire' in Bihar?"},
+ o:[{hi:"बिंबिसार",en:"Bimbisara"},{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"बृहद्रथ",en:"Brihadratha"},{hi:"महापद्मनंद",en:"Mahapadmananda"}],a:2,
+ ex:{hi:"मगध साम्राज्य की स्थापना बृहद्रथ ने की (लगभग 600 ई.पू.) — बिहार के राजगृह (राजगीर) क्षेत्र में। इसने हर्यक, शिशुनाग और नंद वंशों के अंतर्गत विस्तार पाया।",en:"The Magadha Empire was founded by Brihadratha (c. 600 BCE) in the Rajgriha (Rajgir) region of Bihar. It expanded under the Haryanka, Shishunaga and Nanda dynasties."}},
+
+/* ============ खंड F — बिहार: आधुनिक इतिहास और स्वतंत्रता संग्राम (Q62–73) ============ */
+{q:{hi:"1857 के विद्रोह में बिहार के नेता कौन थे?",en:"Who was Bihar's leader in the 1857 revolt?"},
+ o:[{hi:"मंगल पांडे",en:"Mangal Pandey"},{hi:"कुँवर सिंह",en:"Kunwar Singh"},{hi:"नाना साहेब",en:"Nana Saheb"},{hi:"तांत्या टोपे",en:"Tantia Tope"}],a:1,
+ ex:{hi:"1857 में बिहार का नेतृत्व जगदीशपुर (भोजपुर जिला, आरा) के कुँवर सिंह ने किया। उनका जन्म 1777 में हुआ और 26 अप्रैल 1858 को वीरगति प्राप्त की। उनकी जयंती 23 अप्रैल को मनाई जाती है।",en:"The 1857 revolt in Bihar was led by Kunwar Singh of Jagdishpur (Bhojpur district, Arrah). Born in 1777, he died as a hero on 26 April 1858. His birth anniversary is 23 April."}},
+
+{q:{hi:"कुँवर सिंह की मृत्यु कब हुई?",en:"When did Kunwar Singh die?"},
+ o:[{hi:"26 अप्रैल 1858",en:"26 April 1858"},{hi:"23 अप्रैल 1857",en:"23 April 1857"},{hi:"10 मई 1857",en:"10 May 1857"},{hi:"26 अप्रैल 1860",en:"26 April 1860"}],a:0,
+ ex:{hi:"वीर कुँवर सिंह की मृत्यु 26 अप्रैल 1858 को हुई — गंगा पार करते समय घायल होने के बाद। उनकी बहादुरी के लिए ब्रिटिश अधिकारी भी उनकी प्रशंसा करते थे।",en:"Veer Kunwar Singh died on 26 April 1858 after being wounded while crossing the Ganga. Even British officers admired his bravery."}},
+
+{q:{hi:"बिहार में चंपारण सत्याग्रह में गांधीजी को किसने आमंत्रित किया?",en:"Who invited Gandhi to the Champaran Satyagraha in Bihar?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"राजकुमार शुक्ल",en:"Rajkumar Shukla"},{hi:"मजहरुल हक",en:"Mazharul Haque"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"}],a:1,
+ ex:{hi:"गांधीजी को चंपारण आने के लिए 'राजकुमार शुक्ल' ने आमंत्रित किया — जो चंपारण के एक किसान थे। उन्होंने 1916 में लखनऊ कांग्रेस अधिवेशन में गांधीजी से मुलाकात की थी।",en:"Gandhi was invited to Champaran by Rajkumar Shukla, a farmer who met him at the 1916 Lucknow Congress session."}},
+
+{q:{hi:"'चंपारण सत्याग्रह' में गांधीजी के साथ कौन-कौन से नेता थे?",en:"Who accompanied Gandhi during the 'Champaran Satyagraha'?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद, मजहरुल हक, अनुग्रह नारायण सिंह",en:"Dr. Rajendra Prasad, Mazharul Haque, Anugrah Narayan Singh"},{hi:"नेहरू, पटेल, आज़ाद",en:"Nehru, Patel, Azad"},{hi:"तिलक, गोखले",en:"Tilak, Gokhale"},{hi:"सुभाष चंद्र बोस",en:"Subhash Chandra Bose"}],a:0,
+ ex:{hi:"चंपारण सत्याग्रह में गांधीजी के साथ डॉ. राजेंद्र प्रसाद, मजहरुल हक, अनुग्रह नारायण सिंह, ब्रजकिशोर प्रसाद और महादेव देसाई थे। यह बिहार में कांग्रेस की नींव थी।",en:"With Gandhi at Champaran were Dr. Rajendra Prasad, Mazharul Haque, Anugrah Narayan Singh, Brajkishore Prasad and Mahadev Desai, laying Congress's foundation in Bihar."}},
+
+{q:{hi:"'चंपारण सत्याग्रह' के बाद गांधीजी ने बिहार में कहाँ सत्याग्रह किया?",en:"Where did Gandhi lead a Satyagraha in Bihar after Champaran?"},
+ o:[{hi:"दरभंगा",en:"Darbhanga"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"खेड़ा",en:"Kheda"},{hi:"बारदोली",en:"Bardoli"}],a:1,
+ ex:{hi:"चंपारण से पहले गांधीजी मुज़फ़्फ़रपुर गए थे (अप्रैल 1917), जहाँ उन्होंने जे.बी. कृपलानी और प्रो. मलकानी से मुलाकात की। मुज़फ़्फ़रपुर बिहार का प्रमुख केंद्र था।",en:"Before Champaran, Gandhi visited Muzaffarpur (April 1917), meeting J.B. Kripalani and Prof. Malkani. Muzaffarpur was a key Bihar centre."}},
+
+{q:{hi:"'बिहार किसान सभा' की स्थापना किसने की?",en:"Who founded the 'Bihar Kisan Sabha'?"},
+ o:[{hi:"स्वामी सहजानंद सरस्वती",en:"Swami Sahajanand Saraswati"},{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"कर्पूरी ठाकुर",en:"Karpoori Thakur"},{hi:"जय प्रकाश नारायण",en:"Jayaprakash Narayan"}],a:0,
+ ex:{hi:"'बिहार किसान सभा' की स्थापना 1929 में स्वामी सहजानंद सरस्वती ने की। उन्होंने किसानों के अधिकारों और ज़मींदारी प्रथा के विरुद्ध आंदोलन किया। सहजानंद को 'किसानों का मसीहा' कहा जाता है।",en:"Bihar Kisan Sabha was founded in 1929 by Swami Sahajanand Saraswati, who led farmers' movements against zamindari. He is called the 'Messiah of Peasants'."}},
+
+{q:{hi:"'चंपारण सत्याग्रह' किस वर्ष हुआ?",en:"In which year did the 'Champaran Satyagraha' take place?"},
+ o:[{hi:"1915",en:"1915"},{hi:"1917",en:"1917"},{hi:"1919",en:"1919"},{hi:"1920",en:"1920"}],a:1,
+ ex:{hi:"चंपारण सत्याग्रह अप्रैल 1917 में हुआ — गांधीजी का भारत में पहला सत्याग्रह। इसमें 'तीनकठिया' प्रथा और नील किसानों के शोषण का विरोध किया गया। चंपारण आंदोलन को 'भारतीय स्वतंत्रता का प्रथम प्रयोग' कहा जाता है।",en:"The Champaran Satyagraha (April 1917) was Gandhi's first Satyagraha in India, opposing the Tinkathia system and indigo farmers' exploitation."}},
+
+{q:{hi:"बिहार के 'जय प्रकाश नारायण' किस आंदोलन से जुड़े हैं?",en:"Bihar's 'Jayaprakash Narayan' is associated with which movement?"},
+ o:[{hi:"चंपारण सत्याग्रह",en:"Champaran Satyagraha"},{hi:"संपूर्ण क्रांति (1974)",en:"Sampoorna Kranti (1974)"},{hi:"भारत छोड़ो आंदोलन",en:"Quit India"},{hi:"असहयोग",en:"Non-Cooperation"}],a:1,
+ ex:{hi:"जय प्रकाश नारायण (1902-1979) ने 1974 में 'संपूर्ण क्रांति' आंदोलन शुरू किया — इंदिरा गांधी सरकार के खिलाफ। उन्हें 'लोकनायक' कहा जाता है। उन्होंने 1977 में जनता पार्टी सरकार बनाने में भूमिका निभाई।",en:"Jayaprakash Narayan (1902–1979) launched the 'Sampoorna Kranti' movement in 1974 against Indira Gandhi. Called 'Loknayak', he helped form the Janata Party government in 1977."}},
+
+{q:{hi:"'जय प्रकाश नारायण' का जन्म कहाँ हुआ?",en:"Where was 'Jayaprakash Narayan' born?"},
+ o:[{hi:"सीताबदियारा (सारण)",en:"Sitabdiara (Saran)"},{hi:"जीरादेई (सीवान)",en:"Jiradai (Siwan)"},{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"}],a:0,
+ ex:{hi:"जय प्रकाश नारायण का जन्म 11 अक्टूबर 1902 को सीताबदियारा गाँव (सारण जिला, बिहार) में हुआ। उन्हें 1998 में मरणोपरांत भारत रत्न से सम्मानित किया गया।",en:"Jayaprakash Narayan was born on 11 October 1902 at Sitabdiara village (Saran district, Bihar). He received Bharat Ratna posthumously in 1998."}},
+
+{q:{hi:"बिहार में 'किसान सभा' के नेता 'स्वामी सहजानंद सरस्वती' का जन्म कहाँ हुआ?",en:"Where was 'Swami Sahajanand Saraswati', leader of Bihar Kisan Sabha, born?"},
+ o:[{hi:"देवा (गाजीपुर, UP)",en:"Deva (Ghazipur, UP)"},{hi:"पटना",en:"Patna"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:0,
+ ex:{hi:"स्वामी सहजानंद सरस्वती का जन्म 22 फरवरी 1889 को देवा गाँव (गाजीपुर, UP) में हुआ, लेकिन उन्होंने बिहार में किसान आंदोलन का नेतृत्व किया। बिहार बोर्ड ने उनकी जीवनी 'मेरा जीवन संघर्ष' प्रकाशित की।",en:"Swami Sahajanand Saraswati was born on 22 February 1889 at Deva (Ghazipur, UP) but led the peasant movement in Bihar. His autobiography is 'Mera Jeevan Sangharsh'."}},
+
+{q:{hi:"'बिहार सोशलिस्ट पार्टी' की स्थापना किसने की?",en:"Who founded the 'Bihar Socialist Party'?"},
+ o:[{hi:"जय प्रकाश नारायण",en:"Jayaprakash Narayan"},{hi:"राम मनोहर लोहिया",en:"Ram Manohar Lohia"},{hi:"अच्युत पटवर्धन",en:"Achyut Patwardhan"},{hi:"डॉ. रामचंद्र",en:"Dr. Ramchandra"}],a:0,
+ ex:{hi:"बिहार सोशलिस्ट पार्टी की स्थापना 1934 में जय प्रकाश नारायण ने की — कांग्रेस सोशलिस्ट पार्टी से पहले। यह भारत में समाजवादी विचारधारा का प्रारंभिक प्रयोग था।",en:"The Bihar Socialist Party was founded in 1934 by Jayaprakash Narayan, preceding the Congress Socialist Party, and marked early socialist thought in India."}},
+
+{q:{hi:"बिहार में 'राजेंद्र प्रसाद' संविधान सभा के किस पद पर थे?",en:"What position did 'Rajendra Prasad' hold in the Constituent Assembly?"},
+ o:[{hi:"सदस्य",en:"Member"},{hi:"उपाध्यक्ष",en:"Vice President"},{hi:"स्थायी अध्यक्ष",en:"Permanent President"},{hi:"महासचिव",en:"Secretary"}],a:2,
+ ex:{hi:"डॉ. राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष थे (11 दिसंबर 1946 से)। वे 26 नवंबर 1949 को संविधान अंगीकृत होने के समय भी अध्यक्ष थे। वे भारत के पहले राष्ट्रपति बने (1950-1962)।",en:"Dr. Rajendra Prasad was the permanent President of the Constituent Assembly (from 11 December 1946). He became India's first President (1950–1962)."}},
+
+{q:{hi:"'अनुग्रह नारायण सिंह' बिहार के किस पद पर रहे?",en:"'Anugrah Narayan Singh' held which post in Bihar?"},
+ o:[{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"उपमुख्यमंत्री और वित्त मंत्री",en:"Deputy CM and Finance Minister"},{hi:"राज्यपाल",en:"Governor"},{hi:"स्पीकर",en:"Speaker"}],a:1,
+ ex:{hi:"अनुग्रह नारायण सिंह बिहार के पहले उपमुख्यमंत्री (1946-1957) और वित्त मंत्री थे। उन्हें 'बिहार विभूति' कहा जाता है। उन्होंने 1942 के भारत छोड़ो आंदोलन में भाग लिया।",en:"Anugrah Narayan Singh was Bihar's first Deputy CM (1946–1957) and Finance Minister, called 'Bihar Vibhuti'. He participated in the 1942 Quit India Movement."}},
+
+/* ============ खंड G — बिहार: भूगोल और नदियाँ (Q74–83) ============ */
+{q:{hi:"'बिहार का शोक' किस नदी को कहा जाता है?",en:"Which river is called the 'Sorrow of Bihar'?"},
+ o:[{hi:"गंडक",en:"Gandak"},{hi:"सोन",en:"Son"},{hi:"कोसी",en:"Kosi"},{hi:"बागमती",en:"Bagmati"}],a:2,
+ ex:{hi:"कोसी नदी को 'बिहार का शोक' कहा जाता है। यह नेपाल में सप्तकोसी के रूप में शुरू होती है और बार-बार अपना मार्ग बदलती है, जिससे उत्तर बिहार में भीषण बाढ़ आती है।",en:"The Kosi is called the 'Sorrow of Bihar'. It originates in Nepal as the Saptakosi and frequently changes course, causing severe floods in north Bihar."}},
+
+{q:{hi:"बिहार कितने राज्यों से सीमा साझा करता है?",en:"Bihar shares boundaries with how many states?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"बिहार 3 भारतीय राज्यों से सीमा साझा करता है — पश्चिम बंगाल (पूर्व), झारखंड (दक्षिण), उत्तर प्रदेश (पश्चिम)। इसके अलावा उत्तर में नेपाल से अंतर्राष्ट्रीय सीमा है।",en:"Bihar shares boundaries with 3 Indian states — West Bengal (east), Jharkhand (south), Uttar Pradesh (west) — plus an international border with Nepal in the north."}},
+
+{q:{hi:"बिहार में कितने प्रमंडल हैं?",en:"How many divisions does Bihar have?"},
+ o:[{hi:"7",en:"7"},{hi:"8",en:"8"},{hi:"9",en:"9"},{hi:"10",en:"10"}],a:2,
+ ex:{hi:"बिहार में 9 प्रमंडल हैं — पटना, तिरहुत, सारण, दरभंगा, कोसी, पूर्णिया, भागलपुर, मुंगेर और मगध। इनमें कुल 38 जिले हैं।",en:"Bihar has 9 divisions — Patna, Tirhut, Saran, Darbhanga, Kosi, Purnia, Bhagalpur, Munger and Magadh — with 38 districts."}},
+
+{q:{hi:"'बिहार का सबसे ऊँचा बिंदु' कौन-सा है?",en:"What is the 'highest point of Bihar'?"},
+ o:[{hi:"सोमेश्वर पहाड़ी",en:"Someshwar Hills"},{hi:"राजगीर पहाड़ी",en:"Rajgir Hills"},{hi:"कैमूर पहाड़ी",en:"Kaimur Hills"},{hi:"बराबर पहाड़ी",en:"Barabar Hills"}],a:0,
+ ex:{hi:"सोमेश्वर पहाड़ी (लगभग 880 मीटर) बिहार का सबसे ऊँचा बिंदु है — दक्षिण बिहार में स्थित। इसके बाद कैमूर पहाड़ी आती है।",en:"Someshwar Hills (~880 m) is Bihar's highest point, in southern Bihar, followed by Kaimur Hills."}},
+
+{q:{hi:"क्षेत्रफल के अनुसार बिहार का सबसे बड़ा जिला कौन-सा है?",en:"Which is Bihar's largest district by area?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"},{hi:"पश्चिम चंपारण",en:"West Champaran"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:2,
+ ex:{hi:"पश्चिम चंपारण (बेतिया) क्षेत्रफल के अनुसार बिहार का सबसे बड़ा जिला है। सबसे छोटा जिला 'शेखपुरा' है। पटना सबसे अधिक जनसंख्या वाला जिला है।",en:"West Champaran (Bettiah) is Bihar's largest district by area; Sheikhpura the smallest; Patna has the largest population."}},
+
+{q:{hi:"'सोन नदी' बिहार में कहाँ गंगा में मिलती है?",en:"Where does the 'Son river' meet the Ganga in Bihar?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"मनेर",en:"Maner"},{hi:"मुंगेर",en:"Munger"},{hi:"भागलपुर",en:"Bhagalpur"}],a:1,
+ ex:{hi:"सोन नदी, गंगा की सबसे बड़ी दक्षिणी सहायक नदी, पटना के पश्चिम में मनेर के पास गंगा में मिलती है। सोन नदी अमरकंटक से निकलती है और बिहार में दक्षिणी सीमा बनाती है।",en:"The Son river, the Ganga's largest southern tributary, meets the Ganga near Maner, west of Patna. It originates at Amarkantak and forms Bihar's southern boundary."}},
+
+{q:{hi:"'बिहार का जलवायु प्रकार' क्या है?",en:"What is 'Bihar's climate type'?"},
+ o:[{hi:"शुष्क मरुस्थलीय",en:"Arid desert"},{hi:"उष्णकटिबंधीय मानसूनी",en:"Tropical monsoon"},{hi:"भूमध्यसागरीय",en:"Mediterranean"},{hi:"ध्रुवीय",en:"Polar"}],a:1,
+ ex:{hi:"बिहार में उष्णकटिबंधीय मानसूनी जलवायु पाई जाती है। ग्रीष्मकाल गर्म (40°C+), मानसूनी वर्षा (जून-सितंबर) और हल्की सर्दी (दिसंबर-जनवरी) होती है। औसत वार्षिक वर्षा 1,000-1,200 मिमी।",en:"Bihar has a tropical monsoon climate — hot summers (40°C+), monsoon rains (June–September) and mild winters (December–January). Average annual rainfall: 1,000–1,200 mm."}},
+
+{q:{hi:"'वाल्मीकि राष्ट्रीय उद्यान' बिहार के किस जिले में स्थित है?",en:"'Valmiki National Park' is located in which district of Bihar?"},
+ o:[{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"पश्चिम चंपारण",en:"West Champaran"},{hi:"गया",en:"Gaya"},{hi:"भागलपुर",en:"Bhagalpur"}],a:1,
+ ex:{hi:"वाल्मीकि राष्ट्रीय उद्यान और टाइगर रिज़र्व पश्चिम चंपारण जिले में स्थित है। यह बिहार का एकमात्र टाइगर रिज़र्व है, जिसकी स्थापना 1978 में हुई। यह नेपाल के चितवन राष्ट्रीय उद्यान से जुड़ा है।",en:"Valmiki National Park and Tiger Reserve is in West Champaran district — Bihar's only tiger reserve, established in 1978, adjoining Nepal's Chitwan National Park."}},
+
+{q:{hi:"'काँवर झील' बिहार के किस जिले में है?",en:"'Kanwar Lake' is in which district of Bihar?"},
+ o:[{hi:"बेगूसराय",en:"Begusarai"},{hi:"दरभंगा",en:"Darbhanga"},{hi:"समस्तीपुर",en:"Samastipur"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:0,
+ ex:{hi:"काँवर झील बेगूसराय जिले में स्थित है। यह एशिया की सबसे बड़ी मीठे पानी की oxbow झील है। इसे 1989 में रामसर साइट के रूप में मान्यता मिली।",en:"Kanwar Lake is in Begusarai district — Asia's largest freshwater oxbow lake, designated a Ramsar site in 1989."}},
+
+{q:{hi:"'गंडक नदी' का उद्गम स्थल कहाँ है?",en:"Where does the 'Gandak river' originate?"},
+ o:[{hi:"भारत में",en:"India"},{hi:"नेपाल में",en:"Nepal"},{hi:"तिब्बत में",en:"Tibet"},{hi:"भूटान में",en:"Bhutan"}],a:1,
+ ex:{hi:"गंडक नदी का उद्गम नेपाल में सालिग्राम (मुस्तांग) के पास है। नेपाल में इसे 'नारायणी' और 'काली गंडक' कहा जाता है। यह बिहार में छपरा (सारण) के पास गंगा में मिलती है।",en:"The Gandak originates near Saligram (Mustang) in Nepal, called 'Narayani' and 'Kali Gandak'. It meets the Ganga near Chhapra (Saran) in Bihar."}},
+
+/* ============ खंड H — बिहार: कला, संस्कृति, पर्व (Q84–91) ============ */
+{q:{hi:"'मधुबनी चित्रकला' किस क्षेत्र से संबंधित है?",en:"'Madhubani painting' belongs to which region?"},
+ o:[{hi:"मगध",en:"Magadh"},{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"मधुबनी चित्रकला (मिथिला पेंटिंग) बिहार के मिथिला क्षेत्र (मधुबनी, दरभंगा, समस्तीपुर) से संबंधित है। इसका संबंध सीता-राम विवाह से माना जाता है। यह विश्व प्रसिद्ध है और 1970 के बाद इसे GI टैग मिला।",en:"Madhubani (Mithila) painting belongs to Bihar's Mithila region (Madhubani, Darbhanga, Samastipur). Linked to Sita-Ram's wedding, it is world-famous and has a GI tag."}},
+
+{q:{hi:"'छठ पूजा' में किसकी उपासना की जाती है?",en:"Who is worshipped in 'Chhath Puja'?"},
+ o:[{hi:"शिव-पार्वती",en:"Shiva-Parvati"},{hi:"सूर्य देव और छठी मैया",en:"Surya Dev and Chhathi Maiya"},{hi:"राम-सीता",en:"Ram-Sita"},{hi:"कृष्ण-राधा",en:"Krishna-Radha"}],a:1,
+ ex:{hi:"छठ पूजा सूर्य देव और छठी मैया की उपासना का पर्व है, जो कार्तिक शुक्ल षष्ठी को मनाया जाता है। यह बिहार, झारखंड और पूर्वी UP का प्रमुख पर्व है। इसमें डूबते और उगते सूर्य को अर्घ्य दिया जाता है।",en:"Chhath Puja worships Surya Dev and Chhathi Maiya on Kartik Shukla Shashthi — a major festival of Bihar, Jharkhand and eastern UP — offering arghya to the setting and rising Sun."}},
+
+{q:{hi:"'सामा-चकेवा' किस पर्व से संबंधित है?",en:"'Sama-Chakeva' is related to which festival?"},
+ o:[{hi:"छठ",en:"Chhath"},{hi:"भाई-बहन का प्रतीक",en:"Symbol of brother-sister love"},{hi:"होली",en:"Holi"},{hi:"दिवाली",en:"Diwali"}],a:1,
+ ex:{hi:"सामा-चकेवा मिथिला क्षेत्र का लोक पर्व है, जो भाई-बहन के प्रेम का प्रतीक है। यह कार्तिक पूर्णिमा से चैत सक्रांति तक मनाया जाता है। इसमें मिट्टी की मूर्तियाँ बनाई जाती हैं।",en:"Sama-Chakeva is a folk festival of Mithila symbolising brother-sister love, celebrated from Kartik Purnima to Chaitra Sankranti with clay figurines."}},
+
+{q:{hi:"'भोजपुरी' भाषा किस क्षेत्र में बोली जाती है?",en:"In which region is 'Bhojpuri' spoken?"},
+ o:[{hi:"मिथिला",en:"Mithila"},{hi:"पश्चिमी बिहार और पूर्वी UP",en:"Western Bihar and eastern UP"},{hi:"मगध",en:"Magadh"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"भोजपुरी भाषा पश्चिमी बिहार (भोजपुर, सारण, चंपारण) और पूर्वी उत्तर प्रदेश में बोली जाती है। यह बिहार की तीन प्रमुख भाषाओं में से एक है — भोजपुरी, मगही और मैथिली।",en:"Bhojpuri is spoken in western Bihar (Bhojpur, Saran, Champaran) and eastern UP — one of Bihar's three main languages: Bhojpuri, Magahi and Maithili."}},
+
+{q:{hi:"'मैथिली' को संविधान की किस अनुसूची में शामिल किया गया?",en:"In which Schedule of the Constitution is 'Maithili' included?"},
+ o:[{hi:"7वीं",en:"7th"},{hi:"8वीं",en:"8th"},{hi:"9वीं",en:"9th"},{hi:"10वीं",en:"10th"}],a:1,
+ ex:{hi:"मैथिली को 92वें संविधान संशोधन (2003) द्वारा 8वीं अनुसूची में शामिल किया गया। यह बिहार की मिथिला क्षेत्र की भाषा है और नेपाल में भी बोली जाती है।",en:"Maithili was added to the Eighth Schedule by the 92nd Amendment (2003). It is the language of Bihar's Mithila region, also spoken in Nepal."}},
+
+{q:{hi:"'लोक नृत्य झिझिया' किस पर्व पर किया जाता है?",en:"'Jhijhian folk dance' is performed during which festival?"},
+ o:[{hi:"छठ",en:"Chhath"},{hi:"होली",en:"Holi"},{hi:"भादो (जुलाई-अगस्त) में दुर्गा पूजा",en:"Durga Puja in Bhadon (July-August)"},{hi:"दिवाली",en:"Diwali"}],a:2,
+ ex:{hi:"झिझिया नृत्य मिथिला क्षेत्र (बिहार) की महिलाओं द्वारा भादो मास (जुलाई-अगस्त) में दुर्गा पूजा के दौरान किया जाता है। इसमें मिट्टी के घड़ों पर दीपक जलाकर नृत्य किया जाता है।",en:"Jhijhian dance is performed by women in Mithila (Bihar) during Durga Puja in the month of Bhadon (July-August), dancing with lit clay pots."}},
+
+{q:{hi:"'बिदेसिया' लोक गीत किस क्षेत्र से संबंधित है?",en:"'Bidesia' folk song belongs to which region?"},
+ o:[{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुरी क्षेत्र",en:"Bhojpuri region"},{hi:"मगध",en:"Magadh"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"बिदेसिया लोक गीत भोजपुरी क्षेत्र से संबंधित है — जिसमें पति के विदेश जाने पर पत्नी की विरह व्यथा होती है। 'भिखारी ठाकुर' को बिदेसिया का जनक माना जाता है।",en:"Bidesia folk song belongs to the Bhojpuri region, depicting a wife's sorrow when her husband goes abroad. Bhikhari Thakur is considered its originator."}},
+
+{q:{hi:"'बिहार का राजकीय पशु' कौन-सा है?",en:"What is 'Bihar's state animal'?"},
+ o:[{hi:"बाघ",en:"Tiger"},{hi:"हाथी",en:"Elephant"},{hi:"बैल",en:"Bull"},{hi:"हिरण",en:"Deer"}],a:2,
+ ex:{hi:"बिहार का राजकीय पशु 'बैल' (Bull) है। राजकीय पक्षी 'गौरैया' (House Sparrow), राजकीय वृक्ष 'पीपल', राजकीय पुष्प 'कचनार'। बिहार का राजकीय खेल 'कबड्डी' है।",en:"Bihar's state animal is the Bull; state bird: House Sparrow; state tree: Peepal; state flower: Kachnar; state game: Kabaddi."}},
+
+{q:{hi:"'पटना कला' के लिए प्रसिद्ध क्या है?",en:"What is 'Patna' famous for artistically?"},
+ o:[{hi:"काँच की चूड़ियाँ",en:"Glass bangles"},{hi:"कलात्मक कागज़ (Patna Kalam)",en:"Artistic paper (Patna Kalam)"},{hi:"चमड़े का सामान",en:"Leather goods"},{hi:"टेराकोटा",en:"Terracotta"}],a:1,
+ ex:{hi:"पटना 'पटना कलम' (Patna Qalam) चित्रकला के लिए प्रसिद्ध है — यह मुगल चित्रकला की एक शैली है जो बिहार में विकसित हुई। इसके प्रमुख कलाकार सेवक राम, शिव लाल और हुलास लाल थे।",en:"Patna is famous for 'Patna Kalam' — a Mughal painting style developed in Bihar by artists like Sewak Ram, Shiv Lal and Hulas Lal."}},
+
+/* ============ खंड I — बिहार: व्यक्तित्व, विकास, समसामयिकी (Q92–100) ============ */
+{q:{hi:"बिहार के पहले मुख्यमंत्री कौन थे?",en:"Who was Bihar's first Chief Minister?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"श्री कृष्ण सिंह",en:"Shri Krishna Singh"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"बी.पी. मंडल",en:"B.P. Mandal"}],a:1,
+ ex:{hi:"श्री कृष्ण सिंह ('श्री बाबू') बिहार के पहले मुख्यमंत्री थे (2 अप्रैल 1946 से)। उनका कार्यकाल 1961 तक रहा — भारत के सबसे लंबे कार्यकाल वाले CM। उन्हें 'बिहार के शिल्पकार' कहा जाता है।",en:"Shri Krishna Singh ('Sri Babu') was Bihar's first CM (from 2 April 1946) until 1961 — the longest-serving CM in India, called the 'Architect of Bihar'."}},
+
+{q:{hi:"बिहार के पहले महिला मुख्यमंत्री कौन थीं?",en:"Who was Bihar's first woman Chief Minister?"},
+ o:[{hi:"राबड़ी देवी",en:"Rabri Devi"},{hi:"मीरा कुमार",en:"Meira Kumar"},{hi:"रामदुलारी सिन्हा",en:"Ramdulari Sinha"},{hi:"कोई नहीं",en:"None"}],a:0,
+ ex:{hi:"राबड़ी देवी बिहार की पहली महिला मुख्यमंत्री थीं — जुलाई 1997 से। वे लालू प्रसाद यादव की पत्नी हैं। उन्होंने तीन बार मुख्यमंत्री पद संभाला (1997-99, 1999-2000, 2000-2005)।",en:"Rabri Devi was Bihar's first woman Chief Minister from July 1997. She is Lalu Prasad Yadav's wife and served as CM three times (1997–2005)."}},
+
+{q:{hi:"'कर्पूरी ठाकुर' को किस नाम से जाना जाता है?",en:"'Karpoori Thakur' is known by which name?"},
+ o:[{hi:"बिहार विभूति",en:"Bihar Vibhuti"},{hi:"जन-नायक",en:"Jan-Nayak"},{hi:"लोकनायक",en:"Loknayak"},{hi:"बिहार के शिल्पकार",en:"Architect of Bihar"}],a:1,
+ ex:{hi:"कर्पूरी ठाकुर को 'जन-नायक' कहा जाता है। वे दो बार बिहार के मुख्यमंत्री रहे (1970-71, 1977-79) और उन्होंने पिछड़ा वर्ग आयोग (मुंगेरी लाल आयोग) की सिफारिशें लागू कीं। उन्हें 2024 में मरणोपरांत भारत रत्न दिया गया।",en:"Karpoori Thakur is called 'Jan-Nayak'. He served twice as Bihar CM (1970–71, 1977–79) and implemented the Mungeri Lal Commission recommendations. He received Bharat Ratna posthumously in 2024."}},
+
+{q:{hi:"'बिहार दिवस' कब मनाया जाता है?",en:"When is 'Bihar Diwas' celebrated?"},
+ o:[{hi:"15 अगस्त",en:"15 August"},{hi:"22 मार्च",en:"22 March"},{hi:"26 जनवरी",en:"26 January"},{hi:"1 अप्रैल",en:"1 April"}],a:1,
+ ex:{hi:"बिहार दिवस 22 मार्च को मनाया जाता है। इस दिन 1912 में बिहार बंगाल से अलग होकर 'बिहार और उड़ीसा' प्रांत बना था। शताब्दी वर्ष 2012 में मनाया गया था और तब से हर वर्ष बड़े पैमाने पर आयोजन होता है।",en:"Bihar Diwas is celebrated on 22 March, when in 1912 Bihar was separated from Bengal as 'Bihar and Orissa' province. The centenary was in 2012."}},
+
+{q:{hi:"'बिहार' का नाम किस शब्द से आया है?",en:"The name 'Bihar' is derived from which word?"},
+ o:[{hi:"विहार (बौद्ध मठ)",en:"Vihara (Buddhist monastery)"},{hi:"बिहारी",en:"Bihari"},{hi:"बहार",en:"Bahar"},{hi:"विहारा नदी",en:"Vihara river"}],a:0,
+ ex:{hi:"'बिहार' शब्द संस्कृत के 'विहार' से आया है, जिसका अर्थ 'बौद्ध मठ' है। प्राचीन काल में इस क्षेत्र में अनेक बौद्ध विहार थे, जिससे यह नाम पड़ा।",en:"'Bihar' comes from Sanskrit 'Vihara' (Buddhist monastery). The region had many Buddhist viharas in ancient times, giving it the name."}},
+
+{q:{hi:"'मुंगेरी लाल आयोग' किससे संबंधित था?",en:"The 'Mungeri Lal Commission' was related to which of the following?"},
+ o:[{hi:"शिक्षा सुधार",en:"Education reform"},{hi:"पिछड़ा वर्ग आरक्षण",en:"Backward class reservation"},{hi:"कृषि",en:"Agriculture"},{hi:"सिंचाई",en:"Irrigation"}],a:1,
+ ex:{hi:"मुंगेरी लाल आयोग (1971) बिहार में पिछड़ा वर्ग की पहचान और आरक्षण से संबंधित था। इसकी सिफारिशें कर्पूरी ठाकुर सरकार ने 1978 में लागू कीं। बाद में इसी से मंडल आयोग की प्रेरणा मिली।",en:"The Mungeri Lal Commission (1971) identified backward classes in Bihar for reservation. Its recommendations were implemented by Karpoori Thakur's government in 1978, inspiring the Mandal Commission."}},
+
+{q:{hi:"'जननायक कर्पूरी ठाकुर' किस वर्ग के उत्थान के लिए जाने जाते हैं?",en:"'Jan-Nayak Karpoori Thakur' is known for uplifting which section?"},
+ o:[{hi:"केवल दलित",en:"Only Dalits"},{hi:"केवल महिलाएँ",en:"Only women"},{hi:"पिछड़ा और अति पिछड़ा वर्ग",en:"Backward and Most Backward Classes"},{hi:"केवल किसान",en:"Only farmers"}],a:2,
+ ex:{hi:"कर्पूरी ठाकुर ने 'अति पिछड़ा वर्ग' (Extremely Backward Classes) की अवधारणा दी और 1978 में पिछड़ा वर्ग आरक्षण लागू किया। उन्होंने मैट्रिक तक शिक्षा में अंग्रेजी की अनिवार्यता हटाई। ये निर्णय बहुत विवादित रहे।",en:"Karpoori Thakur introduced the concept of Extremely Backward Classes and implemented backward class reservation in 1978, removing compulsory English up to matriculation — controversial decisions."}},
+
+{q:{hi:"बिहार में 'साइकिल योजना' किस उद्देश्य से शुरू की गई?",en:"Why was the 'Cycle Yojana' launched in Bihar?"},
+ o:[{hi:"पर्यटन को बढ़ावा",en:"Promote tourism"},{hi:"छात्राओं का स्कूल छोड़ना रोकना",en:"Reduce school dropout of girls"},{hi:"खेल को बढ़ावा",en:"Promote sports"},{hi:"परिवहन सुधार",en:"Transport reform"}],a:1,
+ ex:{hi:"बिहार सरकार ने 2006-07 में 'मुख्यमंत्री बालिका साइकिल योजना' शुरू की — ताकि 9वीं-12वीं कक्षा की छात्राओं का स्कूल छोड़ना कम हो। इससे छात्राओं का नामांकन काफी बढ़ा और यह भारत में अनुकरणीय योजना बनी।",en:"Bihar's 'Mukhyamantri Balika Cycle Yojana' (2006-07) aimed to reduce dropout of girls in classes 9–12. It significantly increased enrolment and became a model scheme in India."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! आप BPSC के लिए तैयार हैं।"; enMsg = "Outstanding! You are ready for BPSC."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। नोट्स दोबारा पढ़ें और पुनः प्रयास करें।"; enMsg = "Decent start. Re-read the notes and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
