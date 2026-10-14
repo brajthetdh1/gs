@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>मगध साम्राज्य — 50 प्रश्न | Magadh Empire — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#d9c2e8;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#d9c2e8;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ce93d8,#ffd700);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#f3e5f5;color:#4a148c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🏛️ मगध साम्राज्य — 50 प्रश्न
+              <small>Magadh Empire · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — मगध का उदय और हर्यंक वंश</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   मगध साम्राज्य — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — मगध का उदय और हर्यंक वंश", en:"Section A — Rise of Magadh & Haryanka Dynasty"},
+  {hi:"खंड B — शिशुनाग और नंद वंश", en:"Section B — Shishunaga & Nanda Dynasty"},
+  {hi:"खंड C — मौर्य काल और मगध", en:"Section C — Mauryan Period & Magadh"},
+  {hi:"खंड D — मगध: प्रशासन, संस्कृति और विरासत", en:"Section D — Magadh: Administration, Culture & Legacy"}
+];
+const SECTION_STARTS = [0, 12, 24, 36];
+
+const QUESTIONS = [
+/* ============ खंड A — मगध का उदय और हर्यंक वंश (Q1–12) ============ */
+{q:{hi:"प्रथम मगध साम्राज्य का उत्कर्ष किस शताब्दी में हुआ था?",en:"In which century did the first Magadh Empire rise?"},
+ o:[{hi:"ईसा पूर्व चौथी शताब्दी",en:"4th century BCE"},{hi:"ईसा पूर्व छठी शताब्दी",en:"6th century BCE"},{hi:"ईसा पूर्व दूसरी शताब्दी",en:"2nd century BCE"},{hi:"ईसा पूर्व पहली शताब्दी",en:"1st century BCE"}],a:1,
+ ex:{hi:"मगध महाजनपद का उदय 6वीं शताब्दी ईसा पूर्व में हुआ। यह 16 महाजनपदों में सबसे शक्तिशाली बना। इसका क्षेत्र वर्तमान दक्षिण बिहार में था।",en:"The Magadh Mahajanapada rose in the 6th century BCE and became the most powerful of the 16 Mahajanapadas, located in present-day southern Bihar."}},
+
+{q:{hi:"मगध साम्राज्य के हर्यंक वंश का संस्थापक कौन था?",en:"Who founded the Haryanka dynasty of the Magadh Empire?"},
+ o:[{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"बिंबिसार",en:"Bimbisara"},{hi:"बृहद्रथ",en:"Brihadratha"},{hi:"उदयिन",en:"Udayin"}],a:1,
+ ex:{hi:"बिंबिसार (544–492 ईसा पूर्व) हर्यंक वंश के संस्थापक और मगध के पहले प्रमुख शासक थे। उन्होंने कूटनीति और वैवाहिक गठबंधनों से साम्राज्य का विस्तार किया।",en:"Bimbisara (544–492 BCE) was the founder of the Haryanka dynasty and Magadh's first major ruler, expanding the empire through diplomacy and matrimonial alliances."}},
+
+{q:{hi:"बिंबिसार की राजधानी कौन-सी थी?",en:"What was the capital of Bimbisara?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"वैशाली",en:"Vaishali"},{hi:"राजगृह (गिरिव्रज)",en:"Rajagriha (Girivraja)"},{hi:"चंपा",en:"Champa"}],a:2,
+ ex:{hi:"बिंबिसार की राजधानी राजगृह (गिरिव्रज) थी, जो पाँच पहाड़ियों से घिरा एक अभेद्य नगर था। यह वर्तमान राजगीर (बिहार) में स्थित है।",en:"Bimbisara's capital was Rajagriha (Girivraja), an impregnable city surrounded by five hills, located in present-day Rajgir, Bihar."}},
+
+{q:{hi:"बिंबिसार ने कितने वैवाहिक गठबंधन किए थे?",en:"How many matrimonial alliances did Bimbisara form?"},
+ o:[{hi:"1",en:"1"},{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"}],a:2,
+ ex:{hi:"बिंबिसार ने तीन वैवाहिक गठबंधन किए — कोशल की महाकोशल, वैशाली की लिच्छवी राजकुमारी चेल्लना और मद्र की राजकुमारी। इनसे उन्हें काशी का क्षेत्र भी मिला, जिससे 1,00,000 सिक्कों का राजस्व प्राप्त होता था।",en:"Bimbisara formed three matrimonial alliances — Mahakosala of Kosala, Chellana the Lichchhavi princess of Vaishali, and a princess of Madra. He received Kashi as dowry, yielding 100,000 coins."}},
+
+{q:{hi:"बिंबिसार के समकालीन कौन-कौन थे?",en:"Who were the contemporaries of Bimbisara?"},
+ o:[{hi:"केवल गौतम बुद्ध",en:"Only Gautama Buddha"},{hi:"केवल वर्धमान महावीर",en:"Only Vardhamana Mahavira"},{hi:"गौतम बुद्ध और वर्धमान महावीर दोनों",en:"Both Gautama Buddha and Vardhamana Mahavira"},{hi:"कोई नहीं",en:"None"}],a:2,
+ ex:{hi:"बिंबिसार गौतम बुद्ध और वर्धमान महावीर दोनों के समकालीन थे। दोनों धर्मों ने उन्हें अपने समर्थक और भक्त के रूप में दावा किया है। बुद्ध ने बिंबिसार के राज्यकाल में कौशांबी का दौरा किया था।",en:"Bimbisara was a contemporary of both Gautama Buddha and Vardhamana Mahavira. Both religions claimed him as a patron and devotee. Buddha visited Kaushambi during Bimbisara's reign."}},
+
+{q:{hi:"बिंबिसार का पुत्र कौन था जिसने उसे कैद किया?",en:"Who was Bimbisara's son who imprisoned him?"},
+ o:[{hi:"उदयिन",en:"Udayin"},{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"बृहद्रथ",en:"Brihadratha"},{hi:"प्रसेनजित",en:"Prasenjit"}],a:1,
+ ex:{hi:"अजातशत्रु ने अपने पिता बिंबिसार को कैद करके मार डाला और सत्ता हासिल की। यह मगध के इतिहास का एक काला अध्याय है। अजातशत्रु ने बाद में साम्राज्य का बड़ा विस्तार किया।",en:"Ajatashatru imprisoned and killed his father Bimbisara to seize power — a dark chapter in Magadh's history. He later greatly expanded the empire."}},
+
+{q:{hi:"अजातशत्रु का कोशल के साथ संघर्ष किस कारण हुआ?",en:"What was the reason for Ajatashatru's conflict with Kosala?"},
+ o:[{hi:"धार्मिक मतभेद",en:"Religious differences"},{hi:"काशी का विवाद",en:"Dispute over Kashi"},{hi:"व्यापार मार्ग",en:"Trade routes"},{hi:"सीमा विवाद",en:"Border dispute"}],a:1,
+ ex:{hi:"बिंबिसार की पहली पत्नी कोशल की महाकोशल थी, जिसे काशी का क्षेत्र दहेज में मिला था। बिंबिसार की मृत्यु के बाद कोशल के राजा प्रसेनजित ने काशी वापस लेना चाहा, जिससे कोशल और मगध के बीच संघर्ष प्रारंभ हुआ।",en:"Bimbisara's first wife Mahakosala received Kashi as dowry. After Bimbisara's death, Prasenjit of Kosala wanted it back, sparking conflict during Ajatashatru's time."}},
+
+{q:{hi:"अजातशत्रु ने किस नदी के तट पर पाटलिग्राम बसाया?",en:"On which river's bank did Ajatashatru found Pataligrama?"},
+ o:[{hi:"सोन",en:"Son"},{hi:"गंडक",en:"Gandak"},{hi:"गंगा",en:"Ganga"},{hi:"कोसी",en:"Kosi"}],a:2,
+ ex:{hi:"अजातशत्रु ने गंगा नदी के तट पर पाटलिग्राम बसाया, जो बाद में पाटलिपुत्र (पटना) बना। उदयिन ने बाद में इसे मगध की राजधानी बनाया। पाटलिपुत्र मौर्य साम्राज्य का गौरवशाली केंद्र था।",en:"Ajatashatru founded Pataligrama on the Ganga's bank, later becoming Pataliputra (Patna). Udayin made it Magadh's capital; it became the Mauryan Empire's pride."}},
+
+{q:{hi:"किस शासक ने मगध की राजधानी राजगृह से पाटलिपुत्र स्थानांतरित की?",en:"Which ruler shifted Magadh's capital from Rajagriha to Pataliputra?"},
+ o:[{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"बृहद्रथ",en:"Brihadratha"},{hi:"उदयिन",en:"Udayin"},{hi:"प्रसेनजित",en:"Prasenjit"}],a:2,
+ ex:{hi:"उदयिन (अजातशत्रु के पुत्र) ने 490 ईसा पूर्व में राजधानी राजगृह से पाटलिपुत्र स्थानांतरित की। पाटलिपुत्र नंद, शिशुनाग, मौर्य, गुप्त और पाल साम्राज्यों की राजधानी रहा।",en:"Udayin shifted the capital to Pataliputra in 490 BCE. Pataliputra was the capital of Nanda, Shishunaga, Maurya, Gupta and Pala empires."}},
+
+{q:{hi:"पाटलिपुत्र का नाम बाद में किसने 'पटना' रखा?",en:"Who later renamed Pataliputra as 'Patna'?"},
+ o:[{hi:"अकबर",en:"Akbar"},{hi:"शेरशाह सूरी",en:"Sher Shah Suri"},{hi:"चंद्रगुप्त मौर्य",en:"Chandragupta Maurya"},{hi:"अशोक",en:"Ashoka"}],a:1,
+ ex:{hi:"शेरशाह सूरी ने 16वीं शताब्दी में पाटलिपुत्र का नाम बदलकर 'पटना' रखा। शेरशाह का जन्म सासाराम (बिहार) में हुआ था और उन्होंने पटना को अपने शासन का महत्वपूर्ण केंद्र बनाया।",en:"Sher Shah Suri renamed Pataliputra as 'Patna' in the 16th century. He was born in Sasaram (Bihar) and made Patna an important centre."}},
+
+{q:{hi:"हर्यंक वंश का अंतिम शासक कौन था?",en:"Who was the last ruler of the Haryanka dynasty?"},
+ o:[{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"उदयिन",en:"Udayin"},{hi:"नागदशक",en:"Nagadasaka"},{hi:"बिंबिसार",en:"Bimbisara"}],a:2,
+ ex:{hi:"हर्यंक वंश का अंतिम शासक नागदशक था, जिसे जनता ने अपदस्थ कर दिया। इसके बाद शिशुनाग वंश सत्ता में आया। शिशुनाग हर्यंक दरबार का एक अधिकारी था, जिसने 413 ईसा पूर्व में सत्ता पर कब्जा किया।",en:"The last Haryanka ruler was Nagadasaka, deposed by the people. The Shishunaga dynasty then came to power; Shishunaga was an official who seized power around 413 BCE."}},
+
+{q:{hi:"हर्यंक वंश की राजधानी राजगृह किन पहाड़ियों से घिरी थी?",en:"By which hills was the Haryanka capital Rajagriha surrounded?"},
+ o:[{hi:"तीन",en:"Three"},{hi:"चार",en:"Four"},{hi:"पाँच",en:"Five"},{hi:"छह",en:"Six"}],a:2,
+ ex:{hi:"राजगृह पाँच पहाड़ियों से घिरा हुआ था — वैभारगिरि, वराहगिरि, विपुलगिरि, ऋषिगिरि और सोनगिरि। इसे प्राकृतिक किलेबंदी का लाभ मिला था, जिससे यह अभेद्य नगर बना।",en:"Rajagriha was surrounded by five hills — Vaibhargiri, Varahagiri, Vipulagiri, Rishigiri and Sonagiri — giving natural fortification and making it impregnable."}},
+
+/* ============ खंड B — शिशुनाग और नंद वंश (Q13–24) ============ */
+{q:{hi:"शिशुनाग वंश की स्थापना किसने की?",en:"Who founded the Shishunaga dynasty?"},
+ o:[{hi:"कालाशोक",en:"Kalashoka"},{hi:"शिशुनाग",en:"Shishunaga"},{hi:"महापद्मनंद",en:"Mahapadma Nanda"},{hi:"उदयिन",en:"Udayin"}],a:1,
+ ex:{hi:"शिशुनाग ने 413 ईसा पूर्व में शिशुनाग वंश की स्थापना की। वे हर्यंक दरबार के एक अधिकारी थे। शिशुनाग वंश का सबसे बड़ा योगदान अवंति राज्य का विलय था, जो मगध का अंतिम उत्तरी प्रतिद्वंद्वी था।",en:"Shishunaga founded the Shishunaga dynasty in 413 BCE. He was an official of the Haryanka court. The dynasty's greatest achievement was the conquest of Avanti."}},
+
+{q:{hi:"शिशुनाग वंश का अंतिम शासक कौन था?",en:"Who was the last ruler of the Shishunaga dynasty?"},
+ o:[{hi:"कालाशोक",en:"Kalashoka"},{hi:"नागदशक",en:"Nagadasaka"},{hi:"महानंदिन",en:"Mahanandin"},{hi:"शिशुनाग",en:"Shishunaga"}],a:2,
+ ex:{hi:"शिशुनाग वंश का अंतिम शासक महानंदिन था, जिसे महापद्मनंद ने अपदस्थ किया। महापद्मनंद ने 345 ईसा पूर्व में नंद वंश की स्थापना की। पुराणों में महापद्मनंद को 'एकराट' और 'सर्वक्षत्रांतक' कहा गया है।",en:"The last Shishunaga ruler was Mahanandin, overthrown by Mahapadma Nanda, who founded the Nanda dynasty around 345 BCE. The Puranas call him 'Ekarat' and 'Sarva-kshatrantaka'."}},
+
+{q:{hi:"शिशुनाग वंश के किस शासक के समय द्वितीय बौद्ध संगीति हुई?",en:"Under which Shishunaga ruler was the Second Buddhist Council held?"},
+ o:[{hi:"शिशुनाग",en:"Shishunaga"},{hi:"कालाशोक",en:"Kalashoka"},{hi:"महानंदिन",en:"Mahanandin"},{hi:"नागदशक",en:"Nagadasaka"}],a:1,
+ ex:{hi:"कालाशोक (शिशुनाग के पुत्र) के शासनकाल में 383 ईसा पूर्व में वैशाली में द्वितीय बौद्ध संगीति आयोजित हुई। इसमें बौद्ध संघ स्थविरवादी और महासांघिक में विभाजित हो गया। कालाशोक को 'काकवर्ण' भी कहा जाता है।",en:"The Second Buddhist Council was held at Vaishali in 383 BCE during Kalashoka's reign, splitting the Sangha into Sthaviravada and Mahasanghika. Kalashoka is also called 'Kakavarna'."}},
+
+{q:{hi:"नंद वंश का संस्थापक कौन था?",en:"Who founded the Nanda dynasty?"},
+ o:[{hi:"धनानंद",en:"Dhanananda"},{hi:"महापद्मनंद",en:"Mahapadma Nanda"},{hi:"कालाशोक",en:"Kalashoka"},{hi:"महानंदिन",en:"Mahanandin"}],a:1,
+ ex:{hi:"महापद्मनंद ने 345 ईसा पूर्व में नंद वंश की स्थापना की। उन्हें भारत का 'पहला ऐतिहासिक सम्राट' कहा जाता है। वे पहले गैर-क्षत्रिय शासक थे जिन्होंने गंगा के मैदान पर साम्राज्य स्थापित किया।",en:"Mahapadma Nanda founded the Nanda dynasty around 345 BCE. He is called India's 'first historical emperor' and was the first non-Kshatriya ruler to establish an empire in the Ganga plain."}},
+
+{q:{hi:"नंद वंश का अंतिम शासक कौन था?",en:"Who was the last ruler of the Nanda dynasty?"},
+ o:[{hi:"महापद्मनंद",en:"Mahapadma Nanda"},{hi:"धनानंद",en:"Dhanananda"},{hi:"महानंदिन",en:"Mahanandin"},{hi:"कालाशोक",en:"Kalashoka"}],a:1,
+ ex:{hi:"धनानंद नंद वंश का अंतिम शासक था। उसे चंद्रगुप्त मौर्य ने चाणक्य (कौटिल्य) की सहायता से 322 ईसा पूर्व में पराजित किया। इसके बाद मौर्य वंश की स्थापना हुई। धनानंद को 'अग्रमेस' या 'ज़ंद्रमेस' भी कहा जाता है।",en:"Dhanananda was the last Nanda ruler, defeated by Chandragupta Maurya with Chanakya's help in 322 BCE, leading to the Maurya dynasty. He is also called 'Agrammes' or 'Xandrammes'."}},
+
+{q:{hi:"नंद वंश की सेना के बारे में यूनानी विवरण क्या बताते हैं?",en:"What do Greek accounts say about the Nanda army?"},
+ o:[{hi:"छोटी सेना",en:"Small army"},{hi:"केवल पैदल सेना",en:"Only infantry"},{hi:"विशाल सेना जिसने सिकंदर को रोका",en:"A vast army that deterred Alexander"},{hi:"कोई सेना नहीं",en:"No army"}],a:2,
+ ex:{hi:"यूनानी विवरणों के अनुसार नंद वंश की सेना में हज़ारों पैदल सैनिक, घुड़सवार, हज़ारों रथ और हाथी थे। 326 ईसा पूर्व में सिकंदर की सेना ब्यास नदी पर पहुँची, लेकिन नंद सेना की विशालता की खबर सुनकर मैसेडोनियाई सैनिकों ने आगे बढ़ने से इनकार कर दिया।",en:"Greek accounts describe the Nanda army as having tens of thousands of infantry and cavalry with thousands of chariots and elephants. In 326 BCE at the Beas River, Alexander's soldiers refused to advance on hearing of its vastness."}},
+
+{q:{hi:"नंद वंश की राजधानी कौन-सी थी?",en:"What was the capital of the Nanda dynasty?"},
+ o:[{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"चंपा",en:"Champa"}],a:2,
+ ex:{hi:"नंद वंश की राजधानी पाटलिपुत्र थी। यह उदयिन द्वारा बसाया गया था और नंद काल में यह एक विशाल और समृद्ध नगर बन गया। पाटलिपुत्र बाद में मौर्य साम्राज्य की भी राजधानी बना और उस समय विश्व के सबसे बड़े नगरों में से एक था।",en:"The Nanda capital was Pataliputra, founded by Udayin, which grew into a vast and prosperous city during the Nanda period, later becoming the Mauryan capital."}},
+
+{q:{hi:"नंद वंश के किस शासक को 'परशुराम अवतार' कहा जाता है?",en:"Which Nanda ruler was called the 'Parashurama Avatar'?"},
+ o:[{hi:"धनानंद",en:"Dhanananda"},{hi:"महापद्मनंद",en:"Mahapadma Nanda"},{hi:"महानंदिन",en:"Mahanandin"},{hi:"कालाशोक",en:"Kalashoka"}],a:1,
+ ex:{hi:"महापद्मनंद को 'परशुराम अवतार', 'कोल अंश', 'क्षत्रियों का नाशक', 'सर्वक्षत्रांतक', 'एकच्छत्र' और 'एकराट' जैसी उपाधियों से जाना जाता है। ये उपाधियाँ उनके द्वारा अन्य क्षत्रिय राजवंशों के विनाश को दर्शाती हैं।",en:"Mahapadma Nanda was known by titles like 'Parashurama Avatar', 'Kola Ansha', 'Kshatriya Nashak', 'Sarva-kshatrantaka', 'Ekacchatra' and 'Ekarat', reflecting his destruction of other Kshatriya dynasties."}},
+
+{q:{hi:"नंद वंश ने कितने वर्षों तक मगध पर शासन किया?",en:"For how many years did the Nanda dynasty rule Magadh?"},
+ o:[{hi:"50 वर्ष",en:"50 years"},{hi:"25 वर्ष",en:"25 years"},{hi:"100 वर्ष",en:"100 years"},{hi:"75 वर्ष",en:"75 years"}],a:1,
+ ex:{hi:"नंद वंश ने लगभग 345 ईसा पूर्व से 322 ईसा पूर्व तक, यानी करीब 23–25 वर्षों तक मगध पर शासन किया। इस छोटी अवधि में भी उन्होंने विशाल साम्राज्य खड़ा किया और मजबूत केंद्रीकृत राज्य की नींव रखी।",en:"The Nanda dynasty ruled Magadh from about 345 BCE to 322 BCE, roughly 23–25 years, building a vast empire and laying the foundation of a strong centralised state."}},
+
+{q:{hi:"नंद वंश के पतन का मुख्य कारण क्या था?",en:"What was the main cause of the fall of the Nanda dynasty?"},
+ o:[{hi:"विदेशी आक्रमण",en:"Foreign invasion"},{hi:"धनानंद की अयोग्यता और अत्याचार",en:"Incompetence and tyranny of Dhanananda"},{hi:"प्राकृतिक आपदा",en:"Natural disaster"},{hi:"धार्मिक संघर्ष",en:"Religious conflict"}],a:1,
+ ex:{hi:"धनानंद की अयोग्यता, अत्याचार और लोकप्रियता में कमी के कारण नंद वंश का पतन हुआ। चंद्रगुप्त मौर्य और चाणक्य ने जनता के असंतोष का लाभ उठाकर 322 ईसा पूर्व में नंद वंश को उखाड़ फेंका और मौर्य साम्राज्य की स्थापना की।",en:"Dhanananda's incompetence, tyranny and declining popularity caused the Nanda downfall. Chandragupta Maurya and Chanakya exploited public discontent to overthrow them in 322 BCE."}},
+
+{q:{hi:"शिशुनाग वंश ने किस महाजनपद का अंत किया?",en:"Which Mahajanapada was destroyed by the Shishunaga dynasty?"},
+ o:[{hi:"कोशल",en:"Kosala"},{hi:"वत्स",en:"Vatsa"},{hi:"अवंति",en:"Avanti"},{hi:"काशी",en:"Kashi"}],a:2,
+ ex:{hi:"शिशुनाग वंश ने अवंति महाजनपद का अंत किया, जो मगध का अंतिम गंभीर उत्तरी प्रतिद्वंद्वी था। अवंति की राजधानी उज्जैन थी। इस विजय से मगध उत्तर भारत का सबसे शक्तिशाली राज्य बन गया।",en:"The Shishunaga dynasty destroyed the Avanti Mahajanapada, Magadh's last serious northern rival, whose capital was Ujjain. This made Magadh the most powerful state in northern India."}},
+
+{q:{hi:"नंद वंश के शासनकाल में किस धातु के सिक्कों का प्रचलन था?",en:"Which metal coins were prevalent during the Nanda dynasty?"},
+ o:[{hi:"सोने के",en:"Gold"},{hi:"तांबे के",en:"Copper"},{hi:"चांदी के",en:"Silver"},{hi:"लोहे के",en:"Iron"}],a:1,
+ ex:{hi:"नंद वंश के शासनकाल में तांबे के सिक्कों का प्रचलन था। नंद शासकों ने बड़ी संख्या में तांबे के सिक्के जारी किए, जिन्हें 'कार्षापण' कहा जाता था। ये सिक्के आकार में बड़े और आयताकार थे तथा उन पर पंच-चिह्न अंकित होते थे।",en:"Copper coins were prevalent during the Nanda dynasty. The Nandas issued many copper coins called 'Karshapana' — large, rectangular with punch marks."}},
+
+/* ============ खंड C — मौर्य काल और मगध (Q25–36) ============ */
+{q:{hi:"मौर्य वंश की स्थापना किसने की और कब?",en:"Who founded the Maurya dynasty and when?"},
+ o:[{hi:"बिंबिसार, 544 ईसा पूर्व",en:"Bimbisara, 544 BCE"},{hi:"चंद्रगुप्त मौर्य, 322 ईसा पूर्व",en:"Chandragupta Maurya, 322 BCE"},{hi:"अशोक, 273 ईसा पूर्व",en:"Ashoka, 273 BCE"},{hi:"बिंदुसार, 298 ईसा पूर्व",en:"Bindusara, 298 BCE"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य ने 322 ईसा पूर्व में चाणक्य (कौटिल्य) की सहायता से धनानंद को पराजित करके मौर्य वंश की स्थापना की। चंद्रगुप्त मौर्य पहले सम्राट थे जिन्होंने लगभग पूरे भारतीय उपमहाद्वीप को एकजुट किया।",en:"Chandragupta Maurya founded the Maurya dynasty in 322 BCE by defeating Dhanananda with Chanakya's help — the first emperor to unify almost the entire subcontinent."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य की राजधानी कौन-सी थी?",en:"What was the capital of Chandragupta Maurya?"},
+ o:[{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"उज्जैन",en:"Ujjain"}],a:2,
+ ex:{hi:"चंद्रगुप्त मौर्य की राजधानी पाटलिपुत्र (आधुनिक पटना) थी। उनके शासनकाल में पाटलिपुत्र विश्व के सबसे बड़े और समृद्ध नगरों में से एक बन गया। मेगस्थनीज ने अपनी पुस्तक 'इंडिका' में पाटलिपुत्र का विस्तृत वर्णन किया है।",en:"Chandragupta Maurya's capital was Pataliputra (modern Patna), which became one of the largest and most prosperous cities in the world; Megasthenes described it in 'Indica'."}},
+
+{q:{hi:"अशोक का राज्याभिषेक किस वर्ष हुआ?",en:"In which year was Ashoka crowned?"},
+ o:[{hi:"273 ईसा पूर्व",en:"273 BCE"},{hi:"269 ईसा पूर्व",en:"269 BCE"},{hi:"261 ईसा पूर्व",en:"261 BCE"},{hi:"250 ईसा पूर्व",en:"250 BCE"}],a:1,
+ ex:{hi:"अशोक का राज्याभिषेक 269 ईसा पूर्व में हुआ, हालांकि वे 273 ईसा पूर्व में ही सिंहासन पर बैठे थे — 4 वर्ष के उत्तराधिकार संघर्ष के बाद। उनके शासनकाल में 261 ईसा पूर्व में कलिंग युद्ध हुआ।",en:"Ashoka was crowned in 269 BCE, though he ascended the throne in 273 BCE after 4 years of succession struggle. The Kalinga War (261 BCE) occurred during his reign."}},
+
+{q:{hi:"अशोक ने किस युद्ध के बाद हिंसा त्याग दी?",en:"After which war did Ashoka renounce violence?"},
+ o:[{hi:"हाइडेस्पीज़ का युद्ध",en:"Battle of Hydaspes"},{hi:"कलिंग का युद्ध",en:"Kalinga War"},{hi:"पानीपत का युद्ध",en:"Battle of Panipat"},{hi:"प्लासी का युद्ध",en:"Battle of Plassey"}],a:1,
+ ex:{hi:"261 ईसा पूर्व में कलिंग युद्ध में हुए भीषण नरसंहार के बाद अशोक ने बौद्ध धर्म अपनाया और 'धम्म' का प्रचार किया। उन्होंने अपने पुत्र महेंद्र और पुत्री संघमित्रा को श्रीलंका भेजा।",en:"After the massive carnage in the Kalinga War (261 BCE), Ashoka embraced Buddhism and propagated 'Dhamma', sending his son Mahendra and daughter Sanghamitra to Sri Lanka."}},
+
+{q:{hi:"अशोक के अभिलेख मुख्यतः किस भाषा और लिपि में हैं?",en:"Ashoka's inscriptions are mainly in which language and script?"},
+ o:[{hi:"संस्कृत और देवनागरी",en:"Sanskrit and Devanagari"},{hi:"प्राकृत और ब्राह्मी",en:"Prakrit and Brahmi"},{hi:"पाली और खरोष्ठी",en:"Pali and Kharosthi"},{hi:"तमिल और ग्रंथ",en:"Tamil and Grantha"}],a:1,
+ ex:{hi:"अशोक के अधिकांश अभिलेख प्राकृत भाषा में ब्राह्मी लिपि में लिखे गए थे। उत्तर-पश्चिम भारत में कुछ अभिलेख खरोष्ठी लिपि में और कुछ ग्रीक और अरामाइक में भी मिले हैं। इन अभिलेखों में अशोक ने 'देवानांप्रिय' और 'प्रियदर्शी' उपाधियों का प्रयोग किया।",en:"Most of Ashoka's inscriptions are in Prakrit and Brahmi script. In NW India, some are in Kharosthi, Greek and Aramaic. Ashoka used the titles 'Devanampriya' and 'Priyadarshi'."}},
+
+{q:{hi:"अशोक के किस अभिलेख में कलिंग युद्ध का वर्णन है?",en:"Which Ashokan edict describes the Kalinga War?"},
+ o:[{hi:"शिलालेख I",en:"Rock Edict I"},{hi:"शिलालेख XIII",en:"Rock Edict XIII"},{hi:"स्तंभ लेख I",en:"Pillar Edict I"},{hi:"शिलालेख V",en:"Rock Edict V"}],a:1,
+ ex:{hi:"अशोक के 13वें शिलालेख में कलिंग युद्ध का विस्तृत वर्णन है। इसमें अशोक ने बताया है कि युद्ध में 1,00,000 लोग मारे गए, 1,50,000 विस्थापित हुए और इससे उन्हें गहरा दुख हुआ। इसी कारण उन्होंने बौद्ध धर्म अपनाया और 'धम्म' का प्रचार किया।",en:"Ashoka's 13th Rock Edict describes the Kalinga War in detail — 100,000 killed, 150,000 displaced — causing him deep sorrow, leading him to embrace Buddhism."}},
+
+{q:{hi:"मौर्य काल में 'अर्थशास्त्र' की रचना किसने की?",en:"Who wrote 'Arthashastra' during the Mauryan period?"},
+ o:[{hi:"मेगस्थनीज",en:"Megasthenes"},{hi:"कौटिल्य (चाणक्य)",en:"Kautilya (Chanakya)"},{hi:"बाणभट्ट",en:"Banabhatta"},{hi:"कालिदास",en:"Kalidasa"}],a:1,
+ ex:{hi:"'अर्थशास्त्र' की रचना कौटिल्य (चाणक्य/विष्णुगुप्त) ने की। यह राजनीति, प्रशासन, अर्थव्यवस्था, कर व्यवस्था, दंड विधि और अंतर्राष्ट्रीय संबंधों पर आधारित विस्तृत ग्रंथ है और मौर्य प्रशासन का मुख्य स्रोत है।",en:"The 'Arthashastra' was written by Kautilya (Chanakya/Vishnugupta) — a comprehensive treatise on politics, administration, economy, taxation and international relations, a key source for Mauryan administration."}},
+
+{q:{hi:"मौर्य प्रशासन में 'समाहर्ता' का कार्य क्या था?",en:"What was the function of 'Samaharta' in Mauryan administration?"},
+ o:[{hi:"न्यायाधीश",en:"Judge"},{hi:"सेनापति",en:"Commander"},{hi:"राजस्व संग्रह का प्रमुख",en:"Chief of revenue collection"},{hi:"धार्मिक गुरु",en:"Religious teacher"}],a:2,
+ ex:{hi:"मौर्य प्रशासन में 'समाहर्ता' राजस्व संग्रह का प्रमुख अधिकारी था। वह सभी राज्यों से कर एकत्र करने का प्रभारी था। अर्थशास्त्र के अनुसार समाहर्ता साम्राज्य के सभी राजस्व के संग्रह का प्रभारी था।",en:"In Mauryan administration, 'Samaharta' was the chief revenue collection officer, responsible for collecting taxes from all provinces, per the Arthashastra."}},
+
+{q:{hi:"मौर्य काल में 'युक्त' का कार्य क्या था?",en:"What was the function of 'Yukta' in the Mauryan period?"},
+ o:[{hi:"सैन्य अधिकारी",en:"Military officer"},{hi:"राजस्व अधिकारी",en:"Revenue officer"},{hi:"न्यायाधीश",en:"Judge"},{hi:"धार्मिक अधिकारी",en:"Religious officer"}],a:1,
+ ex:{hi:"मौर्य काल में 'युक्त' राजस्व अधिकारी थे — जो समाहर्ता के अधीन कार्य करते थे। वे राजस्व वसूली और सार्वजनिक निर्माण कार्यों की देखरेख में सहायक थे। अर्थशास्त्र में युक्तों के कार्यों का वर्णन है।",en:"In the Mauryan period, 'Yuktas' were revenue officers under the Samaharta, assisting in revenue collection and supervising public works, as described in the Arthashastra."}},
+
+{q:{hi:"मौर्य काल में 'राज्जुक' का कार्य क्या था?",en:"What was the function of 'Rajjuka' in the Mauryan period?"},
+ o:[{hi:"न्यायाधीश",en:"Judge"},{hi:"ग्रामीण प्रशासन और न्याय",en:"Rural administration and justice"},{hi:"सैन्य अधिकारी",en:"Military officer"},{hi:"धार्मिक अधिकारी",en:"Religious officer"}],a:1,
+ ex:{hi:"मौर्य काल में 'राज्जुक' ग्रामीण प्रशासन और न्याय के अधिकारी थे। अशोक के अनुसार उन्हें जनता की भलाई, न्याय और प्रशासन के लिए नियुक्त किया गया था। अशोक के शिलालेख में उल्लेख है कि वे जनता के बीच घूमकर न्याय करते थे और धम्म का प्रचार करते थे।",en:"In the Mauryan period, 'Rajjukas' were officers of rural administration and justice. Ashoka's edicts mention they toured among the people to deliver justice and propagate Dhamma."}},
+
+{q:{hi:"मौर्य काल में 'प्रदेशिक' का पद क्या था?",en:"What was the position of 'Pradeshika' in the Mauryan period?"},
+ o:[{hi:"केंद्रीय मंत्री",en:"Central minister"},{hi:"प्रांतीय गवर्नर",en:"Provincial governor"},{hi:"ग्राम प्रधान",en:"Village head"},{hi:"सैन्य अधिकारी",en:"Military officer"}],a:1,
+ ex:{hi:"मौर्य काल में 'प्रदेशिक' प्रांतीय गवर्नर होते थे। वे प्रांतों के प्रशासन के प्रमुख अधिकारी थे। अशोक के शिलालेखों में प्रदेशिकों का उल्लेख है। मौर्य साम्राज्य में कुल 5 प्रमुख प्रांत थे।",en:"In the Mauryan period, 'Pradeshika' were provincial governors — chief officers of provincial administration. Ashoka's edicts mention them; the empire had 5 major provinces."}},
+
+{q:{hi:"कलिंग युद्ध के बाद अशोक ने किस नीति को अपनाया?",en:"What policy did Ashoka adopt after the Kalinga War?"},
+ o:[{hi:"सैन्य विजय",en:"Military conquest"},{hi:"धम्म विजय",en:"Dhamma Vijaya"},{hi:"व्यापार विजय",en:"Trade conquest"},{hi:"सांस्कृतिक विजय",en:"Cultural conquest"}],a:1,
+ ex:{hi:"कलिंग युद्ध के बाद अशोक ने 'धम्म विजय' (नैतिक विजय) की नीति अपनाई। उन्होंने 'धम्म' का प्रचार किया, जिसमें अहिंसा, सत्य, दया, परोपकार और सहिष्णुता जैसे सिद्धांत शामिल थे। उन्होंने 'धम्म महामात्र' नामक अधिकारियों की नियुक्ति की।",en:"After the Kalinga War, Ashoka adopted 'Dhamma Vijaya' (moral conquest) propagating non-violence, truth, compassion, charity and tolerance, appointing 'Dhamma Mahamatra' officials."}},
+
+/* ============ खंड D — मगध: प्रशासन, संस्कृति और विरासत (Q37–50) ============ */
+{q:{hi:"मगध साम्राज्य में कुल कितने प्रमुख राजवंशों ने शासन किया?",en:"How many major dynasties ruled the Magadh Empire?"},
+ o:[{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"}],a:2,
+ ex:{hi:"मगध साम्राज्य पर 5 प्रमुख राजवंशों ने शासन किया — हर्यंक वंश (544–413 ईसा पूर्व), शिशुनाग वंश (413–345 ईसा पूर्व), नंद वंश (345–322 ईसा पूर्व), मौर्य वंश (322–185 ईसा पूर्व) और शुंग वंश (185–73 ईसा पूर्व)।",en:"Five major dynasties ruled Magadh — Haryanka (544–413 BCE), Shishunaga (413–345 BCE), Nanda (345–322 BCE), Maurya (322–185 BCE) and Shunga (185–73 BCE)."}},
+
+{q:{hi:"मगध साम्राज्य के राजवंशों का सही कालक्रम क्या है?",en:"What is the correct chronological order of Magadh's dynasties?"},
+ o:[{hi:"नंद, शुंग, मौर्य, हर्यंक",en:"Nanda, Shunga, Maurya, Haryanka"},{hi:"हर्यंक, शिशुनाग, नंद, मौर्य, शुंग",en:"Haryanka, Shishunaga, Nanda, Maurya, Shunga"},{hi:"मौर्य, नंद, हर्यंक, शुंग",en:"Maurya, Nanda, Haryanka, Shunga"},{hi:"शुंग, मौर्य, नंद, हर्यंक",en:"Shunga, Maurya, Nanda, Haryanka"}],a:1,
+ ex:{hi:"मगध के राजवंशों का सही कालक्रम: हर्यंक वंश (544–413 ईसा पूर्व) → शिशुनाग वंश (413–345 ईसा पूर्व) → नंद वंश (345–322 ईसा पूर्व) → मौर्य वंश (322–185 ईसा पूर्व) → शुंग वंश (185–73 ईसा पूर्व)। यह BPSC परीक्षा के लिए एक महत्वपूर्ण तथ्य है।",en:"Chronology: Haryanka (544–413 BCE) → Shishunaga (413–345 BCE) → Nanda (345–322 BCE) → Maurya (322–185 BCE) → Shunga (185–73 BCE). A key BPSC fact."}},
+
+{q:{hi:"मगध साम्राज्य के उदय में कौन-कौन से कारक सहायक थे?",en:"Which factors contributed to the rise of the Magadh Empire?"},
+ o:[{hi:"केवल भौगोलिक स्थिति",en:"Only geographical location"},{hi:"केवल सैन्य शक्ति",en:"Only military power"},{hi:"भौगोलिक स्थिति, लौह अयस्क, कृषि उत्पादकता, हाथियों का उपयोग",en:"Geographical location, iron ore, agricultural productivity, use of elephants"},{hi:"केवल धार्मिक कारण",en:"Only religious reasons"}],a:2,
+ ex:{hi:"मगध के उदय में कई कारक सहायक थे — (1) उपजाऊ गंगा के मैदान में स्थिति, (2) दक्षिण बिहार में लौह अयस्क भंडार जिससे बेहतर हथियार बने, (3) कृषि उत्पादकता से सेना का भरण-पोषण, (4) हाथियों का सैन्य उपयोग, (5) राजधानी की सामरिक स्थिति, (6) नदी व्यापार मार्गों पर नियंत्रण।",en:"Several factors aided Magadh's rise — fertile Ganga plain, iron ore in south Bihar for better weapons, agricultural surplus, military elephants, strategic capital and control over river trade routes."}},
+
+{q:{hi:"मगध साम्राज्य की प्रारंभिक राजधानी कौन-सी थी?",en:"What was the early capital of the Magadh Empire?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"वैशाली",en:"Vaishali"},{hi:"राजगृह (गिरिव्रज)",en:"Rajagriha (Girivraja)"},{hi:"चंपा",en:"Champa"}],a:2,
+ ex:{hi:"मगध साम्राज्य की प्रारंभिक राजधानी राजगृह (गिरिव्रज) थी। यह पाँच पहाड़ियों से घिरा अभेद्य नगर था। बाद में उदयिन ने 490 ईसा पूर्व में राजधानी पाटलिपुत्र स्थानांतरित की।",en:"The early capital of Magadh was Rajagriha (Girivraja), an impregnable city surrounded by five hills. Udayin later shifted the capital to Pataliputra in 490 BCE."}},
+
+{q:{hi:"मगध साम्राज्य का क्षेत्र मुख्यतः वर्तमान के किस राज्य में फैला था?",en:"The Magadh Empire mainly spread across which present-day state?"},
+ o:[{hi:"उत्तर प्रदेश",en:"Uttar Pradesh"},{hi:"बिहार",en:"Bihar"},{hi:"बंगाल",en:"Bengal"},{hi:"झारखंड",en:"Jharkhand"}],a:1,
+ ex:{hi:"मगध साम्राज्य का क्षेत्र मुख्यतः वर्तमान बिहार राज्य के दक्षिणी भाग में फैला था, विशेषकर पटना, गया, नालंदा, राजगीर और जहानाबाद क्षेत्र में। इसका विस्तार बाद में उत्तर प्रदेश, बंगाल, ओडिशा और मध्य भारत तक हुआ।",en:"The Magadh Empire mainly spread across present-day southern Bihar (Patna, Gaya, Nalanda, Rajgir, Jehanabad), later expanding into UP, Bengal, Odisha and central India."}},
+
+{q:{hi:"मगध साम्राज्य के प्रशासन में 'मंत्रिपरिषद' का क्या कार्य था?",en:"What was the function of 'Mantriparishad' in Magadh's administration?"},
+ o:[{hi:"न्याय करना",en:"Administering justice"},{hi:"राजा को सलाह देना",en:"Advising the king"},{hi:"कर वसूलना",en:"Collecting taxes"},{hi:"सेना का नेतृत्व",en:"Leading the army"}],a:1,
+ ex:{hi:"मौर्य काल में 'मंत्रिपरिषद' राजा को दिन-प्रतिदिन के प्रशासन में सहायता और सलाह देने वाली मंत्रियों की परिषद थी। इसमें अमात्य, मंत्री, परामर्शदाता और विभागों के कार्यकारी अधिकारी शामिल होते थे। अर्थशास्त्र में इसका विस्तृत वर्णन है।",en:"The 'Mantriparishad' was a council of ministers advising the king. It included Amatyas, Mantris, advisers and executives. The Arthashastra describes it in detail."}},
+
+{q:{hi:"मगध साम्राज्य के पतन के बाद कौन-सा वंश सत्ता में आया?",en:"Which dynasty came to power after the fall of the Magadh Empire?"},
+ o:[{hi:"मौर्य वंश",en:"Maurya dynasty"},{hi:"शुंग वंश",en:"Shunga dynasty"},{hi:"नंद वंश",en:"Nanda dynasty"},{hi:"गुप्त वंश",en:"Gupta dynasty"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य के पतन के बाद 185 ईसा पूर्व में पुष्यमित्र शुंग ने शुंग वंश की स्थापना की। उन्होंने अंतिम मौर्य शासक बृहद्रथ की हत्या करके सत्ता हासिल की। शुंग वंश ने 73 ईसा पूर्व तक शासन किया।",en:"After the Mauryan Empire's fall, Pushyamitra Shunga founded the Shunga dynasty in 185 BCE by assassinating the last Mauryan ruler Brihadratha. The Shungas ruled until 73 BCE."}},
+
+{q:{hi:"मगध साम्राज्य के काल में बौद्ध और जैन धर्म का क्या योगदान रहा?",en:"What was the contribution of Buddhism and Jainism during the Magadh Empire?"},
+ o:[{hi:"कोई योगदान नहीं",en:"No contribution"},{hi:"दोनों धर्मों का विकास हुआ",en:"Both religions developed"},{hi:"केवल बौद्ध धर्म",en:"Only Buddhism"},{hi:"केवल जैन धर्म",en:"Only Jainism"}],a:1,
+ ex:{hi:"मगध साम्राज्य के काल में बौद्ध और जैन दोनों धर्मों का विकास हुआ। बुद्ध को बोधगया (मगध) में ज्ञान प्राप्त हुआ, प्रथम बौद्ध संगीति राजगृह में हुई, द्वितीय वैशाली में। महावीर का जन्म कुंडग्राम (वैशाली, मगध) में हुआ। बिंबिसार और अजातशत्रु दोनों धर्मों के संरक्षक थे।",en:"Both Buddhism and Jainism developed during Magadh. Buddha attained enlightenment at Bodh Gaya, the First Buddhist Council was at Rajagriha, the Second at Vaishali. Mahavira was born at Kundagram."}},
+
+{q:{hi:"मगध साम्राज्य में 'नगर प्रशासन' किसके अधीन था?",en:"Under whom was 'urban administration' in the Magadh Empire?"},
+ o:[{hi:"राजा",en:"The king"},{hi:"नगरक (नगर प्रमुख)",en:"Nagaraka (city chief)"},{hi:"सेनापति",en:"Commander"},{hi:"पुरोहित",en:"Priest"}],a:1,
+ ex:{hi:"मौर्य काल में नगर प्रशासन 'नगरक' के अधीन था। वे नगर के मुख्य प्रशासनिक अधिकारी होते थे। अर्थशास्त्र में नगर प्रशासन के लिए 6 समितियों (प्रत्येक में 5 सदस्य) की व्यवस्था का उल्लेख है, जो विभिन्न नगर सेवाओं की देखरेख करती थीं।",en:"Urban administration was under the 'Nagaraka' (city chief). The Arthashastra mentions 6 committees (of 5 members each) for urban administration, coordinating city services."}},
+
+{q:{hi:"मगध साम्राज्य में सड़कों और सार्वजनिक निर्माण कार्यों की देखरेख कौन करता था?",en:"Who looked after roads and public works in the Magadh Empire?"},
+ o:[{hi:"समाहर्ता",en:"Samaharta"},{hi:"युक्त",en:"Yukta"},{hi:"राज्जुक",en:"Rajjuka"},{hi:"प्रदेशिक",en:"Pradeshika"}],a:1,
+ ex:{hi:"मौर्य काल में युक्त राजस्व अधिकारी थे, लेकिन उन्हें सार्वजनिक निर्माण कार्यों की देखरेख का भी कार्य सौंपा गया था। वे सड़कों, पुलों, नहरों और अन्य सार्वजनिक संरचनाओं के निर्माण और रखरखाव के लिए जिम्मेदार थे।",en:"In the Mauryan period, Yuktas were revenue officers but also supervised public works — construction and maintenance of roads, bridges, canals and other structures."}},
+
+{q:{hi:"मगध साम्राज्य की सबसे प्रसिद्ध विरासत क्या है?",en:"What is the most famous legacy of the Magadh Empire?"},
+ o:[{hi:"केवल सैन्य विजय",en:"Only military conquest"},{hi:"भारतीय उपमहाद्वीप का राजनीतिक एकीकरण",en:"Political unification of the Indian subcontinent"},{hi:"केवल साहित्य",en:"Only literature"},{hi:"केवल व्यापार",en:"Only trade"}],a:1,
+ ex:{hi:"मगध साम्राज्य की सबसे प्रसिद्ध विरासत भारतीय उपमहाद्वीप का राजनीतिक एकीकरण है। चंद्रगुप्त मौर्य और अशोक ने लगभग पूरे उपमहाद्वीप को एक साम्राज्य के अधीन लाया। इसके अलावा, बौद्ध और जैन धर्म का प्रसार, कला-संस्कृति का विकास, और प्रशासनिक प्रणाली की नींव भी मगध की विरासत है।",en:"The most famous legacy is the political unification of the Indian subcontinent under Chandragupta Maurya and Ashoka, plus the spread of Buddhism and Jainism, cultural development and administrative foundations."}},
+
+{q:{hi:"मगध साम्राज्य के 'महापद्मनंद' को किन उपाधियों से जाना जाता है?",en:"By which titles was Mahapadma Nanda of Magadh known?"},
+ o:[{hi:"केवल 'एकराट'",en:"Only 'Ekarat'"},{hi:"'सर्वक्षत्रांतक', 'एकराट', 'परशुराम अवतार'",en:"'Sarva-kshatrantaka', 'Ekarat', 'Parashurama Avatar'"},{hi:"केवल 'क्षत्रियों का नाशक'",en:"Only 'Kshatriya Nashak'"},{hi:"'धर्मराज'",en:"'Dharmaraj'"}],a:1,
+ ex:{hi:"महापद्मनंद को 'सर्वक्षत्रांतक' (सभी क्षत्रियों का नाशक), 'एकराट' (एकमात्र संप्रभु), 'एकच्छत्र', 'कोल अंश', 'परशुराम अवतार', और 'क्षत्रियों का नाशक' जैसी उपाधियों से जाना जाता है। पुराणों में उन्हें 'एकराट' और 'सर्वक्षत्रांतक' कहा गया है।",en:"Mahapadma Nanda was known by titles like 'Sarva-kshatrantaka', 'Ekarat', 'Ekacchatra', 'Kola Ansha', 'Parashurama Avatar' and 'Kshatriya Nashak', reflecting his destruction of other Kshatriya dynasties."}},
+
+{q:{hi:"मगध साम्राज्य में 'अमात्य' का क्या पद था?",en:"What was the position of 'Amatya' in the Magadh Empire?"},
+ o:[{hi:"केवल सैन्य अधिकारी",en:"Only military officer"},{hi:"उच्च अधिकारी, परामर्शदाता और विभागों के कार्यकारी",en:"High officials, advisers and executives of departments"},{hi:"केवल धार्मिक अधिकारी",en:"Only religious officer"},{hi:"केवल कर वसूलने वाला",en:"Only tax collector"}],a:1,
+ ex:{hi:"मौर्य प्रशासन में 'अमात्य' उच्च अधिकारी, परामर्शदाता और विभागों/मंत्रियों के कार्यकारी थे। वे मंत्रिपरिषद के सदस्य होते थे और राजा को प्रशासन में सहायता करते थे। अर्थशास्त्र में अमात्यों के गुणों और कार्यों का विस्तृत वर्णन है।",en:"In Mauryan administration, 'Amatyas' were high officials, advisers and executives of departments, members of the Mantriparishad assisting the king. The Arthashastra describes their qualities and duties."}},
+
+{q:{hi:"मगध साम्राज्य के इतिहास का मुख्य स्रोत कौन-सा है?",en:"What is the main source of the history of the Magadh Empire?"},
+ o:[{hi:"केवल पुराण",en:"Only Puranas"},{hi:"अर्थशास्त्र, इंडिका, पुराण, बौद्ध और जैन ग्रंथ",en:"Arthashastra, Indica, Puranas, Buddhist and Jain texts"},{hi:"केवल विदेशी विवरण",en:"Only foreign accounts"},{hi:"केवल शिलालेख",en:"Only inscriptions"}],a:1,
+ ex:{hi:"मगध साम्राज्य के इतिहास के मुख्य स्रोत हैं — कौटिल्य का 'अर्थशास्त्र', मेगस्थनीज की 'इंडिका', पुराण (राजवंशों की सूची), बौद्ध ग्रंथ (त्रिपिटक, जातक), जैन ग्रंथ, अशोक के शिलालेख और स्तंभ लेख, तथा पुरातात्विक साक्ष्य (सिक्के, मिट्टी के बर्तन)।",en:"Main sources include Kautilya's 'Arthashastra', Megasthenes' 'Indica', Puranas (dynastic lists), Buddhist texts (Tripitaka, Jatakas), Jain texts, Ashokan edicts and pillar inscriptions, and archaeological evidence."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! मगध साम्राज्य पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Magadh Empire is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। मगध के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the Magadh facts and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
