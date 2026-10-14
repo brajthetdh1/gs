@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>भारतीय राजव्यवस्था — 50 प्रश्न | Indian Polity — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#d9c2e8;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#d9c2e8;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ffeb3b);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#f3e5f5;color:#4a148c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              ⚖️ भारतीय राजव्यवस्था — 50 प्रश्न
+              <small>Indian Polity · BPSC & SSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — संविधान की मूल बातें और संशोधन</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   भारतीय राजव्यवस्था — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — संविधान की मूल बातें और संशोधन", en:"Section A — Constitution Basics & Amendments"},
+  {hi:"खंड B — संघीय ढाँचा और केंद्र-राज्य संबंध", en:"Section B — Federal Structure & Centre-State Relations"},
+  {hi:"खंड C — संवैधानिक निकाय और संस्थाएँ", en:"Section C — Constitutional Bodies & Institutions"},
+  {hi:"खंड D — आपातकाल, न्यायपालिका और अधिकार", en:"Section D — Emergency, Judiciary & Rights"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — संविधान की मूल बातें और संशोधन (Q1–13) ============ */
+{q:{hi:"भारतीय संविधान की प्रस्तावना में अब तक कितनी बार संशोधन हुआ है?",en:"How many times has the Preamble of the Indian Constitution been amended?"},
+ o:[{hi:"कभी नहीं",en:"Never"},{hi:"एक बार",en:"Once"},{hi:"दो बार",en:"Twice"},{hi:"तीन बार",en:"Thrice"}],a:1,
+ ex:{hi:"भारतीय संविधान की प्रस्तावना में अब तक केवल 'एक बार' संशोधन हुआ है — 42वें संविधान संशोधन (1976) द्वारा। इसमें 'समाजवादी', 'धर्मनिरपेक्ष' और 'अखंडता' शब्द जोड़े गए। यह इंदिरा गांधी सरकार के समय हुआ — जिसे 'मिनी संविधान' भी कहा जाता है। प्रस्तावना को संविधान का 'परिचय पत्र' कहा जाता है।",en:"The Preamble has been amended only 'once' — by the 42nd Amendment (1976), which added 'Socialist', 'Secular' and 'Integrity'. It was under Indira Gandhi's government and dubbed the 'Mini Constitution'. The Preamble is called the Constitution's 'identity card'."}},
+
+{q:{hi:"'प्रस्तावना' को संविधान का हिस्सा माना गया है या नहीं?",en:"Is the 'Preamble' considered part of the Constitution?"},
+ o:[{hi:"हाँ, हिस्सा है",en:"Yes, part of it"},{hi:"नहीं, हिस्सा नहीं है",en:"No, not part of it"},{hi:"केवल नैतिक दस्तावेज़",en:"Only a moral document"},{hi:"केवल कानून",en:"Only law"}],a:0,
+ ex:{hi:"सर्वोच्च न्यायालय ने 'केशवानंद भारती' (1973) मामले में कहा कि प्रस्तावना 'संविधान का हिस्सा है' — और इसका संशोधन अनुच्छेद 368 के तहत किया जा सकता है। हालांकि यह न्यायसंगत नहीं है। प्रस्तावना संविधान की भावना और उद्देश्यों को दर्शाती है — इसलिए इसे 'संविधान की आत्मा' भी कहा जाता है।",en:"The Supreme Court in 'Kesavananda Bharati' (1973) held that the Preamble 'is part of the Constitution' and can be amended under Article 368, though it is not enforceable. It reflects the Constitution's spirit — called its 'soul'."}},
+
+{q:{hi:"भारतीय संविधान में कुल कितनी अनुसूचियाँ हैं?",en:"How many Schedules does the Indian Constitution have?"},
+ o:[{hi:"8",en:"8"},{hi:"10",en:"10"},{hi:"12",en:"12"},{hi:"14",en:"14"}],a:2,
+ ex:{hi:"भारतीय संविधान में वर्तमान में '12 अनुसूचियाँ' हैं — मूल में 8 थीं। बाद में 4 जोड़ी गईं — 9वीं (भूमि सुधार, प्रथम संशोधन 1951), 10वीं (दल-बदल विरोधी, 52वाँ संशोधन 1985), 11वीं (पंचायती राज, 73वाँ 1992), 12वीं (नगरीय निकाय, 74वाँ 1992)। अनुसूचियाँ विशेष विषयों की सूची होती हैं।",en:"The Constitution has '12 Schedules' now (originally 8). The 9th (land reforms, 1951), 10th (anti-defection, 1985), 11th (panchayats, 1992) and 12th (urban bodies, 1992) were added later. Schedules are lists on specific subjects."}},
+
+{q:{hi:"भारतीय संविधान के किस भाग में 'मौलिक अधिकार' हैं?",en:"Fundamental Rights are in which Part of the Indian Constitution?"},
+ o:[{hi:"भाग II",en:"Part II"},{hi:"भाग III",en:"Part III"},{hi:"भाग IV",en:"Part IV"},{hi:"भाग IVA",en:"Part IVA"}],a:1,
+ ex:{hi:"'मौलिक अधिकार' भारतीय संविधान के 'भाग III' (अनुच्छेद 12–35) में हैं — इसे भारत का 'मैग्ना कार्टा' कहा जाता है। भाग IV में DPSP (नीति निदेशक तत्व), भाग IVA में मूल कर्तव्य (अनुच्छेद 51A) हैं। मौलिक अधिकार न्यायसंगत हैं — इनके उल्लंघन पर न्यायालय जाया जा सकता है।",en:"Fundamental Rights are in 'Part III' (Articles 12–35), called India's 'Magna Carta'. Part IV has DPSPs, Part IVA has Fundamental Duties (Article 51A). FRs are justiciable — enforceable in courts."}},
+
+{q:{hi:"'मूल कर्तव्य' (Fundamental Duties) संविधान में कब जोड़े गए?",en:"When were 'Fundamental Duties' added to the Constitution?"},
+ o:[{hi:"1950",en:"1950"},{hi:"1976 (42वाँ संशोधन)",en:"1976 (42nd Amendment)"},{hi:"1985",en:"1985"},{hi:"2002 (86वाँ संशोधन)",en:"2002 (86th Amendment)"}],a:1,
+ ex:{hi:"'मूल कर्तव्य' संविधान में 1976 में '42वें संशोधन' द्वारा जोड़े गए — स्वर्ण सिंह समिति की सिफारिश पर। प्रारंभ में 10 कर्तव्य थे, 2002 में '86वें संशोधन' द्वारा 11वाँ कर्तव्य जोड़ा गया (6-14 वर्ष के बच्चों को शिक्षा देना)। ये अनुच्छेद 51A में हैं और न्यायसंगत नहीं हैं।",en:"Fundamental Duties were added in 1976 by the '42nd Amendment' on the Swaran Singh Committee's recommendation — originally 10, with an 11th added in 2002 by the '86th Amendment' (educating children aged 6–14). They are in Article 51A and non-justiciable."}},
+
+{q:{hi:"संविधान के किस अनुच्छेद में संशोधन की प्रक्रिया दी गई है?",en:"Which Article describes the amendment procedure of the Constitution?"},
+ o:[{hi:"अनुच्छेद 356",en:"Article 356"},{hi:"अनुच्छेद 360",en:"Article 360"},{hi:"अनुच्छेद 368",en:"Article 368"},{hi:"अनुच्छेद 370",en:"Article 370"}],a:2,
+ ex:{hi:"संविधान संशोधन की प्रक्रिया 'अनुच्छेद 368' में दी गई है — जो भाग XX में है। इसमें तीन प्रकार के संशोधन हैं — (1) साधारण बहुमत, (2) विशेष बहुमत (2/3 उपस्थित + कुल का बहुमत), (3) विशेष बहुमत + आधे राज्यों का अनुमोदन। 'केशवानंद भारती' मामले में कहा गया कि संसद 'मूल ढाँचे' को नहीं बदल सकती।",en:"Amendment procedure is in 'Article 368' (Part XX) — three types: simple majority, special majority (2/3 present + majority of total), and special majority + half the states' ratification. Kesavananda Bharati held Parliament cannot alter the 'basic structure'."}},
+
+{q:{hi:"'मूल ढाँचा सिद्धांत' (Basic Structure Doctrine) किस मामले में स्थापित हुआ?",en:"In which case was the 'Basic Structure Doctrine' established?"},
+ o:[{hi:"शंकरी प्रसाद",en:"Shankari Prasad"},{hi:"गोलकनाथ",en:"Golaknath"},{hi:"केशवानंद भारती",en:"Kesavananda Bharati"},{hi:"मिनर्वा मिल्स",en:"Minerva Mills"}],a:2,
+ ex:{hi:"'मूल ढाँचा सिद्धांत' 'केशवानंद भारती बनाम केरल राज्य' (1973) मामले में स्थापित हुआ — जिसमें सर्वोच्च न्यायालय ने कहा कि संसद संविधान के 'मूल ढाँचे' (जैसे लोकतंत्र, धर्मनिरपेक्षता, संघवाद, न्यायिक समीक्षा, मूल अधिकार) को नहीं बदल सकती। यह भारतीय संविधान की सबसे महत्वपूर्ण व्याख्या है।",en:"The 'Basic Structure Doctrine' was established in 'Kesavananda Bharati v. Kerala' (1973), holding Parliament cannot alter the Constitution's 'basic structure' — democracy, secularism, federalism, judicial review, fundamental rights — a landmark interpretation."}},
+
+{q:{hi:"भारत के संविधान में 'धर्मनिरपेक्ष' शब्द कब जोड़ा गया?",en:"When was the word 'Secular' added to India's Constitution?"},
+ o:[{hi:"1947",en:"1947"},{hi:"1950",en:"1950"},{hi:"1976 (42वाँ संशोधन)",en:"1976 (42nd Amendment)"},{hi:"1985",en:"1985"}],a:2,
+ ex:{hi:"भारत के संविधान में 'धर्मनिरपेक्ष' (Secular) शब्द 1976 में '42वें संशोधन' द्वारा प्रस्तावना में जोड़ा गया — 'समाजवादी' और 'अखंडता' के साथ। हालांकि भारत का धर्मनिरपेक्ष चरित्र संविधान के मूल में पहले से था — अनुच्छेद 25-28 (धर्म की स्वतंत्रता) और अनुच्छेद 15-16 (भेदभाव का निषेध) में। भारत का धर्मनिरपेक्षता 'सर्व धर्म समभाव' पर आधारित है।",en:"The word 'Secular' was added to the Preamble by the '42nd Amendment' (1976), along with 'Socialist' and 'Integrity'. India's secular character was inherent from the start via Articles 25–28 (freedom of religion) and 15–16 (prohibition of discrimination) — based on 'equal respect for all religions'."}},
+
+{q:{hi:"भारतीय संविधान में किस अनुच्छेद के तहत 'समानता का अधिकार' है?",en:"Which Articles of the Indian Constitution guarantee the 'Right to Equality'?"},
+ o:[{hi:"अनुच्छेद 12-13",en:"Articles 12-13"},{hi:"अनुच्छेद 14-18",en:"Articles 14-18"},{hi:"अनुच्छेद 19-22",en:"Articles 19-22"},{hi:"अनुच्छेद 23-24",en:"Articles 23-24"}],a:1,
+ ex:{hi:"'समानता का अधिकार' अनुच्छेद 14-18 में है — (1) अनुच्छेद 14 — विधि के समक्ष समानता, (2) अनुच्छेद 15 — भेदभाव का निषेध (धर्म, नस्ल, जाति, लिंग, जन्मस्थान), (3) अनुच्छेद 16 — लोक नियोजन में अवसर की समानता, (4) अनुच्छेद 17 — अस्पृश्यता का अंत, (5) अनुच्छेद 18 — उपाधियों का अंत। यह मौलिक अधिकारों का महत्वपूर्ण भाग है।",en:"The 'Right to Equality' spans Articles 14–18 — equality before law (14), prohibition of discrimination (15), equality in public employment (16), abolition of untouchability (17) and titles (18) — a key part of Fundamental Rights."}},
+
+{q:{hi:"'शिक्षा का अधिकार' (RTE) किस अनुच्छेद में है?",en:"The 'Right to Education' (RTE) is in which Article?"},
+ o:[{hi:"अनुच्छेद 19",en:"Article 19"},{hi:"अनुच्छेद 21",en:"Article 21"},{hi:"अनुच्छेद 21A",en:"Article 21A"},{hi:"अनुच्छेद 30",en:"Article 30"}],a:2,
+ ex:{hi:"'शिक्षा का अधिकार' अनुच्छेद 21A में है — जो 2002 में '86वें संविधान संशोधन' द्वारा जोड़ा गया। यह 6-14 वर्ष के बच्चों के लिए मुफ्त और अनिवार्य शिक्षा का मौलिक अधिकार है। इसके तहत 'शिक्षा का अधिकार अधिनियम 2009' (RTE Act) पारित हुआ — जो 1 अप्रैल 2010 से लागू हुआ। यह अनुच्छेद 21 (जीवन का अधिकार) का विस्तार है।",en:"The 'Right to Education' is Article 21A, added by the '86th Amendment' (2002), making free and compulsory education a fundamental right for children aged 6–14. It led to the RTE Act 2009, effective 1 April 2010 — an extension of Article 21."}},
+
+{q:{hi:"भारतीय संविधान में 'अनुच्छेद 370' किससे संबंधित था?",en:"Article 370 of the Indian Constitution related to which of the following?"},
+ o:[{hi:"नगालैंड",en:"Nagaland"},{hi:"जम्मू-कश्मीर",en:"Jammu & Kashmir"},{hi:"सिक्किम",en:"Sikkim"},{hi:"मिजोरम",en:"Mizoram"}],a:1,
+ ex:{hi:"अनुच्छेद 370 'जम्मू-कश्मीर' को विशेष दर्जा देता था — जिसके तहत J&K पर संसद के कानून सीमित रूप से लागू होते थे। यह 17 अक्टूबर 1949 को संविधान में जोड़ा गया। 5 अगस्त 2019 को राष्ट्रपति के आदेश द्वारा इसे निरस्त कर दिया गया और J&K को दो केंद्र शासित प्रदेशों — जम्मू-कश्मीर और लद्दाख — में बाँट दिया गया।",en:"Article 370 granted special status to 'Jammu & Kashmir', limiting Parliament's laws. Added 17 October 1949, it was abrogated by Presidential order on 5 August 2019, splitting J&K into two UTs — Jammu & Kashmir and Ladakh."}},
+
+{q:{hi:"भारतीय संविधान में कुल कितने भाग (Parts) हैं?",en:"How many Parts does the Indian Constitution have?"},
+ o:[{hi:"22",en:"22"},{hi:"24",en:"24"},{hi:"25",en:"25"},{hi:"28",en:"28"}],a:2,
+ ex:{hi:"भारतीय संविधान में वर्तमान में '25 भाग' हैं — मूल में 22 थे। भाग IVA (मूल कर्तव्य), भाग IX (पंचायत), भाग IXA (नगरीय निकाय), भाग IXB (सहकारी समितियाँ) बाद में जोड़े गए। भाग I (संघ और उसका राज्यक्षेत्र), भाग II (नागरिकता), भाग III (मौलिक अधिकार) और भाग IV (DPSP) सबसे महत्वपूर्ण हैं।",en:"The Constitution now has '25 Parts' (originally 22). Parts IVA (duties), IX (panchayats), IXA (urban bodies) and IXB (cooperatives) were added later. Parts I, II, III (FRs) and IV (DPSP) are most important."}},
+
+{q:{hi:"भारतीय संविधान में 'अनुच्छेद 51' किससे संबंधित है?",en:"Article 51 of the Indian Constitution deals with which of the following?"},
+ o:[{hi:"मौलिक कर्तव्य",en:"Fundamental Duties"},{hi:"अंतर्राष्ट्रीय शांति और सुरक्षा को बढ़ावा",en:"Promotion of international peace and security"},{hi:"चुनाव",en:"Elections"},{hi:"वित्त",en:"Finance"}],a:1,
+ ex:{hi:"अनुच्छेद 51 (DPSP) — 'राज्य अंतर्राष्ट्रीय शांति और सुरक्षा को बढ़ावा देगा, राष्ट्रों के बीच न्यायपूर्ण और सम्मानजनक संबंध बनाए रखेगा, अंतर्राष्ट्रीय संधियों और समझौतों का सम्मान करेगा।' यह भारत की विदेश नीति का मार्गदर्शक सिद्धांत है। अनुच्छेद 51A मूल कर्तव्यों से संबंधित है।",en:"Article 51 (DPSP) directs the State to promote international peace, maintain just and honourable relations and respect treaties — guiding India's foreign policy. Article 51A deals with Fundamental Duties."}},
+
+/* ============ खंड B — संघीय ढाँचा और केंद्र-राज्य संबंध (Q14–26) ============ */
+{q:{hi:"भारतीय संविधान में 'संघ सूची' में कितने विषय हैं?",en:"How many subjects are in the Union List of the Indian Constitution?"},
+ o:[{hi:"97",en:"97"},{hi:"100",en:"100"},{hi:"104",en:"104"},{hi:"110",en:"110"}],a:1,
+ ex:{hi:"भारतीय संविधान की 'संघ सूची' (Union List) में मूल 97 विषय थे, वर्तमान में ~100 विषय हैं। यह सूची सातवीं अनुसूची में दी गई है। इन पर केवल केंद्र सरकार कानून बना सकती है — रक्षा, विदेश, रेलवे, मुद्रा, बैंकिंग, परमाणु ऊर्जा, नागरिकता आदि। संघ सूची सबसे महत्वपूर्ण सूची है।",en:"The 'Union List' (Seventh Schedule) had 97 subjects, now ~100, on which only the Centre legislates — defence, foreign affairs, railways, currency, banking, atomic energy, citizenship."}},
+
+{q:{hi:"भारतीय संविधान की 'समवर्ती सूची' में कितने विषय हैं?",en:"How many subjects are in the Concurrent List?"},
+ o:[{hi:"47",en:"47"},{hi:"52",en:"52"},{hi:"61",en:"61"},{hi:"66",en:"66"}],a:1,
+ ex:{hi:"'समवर्ती सूची' (Concurrent List) में 52 विषय हैं — जिन पर केंद्र और राज्य दोनों कानून बना सकते हैं। हालांकि मतभेद होने पर केंद्र का कानून सर्वोच्च होता है। इसमें — शिक्षा, वन, जनसंख्या, विवाह, उत्तराधिकार, दंड संहिता, विद्युत, कृषि भूमि आदि शामिल हैं। संविधान के अनुसार कुछ विषय राज्य सूची से समवर्ती सूची में स्थानांतरित किए गए।",en:"The 'Concurrent List' has 52 subjects on which both Centre and States can legislate; central law prevails in conflict — education, forests, population, marriage, succession, criminal law, electricity, agricultural land."}},
+
+{q:{hi:"भारतीय संविधान की 'राज्य सूची' में कितने विषय हैं?",en:"How many subjects are in the State List?"},
+ o:[{hi:"47",en:"47"},{hi:"52",en:"52"},{hi:"61",en:"61"},{hi:"66",en:"66"}],a:2,
+ ex:{hi:"'राज्य सूची' (State List) में मूल 66 विषय थे, वर्तमान में 61 विषय हैं — जिन पर केवल राज्य विधानमंडल कानून बना सकता है। इसमें — कानून-व्यवस्था, पुलिस, सार्वजनिक स्वास्थ्य, कृषि, स्थानीय शासन, जेल, भू-राजस्व, मत्स्य पालन आदि शामिल हैं। हालांकि आपातकाल में संसद इन पर भी कानून बना सकती है।",en:"The 'State List' had 66 subjects, now 61, on which only state legislatures legislate — law and order, police, public health, agriculture, local government, prisons, land revenue, fisheries, though Parliament can legislate during Emergency."}},
+
+{q:{hi:"भारतीय संविधान में 'अवशिष्ट शक्तियाँ' (Residuary Powers) किसके पास हैं?",en:"Who holds the 'Residuary Powers' in the Indian Constitution?"},
+ o:[{hi:"राज्यों के पास",en:"With the States"},{hi:"केंद्र के पास",en:"With the Centre"},{hi:"दोनों के पास",en:"With both"},{hi:"सर्वोच्च न्यायालय के पास",en:"With the Supreme Court"}],a:1,
+ ex:{hi:"भारतीय संविधान में 'अवशिष्ट शक्तियाँ' (जो विषय किसी सूची में नहीं हैं) 'केंद्र सरकार' के पास हैं — अनुच्छेद 248 के तहत। यह अमेरिकी संविधान के विपरीत है — जहाँ अवशिष्ट शक्तियाँ राज्यों के पास हैं। भारत में केंद्र सरकार के पास अधिक शक्तियाँ हैं — यह संविधान के 'संघीय ढाँचे' की विशेषता है (जिसे अक्सर 'अर्ध-संघीय' कहा जाता है)।",en:"Residuary powers (subjects in no list) rest with the 'Centre' under Article 248 — unlike the US where states hold them. This gives India's federal setup a strong central tilt, often called 'quasi-federal'."}},
+
+{q:{hi:"'सरकारिया आयोग' की स्थापना कब हुई?",en:"When was the 'Sarkaria Commission' set up?"},
+ o:[{hi:"1975",en:"1975"},{hi:"1983",en:"1983"},{hi:"1988",en:"1988"},{hi:"1990",en:"1990"}],a:1,
+ ex:{hi:"'सरकारिया आयोग' 1983 में केंद्र-राज्य संबंधों की समीक्षा के लिए गठित किया गया — जिसकी अध्यक्षता 'न्यायमूर्ति रंजीत सिंह सरकारिया' ने की। इसने 1988 में रिपोर्ट दी, जिसमें केंद्र-राज्य संबंधों में सुधार के लिए कई सिफारिशें कीं — राज्यपाल की भूमिका, अनुच्छेद 356 का उपयोग, वित्तीय संसाधन आदि। यह आयोग तमिलनाडु, पंजाब, केरल आदि राज्यों की माँग पर बना।",en:"The 'Sarkaria Commission' (1983), chaired by Justice Ranjit Singh Sarkaria, reviewed Centre-State relations and reported in 1988 with reform recommendations on the Governor's role, Article 356 use and fiscal resources — set up on states' demand."}},
+
+{q:{hi:"'पुंछी आयोग' की स्थापना कब हुई?",en:"When was the 'Punchhi Commission' set up?"},
+ o:[{hi:"2000",en:"2000"},{hi:"2005",en:"2005"},{hi:"2007",en:"2007"},{hi:"2010",en:"2010"}],a:2,
+ ex:{hi:"'पुंछी आयोग' 2007 में केंद्र-राज्य संबंधों की समीक्षा के लिए गठित किया गया — जिसकी अध्यक्षता 'न्यायमूर्ति मदन मोहन पुंछी' ने की। इसने 2010 में रिपोर्ट दी। इसने सिफारिश की — राज्यपाल की नियुक्ति में मुख्यमंत्री से परामर्श, अनुच्छेद 356 का दुरुपयोग रोकना, राज्यों को अधिक वित्तीय स्वायत्तता, और अंतर-राज्य परिषद का सक्रिय उपयोग।",en:"The 'Punchhi Commission' (2007), chaired by Justice Madan Mohan Punchhi, reviewed Centre-State relations and reported in 2010 — recommending CM consultation in Governor appointments, curbing Article 356 misuse, greater fiscal autonomy and an active Inter-State Council."}},
+
+{q:{hi:"भारत में केंद्र-राज्य के बीच विवाद किस न्यायालय में जाता है?",en:"Disputes between Centre and States go to which court?"},
+ o:[{hi:"उच्च न्यायालय",en:"High Court"},{hi:"सर्वोच्च न्यायालय (मूल क्षेत्राधिकार)",en:"Supreme Court (original jurisdiction)"},{hi:"जिला न्यायालय",en:"District Court"},{hi:"अंतर्राष्ट्रीय न्यायालय",en:"International Court"}],a:1,
+ ex:{hi:"भारत में केंद्र-राज्य के बीच विवाद 'सर्वोच्च न्यायालय' के 'मूल क्षेत्राधिकार' (Original Jurisdiction) में जाता है — अनुच्छेद 131 के तहत। सर्वोच्च न्यायालय ही केंद्र-राज्य विवादों का प्रथम और अंतिम निर्णय करता है। इसके अलावा, अनुच्छेद 131 के तहत दो या अधिक राज्यों के बीच विवाद भी सर्वोच्च न्यायालय में जा सकता है।",en:"Centre-State disputes go to the 'Supreme Court's original jurisdiction' under Article 131 — the first and final forum, also handling disputes between two or more states."}},
+
+{q:{hi:"'अंतर-राज्य परिषद' (Inter-State Council) की स्थापना किस अनुच्छेद के तहत हुई?",en:"The Inter-State Council was set up under which Article?"},
+ o:[{hi:"अनुच्छेद 262",en:"Article 262"},{hi:"अनुच्छेद 263",en:"Article 263"},{hi:"अनुच्छेद 280",en:"Article 280"},{hi:"अनुच्छेद 324",en:"Article 324"}],a:1,
+ ex:{hi:"'अंतर-राज्य परिषद' (Inter-State Council) की स्थापना 'अनुच्छेद 263' के तहत की जा सकती है। इसे 1990 में राष्ट्रपति के आदेश से स्थापित किया गया — सरकारिया आयोग की सिफारिश पर। इसका अध्यक्ष 'प्रधानमंत्री' होता है और सदस्य सभी मुख्यमंत्री और केंद्र शासित प्रदेशों के मुख्यमंत्री/उपराज्यपाल होते हैं। यह केंद्र-राज्य के बीच समन्वय का मंच है।",en:"The 'Inter-State Council' can be set up under 'Article 263', established in 1990 on the Sarkaria Commission's advice. Chaired by the PM with all CMs and UT heads, it is a coordination forum between Centre and States."}},
+
+{q:{hi:"'जल विवाद' (Water Disputes) किस अनुच्छेद के तहत आते हैं?",en:"Water disputes fall under which Article?"},
+ o:[{hi:"अनुच्छेद 262",en:"Article 262"},{hi:"अनुच्छेद 263",en:"Article 263"},{hi:"अनुच्छेद 246",en:"Article 246"},{hi:"अनुच्छेद 131",en:"Article 131"}],a:0,
+ ex:{hi:"'जल विवाद' (अंतर-राज्यीय नदी जल विवाद) 'अनुच्छेद 262' के तहत आते हैं — जिसके तहत संसद कानून बनाकर इन विवादों के निपटारे के लिए न्यायाधिकरण स्थापित कर सकती है। इसके तहत 'अंतर-राज्यीय नदी जल विवाद अधिनियम 1956' पारित हुआ। सर्वोच्च न्यायालय का क्षेत्राधिकार सीमित है — अनुच्छेद 262 के तहत। बिहार से जुड़े कई जल विवाद हैं।",en:"Inter-state river water disputes fall under 'Article 262', empowering Parliament to create tribunals — leading to the Inter-State River Water Disputes Act 1956, with limited Supreme Court jurisdiction. Bihar has several related disputes."}},
+
+{q:{hi:"भारत में 'राज्यपाल' की नियुक्ति में किसकी भूमिका होती है?",en:"Who plays a role in appointing 'Governors' in India?"},
+ o:[{hi:"केवल राष्ट्रपति",en:"Only the President"},{hi:"राष्ट्रपति (प्रधानमंत्री की सलाह पर)",en:"President (on PM's advice)"},{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"संसद",en:"Parliament"}],a:1,
+ ex:{hi:"भारत में राज्यपाल की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है — लेकिन वास्तव में 'प्रधानमंत्री की सलाह' पर। यह परंपरा है — संविधान में स्पष्ट नहीं। सर्वोच्च न्यायालय ने कहा है कि राज्यपाल की नियुक्ति में मुख्यमंत्री से परामर्श उचित है, लेकिन बाध्यकारी नहीं। 2018 में एक समिति ने राज्यपाल की नियुक्ति में पारदर्शिता की सिफारिश की।",en:"India's Governors are appointed by the 'President on the PM's advice' — a convention rather than an explicit provision. The Supreme Court holds that consulting the CM is desirable, though not binding; a 2018 committee urged transparency."}},
+
+{q:{hi:"भारत में 'अखिल भारतीय सेवाएँ' (All India Services) किस अनुच्छेद के तहत आती हैं?",en:"All India Services fall under which Article?"},
+ o:[{hi:"अनुच्छेद 310",en:"Article 310"},{hi:"अनुच्छेद 312",en:"Article 312"},{hi:"अनुच्छेद 315",en:"Article 315"},{hi:"अनुच्छेद 320",en:"Article 320"}],a:1,
+ ex:{hi:"'अखिल भारतीय सेवाएँ' (IAS, IPS, IFoS) 'अनुच्छेद 312' के तहत आती हैं — जिसके अनुसार राज्यसभा के प्रस्ताव पर राज्यसभा नए AIS बना सकती है। इन सेवाओं के अधिकारी केंद्र सरकार द्वारा भर्ती होते हैं, लेकिन राज्यों में सेवा करते हैं। यह भारतीय संघीय व्यवस्था की अनोखी विशेषता है — जो केंद्र-राज्य समन्वय बनाती है।",en:"All India Services (IAS, IPS, IFoS) fall under 'Article 312', allowing the Rajya Sabha to create new AIS. Recruited by the Centre but serving states — a unique feature of Indian federalism ensuring coordination."}},
+
+{q:{hi:"'अनुच्छेद 356' किससे संबंधित है?",en:"Article 356 relates to which of the following?"},
+ o:[{hi:"राष्ट्रीय आपातकाल",en:"National Emergency"},{hi:"राष्ट्रपति शासन",en:"President's Rule"},{hi:"वित्तीय आपातकाल",en:"Financial Emergency"},{hi:"संविधान संशोधन",en:"Constitutional Amendment"}],a:1,
+ ex:{hi:"'अनुच्छेद 356' 'राष्ट्रपति शासन' (President's Rule) से संबंधित है — जो राज्य में संवैधानिक तंत्र विफल होने पर लगाया जाता है। इसे 'राज्य आपातकाल' भी कहते हैं। यह 6 महीने के लिए लगाया जाता है और अधिकतम 3 वर्ष तक बढ़ाया जा सकता है — संसद की मंजूरी से। 'बोम्मई मामले' (1994) में सर्वोच्च न्यायालय ने कहा कि अनुच्छेद 356 का दुरुपयोग नहीं होना चाहिए।",en:"'Article 356' concerns 'President's Rule' imposed when constitutional machinery fails in a state — initially 6 months, extendable to 3 years with Parliament's approval. The 'Bommai case' (1994) held it must not be misused."}},
+
+{q:{hi:"'अनुच्छेद 365' किससे संबंधित है?",en:"Article 365 relates to which of the following?"},
+ o:[{hi:"चुनाव",en:"Elections"},{hi:"केंद्र के निर्देशों का पालन न करने पर राष्ट्रपति शासन",en:"President's Rule for non-compliance with central directions"},{hi:"वित्त",en:"Finance"},{hi:"न्यायपालिका",en:"Judiciary"}],a:1,
+ ex:{hi:"'अनुच्छेद 365' के अनुसार — यदि राज्य केंद्र सरकार के किसी निर्देश का पालन नहीं करता, तो राष्ट्रपति यह मान सकता है कि राज्य में संवैधानिक तंत्र विफल हो गया है — और अनुच्छेद 356 के तहत राष्ट्रपति शासन लगाया जा सकता है। यह केंद्र सरकार को राज्यों पर नियंत्रण का महत्वपूर्ण साधन है।",en:"Under 'Article 365', if a state fails to comply with central directions, the President may hold that constitutional machinery has failed — enabling President's Rule under Article 356, a key central control tool."}},
+
+{q:{hi:"भारत में 'राज्यसभा' की अधिकतम संख्या कितनी है?",en:"What is the maximum strength of India's Rajya Sabha?"},
+ o:[{hi:"238",en:"238"},{hi:"245",en:"245"},{hi:"250",en:"250"},{hi:"252",en:"252"}],a:2,
+ ex:{hi:"राज्यसभा की अधिकतम संख्या '250' है — 238 राज्यों/UT के प्रतिनिधि और 12 राष्ट्रपति द्वारा मनोनीत। वर्तमान में ~245 सदस्य हैं। राज्यसभा स्थायी सदन है — इसे भंग नहीं किया जा सकता। सदस्यों का कार्यकाल 6 वर्ष होता है, हर 2 वर्ष में 1/3 सेवानिवृत्त होते हैं। राज्यसभा का उपसभापति और सभापति (उपराष्ट्रपति) होते हैं।",en:"Rajya Sabha's maximum strength is '250' — 238 representing states/UTs and 12 nominated by the President, currently ~245. It is a permanent house (never dissolved) with 6-year terms and 1/3 retiring every 2 years, headed by the Vice-President."}},
+
+/* ============ खंड C — संवैधानिक निकाय और संस्थाएँ (Q27–38) ============ */
+{q:{hi:"भारत निर्वाचन आयोग की स्थापना कब हुई?",en:"When was the Election Commission of India established?"},
+ o:[{hi:"15 अगस्त 1947",en:"15 August 1947"},{hi:"26 नवंबर 1949",en:"26 November 1949"},{hi:"25 जनवरी 1950",en:"25 January 1950"},{hi:"26 जनवरी 1950",en:"26 January 1950"}],a:2,
+ ex:{hi:"भारत निर्वाचन आयोग की स्थापना 25 जनवरी 1950 को हुई — जो अनुच्छेद 324 के तहत एक संवैधानिक निकाय है। इसका कार्य लोकसभा, राज्यसभा, विधानसभा, राष्ट्रपति और उपराष्ट्रपति के चुनाव कराना है। 25 जनवरी को 'राष्ट्रीय मतदाता दिवस' के रूप में मनाया जाता है। मुख्य चुनाव आयुक्त की नियुक्ति राष्ट्रपति द्वारा की जाती है।",en:"The Election Commission was established on 25 January 1950 under Article 324, conducting Lok Sabha, Rajya Sabha, Assembly, Presidential and Vice-Presidential elections. 25 January is National Voters' Day; the CEC is appointed by the President."}},
+
+{q:{hi:"भारत में मुख्य चुनाव आयुक्त की नियुक्ति कौन करता है?",en:"Who appoints India's Chief Election Commissioner?"},
+ o:[{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति",en:"President"},{hi:"संसद",en:"Parliament"},{hi:"मुख्य न्यायाधीश",en:"Chief Justice"}],a:1,
+ ex:{hi:"भारत में मुख्य चुनाव आयुक्त (CEC) और अन्य चुनाव आयुक्तों की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है। CEC को हटाने की प्रक्रिया सर्वोच्च न्यायालय के न्यायाधीश के समान है — केवल संसद के महाभियोग द्वारा। अन्य चुनाव आयुक्तों को राष्ट्रपति CEC की सिफारिश पर हटा सकते हैं। CEC का कार्यकाल 6 वर्ष या 65 वर्ष की आयु तक।",en:"India's CEC and other Election Commissioners are appointed by the 'President'. The CEC can be removed only by parliamentary impeachment, like a Supreme Court judge; other ECs can be removed by the President on the CEC's recommendation. Term: 6 years or age 65."}},
+
+{q:{hi:"'संघ लोक सेवा आयोग' (UPSC) की स्थापना कब हुई?",en:"When was the Union Public Service Commission (UPSC) established?"},
+ o:[{hi:"1926",en:"1926"},{hi:"1935",en:"1935"},{hi:"1947",en:"1947"},{hi:"1950",en:"1950"}],a:0,
+ ex:{hi:"संघ लोक सेवा आयोग (UPSC) की स्थापना 1926 में 'सार्वजनिक सेवा आयोग' के रूप में हुई — जो 1935 के भारत सरकार अधिनियम के तहत पुनर्गठित हुआ। स्वतंत्रता के बाद यह अनुच्छेद 315-323 के तहत संवैधानिक दर्जा प्राप्त किया। UPSC का मुख्यालय नई दिल्ली में 'धौलपुर हाउस' में है। यह सिविल सेवा परीक्षा आयोजित करता है — IAS, IPS, IFS आदि।",en:"UPSC began in 1926 as the Public Service Commission, reorganised under the Government of India Act 1935, and given constitutional status under Articles 315–323 after independence. Headquartered at Dholpur House, New Delhi, it conducts the Civil Services exam."}},
+
+{q:{hi:"भारत के 'नियंत्रक एवं महालेखा परीक्षक' (CAG) का कार्यकाल कितना होता है?",en:"What is the term of India's Comptroller and Auditor General (CAG)?"},
+ o:[{hi:"4 वर्ष",en:"4 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष या 65 वर्ष की आयु",en:"6 years or age 65"},{hi:"7 वर्ष",en:"7 years"}],a:2,
+ ex:{hi:"भारत के CAG का कार्यकाल '6 वर्ष या 65 वर्ष की आयु' तक होता है — जो भी पहले हो। CAG की नियुक्ति राष्ट्रपति द्वारा की जाती है (अनुच्छेद 148) और उसे हटाना सर्वोच्च न्यायालय के न्यायाधीश के समान प्रक्रिया से होता है। CAG सरकारी लेखा-जोखा की जाँच करता है और रिपोर्ट राष्ट्रपति को देता है — जो संसद में प्रस्तुत होती है।",en:"India's CAG serves '6 years or until age 65', whichever is earlier, appointed by the President under Article 148 and removable like a Supreme Court judge. CAG audits government accounts and reports to the President for Parliament."}},
+
+{q:{hi:"भारत के 'वित्त आयोग' का गठन हर कितने वर्ष में होता है?",en:"How often is India's Finance Commission constituted?"},
+ o:[{hi:"3 वर्ष",en:"3 years"},{hi:"4 वर्ष",en:"4 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"}],a:2,
+ ex:{hi:"भारत के 'वित्त आयोग' का गठन हर '5 वर्ष' में किया जाता है — अनुच्छेद 280 के तहत। इसका कार्य केंद्र और राज्यों के बीच वित्तीय संसाधनों के बँटवारे की सिफारिश करना है। अब तक 15 वित्त आयोग गठित हो चुके हैं। 15वें वित्त आयोग (2021-26) के अध्यक्ष 'एन.के. सिंह' थे। 16वें वित्त आयोग (2026-31) के अध्यक्ष 'अरविंद पनगढ़िया' हैं।",en:"India's 'Finance Commission' is constituted every '5 years' under Article 280 to recommend Centre-State resource sharing. Fifteen commissions so far — the 15th (2021–26) under N.K. Singh; the 16th (2026–31) under Arvind Panagariya."}},
+
+{q:{hi:"भारत के 'महान्यायवादी' (Attorney General) की नियुक्ति कौन करता है?",en:"Who appoints India's Attorney General?"},
+ o:[{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति",en:"President"},{hi:"मुख्य न्यायाधीश",en:"Chief Justice"},{hi:"विधि मंत्री",en:"Law Minister"}],a:1,
+ ex:{hi:"भारत के 'महान्यायवादी' (Attorney General) की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है — अनुच्छेद 76 के तहत। वह भारत सरकार का मुख्य कानूनी सलाहकार होता है और सर्वोच्च न्यायालय में सरकार की ओर से पैरवी करता है। उसे सर्वोच्च न्यायालय के न्यायाधीश बनने की योग्यता होनी चाहिए। वह राष्ट्रपति के प्रसादपर्यंत पद पर रहता है और संसद की कार्यवाही में भाग ले सकता है (वोट के बिना)।",en:"India's Attorney General is appointed by the 'President' under Article 76 — the government's chief legal adviser, arguing for it in the Supreme Court. Must have SC judge qualifications, serves at the President's pleasure and may attend Parliament without a vote."}},
+
+{q:{hi:"भारत में 'राष्ट्रीय अनुसूचित जाति आयोग' की स्थापना किस अनुच्छेद के तहत हुई?",en:"The National Commission for Scheduled Castes was established under which Article?"},
+ o:[{hi:"अनुच्छेद 338",en:"Article 338"},{hi:"अनुच्छेद 338A",en:"Article 338A"},{hi:"अनुच्छेद 339",en:"Article 339"},{hi:"अनुच्छेद 340",en:"Article 340"}],a:0,
+ ex:{hi:"'राष्ट्रीय अनुसूचित जाति आयोग' (NCSC) की स्थापना 'अनुच्छेद 338' के तहत हुई — जो 65वें संविधान संशोधन (1990) द्वारा जोड़ा गया। यह SC के अधिकारों की रक्षा, उनके विकास की निगरानी और शिकायतों की जाँच करता है। 'अनुच्छेद 338A' ST आयोग के लिए है (89वाँ संशोधन 2003) और 'अनुच्छेद 338B' OBC आयोग के लिए (102वाँ संशोधन 2018)।",en:"The National Commission for Scheduled Castes (NCSC) is under 'Article 338' (65th Amendment 1990), protecting SC rights and investigating complaints. Article 338A covers ST (89th Amendment) and 338B covers OBC (102nd Amendment 2018)."}},
+
+{q:{hi:"'राष्ट्रीय पिछड़ा वर्ग आयोग' किस संशोधन द्वारा संवैधानिक दर्जा पाया?",en:"The National Commission for Backward Classes got constitutional status by which amendment?"},
+ o:[{hi:"52वाँ संशोधन",en:"52nd Amendment"},{hi:"89वाँ संशोधन",en:"89th Amendment"},{hi:"102वाँ संशोधन",en:"102nd Amendment"},{hi:"103वाँ संशोधन",en:"103rd Amendment"}],a:2,
+ ex:{hi:"'राष्ट्रीय पिछड़ा वर्ग आयोग' (NCBC) को '102वें संविधान संशोधन' (2018) द्वारा संवैधानिक दर्जा प्राप्त हुआ — जिसने अनुच्छेद 338B जोड़ा। इससे पहले यह एक सांविधिक निकाय था (1993)। 105वें संशोधन (2021) ने राज्यों को अपनी OBC सूची बनाने का अधिकार दिया। यह OBC के अधिकारों की रक्षा और उनके विकास की निगरानी करता है।",en:"The National Commission for Backward Classes (NCBC) gained constitutional status by the '102nd Amendment' (2018, Article 338B), previously a statutory body (1993). The 105th Amendment (2021) empowered states to make their own OBC lists."}},
+
+{q:{hi:"भारत में 'लोकपाल' की नियुक्ति कौन करता है?",en:"Who appoints India's Lokpal?"},
+ o:[{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति (चयन समिति की सिफारिश पर)",en:"President (on selection committee's recommendation)"},{hi:"मुख्य न्यायाधीश",en:"Chief Justice"},{hi:"संसद",en:"Parliament"}],a:1,
+ ex:{hi:"भारत में 'लोकपाल' की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है — एक 'चयन समिति' की सिफारिश पर। समिति में — प्रधानमंत्री (अध्यक्ष), लोकसभा अध्यक्ष, विपक्ष नेता, मुख्य न्यायाधीश या उनके प्रतिनिधि, और एक प्रख्यात न्यायविद् होते हैं। लोकपाल अधिनियम 2013 में पारित हुआ और पहले लोकपाल 'न्यायमूर्ति पिनाकी चंद्र घोष' बने (2019)।",en:"India's Lokpal is appointed by the 'President' on a selection committee's recommendation — PM (chair), Speaker, Leader of Opposition, CJI or nominee, and an eminent jurist. The Lokpal Act was passed in 2013; Justice Pinaki Chandra Ghose became the first Lokpal in 2019."}},
+
+{q:{hi:"भारत के 'मुख्य सूचना आयुक्त' की नियुक्ति कौन करता है?",en:"Who appoints India's Chief Information Commissioner?"},
+ o:[{hi:"राष्ट्रपति",en:"President"},{hi:"प्रधानमंत्री",en:"PM"},{hi:"राष्ट्रपति (चयन समिति की सिफारिश पर)",en:"President (on selection committee's recommendation)"},{hi:"संसद",en:"Parliament"}],a:2,
+ ex:{hi:"भारत के 'मुख्य सूचना आयुक्त' (CIC) की नियुक्ति राष्ट्रपति द्वारा की जाती है — एक चयन समिति की सिफारिश पर जिसमें प्रधानमंत्री (अध्यक्ष), विपक्षी नेता और एक केंद्रीय मंत्री (PM द्वारा नामित) होते हैं। CIC और सूचना आयुक्तों का कार्यकाल 3 वर्ष (या 65 वर्ष तक) होता है। यह RTI अधिनियम 2005 के तहत गठित हुआ।",en:"India's Chief Information Commissioner (CIC) is appointed by the President on a selection committee's recommendation — PM (chair), Leader of Opposition, and a Union Minister nominated by the PM. Term: 3 years (or up to 65). Constituted under the RTI Act 2005."}},
+
+{q:{hi:"भारत में 'वित्त आयोग' का अध्यक्ष कौन होता है?",en:"Who chairs India's Finance Commission?"},
+ o:[{hi:"वित्त मंत्री",en:"Finance Minister"},{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति द्वारा नियुक्त अध्यक्ष",en:"A Chairman appointed by the President"},{hi:"RBI गवर्नर",en:"RBI Governor"}],a:2,
+ ex:{hi:"भारत के वित्त आयोग का अध्यक्ष 'राष्ट्रपति द्वारा नियुक्त' होता है — जो आमतौर पर एक वरिष्ठ अर्थशास्त्री या प्रशासक होते हैं। आयोग में अध्यक्ष + 4 सदस्य होते हैं। 15वें वित्त आयोग के अध्यक्ष 'एन.के. सिंह' थे, 16वें के अध्यक्ष 'अरविंद पनगढ़िया' हैं। यह एक संवैधानिक निकाय है — अनुच्छेद 280 के तहत।",en:"The Finance Commission Chairman is 'appointed by the President' — usually a senior economist or administrator — with four members. N.K. Singh headed the 15th; Arvind Panagariya the 16th. A constitutional body under Article 280."}},
+
+{q:{hi:"'नीति आयोग' (NITI Aayog) की स्थापना कब हुई?",en:"When was 'NITI Aayog' established?"},
+ o:[{hi:"2012",en:"2012"},{hi:"2013",en:"2013"},{hi:"2014",en:"2014"},{hi:"2015",en:"2015"}],a:3,
+ ex:{hi:"'नीति आयोग' (NITI Aayog) की स्थापना 1 जनवरी 2015 को हुई — जिसने 'योजना आयोग' (1950) का स्थान लिया। यह एक कार्यकारी थिंक टैंक है — संवैधानिक निकाय नहीं। इसका अध्यक्ष 'प्रधानमंत्री' होता है और उपाध्यक्ष की नियुक्ति प्रधानमंत्री द्वारा की जाती है। पहले उपाध्यक्ष 'अरविंद पनगढ़िया' थे। नीति आयोग का कार्य सतत विकास लक्ष्यों की निगरानी और सहकारी संघवाद को बढ़ावा देना है।",en:"NITI Aayog was established on 1 January 2015, replacing the Planning Commission (1950). It is an executive think tank, not a constitutional body, chaired by the PM with a PM-appointed Vice-Chairman — Arvind Panagariya was the first."}},
+
+{q:{hi:"'भारत के राष्ट्रीय मानवाधिकार आयोग' (NHRC) की स्थापना कब हुई?",en:"When was India's National Human Rights Commission (NHRC) established?"},
+ o:[{hi:"1990",en:"1990"},{hi:"1993",en:"1993"},{hi:"1995",en:"1995"},{hi:"2000",en:"2000"}],a:1,
+ ex:{hi:"भारत के 'राष्ट्रीय मानवाधिकार आयोग' (NHRC) की स्थापना 12 अक्टूबर 1993 को हुई — 'मानवाधिकार संरक्षण अधिनियम 1993' के तहत। इसका अध्यक्ष एक पूर्व मुख्य न्यायाधीश या सर्वोच्च न्यायालय का वरिष्ठ न्यायाधीश होता है। NHRC मानवाधिकार उल्लंघन की जाँच, जागरूकता और सिफारिशें करता है। 10 दिसंबर को 'मानवाधिकार दिवस' मनाया जाता है।",en:"India's NHRC was established on 12 October 1993 under the Protection of Human Rights Act 1993, headed by a former Chief Justice or senior SC judge, investigating violations and raising awareness. 10 December is Human Rights Day."}},
+
+{q:{hi:"'केंद्रीय सतर्कता आयोग' (CVC) की स्थापना कब हुई?",en:"When was the Central Vigilance Commission (CVC) established?"},
+ o:[{hi:"1960",en:"1960"},{hi:"1964",en:"1964"},{hi:"1970",en:"1970"},{hi:"1975",en:"1975"}],a:1,
+ ex:{hi:"'केंद्रीय सतर्कता आयोग' (CVC) की स्थापना 1964 में हुई — 'सान्थानम समिति' की सिफारिश पर। इसका कार्य सरकारी विभागों में भ्रष्टाचार पर नियंत्रण, सतर्कता की निगरानी और जाँच की सिफारिश करना है। CVC को 2003 में सांविधिक दर्जा मिला — CVC अधिनियम 2003 द्वारा। CVC का अध्यक्ष केंद्र सरकार द्वारा नियुक्त होता है। यह लोकपाल के साथ मिलकर काम करता है।",en:"The CVC was established in 1964 on the Santhanam Committee's recommendation to control corruption, monitor vigilance and recommend investigations, gaining statutory status via the CVC Act 2003. It works alongside the Lokpal."}},
+
+/* ============ खंड D — आपातकाल, न्यायपालिका और अधिकार (Q39–50) ============ */
+{q:{hi:"भारत में 'राष्ट्रीय आपातकाल' किस अनुच्छेद के तहत लगाया जाता है?",en:"Under which Article is 'National Emergency' imposed in India?"},
+ o:[{hi:"अनुच्छेद 352",en:"Article 352"},{hi:"अनुच्छेद 356",en:"Article 356"},{hi:"अनुच्छेद 360",en:"Article 360"},{hi:"अनुच्छेद 365",en:"Article 365"}],a:0,
+ ex:{hi:"भारत में 'राष्ट्रीय आपातकाल' (National Emergency) 'अनुच्छेद 352' के तहत लगाया जाता है — युद्ध, बाहरी आक्रमण या सशस्त्र विद्रोह के आधार पर। यह पूरे देश में लागू होता है। अब तक 3 बार लगाया गया — 1962 (चीन युद्ध), 1971 (पाकिस्तान युद्ध) और 1975 (आंतरिक अशांति)। 44वें संशोधन (1978) ने इसके दुरुपयोग को रोकने के लिए कई प्रावधान जोड़े।",en:"'National Emergency' under 'Article 352' is imposed on grounds of war, external aggression or armed rebellion, applying nationwide. Declared thrice — 1962, 1971 and 1975 — with the 44th Amendment (1978) adding safeguards."}},
+
+{q:{hi:"भारत में 'वित्तीय आपातकाल' किस अनुच्छेद के तहत लगाया जाता है?",en:"Under which Article is 'Financial Emergency' imposed in India?"},
+ o:[{hi:"अनुच्छेद 352",en:"Article 352"},{hi:"अनुच्छेद 356",en:"Article 356"},{hi:"अनुच्छेद 360",en:"Article 360"},{hi:"अनुच्छेद 365",en:"Article 365"}],a:2,
+ ex:{hi:"भारत में 'वित्तीय आपातकाल' (Financial Emergency) 'अनुच्छेद 360' के तहत लगाया जाता है — जब देश की वित्तीय स्थिरता, ऋण या राज्यक्षेत्र की स्थिति संकट में हो। इसे राष्ट्रपति लगाता है — मंत्रिपरिषद की सलाह पर। संसद की मंजूरी 2 महीने में आवश्यक है। अब तक भारत में कभी वित्तीय आपातकाल नहीं लगा।",en:"'Financial Emergency' under 'Article 360' can be declared if India's financial stability or credit is threatened — by the President on the Cabinet's advice, requiring parliamentary approval within 2 months. It has never been imposed."}},
+
+{q:{hi:"भारत में 'राष्ट्रीय आपातकाल' के दौरान मौलिक अधिकारों का क्या होता है?",en:"What happens to Fundamental Rights during a 'National Emergency' in India?"},
+ o:[{hi:"सभी निलंबित",en:"All suspended"},{hi:"अनुच्छेद 20 और 21 को छोड़कर निलंबित",en:"Suspended except Articles 20 and 21"},{hi:"कोई परिवर्तन नहीं",en:"No change"},{hi:"केवल अनुच्छेद 32 निलंबित",en:"Only Article 32 suspended"}],a:1,
+ ex:{hi:"राष्ट्रीय आपातकाल के दौरान 'अनुच्छेद 20 (अपराधों के लिए दोषसिद्धि के संबंध में संरक्षण) और अनुच्छेद 21 (प्राण और दैहिक स्वतंत्रता)' को छोड़कर अन्य मौलिक अधिकार निलंबित किए जा सकते हैं — यह 44वें संविधान संशोधन (1978) द्वारा जोड़ा गया। इससे पहले आपातकाल में सभी मौलिक अधिकार निलंबित किए जा सकते थे — जिसका दुरुपयोग 1975 के आपातकाल में हुआ था।",en:"During a National Emergency, Fundamental Rights may be suspended 'except Articles 20 and 21' — added by the 44th Amendment (1978) to prevent misuse seen during the 1975 Emergency."}},
+
+{q:{hi:"भारत के सर्वोच्च न्यायालय में न्यायाधीशों की संख्या कितनी है?",en:"How many judges are in India's Supreme Court?"},
+ o:[{hi:"30 + मुख्य न्यायाधीश",en:"30 + Chief Justice"},{hi:"33 + मुख्य न्यायाधीश",en:"33 + Chief Justice"},{hi:"34 + मुख्य न्यायाधीश",en:"34 + Chief Justice"},{hi:"35 + मुख्य न्यायाधीश",en:"35 + Chief Justice"}],a:2,
+ ex:{hi:"भारत के सर्वोच्च न्यायालय में वर्तमान में '34 + मुख्य न्यायाधीश = 35' न्यायाधीश होते हैं — हालांकि संविधान में न्यायाधीशों की संख्या तय नहीं है, संसद कानून बनाकर इसे बढ़ा सकती है। 2019 में इसे 30 से 33 किया गया, बाद में 34 तक बढ़ाया गया। मुख्य न्यायाधीश सहित कुल 35 न्यायाधीश हैं। सर्वोच्च न्यायालय 26 जनवरी 1950 को स्थापित हुआ।",en:"India's Supreme Court currently has '34 + Chief Justice = 35' judges, though the number is set by Parliament (raised from 30 to 33 in 2019, then 34). Established on 26 January 1950."}},
+
+{q:{hi:"सर्वोच्च न्यायालय के मुख्य न्यायाधीश की नियुक्ति किसके द्वारा होती है?",en:"Who appoints the Chief Justice of India?"},
+ o:[{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति",en:"President"},{hi:"संसद",en:"Parliament"},{hi:"कानून मंत्री",en:"Law Minister"}],a:1,
+ ex:{hi:"सर्वोच्च न्यायालय के मुख्य न्यायाधीश (CJI) की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है — जो आमतौर पर सर्वोच्च न्यायालय के सबसे वरिष्ठ न्यायाधीश होते हैं। हालांकि यह परंपरा है — संविधान में स्पष्ट नहीं। 1977 के बाद से यह परंपरा टूटी नहीं है। CJI की सेवानिवृत्ति आयु 65 वर्ष है। वर्तमान CJI सर्वोच्च न्यायालय के वरिष्ठतम न्यायाधीश होते हैं।",en:"The CJI is appointed by the 'President' — usually the senior-most SC judge, a convention (not explicit) followed since 1977. Retirement age is 65; the senior-most judge typically becomes CJI."}},
+
+{q:{hi:"भारत में न्यायिक समीक्षा (Judicial Review) का अधिकार किस अनुच्छेद से मिलता है?",en:"Judicial Review in India comes from which Article?"},
+ o:[{hi:"अनुच्छेद 13",en:"Article 13"},{hi:"अनुच्छेद 32",en:"Article 32"},{hi:"अनुच्छेद 226",en:"Article 226"},{hi:"अनुच्छेद 368",en:"Article 368"}],a:0,
+ ex:{hi:"भारत में 'न्यायिक समीक्षा' (Judicial Review) का आधार 'अनुच्छेद 13' है — जिसके अनुसार यदि कोई कानून मौलिक अधिकारों का उल्लंघन करता है, तो उसे असंवैधानिक घोषित किया जा सकता है। सर्वोच्च न्यायालय अनुच्छेद 32 के तहत और उच्च न्यायालय अनुच्छेद 226 के तहत यह शक्ति प्रयोग करते हैं। यह भारतीय संविधान की महत्वपूर्ण विशेषता है।",en:"Judicial Review in India stems from 'Article 13' — laws violating Fundamental Rights can be declared unconstitutional. The Supreme Court (Article 32) and High Courts (Article 226) exercise this power — a key constitutional feature."}},
+
+{q:{hi:"'परमादेश' (Mandamus) रिट किसके लिए जारी होती है?",en:"A 'Mandamus' writ is issued for which of the following?"},
+ o:[{hi:"बंदी प्रत्यक्षीकरण",en:"Producing a detained person"},{hi:"किसी सार्वजनिक अधिकारी को कर्तव्य पालन का आदेश",en:"Directing a public official to perform duty"},{hi:"अवैध आदेश रद्द करना",en:"Quashing an illegal order"},{hi:"निचली अदालत के आदेश पर रोक",en:"Staying a lower court order"}],a:1,
+ ex:{hi:"'परमादेश' (Mandamus — 'हम आदेश देते हैं') रिट 'किसी सार्वजनिक अधिकारी या निकाय को अपने सार्वजनिक कर्तव्य का पालन करने का आदेश' देने के लिए जारी होती है। यह नागरिक के अधिकार की रक्षा के लिए है। 'हैबियस कॉर्पस' बंदी प्रत्यक्षीकरण के लिए, 'सर्टिओरारी' अवैध आदेश रद्द करने के लिए, 'प्रोहिबिशन' निचली अदालत पर रोक के लिए और 'को-वारंटो' पद के दावे की जाँच के लिए होती है।",en:"'Mandamus' ('We command') directs a public official or body to perform a public duty. Habeas Corpus produces a detainee, Certiorari quashes an illegal order, Prohibition stays a lower court, Quo Warranto examines a claim to office."}},
+
+{q:{hi:"भारत में 'न्यायिक सक्रियता' (Judicial Activism) का क्या अर्थ है?",en:"What does 'Judicial Activism' mean in India?"},
+ o:[{hi:"न्यायपालिका की निष्क्रियता",en:"Judicial passivity"},{hi:"न्यायपालिका द्वारा सक्रिय हस्तक्षेप और जनहित याचिका",en:"Proactive judicial intervention and PIL"},{hi:"केवल कानून बनाना",en:"Only law making"},{hi:"केवल सलाह",en:"Only advice"}],a:1,
+ ex:{hi:"भारत में 'न्यायिक सक्रियता' का अर्थ है — 'न्यायपालिका द्वारा सक्रिय हस्तक्षेप', विशेषकर 'जनहित याचिका' (PIL) के माध्यम से। सर्वोच्च न्यायालय ने पर्यावरण, मानवाधिकार, भ्रष्टाचार आदि मामलों में सक्रिय भूमिका निभाई है। यह न्यायमूर्ति 'पी.एन. भगवती' और 'वी.आर. कृष्ण अय्यर' के समय में शुरू हुई। कुछ आलोचक इसे 'न्यायिक अतिक्रमण' मानते हैं — क्योंकि यह कार्यपालिका और विधायिका के क्षेत्र में हस्तक्षेप है।",en:"'Judicial Activism' in India means proactive judicial intervention, especially via PILs — the Supreme Court acting on environment, human rights and corruption during Justices P.N. Bhagwati and V.R. Krishna Iyer's time. Critics call it 'judicial overreach' into executive/legislative domains."}},
+
+{q:{hi:"भारत में 'लोक अदालत' (Lok Adalat) किससे संबंधित है?",en:"'Lok Adalat' in India relates to which of the following?"},
+ o:[{hi:"केवल फौजदारी मामले",en:"Only criminal cases"},{hi:"शीघ्र न्याय और विवाद समाधान",en:"Speedy justice and dispute resolution"},{hi:"केवल दीवानी",en:"Only civil"},{hi:"चुनाव",en:"Elections"}],a:1,
+ ex:{hi:"भारत में 'लोक अदालत' 'शीघ्र न्याय और विवाद समाधान' से संबंधित है — जो 'विधिक सेवा प्राधिकरण अधिनियम 1987' के तहत गठित होती है। इसमें विवादों का सुलह से निपटारा होता है — जिससे न्यायालयों का बोझ कम होता है। लोक अदालत का निर्णय अंतिम होता है और इसके विरुद्ध अपील नहीं होती। राष्ट्रीय लोक अदालत दिवस हर वर्ष मनाया जाता है।",en:"'Lok Adalat' provides 'speedy justice and dispute resolution' under the Legal Services Authorities Act 1987, settling disputes by compromise to ease court burden. Its decisions are final with no appeal; National Lok Adalat Day is observed annually."}},
+
+{q:{hi:"भारत के 'मुख्य न्यायाधीश' की सेवानिवृत्ति आयु कितनी है?",en:"What is the retirement age of India's Chief Justice?"},
+ o:[{hi:"60 वर्ष",en:"60 years"},{hi:"62 वर्ष",en:"62 years"},{hi:"65 वर्ष",en:"65 years"},{hi:"70 वर्ष",en:"70 years"}],a:2,
+ ex:{hi:"भारत के मुख्य न्यायाधीश और सर्वोच्च न्यायालय के अन्य न्यायाधीशों की सेवानिवृत्ति आयु '65 वर्ष' है — जबकि उच्च न्यायालय के न्यायाधीशों की '62 वर्ष' है। सर्वोच्च न्यायालय के न्यायाधीश की नियुक्ति राष्ट्रपति द्वारा की जाती है — कॉलेजियम की सिफारिश पर। उन्हें हटाने की प्रक्रिया महाभियोग द्वारा होती है — संसद के दोनों सदनों के विशेष बहुमत से।",en:"India's CJI and other Supreme Court judges retire at '65', while High Court judges at '62'. SC judges are appointed by the President on the collegium's recommendation and removed only by impeachment with a special majority in both Houses."}},
+
+{q:{hi:"भारत में 'वकील का अधिकार' किस अनुच्छेद के तहत आता है?",en:"The 'Right to Counsel' in India comes under which Article?"},
+ o:[{hi:"अनुच्छेद 20",en:"Article 20"},{hi:"अनुच्छेद 21",en:"Article 21"},{hi:"अनुच्छेद 22",en:"Article 22"},{hi:"अनुच्छेद 23",en:"Article 23"}],a:2,
+ ex:{hi:"भारत में 'वकील का अधिकार' (Right to Counsel) 'अनुच्छेद 22(1)' के तहत आता है — जिसके अनुसार प्रत्येक गिरफ्तार व्यक्ति को अपनी पसंद के वकील से परामर्श करने और उसके द्वारा प्रतिरक्षित होने का अधिकार है। यह अनुच्छेद 21 का भी हिस्सा माना गया है — 'पी.एन. भगवती' के अनुसार नि:शुल्क कानूनी सहायता मौलिक अधिकार है। अनुच्छेद 39A भी मुफ्त कानूनी सहायता का प्रावधान करता है।",en:"The 'Right to Counsel' under 'Article 22(1)' allows an arrested person to consult and be defended by a lawyer of choice — also read into Article 21, with free legal aid a fundamental right (Article 39A)."},
+
+{q:{hi:"'अनुच्छेद 32' के तहत कौन-कौन सी रिट जारी की जा सकती हैं?",en:"Which writs can be issued under Article 32?"},
+ o:[{hi:"केवल एक रिट",en:"Only one writ"},{hi:"पाँच रिट",en:"Five writs"},{hi:"दो रिट",en:"Two writs"},{hi:"तीन रिट",en:"Three writs"}],a:1,
+ ex:{hi:"'अनुच्छेद 32' के तहत सर्वोच्च न्यायालय 'पाँच रिट' जारी कर सकता है — (1) 'हैबियस कॉर्पस' (बंदी प्रत्यक्षीकरण), (2) 'मैंडेमस' (परमादेश), (3) 'प्रोहिबिशन' (निषेध), (4) 'सर्टिओरारी' (उत्प्रेषण), (5) 'को-वारंटो' (अधिकार पृच्छा)। यह मौलिक अधिकारों के प्रवर्तन के लिए है। डॉ. आंबेडकर ने इसे 'संविधान की आत्मा' कहा।",en:"Under 'Article 32', the Supreme Court issues 'five writs' — Habeas Corpus, Mandamus, Prohibition, Certiorari and Quo Warranto — to enforce Fundamental Rights. Dr. Ambedkar called it the Constitution's 'heart and soul'."}},
+
+{q:{hi:"भारत में 'मौलिक अधिकारों' को निलंबित करने का अधिकार किसके पास है?",en:"Who has the power to suspend Fundamental Rights in India?"},
+ o:[{hi:"संसद",en:"Parliament"},{hi:"सर्वोच्च न्यायालय",en:"Supreme Court"},{hi:"राष्ट्रपति (आपातकाल के दौरान)",en:"President (during Emergency)"},{hi:"प्रधानमंत्री",en:"Prime Minister"}],a:2,
+ ex:{hi:"भारत में मौलिक अधिकारों को निलंबित करने का अधिकार 'राष्ट्रपति' के पास है — लेकिन केवल 'राष्ट्रीय आपातकाल के दौरान' (अनुच्छेद 358, 359)। अनुच्छेद 358 — अनुच्छेद 19 के अधिकार निलंबित; अनुच्छेद 359 — राष्ट्रपति अन्य मौलिक अधिकारों के प्रवर्तन को निलंबित कर सकते हैं। 44वें संशोधन (1978) के अनुसार अनुच्छेद 20 और 21 को कभी निलंबित नहीं किया जा सकता।",en:"The 'President' can suspend Fundamental Rights only during a National Emergency (Articles 358, 359) — Article 358 for Article 19 freedoms, 359 for enforcement of others. Per the 44th Amendment (1978), Articles 20 and 21 can never be suspended."}},
+
+{q:{hi:"भारत में 'सूचना का अधिकार' (RTI) किस वर्ष लागू हुआ?",en:"When was the 'Right to Information' (RTI) implemented in India?"},
+ o:[{hi:"2002",en:"2002"},{hi:"2003",en:"2003"},{hi:"2005",en:"2005"},{hi:"2007",en:"2007"}],a:2,
+ ex:{hi:"भारत में 'सूचना का अधिकार' (RTI) 12 अक्टूबर 2005 को लागू हुआ — 'सूचना का अधिकार अधिनियम 2005' के तहत। यह नागरिकों को सरकारी सूचना प्राप्त करने का अधिकार देता है — जिससे पारदर्शिता और जवाबदेही बढ़ती है। 30 दिनों में सूचना देना अनिवार्य है। यह राजस्थान के 'मजदूर किसान शक्ति संगठन' (MKSS) के आंदोलन का परिणाम था। केंद्रीय सूचना आयोग (CIC) की स्थापना हुई।",en:"India's RTI Act came into force on 12 October 2005, empowering citizens to access government information within 30 days, enhancing transparency and accountability — the result of the MKSS movement in Rajasthan, with the CIC established."}},
+
+{q:{hi:"भारत में 'शिक्षा का अधिकार' अधिनियम (RTE) कब लागू हुआ?",en:"When was the Right to Education (RTE) Act implemented in India?"},
+ o:[{hi:"2002",en:"2002"},{hi:"2005",en:"2005"},{hi:"2009",en:"2009"},{hi:"2010",en:"2010"}],a:2,
+ ex:{hi:"भारत में 'शिक्षा का अधिकार' अधिनियम (RTE) 2009 में पारित हुआ — जो 1 अप्रैल 2010 से लागू हुआ। यह अनुच्छेद 21A के तहत 6-14 वर्ष के बच्चों को मुफ्त और अनिवार्य शिक्षा का अधिकार देता है। इसमें — निजी स्कूलों में 25% सीटें EWS के लिए, स्कूल में शिक्षक-छात्र अनुपात, और मान्यता के नियम शामिल हैं। बिहार में भी यह लागू है।",en:"India's RTE Act was passed in 2009 and came into force on 1 April 2010 under Article 21A, guaranteeing free and compulsory education for children aged 6–14, including 25% EWS seats in private schools — applicable in Bihar too."}},
+
+{q:{hi:"भारत में 'अनुच्छेद 21' किससे संबंधित है?",en:"Article 21 of India relates to which of the following?"},
+ o:[{hi:"समानता का अधिकार",en:"Right to Equality"},{hi:"प्राण और दैहिक स्वतंत्रता का अधिकार",en:"Right to Life and Personal Liberty"},{hi:"शोषण के विरुद्ध अधिकार",en:"Right against Exploitation"},{hi:"धर्म की स्वतंत्रता",en:"Freedom of Religion"}],a:1,
+ ex:{hi:"भारत में 'अनुच्छेद 21' 'प्राण और दैहिक स्वतंत्रता का अधिकार' (Right to Life and Personal Liberty) से संबंधित है — जो मौलिक अधिकारों में सबसे महत्वपूर्ण है। सर्वोच्च न्यायालय ने इसका विस्तार किया है — इसमें शामिल हैं — शिक्षा, स्वास्थ्य, स्वच्छ पर्यावरण, निजता, गरिमा, भोजन, आवास, त्वरित सुनवाई, और मृत्यु का अधिकार (निष्क्रिय इच्छामृत्यु)। यह 'जीवन और दैहिक स्वतंत्रता' का व्यापक अर्थ है।",en:"'Article 21' guarantees the 'Right to Life and Personal Liberty' — the most important FR, expanded by the Supreme Court to include education, health, clean environment, privacy, dignity, food, shelter, speedy trial and passive euthanasia."}},
+
+{q:{hi:"भारत में 'अनुच्छेद 19' के तहत कितनी स्वतंत्रताएँ हैं?",en:"How many freedoms are guaranteed under Article 19 of India?"},
+ o:[{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"}],a:1,
+ ex:{hi:"भारत में 'अनुच्छेद 19' के तहत 6 स्वतंत्रताएँ हैं — (1) भाषण और अभिव्यक्ति की स्वतंत्रता, (2) शांतिपूर्वक सभा करने की स्वतंत्रता, (3) संगठन या संघ बनाने की स्वतंत्रता, (4) भारत में आने-जाने की स्वतंत्रता, (5) किसी भी भाग में निवास करने की स्वतंत्रता, (6) कोई भी व्यवसाय, उपजीविका, व्यापार या कारोबार करने की स्वतंत्रता। मूल रूप से 7 थीं — संपत्ति का अधिकार 44वें संशोधन द्वारा हटाया गया।",en:"'Article 19' guarantees six freedoms — speech/expression, peaceful assembly, association, movement, residence and profession/trade. Originally seven — the right to property was removed by the 44th Amendment."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! भारतीय राजव्यवस्था पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Indian Polity is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। राजव्यवस्था के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the polity facts."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
