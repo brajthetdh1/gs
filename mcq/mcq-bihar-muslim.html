@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>बिहार में मुस्लिम शासन — 50 प्रश्न | Muslim Rule in Bihar — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#00695c,#00796b);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#b2dfdb;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#b2dfdb;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#b2dfdb);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e0f2f1;color:#00695c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🕌 बिहार में मुस्लिम शासन — 50 प्रश्न
+              <small>Muslim Rule in Bihar · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — तुर्क आक्रमण और प्रारंभिक मुस्लिम शासन</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   बिहार में मुस्लिम शासन — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — तुर्क आक्रमण और प्रारंभिक मुस्लिम शासन", en:"Section A — Turkish Conquest & Early Muslim Rule"},
+  {hi:"खंड B — सल्तनत काल: तुगलक, शर्की और लोदी", en:"Section B — Sultanate: Tughlaq, Sharqi & Lodi"},
+  {hi:"खंड C — शेरशाह सूरी और अफगान शासन", en:"Section C — Sher Shah Suri & Afghan Rule"},
+  {hi:"खंड D — मुगल काल में बिहार", en:"Section D — Mughal Rule in Bihar"},
+  {hi:"खंड E — सूफी संत, स्मारक और विरासत", en:"Section E — Sufi Saints, Monuments & Legacy"}
+];
+const SECTION_STARTS = [0, 12, 24, 36, 46];
+
+const QUESTIONS = [
+/* ============ खंड A — तुर्क आक्रमण और प्रारंभिक मुस्लिम शासन (Q1–12) ============ */
+{q:{hi:"बिहार में मुस्लिम शासन की नींव किसने रखी?",en:"Who laid the foundation of Muslim rule in Bihar?"},
+ o:[{hi:"मुहम्मद गोरी",en:"Muhammad Ghori"},{hi:"इख्तियारुद्दीन मुहम्मद बिन बख्तियार खिलजी",en:"Ikhtiyaruddin Muhammad bin Bakhtiyar Khilji"},{hi:"कुतुबुद्दीन ऐबक",en:"Qutb-ud-din Aibak"},{hi:"इल्तुतमिश",en:"Iltutmish"}],a:1,
+ ex:{hi:"बिहार में मुस्लिम शासन की नींव 'इख्तियारुद्दीन मुहम्मद बिन बख्तियार खिलजी' ने रखी — जिसने 1193-1203 ई. के बीच बिहार और बंगाल पर आक्रमण किया। वह मुहम्मद गोरी का सेनापति था और उसने ओदंतपुरी (बिहार शरीफ) को अपना मुख्यालय बनाया।",en:"The foundation of Muslim rule in Bihar was laid by 'Ikhtiyaruddin Muhammad bin Bakhtiyar Khilji', who invaded Bihar and Bengal between 1193-1203 CE. He was Muhammad Ghori's general and made Odantapuri (Bihar Sharif) his headquarters."}},
+
+{q:{hi:"बख्तियार खिलजी ने किस बौद्ध महाविहार को नष्ट किया?",en:"Which Buddhist Mahavihara was destroyed by Bakhtiyar Khilji?"},
+ o:[{hi:"विक्रमशिला",en:"Vikramshila"},{hi:"नालंदा और ओदंतपुरी",en:"Nalanda and Odantapuri"},{hi:"वैशाली",en:"Vaishali"},{hi:"सोमपुरा",en:"Somapura"}],a:1,
+ ex:{hi:"बख्तियार खिलजी ने 'नालंदा और ओदंतपुरी' दोनों बौद्ध महाविहारों को नष्ट किया। उसने 1193 ई. में नालंदा को लूटा और जला दिया, हज़ारों भिक्षुओं को मार डाला। ओदंतपुरी (आधुनिक बिहार शरीफ) में उसने अपना सैन्य मुख्यालय बनाया। विख्यात 'रत्नोदधि' पुस्तकालय महीनों तक जलता रहा।",en:"Bakhtiyar Khilji destroyed both 'Nalanda and Odantapuri' Mahaviharas, looting and burning Nalanda in 1193 CE, killing thousands of monks. At Odantapuri (modern Bihar Sharif), he set up his military headquarters; the famed 'Ratnodadhi' library burned for months."}},
+
+{q:{hi:"बख्तियार खिलजी ने अपनी राजधानी कहाँ बनाई?",en:"Where did Bakhtiyar Khilji establish his capital?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"ओदंतपुरी (बिहार शरीफ)",en:"Odantapuri (Bihar Sharif)"},{hi:"गया",en:"Gaya"},{hi:"मुंगेर",en:"Munger"}],a:1,
+ ex:{hi:"बख्तियार खिलजी ने 'ओदंतपुरी' (आधुनिक बिहार शरीफ, नालंदा जिला) को अपनी राजधानी बनाया। यह प्राचीन काल में एक बौद्ध महाविहार था — जिसे उसने नष्ट करके अपना केंद्र बनाया। 'बिहार' नाम इसी 'विहार' (बौद्ध मठ) से पड़ा। बाद में यह बिहार का प्रमुख मुस्लिम शहर बना।",en:"Bakhtiyar Khilji made 'Odantapuri' (modern Bihar Sharif, Nalanda district) his capital — formerly a Buddhist Mahavihara, destroyed and converted into his base. The name 'Bihar' comes from 'Vihara' (monastery), later a major Muslim city."}},
+
+{q:{hi:"बिहार में बख्तियार खिलजी के बाद किसने शासन किया?",en:"Who ruled Bihar after Bakhtiyar Khilji?"},
+ o:[{hi:"शेरशाह सूरी",en:"Sher Shah Suri"},{hi:"खिलजी वंश (बंगाल के अधीन)",en:"Khalji dynasty (under Bengal)"},{hi:"तुगलक वंश",en:"Tughlaq dynasty"},{hi:"सैयद वंश",en:"Sayyid dynasty"}],a:1,
+ ex:{hi:"बख्तियार खिलजी के बाद बिहार पर 'खिलजी वंश' (बंगाल के अधीन) का शासन रहा — जिसमें उसके उत्तराधिकारी और बंगाल के शासक शामिल थे। बिहार उस समय बंगाल सल्तनत का हिस्सा था। 13वीं-14वीं शताब्दी में बिहार पर दिल्ली सल्तनत का नियंत्रण बढ़ा।",en:"After Bakhtiyar Khilji, Bihar was ruled by the 'Khalji dynasty (under Bengal)' — his successors and Bengal rulers. Bihar was then part of the Bengal Sultanate; Delhi Sultanate's control increased in the 13th-14th centuries."}},
+
+{q:{hi:"13वीं शताब्दी में बिहार पर दिल्ली सल्तनत का पूर्ण नियंत्रण किसने स्थापित किया?",en:"Who established complete Delhi Sultanate control over Bihar in the 13th century?"},
+ o:[{hi:"बलबन",en:"Balban"},{hi:"अलाउद्दीन खिलजी",en:"Alauddin Khilji"},{hi:"मुहम्मद बिन तुगलक",en:"Muhammad bin Tughlaq"},{hi:"फिरोज़ शाह तुगलक",en:"Firoz Shah Tughlaq"}],a:0,
+ ex:{hi:"बलबन (1266-1286 ई.) ने बिहार पर दिल्ली सल्तनत का पूर्ण नियंत्रण स्थापित किया। उन्होंने बंगाल और बिहार के विद्रोहियों को कुचला। बिहार में बलबन के समय दिल्ली का प्रभुत्व सुदृढ़ हुआ और उन्होंने राजधानी दिल्ली से बिहार को नियंत्रित किया।",en:"Balban (1266–1286 CE) established complete Delhi Sultanate control over Bihar, crushing rebellions in Bengal and Bihar, strengthening Delhi's authority over the region."}},
+
+{q:{hi:"बिहार पर अलाउद्दीन खिलजी के शासनकाल में क्या हुआ?",en:"What happened to Bihar during Alauddin Khilji's reign?"},
+ o:[{hi:"बिहार स्वतंत्र हो गया",en:"Bihar became independent"},{hi:"बिहार दिल्ली सल्तनत का हिस्सा बना",en:"Bihar became part of Delhi Sultanate"},{hi:"बिहार मंगोलों के अधीन",en:"Bihar under Mongols"},{hi:"बिहार स्वतंत्र राज्य",en:"Bihar an independent state"}],a:1,
+ ex:{hi:"अलाउद्दीन खिलजी (1296-1316 ई.) के शासनकाल में 'बिहार दिल्ली सल्तनत का हिस्सा बना'। उन्होंने बिहार के प्रशासन को मजबूत किया और मंगोल आक्रमणों से इसकी रक्षा की। अलाउद्दीन के समय बिहार के कई हिस्से सीधे दिल्ली से नियंत्रित होते थे और यहाँ दिल्ली का सैन्य शासन था।",en:"Under Alauddin Khilji (1296–1316 CE), 'Bihar became part of the Delhi Sultanate'. He strengthened Bihar's administration and defended it from Mongol invasions, with Delhi's military rule prevailing in many parts."}},
+
+{q:{hi:"बिहार में तुगलक वंश का शासन किसने शुरू किया?",en:"Who started Tughlaq rule in Bihar?"},
+ o:[{hi:"गयासुद्दीन तुगलक",en:"Ghiyasuddin Tughlaq"},{hi:"मुहम्मद बिन तुगलक",en:"Muhammad bin Tughlaq"},{hi:"फिरोज़ शाह तुगलक",en:"Firoz Shah Tughlaq"},{hi:"नासिरुद्दीन महमूद",en:"Nasiruddin Mahmud"}],a:0,
+ ex:{hi:"बिहार में तुगलक वंश का शासन 'गयासुद्दीन तुगलक' (1320-1325 ई.) ने शुरू किया। उन्होंने बंगाल और बिहार पर सफल अभियान चलाए। बिहार तुगलक साम्राज्य का महत्वपूर्ण हिस्सा बना और 14वीं शताब्दी में तुगलक शासकों ने बिहार में कई प्रशासनिक सुधार किए।",en:"Tughlaq rule in Bihar began under 'Ghiyasuddin Tughlaq' (1320–1325 CE), who led successful campaigns in Bengal and Bihar. Bihar became a key part of the Tughlaq Empire with several administrative reforms in the 14th century."}},
+
+{q:{hi:"बिहार में 'तुगलक शासन' का पतन किस आक्रमण के बाद हुआ?",en:"Tughlaq rule in Bihar declined after which invasion?"},
+ o:[{hi:"मंगोल आक्रमण",en:"Mongol invasion"},{hi:"तैमूर का आक्रमण (1398)",en:"Timur's invasion (1398)"},{hi:"मुहम्मद गोरी",en:"Muhammad Ghori"},{hi:"अहमद शाह अब्दाली",en:"Ahmad Shah Abdali"}],a:1,
+ ex:{hi:"बिहार में तुगलक शासन का पतन 'तैमूर के आक्रमण' (1398 ई.) के बाद हुआ। तैमूर ने दिल्ली को लूटा और उसका प्रभाव बिहार तक पहुँचा। इसके बाद बिहार में छोटे-छोटे स्वतंत्र राज्य बनने लगे — जैसे जौनपुर शर्की वंश। बिहार में अस्थिरता बढ़ी और स्थानीय शासक सत्ता में आए।",en:"Tughlaq rule in Bihar declined after 'Timur's invasion' (1398 CE). Timur looted Delhi and his influence reached Bihar. Small independent states emerged — like the Jaunpur Sharqi dynasty — bringing instability and local rulers to power."}},
+
+{q:{hi:"बिहार में 'शर्की वंश' का संबंध किस राज्य से था?",en:"The 'Sharqi dynasty' in Bihar was associated with which state?"},
+ o:[{hi:"बंगाल",en:"Bengal"},{hi:"जौनपुर",en:"Jaunpur"},{hi:"दिल्ली",en:"Delhi"},{hi:"मालवा",en:"Malwa"}],a:1,
+ ex:{hi:"बिहार में शर्की वंश का संबंध 'जौनपुर' से था — जिसकी स्थापना खिज्र खान ने 1394 ई. में की थी। शर्की शासकों ने बिहार के कई हिस्सों पर शासन किया, विशेषकर पूर्वी बिहार पर। इब्राहिम शर्की (1402-1440 ई.) के समय बिहार में शर्की प्रभाव चरम पर था।",en:"The Sharqi dynasty in Bihar was linked to 'Jaunpur', founded by Khizr Khan in 1394 CE. Sharqi rulers controlled parts of Bihar, especially eastern Bihar; Sharqi influence peaked under Ibrahim Sharqi (1402–1440 CE)."}},
+
+{q:{hi:"बिहार में सिकंदर लोदी ने किसे पराजित किया?",en:"Whom did Sikandar Lodi defeat in Bihar?"},
+ o:[{hi:"शेरशाह के पिता हसन खान",en:"Hasan Khan, Sher Shah's father"},{hi:"इब्राहिम शर्की",en:"Ibrahim Sharqi"},{hi:"हुसैन शाह",en:"Hussain Shah"},{hi:"महमूद शाह",en:"Mahmud Shah"}],a:0,
+ ex:{hi:"सिकंदर लोदी (1489-1517 ई.) ने 'शेरशाह के पिता हसन खान' को पराजित किया। हसन खान सासाराम के जागीरदार थे और शेरशाह सूरी के पिता थे। सिकंदर लोदी ने बिहार पर आक्रमण किया और लोदी वंश की सत्ता बिहार तक बढ़ाई। इस समय बिहार में लोदी प्रभाव मजबूत हुआ।",en:"Sikandar Lodi (1489–1517 CE) defeated 'Hasan Khan, Sher Shah's father', the jagirdar of Sasaram. He expanded Lodi power into Bihar, strengthening Lodi influence."}},
+
+{q:{hi:"बिहार में मुस्लिम शासन के प्रारंभिक काल में 'बिहार शरीफ' किस नाम से जाना जाता था?",en:"What was 'Bihar Sharif' known as in the early Muslim period of Bihar?"},
+ o:[{hi:"ओदंतपुरी",en:"Odantapuri"},{hi:"राजगृह",en:"Rajagriha"},{hi:"नालंदा",en:"Nalanda"},{hi:"पाटलिपुत्र",en:"Pataliputra"}],a:0,
+ ex:{hi:"मुस्लिम शासन के प्रारंभिक काल में 'बिहार शरीफ' को 'ओदंतपुरी' के नाम से जाना जाता था। बख्तियार खिलजी ने इसका नाम बदला और इसे अपनी राजधानी बनाया। 'बिहार' नाम 'विहार' (बौद्ध मठ) से आया — जो मुस्लिम काल में 'बिहार' बना। बाद में यह सूफी संतों का केंद्र बना और 'बिहार शरीफ' कहलाया।",en:"In the early Muslim period, 'Bihar Sharif' was known as 'Odantapuri'. Bakhtiyar Khilji renamed it and made it his capital. The name 'Bihar' derives from 'Vihara' (monastery), later called 'Bihar Sharif' as a Sufi centre."}},
+
+{q:{hi:"बिहार में 'मंगोल आक्रमण' का मुख्य उद्देश्य क्या था?",en:"What was the main purpose of 'Mongol invasions' in Bihar?"},
+ o:[{hi:"व्यापार",en:"Trade"},{hi:"लूट और सत्ता विस्तार",en:"Loot and expansion"},{hi:"धार्मिक प्रचार",en:"Religious propagation"},{hi:"कृषि",en:"Agriculture"}],a:1,
+ ex:{hi:"बिहार में मंगोल आक्रमण का मुख्य उद्देश्य 'लूट और सत्ता विस्तार' था। 13वीं-14वीं शताब्दी में मंगोलों ने कई बार बिहार और बंगाल पर आक्रमण किए। अलाउद्दीन खिलजी और उनके सेनापतियों ने इन्हें विफल किया। मंगोल आक्रमणों से बिहार की अर्थव्यवस्था और जनजीवन प्रभावित हुआ।",en:"Mongol invasions aimed at 'loot and expansion' in Bihar. In the 13th–14th centuries, they repeatedly attacked Bihar and Bengal. Alauddin Khilji and his generals repelled them, but the economy and society of Bihar were affected."}},
+
+/* ============ खंड B — सल्तनत काल: तुगलक, शर्की और लोदी (Q13–24) ============ */
+{q:{hi:"बिहार पर शर्की वंश का अंतिम शासक कौन था?",en:"Who was the last Sharqi ruler of Bihar?"},
+ o:[{hi:"मलिक सरवर",en:"Malik Sarwar"},{hi:"हुसैन शाह शर्की",en:"Hussain Shah Sharqi"},{hi:"इब्राहिम शर्की",en:"Ibrahim Sharqi"},{hi:"महमूद शर्की",en:"Mahmud Sharqi"}],a:1,
+ ex:{hi:"बिहार पर शर्की वंश का अंतिम शासक 'हुसैन शाह शर्की' (1458-1505 ई.) था। उसने बिहार के कुछ हिस्सों पर शासन किया और जौनपुर सल्तनत का अंतिम महत्वपूर्ण शासक था। उसके बाद बिहार में लोदी और अफगान प्रभाव बढ़ा। शर्की वंश का पतन सिकंदर लोदी के आक्रमणों से हुआ।",en:"The last Sharqi ruler of Bihar was 'Hussain Shah Sharqi' (1458–1505 CE), who ruled parts of Bihar as the last important Jaunpur Sultanate ruler. After him, Lodi and Afghan influence grew; Sharqi power declined under Sikandar Lodi's attacks."}},
+
+{q:{hi:"बिहार में 'अफगान शासन' की स्थापना किसने की?",en:"Who established 'Afghan rule' in Bihar?"},
+ o:[{hi:"शेरशाह सूरी",en:"Sher Shah Suri"},{hi:"बहलोल लोदी",en:"Bahlol Lodi"},{hi:"इब्राहिम लोदी",en:"Ibrahim Lodi"},{hi:"महमूद लोदी",en:"Mahmud Lodi"}],a:0,
+ ex:{hi:"बिहार में अफगान शासन की स्थापना 'शेरशाह सूरी' ने की — जिसने 1539-1540 ई. में हुमायूँ को हराकर सूरी साम्राज्य की स्थापना की। इससे पहले बिहार में लोदी वंश का शासन था। शेरशाह का जन्म सासाराम (रोहतास जिला, बिहार) में हुआ था — मूल नाम फरीद खान।",en:"'Sher Shah Suri' established Afghan rule in Bihar, defeating Humayun in 1539–1540 CE and founding the Sur Empire. Before him, the Lodi dynasty ruled. Sher Shah was born at Sasaram (Rohtas district, Bihar) as Farid Khan."}},
+
+{q:{hi:"बिहार पर शर्की वंश के पतन का कारण क्या था?",en:"What caused the decline of the Sharqi dynasty in Bihar?"},
+ o:[{hi:"सिकंदर लोदी के आक्रमण",en:"Sikandar Lodi's invasions"},{hi:"बाढ़",en:"Floods"},{hi:"मंगोल आक्रमण",en:"Mongol invasions"},{hi:"आंतरिक विद्रोह",en:"Internal revolt"}],a:0,
+ ex:{hi:"बिहार पर शर्की वंश का पतन 'सिकंदर लोदी के आक्रमणों' के कारण हुआ। सिकंदर लोदी (1489-1517 ई.) ने जौनपुर सल्तनत को समाप्त किया और बिहार पर लोदी सत्ता स्थापित की। उसने बिहार के कई हिस्सों पर अधिकार किया और शर्की शासकों को कमजोर किया। इसके बाद बिहार में अफगान सरदारों का उदय हुआ।",en:"The Sharqi decline in Bihar was due to 'Sikandar Lodi's invasions'. He ended the Jaunpur Sultanate and established Lodi authority in Bihar, weakening Sharqi rulers — leading to the rise of Afghan chiefs."}},
+
+{q:{hi:"बिहार में 'तुगलक शासन' के दौरान प्रमुख विद्रोह कौन-सा हुआ?",en:"Which major revolt occurred during Tughlaq rule in Bihar?"},
+ o:[{hi:"शेरशाह विद्रोह",en:"Sher Shah's revolt"},{hi:"बंगाल के शासकों का विद्रोह",en:"Rebellion of Bengal rulers"},{hi:"मंगोल विद्रोह",en:"Mongol revolt"},{hi:"राजपूत विद्रोह",en:"Rajput revolt"}],a:1,
+ ex:{hi:"बिहार में तुगलक शासन के दौरान 'बंगाल के शासकों का विद्रोह' प्रमुख था। बंगाल के शासक स्वतंत्र होने का प्रयास करते रहे और बिहार पर अपना प्रभाव बनाना चाहते थे। इसके अलावा स्थानीय अफगान सरदार भी विद्रोह करते रहे। मुहम्मद बिन तुगलक और फिरोज़ शाह तुगलक ने इन विद्रोहों को दबाया।",en:"During Tughlaq rule in Bihar, 'rebellions of Bengal rulers' were major — they sought independence and influence over Bihar. Local Afghan chiefs also revolted; Muhammad bin Tughlaq and Firoz Shah Tughlaq suppressed them."}},
+
+{q:{hi:"'बिहार' नाम का प्रयोग पहली बार कब हुआ?",en:"When was the name 'Bihar' first used?"},
+ o:[{hi:"मौर्य काल",en:"Mauryan period"},{hi:"गुप्त काल",en:"Gupta period"},{hi:"तुर्क काल (13वीं शताब्दी)",en:"Turkish period (13th century)"},{hi:"मुगल काल",en:"Mughal period"}],a:2,
+ ex:{hi:"'बिहार' नाम का पहला प्रयोग 'तुर्क काल' (13वीं शताब्दी) में हुआ — जब बख्तियार खिलजी ने ओदंतपुरी (बिहार शरीफ) को अपना केंद्र बनाया। 'विहार' (बौद्ध मठ) शब्द से यह नाम पड़ा। बख्तियार खिलजी के समय इस क्षेत्र में कई बौद्ध विहार थे, जिससे यह क्षेत्र 'बिहार' कहलाया।",en:"The name 'Bihar' was first used in the 'Turkish period' (13th century) when Bakhtiyar Khilji centred at Odantapuri (Bihar Sharif). It derives from 'Vihara' (Buddhist monastery) — the region had many viharas."}},
+
+{q:{hi:"बिहार में सल्तनत काल के दौरान किस धर्म का व्यापक प्रचार हुआ?",en:"Which religion spread widely in Bihar during the Sultanate period?"},
+ o:[{hi:"बौद्ध धर्म",en:"Buddhism"},{hi:"इस्लाम और सूफी परंपरा",en:"Islam and Sufi tradition"},{hi:"जैन धर्म",en:"Jainism"},{hi:"सिख धर्म",en:"Sikhism"}],a:1,
+ ex:{hi:"बिहार में सल्तनत काल के दौरान 'इस्लाम और सूफी परंपरा' का व्यापक प्रचार हुआ। बिहार में कई सूफी संत आए — जिनमें 'मखदूम शेख शरफुद्दीन याहिया मनेरी' (बिहार शरीफ), 'शाह मखदूम दाउद' (मनेर) और 'ख्वाजा मोइनुद्दीन चिश्ती' के वंशज शामिल थे। इनका बिहार की संस्कृति पर गहरा प्रभाव पड़ा।",en:"'Islam and the Sufi tradition' spread widely in Bihar during the Sultanate period. Sufi saints included 'Makhdoom Sheikh Sharfuddin Yahiya Maneri' (Bihar Sharif) and 'Shah Makhdoom Daud' (Maner), deeply influencing Bihar's culture."}},
+
+{q:{hi:"बिहार में इस्लाम के प्रचार में किस सूफी संप्रदाय का योगदान सर्वाधिक था?",en:"Which Sufi order contributed most to the spread of Islam in Bihar?"},
+ o:[{hi:"चिश्ती",en:"Chishti"},{hi:"सुहरावर्दी",en:"Suhrawardi"},{hi:"कादिरी",en:"Qadiri"},{hi:"नक्शबंदी",en:"Naqshbandi"}],a:0,
+ ex:{hi:"बिहार में इस्लाम के प्रचार में 'चिश्ती' संप्रदाय का योगदान सर्वाधिक था। 'ख्वाजा मोइनुद्दीन चिश्ती' के अनुयायियों ने बिहार में चिश्ती परंपरा को फैलाया। 'मखदूम शेख शरफुद्दीन याहिया मनेरी' (बिहार शरीफ) चिश्ती परंपरा के प्रमुख संत थे। उनकी दरगाह (बड़ी दरगाह) आज भी प्रमुख तीर्थ स्थल है।",en:"The 'Chishti' order contributed most to spreading Islam in Bihar. Followers of 'Khwaja Moinuddin Chishti' propagated the Chishti tradition; 'Makhdoom Sheikh Sharfuddin Yahiya Maneri' (Bihar Sharif) was a key saint, his dargah (Bari Dargah) a major shrine today."}},
+
+{q:{hi:"'मखदूम शेख शरफुद्दीन याहिया मनेरी' की दरगाह कहाँ है?",en:"Where is the dargah of 'Makhdoom Sheikh Sharfuddin Yahiya Maneri'?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"बिहार शरीफ",en:"Bihar Sharif"},{hi:"मनेर",en:"Maner"},{hi:"फुलवारी शरीफ",en:"Phulwari Sharif"}],a:1,
+ ex:{hi:"'मखदूम शेख शरफुद्दीन याहिया मनेरी' की दरगाह 'बिहार शरीफ' (नालंदा जिला) में स्थित है — जिसे 'बड़ी दरगाह' कहा जाता है। वे 14वीं शताब्दी के प्रसिद्ध चिश्ती संत थे और 'मखदूम-उल-मुल्क' कहलाते थे। उनकी दरगाह हर वर्ष 'उर्स' के अवसर पर हज़ारों श्रद्धालुओं को आकर्षित करती है। उन्हें 'बिहार का ख्वाजा' भी कहा जाता है।",en:"The dargah of 'Makhdoom Sheikh Sharfuddin Yahiya Maneri' is in 'Bihar Sharif' (Nalanda district), called the 'Bari Dargah'. A 14th-century Chishti saint called 'Makhdoom-ul-Mulk', his dargah attracts thousands during annual 'Urs' — also called 'Bihar's Khwaja'."}},
+
+{q:{hi:"'शाह मखदूम दाउद' की दरगाह कहाँ स्थित है?",en:"Where is the dargah of 'Shah Makhdoom Daud' located?"},
+ o:[{hi:"बिहार शरीफ",en:"Bihar Sharif"},{hi:"मनेर",en:"Maner"},{hi:"फुलवारी शरीफ",en:"Phulwari Sharif"},{hi:"पटना",en:"Patna"}],a:1,
+ ex:{hi:"'शाह मखदूम दाउद' की दरगाह 'मनेर' (पटना जिला, बिहार) में स्थित है। वे 16वीं शताब्दी के प्रसिद्ध सूफी संत थे — 'मखदूम-ए-आज़म' कहलाते थे। उनकी दरगाह हर वर्ष 'उर्स' के अवसर पर भारत और विदेशों से श्रद्धालुओं को आकर्षित करती है। मनेर गंगा-सोन संगम के पास स्थित है।",en:"The dargah of 'Shah Makhdoom Daud' is at 'Maner' (Patna district, Bihar). A 16th-century Sufi saint called 'Makhdoom-e-Azam', his dargah attracts pilgrims from India and abroad during annual 'Urs'. Maner is near the Ganga-Son confluence."}},
+
+{q:{hi:"बिहार में 'सूफी संतों' की दरगाहों को क्या कहा जाता है?",en:"What are the shrines of 'Sufi saints' in Bihar called?"},
+ o:[{hi:"मंदिर",en:"Mandir"},{hi:"दरगाह (मज़ार)",en:"Dargah (Mazar)"},{hi:"मस्जिद",en:"Masjid"},{hi:"खानकाह",en:"Khanqah"}],a:1,
+ ex:{hi:"बिहार में सूफी संतों की दरगाहों को 'दरगाह' (मज़ार) कहा जाता है — जो सूफी परंपरा का प्रमुख केंद्र होते हैं। बिहार में प्रमुख दरगाहें — बड़ी दरगाह (बिहार शरीफ), मनेर की दरगाह, फुलवारी शरीफ की दरगाह, चंपारण की दरगाह। हर वर्ष 'उर्स' का आयोजन होता है, जो सूफी संत की पुण्यतिथि पर मनाया जाता है।",en:"Sufi shrines in Bihar are called 'Dargah' (Mazar) — key centres of the Sufi tradition. Major ones include Bari Dargah (Bihar Sharif), Maner, Phulwari Sharif and Champaran dargahs. Annual 'Urs' marks the saint's death anniversary."}},
+
+{q:{hi:"बिहार में सल्तनत काल में 'फारसी' भाषा का क्या महत्व था?",en:"What was the importance of 'Persian' in Bihar during the Sultanate period?"},
+ o:[{hi:"प्रशासनिक और सांस्कृतिक भाषा",en:"Administrative and cultural language"},{hi:"केवल धार्मिक भाषा",en:"Only religious language"},{hi:"कोई महत्व नहीं",en:"No importance"},{hi:"केवल व्यापारिक",en:"Only commercial"}],a:0,
+ ex:{hi:"बिहार में सल्तनत काल में 'फारसी' 'प्रशासनिक और सांस्कृतिक भाषा' थी। मुस्लिम शासकों ने फारसी को दरबार और प्रशासन की भाषा बनाया। कई विद्वान, कवि और इतिहासकार बिहार में फारसी में रचनाएँ लिखते थे। फारसी का प्रभाव बिहार की संस्कृति और साहित्य पर पड़ा। मुगल काल तक फारसी प्रमुख बनी रही।",en:"'Persian' was the 'administrative and cultural language' in Bihar during the Sultanate period. Muslim rulers made it the court and administrative language; scholars, poets and historians composed in Persian, influencing Bihar's culture and literature until Mughal times."}},
+
+{q:{hi:"'बिहार शरीफ' मुस्लिम काल में किस लिए प्रसिद्ध था?",en:"Why was 'Bihar Sharif' famous during the Muslim period?"},
+ o:[{hi:"व्यापार",en:"Trade"},{hi:"सूफी संतों की दरगाह (बड़ी दरगाह)",en:"Sufi saint's dargah (Bari Dargah)"},{hi:"सैन्य केंद्र",en:"Military centre"},{hi:"कृषि",en:"Agriculture"}],a:1,
+ ex:{hi:"'बिहार शरीफ' मुस्लिम काल में 'सूफी संतों की दरगाह (बड़ी दरगाह)' के लिए प्रसिद्ध था। 'मखदूम शेख शरफुद्दीन याहिया मनेरी' की दरगाह यहाँ स्थित है — जो 'बड़ी दरगाह' कहलाती है। यह सूफी परंपरा का प्रमुख केंद्र बना और हर वर्ष 'उर्स' का आयोजन होता है। मुगल काल तक बिहार शरीफ शिक्षा और धर्म का केंद्र रहा।",en:"'Bihar Sharif' was famous for the 'Bari Dargah' of Sufi saint 'Makhdoom Sheikh Sharfuddin Yahiya Maneri' — a key Sufi centre hosting annual 'Urs', and a hub of learning and religion until Mughal times."}},
+
+{q:{hi:"बिहार में सल्तनत काल में 'हिन्दू-मुस्लिम सह-अस्तित्व' का क्या प्रमाण है?",en:"What evidence shows 'Hindu-Muslim coexistence' in Bihar during the Sultanate period?"},
+ o:[{hi:"सांस्कृतिक मिश्रण",en:"Cultural synthesis"},{hi:"धार्मिक सहिष्णुता",en:"Religious tolerance"},{hi:"साहित्यिक योगदान",en:"Literary contributions"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में सल्तनत काल में हिन्दू-मुस्लिम सह-अस्तित्व के कई प्रमाण हैं — 'सांस्कृतिक मिश्रण' (भाषा, संगीत, कला), 'धार्मिक सहिष्णुता' (सूफी संतों का हिन्दुओं पर प्रभाव), 'साहित्यिक योगदान' (फारसी और स्थानीय भाषाओं का मेल)। कई सूफी संतों के अनुयायी हिन्दू भी थे। बिहार शरीफ, मनेर और फुलवारी शरीफ में हिन्दू-मुस्लिम एकता का वातावरण था।",en:"Several signs of Hindu-Muslim coexistence appear in Sultanate-era Bihar — cultural synthesis (language, music, art), religious tolerance (Sufi influence on Hindus), literary contributions (Persian and local languages). Many Sufis had Hindu followers; Bihar Sharif, Maner and Phulwari Sharif had a syncretic atmosphere."}},
+
+{q:{hi:"बिहार में 'मुस्लिम शासन' के दौरान कृषि और व्यापार की स्थिति कैसी थी?",en:"What was the state of agriculture and trade during 'Muslim rule' in Bihar?"},
+ o:[{hi:"गिरावट",en:"Decline"},{hi:"कुछ क्षेत्रों में विकास",en:"Growth in some sectors"},{hi:"कोई परिवर्तन नहीं",en:"No change"},{hi:"पूर्ण विनाश",en:"Total destruction"}],a:1,
+ ex:{hi:"बिहार में मुस्लिम शासन के दौरान कृषि और व्यापार में 'कुछ क्षेत्रों में विकास' हुआ — विशेषकर गंगा नदी के किनारे और व्यापार मार्गों पर। शेरशाह सूरी ने सड़कों (GT रोड), सराय और बाजारों का विकास किया जिससे व्यापार बढ़ा। कृषि में सिंचाई, नहरों और फसल विविधता बढ़ी। हालांकि आक्रमणों और युद्धों से कुछ क्षेत्रों में अस्थिरता भी रही।",en:"During Muslim rule in Bihar, agriculture and trade grew in 'some sectors', especially along the Ganga and trade routes. Sher Shah Suri built roads (GT Road), sarais and markets, boosting trade; irrigation and crop diversity increased. However, invasions and wars caused instability in places."}},
+
+/* ============ खंड C — शेरशाह सूरी और अफगान शासन (Q25–36) ============ */
+{q:{hi:"शेरशाह सूरी का जन्म कब और कहाँ हुआ?",en:"When and where was Sher Shah Suri born?"},
+ o:[{hi:"1472 ई., सासाराम (बिहार)",en:"1472 CE, Sasaram (Bihar)"},{hi:"1483 ई., पटना",en:"1483 CE, Patna"},{hi:"1490 ई., मुंगेर",en:"1490 CE, Munger"},{hi:"1475 ई., गया",en:"1475 CE, Gaya"}],a:0,
+ ex:{hi:"शेरशाह सूरी का जन्म 1472 ई. में 'सासाराम' (रोहतास जिला, बिहार) में हुआ। उनका मूल नाम 'फरीद खान' था और उनके पिता 'हसन खान' सासाराम के जागीरदार थे। उन्हें 'शेर खान' की उपाधि बिहार के सूबेदार बहार खान लोदी से मिली — जब उन्होंने एक शेर को मार गिराया। बाद में वे 'शेरशाह' कहलाए।",en:"Sher Shah Suri was born in 1472 CE at 'Sasaram' (Rohtas district, Bihar). His original name was 'Farid Khan', son of 'Hasan Khan', jagirdar of Sasaram. He earned the title 'Sher Khan' from Bihar's subedar Bahar Khan Lodi after killing a tiger, later becoming 'Sher Shah'."}},
+
+{q:{hi:"शेरशाह सूरी का मूल नाम क्या था?",en:"What was Sher Shah Suri's original name?"},
+ o:[{hi:"फरीद खान",en:"Farid Khan"},{hi:"हसन खान",en:"Hasan Khan"},{hi:"शेर खान",en:"Sher Khan"},{hi:"इस्लाम शाह",en:"Islam Shah"}],a:0,
+ ex:{hi:"शेरशाह सूरी का मूल नाम 'फरीद खान' था। बाद में उन्हें 'शेर खान' की उपाधि मिली — एक शेर को मारने के कारण। 1539 ई. में चौसा के युद्ध में हुमायूँ को हराने के बाद उन्होंने 'शेरशाह' की उपाधि धारण की। उन्होंने 1540 ई. में कन्नौज के युद्ध में हुमायूँ को फिर हराया और सूरी साम्राज्य की स्थापना की।",en:"Sher Shah Suri's original name was 'Farid Khan'. Later titled 'Sher Khan' for killing a tiger, he assumed 'Sher Shah' after defeating Humayun at Chausa (1539 CE) and again at Kannauj (1540 CE), founding the Sur Empire."}},
+
+{q:{hi:"शेरशाह सूरी ने किस युद्ध में हुमायूँ को पराजित किया?",en:"In which battle did Sher Shah Suri defeat Humayun?"},
+ o:[{hi:"पानीपत का युद्ध",en:"Battle of Panipat"},{hi:"चौसा और कन्नौज का युद्ध",en:"Battles of Chausa and Kannauj"},{hi:"हल्दीघाटी का युद्ध",en:"Battle of Haldighati"},{hi:"खानवा का युद्ध",en:"Battle of Khanwa"}],a:1,
+ ex:{hi:"शेरशाह सूरी ने 'चौसा और कन्नौज के युद्ध' में हुमायूँ को पराजित किया। (1) 'चौसा का युद्ध' — 26 जून 1539 ई., बक्सर के पास, (2) 'कन्नौज का युद्ध' — 17 मई 1540 ई.। इन दोनों जीतों से मुगल साम्राज्य समाप्त हो गया और सूरी साम्राज्य की स्थापना हुई। हुमायूँ को भारत छोड़कर फारस भागना पड़ा।",en:"Sher Shah Suri defeated Humayun at the 'Battles of Chausa and Kannauj' — Chausa (26 June 1539, near Buxar) and Kannauj (17 May 1540). These victories ended the Mughal Empire temporarily and founded the Sur Empire; Humayun fled to Persia."}},
+
+{q:{hi:"शेरशाह सूरी की राजधानी कौन-सी थी?",en:"What was Sher Shah Suri's capital?"},
+ o:[{hi:"दिल्ली",en:"Delhi"},{hi:"आगरा",en:"Agra"},{hi:"सासाराम",en:"Sasaram"},{hi:"पटना",en:"Patna"}],a:0,
+ ex:{hi:"शेरशाह सूरी की राजधानी 'दिल्ली' थी — हालांकि उनका जन्मस्थान सासाराम (बिहार) था। उन्होंने दिल्ली को साम्राज्य की राजधानी बनाया और वहीं से शासन किया। उन्होंने 'पुराना किला' (दिल्ली) का निर्माण कराया और दिल्ली को सुंदर बनाया। उनका मकबरा सासाराम (बिहार) में है — जो 'भारत का ताजमहल' कहलाता है।",en:"Sher Shah's capital was 'Delhi', though he was born at Sasaram (Bihar). He ruled from Delhi, built the 'Purana Qila' and beautified the city. His tomb at Sasaram (Bihar) is called the 'Taj Mahal of India'."}},
+
+{q:{hi:"शेरशाह सूरी का मकबरा कहाँ स्थित है?",en:"Where is Sher Shah Suri's tomb located?"},
+ o:[{hi:"दिल्ली",en:"Delhi"},{hi:"सासाराम (रोहतास, बिहार)",en:"Sasaram (Rohtas, Bihar)"},{hi:"पटना",en:"Patna"},{hi:"आगरा",en:"Agra"}],a:1,
+ ex:{hi:"शेरशाह सूरी का मकबरा 'सासाराम' (रोहतास जिला, बिहार) में स्थित है — जो 'भारत का ताजमहल' कहलाता है। यह मकबरा एक कृत्रिम झील के बीच में बना है और इसे शेरशाह के पुत्र 'इस्लाम शाह' ने बनवाया। इसका निर्माण 1545 ई. में पूरा हुआ। यह भारत-इस्लामी वास्तुकला का उत्कृष्ट उदाहरण है।",en:"Sher Shah's tomb is at 'Sasaram' (Rohtas district, Bihar), called the 'Taj Mahal of India'. Built in the middle of an artificial lake by his son 'Islam Shah', it was completed in 1545 CE — a masterpiece of Indo-Islamic architecture."}},
+
+{q:{hi:"शेरशाह सूरी ने 'ग्रैंड ट्रंक रोड' का निर्माण क्यों कराया?",en:"Why did Sher Shah Suri build the 'Grand Trunk Road'?"},
+ o:[{hi:"धार्मिक यात्रा",en:"Religious travel"},{hi:"व्यापार, संचार और सैन्य गतिशीलता",en:"Trade, communication and military mobility"},{hi:"पर्यटन",en:"Tourism"},{hi:"कृषि",en:"Agriculture"}],a:1,
+ ex:{hi:"शेरशाह सूरी ने 'ग्रैंड ट्रंक रोड' का निर्माण 'व्यापार, संचार और सैन्य गतिशीलता' के लिए कराया। यह सड़क सोनारगाँव (बांग्लादेश) से काबुल (अफगानिस्तान) तक जाती थी — लगभग 2,500 किमी लंबी। इसके किनारे सराय, बावली और पेड़ लगवाए गए। यह भारत की सबसे पुरानी और महत्वपूर्ण सड़क है — जिसे आज 'GT रोड' या NH-19 कहा जाता है।",en:"Sher Shah built the 'Grand Trunk Road' for 'trade, communication and military mobility' — ~2,500 km from Sonargaon (Bangladesh) to Kabul (Afghanistan), with sarais, wells and trees along it. It remains India's oldest key highway (now NH-19)."}},
+
+{q:{hi:"शेरशाह सूरी ने कौन-सी मुद्रा जारी की?",en:"Which currency did Sher Shah Suri issue?"},
+ o:[{hi:"रुपया (चाँदी का)",en:"Rupiya (silver)"},{hi:"दीनार",en:"Dinar"},{hi:"मोहर",en:"Mohur"},{hi:"ताँबे का दाम",en:"Copper dam"}],a:0,
+ ex:{hi:"शेरशाह सूरी ने तीन प्रकार की मुद्राएँ जारी कीं — (1) चाँदी का 'रुपया' (178 ग्रेन, आज के रुपये का पूर्वज), (2) स्वर्ण का 'मोहर', (3) ताँबे का 'दाम'। 'रुपया' शब्द संस्कृत के 'रूप्यक' से आया है और आज भारत, पाकिस्तान, श्रीलंका, नेपाल, मॉरीशस आदि देशों में प्रचलित है। यह उनका महत्वपूर्ण आर्थिक सुधार था।",en:"Sher Shah issued three currencies — silver 'Rupiya' (178 grains, ancestor of today's Rupee), gold 'Mohur' and copper 'Dam'. The Rupee (from Sanskrit 'Rupyaka') remains in use in India, Pakistan, Sri Lanka, Nepal and Mauritius — a key economic reform."}},
+
+{q:{hi:"शेरशाह सूरी का 'भू-राजस्व' सुधार क्या था?",en:"What was Sher Shah Suri's 'land revenue' reform?"},
+ o:[{hi:"कर कम किया",en:"Reduced taxes"},{hi:"भूमि माप और उपज का 1/3 भाग कर",en:"Land measurement and 1/3 of produce as tax"},{hi:"कर बढ़ाया",en:"Increased taxes"},{hi:"कोई सुधार नहीं",en:"No reform"}],a:1,
+ ex:{hi:"शेरशाह सूरी ने भू-राजस्व में क्रांतिकारी सुधार किया — (1) 'भूमि माप' के लिए 'सिकंदरी गज' (32 अंगुल) का प्रयोग, (2) 'उपज का 1/3 भाग' भू-राजस्व, (3) 'रैयतवाड़ी' प्रणाली — किसान से सीधे कर वसूली, (4) 'पट्टा' और 'कबूलियत' प्रणाली, (5) कर नकद या अनाज में। ये सुधार बाद में अकबर के 'टोडरमल' के बंदोबस्त का आधार बने।",en:"Sher Shah's land revenue reforms — use of the 'Sikandari Gaj' (32 inch) for measurement, '1/3 of produce' as tax, direct collection from peasants, 'Patta' and 'Qabuliyat' system, and cash or grain payment. These became the basis for Akbar's Todar Mal settlement."}},
+
+{q:{hi:"शेरशाह सूरी की मृत्यु कब और कहाँ हुई?",en:"When and where did Sher Shah Suri die?"},
+ o:[{hi:"1545 ई., कालिंजर",en:"1545 CE, Kalinjar"},{hi:"1540 ई., दिल्ली",en:"1540 CE, Delhi"},{hi:"1550 ई., आगरा",en:"1550 CE, Agra"},{hi:"1545 ई., सासाराम",en:"1545 CE, Sasaram"}],a:0,
+ ex:{hi:"शेरशाह सूरी की मृत्यु 1545 ई. में 'कालिंजर' (उत्तर प्रदेश) में हुई — जब वे कालिंजर किले पर आक्रमण कर रहे थे। बारूद के विस्फोट से वे घायल हुए और उनकी मृत्यु हो गई। उनके बाद उनके पुत्र 'इस्लाम शाह सूरी' ने शासन संभाला। सूरी साम्राज्य 1555 ई. तक चला — जब हुमायूँ ने दिल्ली वापस ली।",en:"Sher Shah died in 1545 CE at 'Kalinjar' (UP) during an attack on the fort — injured in a gunpowder explosion. His son 'Islam Shah Suri' succeeded him; the Sur Empire lasted until 1555 CE when Humayun retook Delhi."}},
+
+{q:{hi:"शेरशाह सूरी के बाद सूरी साम्राज्य का अंतिम शासक कौन था?",en:"Who was the last Sur ruler after Sher Shah Suri?"},
+ o:[{hi:"इस्लाम शाह सूरी",en:"Islam Shah Suri"},{hi:"सिकंदर शाह सूरी",en:"Sikandar Shah Suri"},{hi:"आदिल शाह सूरी",en:"Adil Shah Suri"},{hi:"फिरोज़ शाह सूरी",en:"Firoz Shah Suri"}],a:1,
+ ex:{hi:"शेरशाह सूरी के बाद सूरी साम्राज्य के शासक — इस्लाम शाह सूरी (1545-1554), फिरोज़ शाह, मुहम्मद आदिल शाह, इब्राहिम शाह और अंतिम 'सिकंदर शाह सूरी' (1555)। 1555 ई. में हुमायूँ ने सिकंदर शाह को हराकर दिल्ली वापस ली और मुगल साम्राज्य पुनः स्थापित हुआ। इस प्रकार सूरी वंश का अंत हुआ।",en:"After Sher Shah — Islam Shah Suri (1545–1554), Firoz Shah, Muhammad Adil Shah, Ibrahim Shah and finally 'Sikandar Shah Suri' (1555). In 1555 CE, Humayun defeated Sikandar and retook Delhi, restoring the Mughal Empire and ending the Sur dynasty."}},
+
+{q:{hi:"बिहार में शेरशाह सूरी के शासन का क्या महत्व था?",en:"What was the significance of Sher Shah Suri's rule in Bihar?"},
+ o:[{hi:"गौण",en:"Minor"},{hi:"बिहार को साम्राज्य का केंद्र बनाया",en:"Made Bihar the centre of an empire"},{hi:"केवल धार्मिक",en:"Only religious"},{hi:"कोई महत्व नहीं",en:"No significance"}],a:1,
+ ex:{hi:"बिहार में शेरशाह सूरी के शासन का अत्यंत महत्व था — उन्होंने 'बिहार को साम्राज्य का केंद्र बनाया'। बिहार से शुरू होकर उन्होंने पूरे उत्तर भारत पर शासन किया। उनके प्रशासनिक, आर्थिक और सैन्य सुधारों ने बिहार को समृद्ध बनाया। उनका जन्म बिहार में हुआ और उनका मकबरा भी बिहार में है। बिहार के लिए वे गौरव के प्रतीक हैं — 'बिहार का शेर'।",en:"Sher Shah's rule was highly significant — he 'made Bihar the centre of an empire', ruling from Bihar across North India. His administrative, economic and military reforms enriched Bihar; he was born and buried there — 'Bihar's Lion', a symbol of pride."}},
+
+{q:{hi:"शेरशाह सूरी ने 'रुपया' के अलावा कौन-सा प्रशासनिक सुधार किया?",en:"Besides the Rupee, which administrative reform did Sher Shah Suri introduce?"},
+ o:[{hi:"जमीन माप",en:"Land measurement"},{hi:"डाक व्यवस्था",en:"Postal system"},{hi:"सैन्य सुधार",en:"Military reform"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"शेरशाह सूरी ने कई प्रशासनिक सुधार किए — (1) 'जमीन माप' — 'सिकंदरी गज' से भूमि माप, (2) 'डाक व्यवस्था' — सराय और घोड़ों की व्यवस्था से संचार, (3) 'सैन्य सुधार' — घुड़सवार सेना, हाथी दल, बंदूकधारी, (4) 'बाजार नियंत्रण', (5) 'रुपया' और 'मोहर' जारी, (6) 'GT रोड' का निर्माण, (7) केंद्रीकृत प्रशासन, (8) 'पट्टा-कबूलियत' प्रणाली। उनके सुधारों ने मुगल काल को भी प्रभावित किया।",en:"Sher Shah introduced many reforms — land measurement (Sikandari Gaj), postal system (sarais and horses), military reform (cavalry, elephants, musketeers), market control, Rupiya and Mohur currencies, the GT Road, centralised administration and Patta-Qabuliyat. His reforms influenced the Mughals."}},
+
+{q:{hi:"शेरशाह सूरी की सेना में कौन-कौन शामिल थे?",en:"Who were included in Sher Shah Suri's army?"},
+ o:[{hi:"केवल पैदल",en:"Only infantry"},{hi:"घुड़सवार, हाथी दल, बंदूकधारी",en:"Cavalry, elephants, musketeers"},{hi:"केवल हाथी",en:"Only elephants"},{hi:"केवल तोपची",en:"Only artillery"}],a:1,
+ ex:{hi:"शेरशाह सूरी की सेना में 'घुड़सवार, हाथी दल, बंदूकधारी' शामिल थे — उन्होंने सेना को कई भागों में संगठित किया। उनकी सेना में 1.5 लाख घुड़सवार, 25,000 पैदल, 5,000 हाथी और बंदूकधारी थे। उन्होंने सैनिकों को नकद वेतन दिया और उनके घोड़ों की ब्रांडिंग की व्यवस्था की (चेहरा और दाग)। उन्होंने 'तोपखाना' को भी मजबूत किया — जिसे 'मुगल तोपखाने का जनक' कहा जाता है।",en:"Sher Shah's army included 'cavalry, elephants and musketeers' — organised into divisions. He had ~1.5 lakh cavalry, 25,000 infantry, 5,000 elephants and musketeers, paying cash salaries and branding horses (Chehra and Dagh). He strengthened the artillery, called the 'father of Mughal artillery'."}},
+
+{q:{hi:"शेरशाह सूरी की 'बाजार नियंत्रण नीति' का उद्देश्य क्या था?",en:"What was the aim of Sher Shah Suri's 'market control policy'?"},
+ o:[{hi:"व्यापार को बढ़ावा",en:"Promoting trade"},{hi:"वस्तुओं की कीमतें नियंत्रित करना",en:"Controlling prices"},{hi:"कर वसूली",en:"Tax collection"},{hi:"सैन्य भर्ती",en:"Military recruitment"}],a:1,
+ ex:{hi:"शेरशाह सूरी की 'बाजार नियंत्रण नीति' का उद्देश्य 'वस्तुओं की कीमतें नियंत्रित करना' था। उन्होंने अनाज, कपड़े और अन्य आवश्यक वस्तुओं की कीमतें निर्धारित कीं। 'शाहना-ए-मंडी' नामक अधिकारी बाजारों की निगरानी करता था। इससे सैनिकों और आम जनता को सस्ती वस्तुएँ मिलती थीं और महंगाई नियंत्रित रहती थी।",en:"Sher Shah's 'market control policy' aimed to 'control prices' of grain, cloth and essentials, supervised by the 'Shahna-e-Mandi'. Soldiers and the public got cheap goods, and inflation was checked."}},
+
+/* ============ खंड D — मुगल काल में बिहार (Q37–46) ============ */
+{q:{hi:"बिहार में मुगल साम्राज्य की स्थापना किसने की?",en:"Who established Mughal rule in Bihar?"},
+ o:[{hi:"बाबर",en:"Babur"},{hi:"हुमायूँ",en:"Humayun"},{hi:"अकबर",en:"Akbar"},{hi:"जहाँगीर",en:"Jahangir"}],a:2,
+ ex:{hi:"बिहार में मुगल साम्राज्य की स्थापना 'अकबर' (1556-1605 ई.) ने की। हालांकि बाबर और हुमायूँ ने भी बिहार पर आक्रमण किए थे, लेकिन स्थायी मुगल शासन अकबर के समय स्थापित हुआ। अकबर ने 1574-1576 ई. में बंगाल अभियान के दौरान बिहार को मुगल साम्राज्य में पूर्ण रूप से मिलाया। 'मुंइम खान' को बिहार का पहला मुगल सूबेदार बनाया।",en:"Mughal rule in Bihar was established by 'Akbar' (1556–1605 CE). Though Babur and Humayun invaded Bihar, permanent Mughal rule came under Akbar, who annexed Bihar during his Bengal campaign of 1574–1576 CE, with 'Munim Khan' as Bihar's first Mughal Subedar."}},
+
+{q:{hi:"मुगल काल में बिहार का प्रशासन किस नाम से जाना जाता था?",en:"What was Bihar's administration called during the Mughal period?"},
+ o:[{hi:"सूबा-ए-बिहार",en:"Suba-e-Bihar"},{hi:"सूबा-ए-पटना",en:"Suba-e-Patna"},{hi:"सूबा-ए-मगध",en:"Suba-e-Magadh"},{hi:"सूबा-ए-तिरहुत",en:"Suba-e-Tirhut"}],a:0,
+ ex:{hi:"मुगल काल में बिहार का प्रशासन 'सूबा-ए-बिहार' के नाम से जाना जाता था। अकबर ने 1580 ई. में इसे सूबे (प्रांत) के रूप में संगठित किया — जिसकी राजधानी पटना थी। इसके प्रथम सूबेदार 'राजा मानसिंह' थे। सूबे में 'दीवान', 'बख्शी', 'सद्र' और 'काज़ी' जैसे अधिकारी होते थे।",en:"During the Mughal period, Bihar's administration was called 'Suba-e-Bihar', organised as a province in 1580 CE with Patna as capital. Its first Subedar was 'Raja Man Singh'; officials included Diwan, Bakhshi, Sadr and Qazi."}},
+
+{q:{hi:"मुगल काल में पटना का नाम क्या था?",en:"What was Patna's name in the Mughal period?"},
+ o:[{hi:"आजिमाबाद",en:"Azimabad"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"मुंगेर",en:"Munger"},{hi:"बिहार शरीफ",en:"Bihar Sharif"}],a:0,
+ ex:{hi:"मुगल काल में पटना का नाम 'आजिमाबाद' रखा गया था — मुगल शहजादे 'मुहम्मद आजिम-उश-शान' (औरंगजेब के पौत्र) के नाम पर। 1704 ई. में उन्होंने पटना का नाम 'आजिमाबाद' रखा और यहाँ से बिहार पर शासन किया। 1912 ई. तक यह 'आजिमाबाद' नाम से जाना जाता रहा। बाद में इसे फिर 'पटना' कहा जाने लगा।",en:"In the Mughal period, Patna was renamed 'Azimabad' after prince 'Muhammad Azim-ush-Shan' (Aurangzeb's grandson), who renamed it in 1704 CE and governed Bihar from there. The name 'Azimabad' persisted until 1912 CE, after which 'Patna' was restored."}},
+
+{q:{hi:"अकबर के दरबार के प्रसिद्ध 'नवरत्न' में से कौन बिहार से जुड़ा था?",en:"Which of Akbar's famous 'Navaratna' was linked to Bihar?"},
+ o:[{hi:"बीरबल",en:"Birbal"},{hi:"टोडरमल",en:"Todarmal"},{hi:"मानसिंह",en:"Man Singh"},{hi:"अबुल फज़ल",en:"Abul Fazl"}],a:1,
+ ex:{hi:"अकबर के दरबार के प्रसिद्ध 'नवरत्न' में से 'टोडरमल' बिहार से जुड़े थे — वे सासाराम क्षेत्र (बिहार) से थे और कन्नौज के खत्री थे। हालांकि उनकी जन्मभूमि विवादित है, लेकिन बिहार से उनका घनिष्ठ संबंध था। 'टोडरमल' अकबर के वित्त मंत्री थे और उन्होंने 'दहसाला' भू-राजस्व प्रणाली विकसित की — जो शेरशाह सूरी के सुधारों पर आधारित थी।",en:"Among Akbar's 'Navaratna', 'Todarmal' was linked to Bihar — associated with the Sasaram region, he was a Khatri of Kannauj. His birthplace is debated, but he had close ties to Bihar. As Akbar's finance minister, he developed the 'Dahsala' land revenue system, based on Sher Shah's reforms."}},
+
+{q:{hi:"मुगल काल में बिहार के प्रमुख सूबेदार कौन थे?",en:"Who were the major Mughal Subedars of Bihar?"},
+ o:[{hi:"मानसिंह, अब्दुल्ला खान, आजिम-उश-शान",en:"Man Singh, Abdullah Khan, Azim-ush-Shan"},{hi:"बीरबल, टोडरमल",en:"Birbal, Todarmal"},{hi:"अबुल फज़ल, फैज़ी",en:"Abul Fazl, Faizi"},{hi:"कोई नहीं",en:"None"}],a:0,
+ ex:{hi:"मुगल काल में बिहार के प्रमुख सूबेदार थे — (1) 'राजा मानसिंह' (प्रथम सूबेदार, 1580), (2) 'मुंइम खान', (3) 'अब्दुल्ला खान' (जहाँगीर के समय), (4) 'शाइस्ता खान' (औरंगजेब के समय), (5) 'मुहम्मद आजिम-उश-शान' (1704, आजिमाबाद के संस्थापक)। इन्होंने बिहार में मुगल प्रशासन स्थापित किया, विद्रोह दबाए और कर व्यवस्था लागू की।",en:"Major Mughal Subedars of Bihar included 'Raja Man Singh' (first, 1580), 'Munim Khan', 'Abdullah Khan' (Jahangir's time), 'Shaista Khan' (Aurangzeb's time) and 'Muhammad Azim-ush-Shan' (1704, founder of Azimabad) — establishing Mughal administration in Bihar."}},
+
+{q:{hi:"औरंगजेब के काल में बिहार में कौन-सा विद्रोह हुआ?",en:"Which revolt occurred in Bihar during Aurangzeb's reign?"},
+ o:[{hi:"राजपूत विद्रोह",en:"Rajput revolt"},{hi:"सिख विद्रोह",en:"Sikh revolt"},{hi:"मुंडा विद्रोह",en:"Munda revolt"},{hi:"जाट विद्रोह",en:"Jat revolt"}],a:1,
+ ex:{hi:"औरंगजेब के काल में बिहार में 'सिख विद्रोह' हुआ — विशेषकर 'गुरु गोबिंद सिंह' के समय। गुरु गोबिंद सिंह ने औरंगजेब के विरुद्ध युद्ध किया और बिहार के 'सासाराम', 'पटना' और 'आरा' से होकर गुजरे। इसके अलावा बिहार में कई स्थानीय विद्रोह भी हुए। औरंगजेब के धार्मिक अत्याचारों से बिहार में अस्थिरता बढ़ी।",en:"During Aurangzeb's reign, a 'Sikh revolt' occurred in Bihar — especially under 'Guru Gobind Singh', who fought Aurangzeb and passed through Sasaram, Patna and Arrah. Local revolts also erupted; Aurangzeb's religious intolerance increased instability in Bihar."}},
+
+{q:{hi:"मुगल काल में बिहार की अर्थव्यवस्था का मुख्य आधार क्या था?",en:"What was the mainstay of Bihar's economy during the Mughal period?"},
+ o:[{hi:"कृषि",en:"Agriculture"},{hi:"व्यापार",en:"Trade"},{hi:"उद्योग",en:"Industry"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"मुगल काल में बिहार की अर्थव्यवस्था का मुख्य आधार 'कृषि, व्यापार और उद्योग' — तीनों थे। (1) 'कृषि' — धान, गेहूँ, गन्ना, अफीम, नील, (2) 'व्यापार' — पटना, भागलपुर, मुंगेर से गंगा नदी के माध्यम से, (3) 'उद्योग' — वस्त्र, चीनी, अफीम, कालीन। बिहार से अफीम, नील, कपास, रेशम का निर्यात होता था। 'पटना' व्यापारिक केंद्र था।",en:"Bihar's economy rested on 'agriculture, trade and industry' — crops (rice, wheat, sugarcane, opium, indigo), trade via the Ganga from Patna, Bhagalpur and Munger, and industries (textiles, sugar, opium, carpets). Opium, indigo, cotton and silk were exported; Patna was a trade hub."}},
+
+{q:{hi:"मुगल काल में 'पटना' का क्या महत्व था?",en:"What was the importance of 'Patna' during the Mughal period?"},
+ o:[{hi:"केवल धार्मिक",en:"Only religious"},{hi:"प्रशासनिक और व्यापारिक केंद्र",en:"Administrative and commercial centre"},{hi:"केवल कृषि",en:"Only agricultural"},{hi:"केवल सैन्य",en:"Only military"}],a:1,
+ ex:{hi:"मुगल काल में 'पटना' (आजिमाबाद) का महत्व 'प्रशासनिक और व्यापारिक केंद्र' के रूप में था। यह बिहार सूबे की राजधानी थी और गंगा नदी के किनारे स्थित होने के कारण व्यापार का प्रमुख केंद्र था। पटना से अफीम, नील, कपड़ा और अन्य वस्तुओं का निर्यात होता था। यहाँ मुगल किला, कई मस्जिदें और इमारतें बनीं। 17वीं शताब्दी में पटना भारत के सबसे बड़े शहरों में से एक था।",en:"Mughal-era 'Patna' (Azimabad) was an 'administrative and commercial centre' — capital of Bihar Suba and a major Ganga trade hub exporting opium, indigo and cloth. It had a Mughal fort, mosques and buildings; in the 17th century, it was among India's largest cities."}},
+
+{q:{hi:"मुगल काल में बिहार में कौन-सी प्रसिद्ध इमारत बनी?",en:"Which famous building was constructed in Bihar during the Mughal period?"},
+ o:[{hi:"ताजमहल",en:"Taj Mahal"},{hi:"मनेर की दरगाह",en:"Maner Dargah"},{hi:"शेरशाह का मकबरा",en:"Sher Shah's Tomb"},{hi:"पटना का मुगल किला",en:"Patna Mughal Fort"}],a:3,
+ ex:{hi:"मुगल काल में बिहार में कई प्रसिद्ध इमारतें बनीं — (1) 'पटना का मुगल किला' — मुगल सूबेदार द्वारा बनाया गया, (2) 'मनेर की दरगाह' — शाह मखदूम दाउद की, (3) 'बड़ी दरगाह' (बिहार शरीफ), (4) 'पटना का पुराना किला' — शेरशाह सूरी के काल में निर्मित, (5) 'मुंगेर का किला' — मुगल काल में विस्तारित। ये इमारतें मुगल वास्तुकला का उदाहरण हैं। शेरशाह का मकबरा (सासाराम) भी इसी काल का है — हालांकि वह सूरी काल में बना।",en:"Several famous buildings were constructed in Bihar during the Mughal era — the 'Patna Mughal Fort', 'Maner Dargah', 'Bari Dargah' (Bihar Sharif), 'Purana Qila' (Sher Shah's era) and 'Munger Fort' — examples of Mughal architecture. Sher Shah's tomb (Sasaram) also belongs to this broader period."}},
+
+{q:{hi:"मुगल काल के बाद बिहार में किसका शासन आया?",en:"Who ruled Bihar after the Mughal period?"},
+ o:[{hi:"मराठा",en:"Maratha"},{hi:"ब्रिटिश",en:"British"},{hi:"अफगान",en:"Afghan"},{hi:"राजपूत",en:"Rajput"}],a:1,
+ ex:{hi:"मुगल काल के बाद बिहार में 'ब्रिटिश' शासन आया। मुगल साम्राज्य के कमजोर होने के बाद बिहार में बंगाल के नवाबों का प्रभाव बढ़ा, लेकिन 'बक्सर का युद्ध' (1764 ई.) के बाद ब्रिटिश ईस्ट इंडिया कंपनी ने बिहार पर शासन स्थापित किया। 1765 ई. में कंपनी को बंगाल, बिहार और उड़ीसा की 'दीवानी' प्राप्त हुई। इस प्रकार बिहार में मुगल काल का अंत और ब्रिटिश काल का प्रारंभ हुआ।",en:"After the Mughal era, 'British' rule came to Bihar. As the Mughals weakened, Bengal Nawabs gained influence, but after the 'Battle of Buxar' (1764 CE), the East India Company took control. In 1765 CE, the Company gained the 'Diwani' of Bengal, Bihar and Odisha, marking the end of the Mughal era and start of British rule in Bihar."}},
+
+/* ============ खंड E — सूफी संत, स्मारक और विरासत (Q47–50) ============ */
+{q:{hi:"बिहार में सूफी संतों का क्या योगदान था?",en:"What was the contribution of Sufi saints in Bihar?"},
+ o:[{hi:"धार्मिक प्रचार",en:"Religious propagation"},{hi:"सामाजिक सद्भाव",en:"Social harmony"},{hi:"कला और साहित्य",en:"Art and literature"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में सूफी संतों का योगदान बहुआयामी था — (1) 'धार्मिक प्रचार' — इस्लाम का प्रसार, (2) 'सामाजिक सद्भाव' — हिन्दू-मुस्लिम एकता, (3) 'कला और साहित्य' — फारसी, उर्दू और स्थानीय भाषाओं में साहित्य, संगीत (कव्वाली), (4) 'शिक्षा' — खानकाहों में शिक्षा, (5) 'सामाजिक सेवा' — गरीबों की मदद। मखदूम शरफुद्दीन याहिया मनेरी, शाह मखदूम दाउद और अन्य सूफी संतों ने बिहार की संस्कृति पर गहरा प्रभाव डाला।",en:"Sufi saints contributed to Bihar in many ways — religious propagation, social harmony (Hindu-Muslim unity), art and literature (Persian, Urdu and local languages, Qawwali), education in khanqahs and social service. Saints like Makhdoom Sharfuddin Yahiya Maneri and Shah Makhdoom Daud deeply influenced Bihar's culture."}},
+
+{q:{hi:"बिहार में 'उर्स' का क्या महत्व है?",en:"What is the significance of 'Urs' in Bihar?"},
+ o:[{hi:"व्यापारिक मेला",en:"Trade fair"},{hi:"सूफी संत की पुण्यतिथि का उत्सव",en:"Celebration of Sufi saint's death anniversary"},{hi:"राजनीतिक सभा",en:"Political gathering"},{hi:"कृषि उत्सव",en:"Agricultural festival"}],a:1,
+ ex:{hi:"बिहार में 'उर्स' का अर्थ है — 'सूफी संत की पुण्यतिथि का उत्सव'। यह अरबी शब्द 'उर्स' से आया है — जिसका अर्थ 'विवाह' है, क्योंकि सूफी परंपरा में मृत्यु को 'प्रभु से मिलन' माना जाता है। बिहार में प्रमुख उर्स — बिहार शरीफ का उर्स (मखदूम शरफुद्दीन), मनेर का उर्स (शाह मखदूम दाउद), फुलवारी शरीफ का उर्स। इनमें कव्वाली, चादर चढ़ाना, फातिहा पढ़ना और दुआ शामिल है।",en:"In Bihar, 'Urs' means the 'celebration of a Sufi saint's death anniversary' — from Arabic, meaning 'wedding' as Sufis consider death a union with God. Major Urs: Bihar Sharif, Maner and Phulwari Sharif, featuring Qawwali, chadar offerings, Fatiha and prayer."}},
+
+{q:{hi:"बिहार में मुस्लिम शासन की 'विरासत' आज किस रूप में देखी जा सकती है?",en:"In what form can the 'legacy' of Muslim rule in Bihar be seen today?"},
+ o:[{hi:"दरगाह, मस्जिद, मकबरे",en:"Dargahs, mosques, tombs"},{hi:"कला और संस्कृति",en:"Art and culture"},{hi:"भाषा और साहित्य",en:"Language and literature"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में मुस्लिम शासन की विरासत आज कई रूपों में देखी जा सकती है — (1) 'दरगाह, मस्जिद, मकबरे' — बड़ी दरगाह (बिहार शरीफ), मनेर की दरगाह, पटना की मस्जिदें, सासाराम में शेरशाह का मकबरा, (2) 'कला और संस्कृति' — मुगल वास्तुकला, कव्वाली, ग़ज़ल, (3) 'भाषा और साहित्य' — उर्दू, फारसी का प्रभाव, (4) 'खान-पान' — बिहारी व्यंजनों में मुगल प्रभाव, (5) 'सामाजिक परंपराएँ' — त्योहार, मेले। बिहार में हिन्दू-मुस्लिम साझा संस्कृति की समृद्ध परंपरा है।",en:"The legacy of Muslim rule in Bihar survives as dargahs, mosques and tombs (Bari Dargah, Maner Dargah, Patna mosques, Sher Shah's tomb at Sasaram), art and culture (Mughal architecture, Qawwali, Ghazal), language and literature (Urdu, Persian influence), cuisine and social traditions. Bihar has a rich tradition of shared Hindu-Muslim culture."}},
+
+{q:{hi:"बिहार में मुस्लिम शासन का सबसे महत्वपूर्ण योगदान क्या है?",en:"What is the most significant contribution of Muslim rule in Bihar?"},
+ o:[{hi:"केवल सैन्य",en:"Only military"},{hi:"प्रशासनिक और सांस्कृतिक विरासत",en:"Administrative and cultural legacy"},{hi:"केवल धार्मिक",en:"Only religious"},{hi:"कोई योगदान नहीं",en:"No contribution"}],a:1,
+ ex:{hi:"बिहार में मुस्लिम शासन का सबसे महत्वपूर्ण योगदान 'प्रशासनिक और सांस्कृतिक विरासत' है — (1) 'प्रशासनिक' — शेरशाह सूरी की भू-राजस्व व्यवस्था, रुपया, GT रोड, डाक व्यवस्था; मुगल सूबा प्रशासन; (2) 'सांस्कृतिक' — सूफी परंपरा, हिन्दू-मुस्लिम साझा संस्कृति, कला, संगीत, साहित्य, वास्तुकला; (3) 'भाषा' — उर्दू और फारसी का विकास; (4) 'सामाजिक' — बिहार की बहुसांस्कृतिक पहचान। बिहार में मुस्लिम शासन ने इस क्षेत्र को सामाजिक, आर्थिक और सांस्कृतिक रूप से समृद्ध बनाया।",en:"The most significant contribution of Muslim rule in Bihar is its 'administrative and cultural legacy' — Sher Shah's land revenue, Rupee, GT Road and postal system; Mughal Suba administration; Sufi tradition; shared Hindu-Muslim culture; art, music, literature and architecture; Urdu and Persian; and Bihar's multicultural identity. Muslim rule enriched Bihar socially, economically and culturally."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बिहार में मुस्लिम शासन पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Muslim rule in Bihar is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बिहार के मुस्लिम इतिहास के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the facts of Bihar's Muslim history."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
