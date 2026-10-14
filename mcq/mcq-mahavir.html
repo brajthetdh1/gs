@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>भगवान महावीर — 50 प्रश्न | Lord Mahavir — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#b71c1c,#e53935);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#ffcdd2;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#ffcdd2;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#c8ecc8}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ffab91);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#ffebee;color:#b71c1c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🕉️ भगवान महावीर — 50 प्रश्न
+              <small>Lord Mahavir · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — महावीर का जीवन और परिवार</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   भगवान महावीर — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — महावीर का जीवन और परिवार", en:"Section A — Mahavir's Life & Family"},
+  {hi:"खंड B — महावीर की शिक्षाएँ और जैन दर्शन", en:"Section B — Mahavir's Teachings & Jain Philosophy"},
+  {hi:"खंड C — बिहार में जैन तीर्थ स्थल", en:"Section C — Jain Pilgrimage Sites in Bihar"},
+  {hi:"खंड D — जैन संगीतियाँ, ग्रंथ और विरासत", en:"Section D — Jain Councils, Texts & Legacy"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — महावीर का जीवन और परिवार (Q1–13) ============ */
+{q:{hi:"भगवान महावीर का जन्म कब और कहाँ हुआ?",en:"When and where was Lord Mahavir born?"},
+ o:[{hi:"599 ईसा पूर्व, कुंडग्राम (वैशाली)",en:"599 BCE, Kundagram (Vaishali)"},{hi:"563 ईसा पूर्व, लुम्बिनी",en:"563 BCE, Lumbini"},{hi:"527 ईसा पूर्व, पावापुरी",en:"527 BCE, Pavapuri"},{hi:"600 ईसा पूर्व, बोधगया",en:"600 BCE, Bodh Gaya"}],a:0,
+ ex:{hi:"भगवान महावीर का जन्म 599 ईसा पूर्व में चैत्र शुक्ल त्रयोदशी को 'कुंडग्राम' (वर्तमान वैशाली जिला, बिहार) में हुआ। वे ज्ञातृक गणराज्य के राजकुमार थे। उनका जन्मस्थल 'कुंडलपुर' या 'वासोकुंड' भी कहलाता है।",en:"Lord Mahavir was born on Chaitra Shukla Trayodashi in 599 BCE at 'Kundagram' (present Vaishali district, Bihar). He was a prince of the Jnatrika Republic; his birthplace is also called 'Kundalpur' or 'Vasokund'."}},
+
+{q:{hi:"महावीर का बचपन का नाम क्या था?",en:"What was Mahavir's childhood name?"},
+ o:[{hi:"सिद्धार्थ",en:"Siddhartha"},{hi:"वर्धमान",en:"Vardhamana"},{hi:"ज्ञातृक",en:"Jnatrika"},{hi:"नाथ",en:"Natha"}],a:1,
+ ex:{hi:"महावीर का बचपन का नाम 'वर्धमान' था। बाद में उन्हें 'महावीर' (महान वीर), 'जिन' (विजेता), 'नाथ', 'अरिहंत' और 'तीर्थंकर' कहा जाने लगा। वे जैन धर्म के 24वें और अंतिम तीर्थंकर थे।",en:"Mahavir's childhood name was 'Vardhamana'. He was later called 'Mahavir' (Great Hero), 'Jina' (Conqueror), 'Natha', 'Arhat' and 'Tirthankara'. He was the 24th and last Tirthankara of Jainism."}},
+
+{q:{hi:"महावीर के पिता का नाम क्या था?",en:"What was the name of Mahavir's father?"},
+ o:[{hi:"शुद्धोधन",en:"Shuddhodana"},{hi:"सिद्धार्थ",en:"Siddhartha"},{hi:"चेटक",en:"Chetak"},{hi:"बिंबिसार",en:"Bimbisara"}],a:1,
+ ex:{hi:"महावीर के पिता का नाम 'सिद्धार्थ' था — जो ज्ञातृक गणराज्य के प्रमुख थे। उनकी माता 'त्रिशला' थीं, जो लिच्छवी राजा चेटक की बहन थीं। महावीर का परिवार क्षत्रिय था।",en:"Mahavir's father was 'Siddhartha', head of the Jnatrika Republic. His mother was 'Trishala', sister of Lichchhavi king Chetak. The family was Kshatriya."}},
+
+{q:{hi:"महावीर की माता का नाम क्या था?",en:"What was the name of Mahavir's mother?"},
+ o:[{hi:"मायादेवी",en:"Mayadevi"},{hi:"त्रिशला",en:"Trishala"},{hi:"प्रजापति",en:"Prajapati"},{hi:"यशोधरा",en:"Yashodhara"}],a:1,
+ ex:{hi:"महावीर की माता का नाम 'त्रिशला' था — जो लिच्छवी राजा चेटक की बहन थीं। जैन परंपरा के अनुसार, त्रिशला ने गर्भावस्था में 14 स्वप्न देखे थे। 'त्रिशला स्थान' कुंडग्राम में आज भी तीर्थ स्थल है।",en:"Mahavir's mother was 'Trishala', sister of Lichchhavi king Chetak. Jain tradition says she had 14 dreams during pregnancy. 'Trishala Sthan' at Kundagram remains a pilgrimage site."}},
+
+{q:{hi:"महावीर की पत्नी का नाम क्या था?",en:"What was the name of Mahavir's wife?"},
+ o:[{hi:"यशोधरा",en:"Yashodhara"},{hi:"यशोदा",en:"Yashoda"},{hi:"प्रियदर्शना",en:"Priyadarshana"},{hi:"सुजाता",en:"Sujata"}],a:2,
+ ex:{hi:"महावीर की पत्नी का नाम 'प्रियदर्शना' (यशोदा) था — जो राजा समुद्रविजय की पुत्री थीं। उनसे महावीर को पुत्री 'प्रियदर्शना' (अनोज्जा) हुई। कुछ जैन संप्रदाय मानते हैं कि महावीर ने गृहत्याग से पहले परिवार त्याग दिया था।",en:"Mahavir's wife was 'Priyadarshana' (Yashoda), daughter of King Samudravijaya. They had a daughter 'Priyadarshana' (Anojja). Some Jain sects hold Mahavir renounced family before monastic life."}},
+
+{q:{hi:"महावीर ने गृहत्याग कब किया?",en:"When did Mahavir renounce the world?"},
+ o:[{hi:"25 वर्ष की आयु में",en:"At age 25"},{hi:"30 वर्ष की आयु में",en:"At age 30"},{hi:"35 वर्ष की आयु में",en:"At age 35"},{hi:"40 वर्ष की आयु में",en:"At age 40"}],a:1,
+ ex:{hi:"महावीर ने 30 वर्ष की आयु में गृहत्याग किया — अपने माता-पिता की मृत्यु के बाद, बड़े भाई 'नंदीवर्धन' की अनुमति से। उन्होंने सांसारिक सुखों को त्यागकर जैन संन्यासी का जीवन अपनाया।",en:"Mahavir renounced the world at 30, after his parents' death and with elder brother 'Nandivardhana's consent, adopting the life of a Jain ascetic."}},
+
+{q:{hi:"महावीर ने कितने वर्षों तक तपस्या की?",en:"For how many years did Mahavir perform penance?"},
+ o:[{hi:"6 वर्ष",en:"6 years"},{hi:"8 वर्ष",en:"8 years"},{hi:"12 वर्ष",en:"12 years"},{hi:"15 वर्ष",en:"15 years"}],a:2,
+ ex:{hi:"महावीर ने 12 वर्षों तक कठोर तपस्या की — जिसमें उन्होंने कई उपवास, अत्यंत कठोर साधना और मौन व्रत का पालन किया। 12 वर्षों की तपस्या के बाद उन्हें 'केवल ज्ञान' (सर्वज्ञता) प्राप्त हुआ।",en:"Mahavir performed severe penance for 12 years with long fasts, extreme austerity and silence, attaining 'Kevala Jnana' (omniscience) afterwards."}},
+
+{q:{hi:"महावीर को 'केवल ज्ञान' कहाँ प्राप्त हुआ?",en:"Where did Mahavir attain 'Kevala Jnana'?"},
+ o:[{hi:"कुंडग्राम",en:"Kundagram"},{hi:"ऋजुवालिका नदी के तट (जृम्भिकग्राम)",en:"Bank of Rijuwalika river (Jrimbhikagrama)"},{hi:"पावापुरी",en:"Pavapuri"},{hi:"राजगीर",en:"Rajgir"}],a:1,
+ ex:{hi:"महावीर को 42 वर्ष की आयु में 'ऋजुवालिका नदी' के तट पर 'जृम्भिकग्राम' (वर्तमान बिहार में) के पास 'केवल ज्ञान' (सर्वज्ञता) प्राप्त हुआ। उस दिन को 'ज्ञान कल्याणक' कहा जाता है। इसके बाद वे 'केवली' और 'अरिहंत' कहलाए।",en:"At age 42, Mahavir attained 'Kevala Jnana' (omniscience) on the bank of the 'Rijuwalika river' near 'Jrimbhikagrama' (in present Bihar) — called 'Jnana Kalyanaka'. He then became 'Kevalin' and 'Arhat'."}},
+
+{q:{hi:"महावीर ने कितने वर्षों तक धर्म का प्रचार किया?",en:"For how many years did Mahavir propagate his religion?"},
+ o:[{hi:"15 वर्ष",en:"15 years"},{hi:"20 वर्ष",en:"20 years"},{hi:"30 वर्ष",en:"30 years"},{hi:"40 वर्ष",en:"40 years"}],a:2,
+ ex:{hi:"महावीर ने 'केवल ज्ञान' प्राप्ति के बाद 30 वर्षों तक जैन धर्म का प्रचार किया — अंग, मगध, वैशाली, कोशल और विदेह जैसे क्षेत्रों में। उन्होंने राजाओं, ब्राह्मणों, व्यापारियों, स्त्रियों और शूद्रों सभी को अपना उपदेश दिया।",en:"After Kevala Jnana, Mahavir propagated Jainism for 30 years across Anga, Magadha, Vaishali, Kosala and Videha — preaching to kings, Brahmins, merchants, women and Shudras alike."}},
+
+{q:{hi:"महावीर की मृत्यु कब और कहाँ हुई?",en:"When and where did Mahavir die?"},
+ o:[{hi:"527 ईसा पूर्व, कुंडग्राम",en:"527 BCE, Kundagram"},{hi:"527 ईसा पूर्व, पावापुरी",en:"527 BCE, Pavapuri"},{hi:"483 ईसा पूर्व, कुशीनगर",en:"483 BCE, Kushinagar"},{hi:"500 ईसा पूर्व, राजगीर",en:"500 BCE, Rajgir"}],a:1,
+ ex:{hi:"महावीर की मृत्यु 527 ईसा पूर्व में 'पावापुरी' (नालंदा जिला, बिहार) में हुई — जिसे जैन परंपरा में 'महापरिनिर्वाण' या 'निर्वाण' कहा जाता है। उस समय उनकी आयु 72 वर्ष थी। उनके शरीर त्याग के दिन को 'दीपावली' के रूप में मनाया जाता है।",en:"Mahavir died in 527 BCE at 'Pavapuri' (Nalanda district, Bihar) — called 'Mahaparinirvana' or 'Nirvana' in Jain tradition. He was 72. The day is observed as 'Diwali'."}},
+
+{q:{hi:"महावीर के प्रथम शिष्य कौन थे?",en:"Who was Mahavir's first disciple?"},
+ o:[{hi:"इंद्रभूति गौतम",en:"Indrabhuti Gautam"},{hi:"सुधर्मा",en:"Sudharma"},{hi:"जंबू",en:"Jambu"},{hi:"भद्रबाहु",en:"Bhadrabahu"}],a:0,
+ ex:{hi:"महावीर के प्रथम शिष्य 'इंद्रभूति गौतम' थे — जो ब्राह्मण थे और उनसे शास्त्रार्थ में पराजित होकर जैन धर्म अपनाया। इंद्रभूति को 'गौतम गणधर' भी कहा जाता है। महावीर के 11 प्रमुख शिष्य (गणधर) थे।",en:"Mahavir's first disciple was 'Indrabhuti Gautam', a Brahmin who lost a debate with him and embraced Jainism. Called 'Gautam Ganadhara', he was among Mahavir's 11 chief disciples (Ganadharas)."}},
+
+{q:{hi:"महावीर के कितने 'गणधर' (प्रमुख शिष्य) थे?",en:"How many 'Ganadharas' (chief disciples) did Mahavir have?"},
+ o:[{hi:"5",en:"5"},{hi:"8",en:"8"},{hi:"11",en:"11"},{hi:"14",en:"14"}],a:2,
+ ex:{hi:"महावीर के 11 'गणधर' (प्रमुख शिष्य) थे — इंद्रभूति, अग्निभूति, वायुभूति, व्यक्त, सुधर्मा, मंडित, मौर्यपुत्र, अकंपित, अचलभ्राता, मेटार्य और प्रभास। इन्होंने महावीर की शिक्षाओं को संकलित किया और जैन संघ का नेतृत्व किया।",en:"Mahavir had 11 'Ganadharas' — Indrabhuti, Agnibhuti, Vayubhuti, Vyakta, Sudharma, Mandita, Mauryaputra, Akampita, Achalabhrata, Metarya and Prabhasa — who compiled his teachings and led the Jain Sangha."}},
+
+{q:{hi:"महावीर के बाद जैन संघ का नेतृत्व किसने किया?",en:"Who led the Jain Sangha after Mahavir?"},
+ o:[{hi:"इंद्रभूति गौतम",en:"Indrabhuti Gautam"},{hi:"सुधर्मा",en:"Sudharma"},{hi:"जंबू",en:"Jambu"},{hi:"भद्रबाहु",en:"Bhadrabahu"}],a:1,
+ ex:{hi:"महावीर के बाद जैन संघ का नेतृत्व 'सुधर्मा' (सुधर्मन) ने किया — जो 11 गणधरों में से एक थे। उन्हें 'प्रथम आचार्य' माना जाता है। इसके बाद जंबू, प्रभव, शय्यंभव और भद्रबाहु ने नेतृत्व किया।",en:"After Mahavir, 'Sudharma' (Sudharman), one of the 11 Ganadharas, led the Jain Sangha as the first Acharya, followed by Jambu, Prabhava, Sayyambhava and Bhadrabahu."}},
+
+/* ============ खंड B — महावीर की शिक्षाएँ और जैन दर्शन (Q14–26) ============ */
+{q:{hi:"जैन धर्म के पाँच 'महाव्रत' कौन-से हैं?",en:"What are the five 'Mahavratas' of Jainism?"},
+ o:[{hi:"यज्ञ, दान, तप, स्वाध्याय, ध्यान",en:"Yajna, Dana, Tapa, Svadhyaya, Dhyana"},{hi:"अहिंसा, सत्य, अस्तेय, ब्रह्मचर्य, अपरिग्रह",en:"Ahimsa, Satya, Asteya, Brahmacharya, Aparigraha"},{hi:"श्रद्धा, भक्ति, ज्ञान, कर्म, ध्यान",en:"Shraddha, Bhakti, Jnana, Karma, Dhyana"},{hi:"सत्य, दया, शांति, प्रेम, सेवा",en:"Satya, Daya, Shanti, Prema, Seva"}],a:1,
+ ex:{hi:"जैन धर्म के पाँच महाव्रत हैं — (1) 'अहिंसा' — किसी भी प्राणी को न मारना, (2) 'सत्य' — सत्य बोलना, (3) 'अस्तेय' — चोरी न करना, (4) 'ब्रह्मचर्य' — संयम, (5) 'अपरिग्रह' — संचय न करना। महावीर ने 'अपरिग्रह' को विशेष रूप से जोड़ा। ये श्रावकों के लिए 'अणुव्रत' और साधुओं के लिए 'महाव्रत' होते हैं।",en:"The five Mahavratas are — (1) Ahimsa (non-violence), (2) Satya (truth), (3) Asteya (non-stealing), (4) Brahmacharya (celibacy) and (5) Aparigraha (non-possession). Mahavir specifically added Aparigraha. These are Anuvratas for laity and Mahavratas for monks."}},
+
+{q:{hi:"जैन धर्म में 'अहिंसा' का अर्थ क्या है?",en:"What does 'Ahimsa' mean in Jainism?"},
+ o:[{hi:"केवल मनुष्य की रक्षा",en:"Protecting only humans"},{hi:"सभी प्राणियों की रक्षा",en:"Protecting all living beings"},{hi:"केवल जंतुओं की रक्षा",en:"Protecting only animals"},{hi:"केवल पेड़ों की रक्षा",en:"Protecting only trees"}],a:1,
+ ex:{hi:"जैन धर्म में 'अहिंसा' का अर्थ है — 'सभी प्राणियों की रक्षा' — मनुष्य, पशु, पक्षी, कीट, जलचर और वनस्पति तक। महावीर ने कहा, 'सभी प्राणी जीवन से प्रेम करते हैं और दुःख से डरते हैं।' इसलिए किसी को भी मन, वचन और कर्म से न सताओ।",en:"In Jainism, 'Ahimsa' means 'protecting all living beings' — humans, animals, birds, insects, aquatic life and plants. Mahavir said, 'All beings love life and fear pain; harm none by mind, word or deed.'"}},
+
+{q:{hi:"'अनेकांतवाद' किसका सिद्धांत है?",en:"'Anekantavada' is the doctrine of which philosophy?"},
+ o:[{hi:"बौद्ध",en:"Buddhism"},{hi:"जैन",en:"Jainism"},{hi:"हिंदू",en:"Hinduism"},{hi:"सिख",en:"Sikhism"}],a:1,
+ ex:{hi:"'अनेकांतवाद' (Anekantavada) जैन दर्शन का मूल सिद्धांत है — जिसके अनुसार 'सत्य के अनेक पहलू होते हैं'। कोई भी वस्तु एक ही दृष्टिकोण से पूर्ण रूप से नहीं देखी जा सकती। यह सहिष्णुता और वैचारिक स्वतंत्रता का सिद्धांत है। महावीर ने इसे विशेष रूप से प्रचारित किया।",en:"'Anekantavada' is a core Jain doctrine — 'truth has many aspects'. No object can be seen fully from one perspective. It is a doctrine of tolerance and intellectual freedom, promoted especially by Mahavir."}},
+
+{q:{hi:"'स्यादवाद' किससे संबंधित है?",en:"'Syadvada' is related to which of the following?"},
+ o:[{hi:"बौद्ध दर्शन",en:"Buddhist philosophy"},{hi:"जैन दर्शन",en:"Jain philosophy"},{hi:"वेदांत",en:"Vedanta"},{hi:"सांख्य",en:"Sankhya"}],a:1,
+ ex:{hi:"'स्यादवाद' (Syadvada) जैन दर्शन का सिद्धांत है — जिसमें 'स्यात्' (किसी अपेक्षा से) शब्द जोड़कर सत्य को अनेक दृष्टिकोणों से व्यक्त किया जाता है। इसे 'सप्तभंगी नय' भी कहा जाता है — जिसमें 7 प्रकार के कथन होते हैं। यह अनेकांतवाद का विस्तार है।",en:"'Syadvada' is a Jain doctrine using 'syat' (from a particular perspective) to express truth from multiple viewpoints — also called 'Saptabhangi Naya' with 7 forms of assertion. It extends Anekantavada."}},
+
+{q:{hi:"जैन धर्म में 'कर्म' के बारे में क्या माना जाता है?",en:"What is believed about 'Karma' in Jainism?"},
+ o:[{hi:"कर्म नहीं होता",en:"Karma doesn't exist"},{hi:"कर्म पुद्गल (सूक्ष्म पदार्थ) हैं",en:"Karma are Pudgala (subtle matter)"},{hi:"कर्म केवल जन्म से",en:"Karma only from birth"},{hi:"कर्म का फल नहीं",en:"Karma has no fruit"}],a:1,
+ ex:{hi:"जैन दर्शन में 'कर्म' को 'पुद्गल' (सूक्ष्म पदार्थ) माना जाता है — जो आत्मा से चिपक जाते हैं और उसे बंधन में डालते हैं। कर्म आठ प्रकार के होते हैं — ज्ञानावरणीय, दर्शनावरणीय, वेदनीय, मोहनीय, आयु, नाम, गोत्र और अंतराय। कर्म के क्षय से मोक्ष मिलता है।",en:"In Jainism, karma is 'Pudgala' (subtle matter) sticking to the soul, causing bondage. There are 8 types — Jnanavaraniya, Darshanavaraniya, Vedaniya, Mohaniya, Ayu, Nama, Gotra and Antaraya. Destruction of karma leads to Moksha."}},
+
+{q:{hi:"जैन धर्म का अंतिम लक्ष्य क्या है?",en:"What is the ultimate goal of Jainism?"},
+ o:[{hi:"स्वर्ग",en:"Heaven"},{hi:"मोक्ष (कर्म से मुक्ति)",en:"Moksha (liberation from karma)"},{hi:"धन",en:"Wealth"},{hi:"राज्य",en:"Kingdom"}],a:1,
+ ex:{hi:"जैन धर्म का अंतिम लक्ष्य 'मोक्ष' है — यानी सभी कर्मों से मुक्ति और जन्म-मरण के चक्र से छुटकारा। मोक्ष प्राप्त करने वाला 'सिद्ध' कहलाता है। इसके लिए तीन रत्न आवश्यक हैं — सम्यक दर्शन, सम्यक ज्ञान और सम्यक चरित्र (त्रिरत्न)।",en:"Jainism's ultimate goal is 'Moksha' — liberation from all karma and the cycle of birth and death. One who attains it is a 'Siddha'. Three Jewels are needed — Right Faith, Right Knowledge and Right Conduct (Triratna)."}},
+
+{q:{hi:"जैन धर्म के 'त्रिरत्न' कौन-से हैं?",en:"What are the 'Triratnas' of Jainism?"},
+ o:[{hi:"सत्य, अहिंसा, तप",en:"Satya, Ahimsa, Tapa"},{hi:"सम्यक दर्शन, सम्यक ज्ञान, सम्यक चरित्र",en:"Right Faith, Right Knowledge, Right Conduct"},{hi:"यज्ञ, दान, ध्यान",en:"Yajna, Dana, Dhyana"},{hi:"श्रद्धा, भक्ति, सेवा",en:"Shraddha, Bhakti, Seva"}],a:1,
+ ex:{hi:"जैन धर्म के तीन रत्न (त्रिरत्न) हैं — (1) 'सम्यक दर्शन' (सही श्रद्धा), (2) 'सम्यक ज्ञान' (सही ज्ञान), (3) 'सम्यक चरित्र' (सही आचरण)। इन तीनों के पालन से मोक्ष प्राप्त होता है। ये जैन धर्म का मूल आधार हैं।",en:"The Three Jewels of Jainism — (1) Right Faith (Samyak Darshana), (2) Right Knowledge (Samyak Jnana) and (3) Right Conduct (Samyak Charitra). Following these leads to Moksha — the foundation of Jainism."}},
+
+{q:{hi:"जैन धर्म में 'अपरिग्रह' का क्या अर्थ है?",en:"What does 'Aparigraha' mean in Jainism?"},
+ o:[{hi:"संचय करना",en:"Accumulation"},{hi:"संचय का त्याग",en:"Renunciation of possessions"},{hi:"दान देना",en:"Charity"},{hi:"यज्ञ करना",en:"Sacrifice"}],a:1,
+ ex:{hi:"'अपरिग्रह' का अर्थ है — 'संचय का त्याग' या 'अधिक संग्रह न करना'। यह महावीर द्वारा जोड़ा गया पाँचवाँ महाव्रत था। इसके अनुसार आवश्यकता से अधिक धन, संपत्ति और वस्तुओं का संग्रह नहीं करना चाहिए। यह सामाजिक समानता और पर्यावरण संरक्षण का सिद्धांत है।",en:"'Aparigraha' means renunciation of possessions — not hoarding beyond need. It was the fifth Mahavrata added by Mahavir, promoting social equality and environmental protection."}},
+
+{q:{hi:"'ब्रह्मचर्य' महाव्रत किस आयु के लिए है?",en:"'Brahmacharya' Mahavrata is for which age group?"},
+ o:[{hi:"केवल बच्चों के लिए",en:"Only for children"},{hi:"केवल साधुओं के लिए",en:"Only for monks"},{hi:"केवल विवाहितों के लिए",en:"Only for married"},{hi:"केवल युवाओं के लिए",en:"Only for youth"}],a:1,
+ ex:{hi:"'ब्रह्मचर्य' महाव्रत मुख्यतः 'साधुओं के लिए' है — जो कठोर रूप से पालन करते हैं। श्रावकों (गृहस्थों) के लिए इसका आंशिक रूप 'स्वदार संतोष' है। महावीर ने स्वयं ब्रह्मचर्य का पूर्ण पालन किया और इसे प्रमुख व्रत बनाया।",en:"'Brahmacharya' Mahavrata is primarily for monks in its strict form. For laypeople, its partial form is contentment with one's own spouse. Mahavir observed it fully and made it a key vow."}},
+
+{q:{hi:"जैन धर्म में 'केवल ज्ञान' का क्या अर्थ है?",en:"What does 'Kevala Jnana' mean in Jainism?"},
+ o:[{hi:"सीमित ज्ञान",en:"Limited knowledge"},{hi:"सर्वज्ञता (असीमित ज्ञान)",en:"Omniscience (infinite knowledge)"},{hi:"इंद्रिय ज्ञान",en:"Sense knowledge"},{hi:"शास्त्र ज्ञान",en:"Scriptural knowledge"}],a:1,
+ ex:{hi:"'केवल ज्ञान' का अर्थ है — 'सर्वज्ञता' या 'असीमित ज्ञान'। यह आत्मा की सर्वोच्च अवस्था है — जिसमें सभी पदार्थों का पूर्ण ज्ञान होता है। महावीर को 42 वर्ष की आयु में यह प्राप्त हुआ। केवल ज्ञान प्राप्त करने वाला 'केवली' या 'अरिहंत' कहलाता है।",en:"'Kevala Jnana' means 'omniscience' — the soul's highest state of complete knowledge of all things. Mahavir attained it at 42. One who attains it is a 'Kevalin' or 'Arhat'."}},
+
+{q:{hi:"'तीर्थंकर' का अर्थ क्या है?",en:"What does 'Tirthankara' mean?"},
+ o:[{hi:"ज्ञानी",en:"Enlightened one"},{hi:"संघ के संस्थापक",en:"Founder of a religious order"},{hi:"'तीर्थ के निर्माता' (धर्म के प्रवर्तक)",en:"'Ford-maker' (propounder of religion)"},{hi:"राजा",en:"King"}],a:2,
+ ex:{hi:"'तीर्थंकर' का शाब्दिक अर्थ है — 'तीर्थ के निर्माता' यानी 'धर्म-मार्ग के प्रवर्तक'। जैन धर्म में 24 तीर्थंकर हुए हैं — ऋषभनाथ (प्रथम) से महावीर (24वें) तक। तीर्थंकर भव-सागर पार करने का मार्ग बताते हैं, इसलिए 'तीर्थंकर' कहलाते हैं।",en:"'Tirthankara' literally means 'ford-maker' — a propounder of the path of liberation. Jainism has 24 Tirthankaras from Rishabhanatha (first) to Mahavir (24th), who show the way across the ocean of rebirth."}},
+
+{q:{hi:"जैन धर्म में कितने तीर्थंकर हुए हैं?",en:"How many Tirthankaras are there in Jainism?"},
+ o:[{hi:"12",en:"12"},{hi:"18",en:"18"},{hi:"24",en:"24"},{hi:"30",en:"30"}],a:2,
+ ex:{hi:"जैन धर्म में 24 तीर्थंकर हुए हैं — इनमें प्रथम 'ऋषभनाथ' (आदिनाथ) और अंतिम 'महावीर' हैं। 23वें तीर्थंकर 'पार्श्वनाथ' थे, जिन्होंने चार व्रत दिए (अहिंसा, सत्य, अस्तेय, अपरिग्रह)। महावीर ने पाँचवाँ व्रत 'ब्रह्मचर्य' जोड़ा।",en:"Jainism has 24 Tirthankaras — first 'Rishabhanatha' (Adinatha) and last 'Mahavir'. The 23rd, 'Parshvanatha', gave four vows (Ahimsa, Satya, Asteya, Aparigraha); Mahavir added the fifth — Brahmacharya."}},
+
+{q:{hi:"जैन धर्म के 23वें तीर्थंकर कौन थे?",en:"Who was the 23rd Tirthankara of Jainism?"},
+ o:[{hi:"ऋषभनाथ",en:"Rishabhanatha"},{hi:"पार्श्वनाथ",en:"Parshvanatha"},{hi:"अरिष्टनेमि",en:"Arishtanemi"},{hi:"नमिनाथ",en:"Naminatha"}],a:1,
+ ex:{hi:"जैन धर्म के 23वें तीर्थंकर 'पार्श्वनाथ' थे — जो महावीर से लगभग 250 वर्ष पूर्व हुए। उन्होंने चार व्रत दिए — अहिंसा, सत्य, अस्तेय और अपरिग्रह। उनका प्रतीक 'सर्प' (साँप) है। वाराणसी के पास उनका जन्म हुआ और सम्मेद शिखर पर निर्वाण प्राप्त किया।",en:"The 23rd Tirthankara was 'Parshvanatha', ~250 years before Mahavir. He gave four vows — Ahimsa, Satya, Asteya, Aparigraha. His symbol is the serpent; born near Varanasi, he attained Nirvana at Sammed Shikhar."}},
+
+{q:{hi:"जैन धर्म में 'दिगंबर' और 'श्वेतांबर' क्या हैं?",en:"What are 'Digambara' and 'Shvetambara' in Jainism?"},
+ o:[{hi:"दो देवता",en:"Two deities"},{hi:"दो संप्रदाय",en:"Two sects"},{hi:"दो ग्रंथ",en:"Two scriptures"},{hi:"दो तीर्थ",en:"Two pilgrimages"}],a:1,
+ ex:{hi:"'दिगंबर' और 'श्वेतांबर' जैन धर्म के दो प्रमुख संप्रदाय हैं — जो महावीर के निर्वाण के लगभग 600-700 वर्ष बाद (लगभग 1st-2nd शताब्दी ई.) में विभाजित हुए। 'दिगंबर' (आकाश-वस्त्र) मानते हैं कि साधु को पूर्ण निर्वस्त्र रहना चाहिए और महिलाएँ मोक्ष प्राप्त नहीं कर सकती। 'श्वेतांबर' (श्वेत-वस्त्र) मानते हैं कि साधु श्वेत वस्त्र पहन सकते हैं और महिलाएँ भी मोक्ष प्राप्त कर सकती हैं।",en:"'Digambara' and 'Shvetambara' are the two main Jain sects, splitting ~600–700 years after Mahavir (1st–2nd century CE). 'Digambara' (sky-clad) hold monks should be nude and women cannot attain Moksha. 'Shvetambara' (white-clad) hold white robes are permitted and women can attain Moksha."}},
+
+{q:{hi:"'दिगंबर' शब्द का अर्थ क्या है?",en:"What does 'Digambara' mean?"},
+ o:[{hi:"श्वेत वस्त्रधारी",en:"Wearing white clothes"},{hi:"आकाश वस्त्रधारी (निर्वस्त्र)",en:"Sky-clad (nude)"},{hi:"गृहस्थ",en:"Householder"},{hi:"राजा",en:"King"}],a:1,
+ ex:{hi:"'दिगंबर' का अर्थ है — 'आकाश (दिक्) को वस्त्र बनाने वाले' अर्थात 'निर्वस्त्र'। दिगंबर संप्रदाय के साधु पूर्ण निर्वस्त्र रहते हैं — जो पूर्ण अपरिग्रह का प्रतीक है। इनके ग्रंथ संस्कृत में 'आगम' के रूप में हैं। प्रमुख केंद्र — श्रवणबेलगोला (कर्नाटक), मुडबिद्री, कारकल।",en:"'Digambara' means 'sky-clad' — i.e., nude — symbolising complete non-possession. Their scriptures are the Sanskrit 'Agamas'. Key centres: Shravanabelagola, Mudabidri, Karkala."}},
+
+/* ============ खंड C — बिहार में जैन तीर्थ स्थल (Q27–38) ============ */
+{q:{hi:"महावीर का जन्मस्थल 'कुंडग्राम' किस जिले में है?",en:"Mahavir's birthplace 'Kundagram' is in which district?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"वैशाली",en:"Vaishali"},{hi:"नालंदा",en:"Nalanda"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:1,
+ ex:{hi:"महावीर का जन्मस्थल 'कुंडग्राम' (कुंडलपुर) वर्तमान बिहार के 'वैशाली जिले' में स्थित है। यह वैशाली नगर के पास है। यहाँ जैन धर्म का प्रमुख 'जल मंदिर' और 'त्रिशला स्थान' है — जहाँ महावीर का जन्म हुआ था।",en:"Mahavir's birthplace 'Kundagram' (Kundalpur) is in present-day 'Vaishali district', Bihar, near Vaishali. The major 'Jal Mandir' and 'Trishala Sthan' mark the site."}},
+
+{q:{hi:"'पावापुरी' किस जिले में स्थित है?",en:"'Pavapuri' is located in which district?"},
+ o:[{hi:"वैशाली",en:"Vaishali"},{hi:"नालंदा",en:"Nalanda"},{hi:"पटना",en:"Patna"},{hi:"राजगीर",en:"Rajgir"}],a:1,
+ ex:{hi:"'पावापुरी' वर्तमान बिहार के 'नालंदा जिले' में स्थित है — जहाँ महावीर ने 527 ईसा पूर्व में निर्वाण प्राप्त किया। यहाँ 'जल मंदिर' (Water Temple) स्थित है, जहाँ महावीर की मृत्यु हुई थी। यह जैन धर्म का सबसे पवित्र तीर्थ स्थल है।",en:"'Pavapuri' is in present-day 'Nalanda district', Bihar, where Mahavir attained Nirvana in 527 BCE. The 'Jal Mandir' (Water Temple) marks his death site — Jainism's holiest pilgrimage."}},
+
+{q:{hi:"'सम्मेद शिखर' (पारसनाथ) किस जिले में स्थित है?",en:"'Sammed Shikhar' (Parasnath) is in which district?"},
+ o:[{hi:"गया",en:"Gaya"},{hi:"गिरिडीह (झारखंड)",en:"Giridih (Jharkhand)"},{hi:"नालंदा",en:"Nalanda"},{hi:"वैशाली",en:"Vaishali"}],a:1,
+ ex:{hi:"'सम्मेद शिखर' (पारसनाथ पहाड़ी) झारखंड के गिरिडीह जिले में स्थित है — बिहार की सीमा के पास। यह जैन धर्म का सबसे पवित्र तीर्थ है, जहाँ 20 तीर्थंकरों ने निर्वाण प्राप्त किया (केवल ऋषभनाथ और महावीर को छोड़कर)। पार्श्वनाथ (23वें तीर्थंकर) ने यहाँ निर्वाण प्राप्त किया।",en:"'Sammed Shikhar' (Parasnath Hill) is in Giridih district, Jharkhand, near Bihar's border — Jainism's holiest site where 20 Tirthankaras attained Nirvana (except Rishabhanatha and Mahavir). Parshvanatha attained Nirvana here."}},
+
+{q:{hi:"'राजगीर' में जैन धर्म का क्या महत्व है?",en:"What is the significance of 'Rajgir' in Jainism?"},
+ o:[{hi:"महावीर का जन्मस्थल",en:"Mahavir's birthplace"},{hi:"महावीर का 14 वर्ष निवास",en:"Mahavir's 14-year stay"},{hi:"महावीर का निर्वाण",en:"Mahavir's Nirvana"},{hi:"प्रथम जैन संगीति",en:"First Jain Council"}],a:1,
+ ex:{hi:"'राजगीर' (बिहार) जैन धर्म का प्रमुख तीर्थ स्थल है, जहाँ महावीर ने अपने प्रचार काल के दौरान लगभग '14 वर्षावास' बिताए। यहाँ उन्होंने अनेक वर्षा ऋतुएँ व्यतीत कीं। राजगीर जैन धर्म का प्रारंभिक केंद्र था और यहाँ अनेक जैन मंदिर हैं — जो पहाड़ियों पर स्थित हैं।",en:"'Rajgir' (Bihar) is a major Jain pilgrimage where Mahavir spent about '14 rain retreats' during his preaching. It was an early Jain centre with many hill-top temples."}},
+
+{q:{hi:"'विपुलगिरि' राजगीर में किसलिए प्रसिद्ध है?",en:"Why is 'Vipulagiri' at Rajgir famous?"},
+ o:[{hi:"हिंदू मंदिर",en:"Hindu temple"},{hi:"जैन मंदिर",en:"Jain temple"},{hi:"बौद्ध स्तूप",en:"Buddhist stupa"},{hi:"मुस्लिम मस्जिद",en:"Muslim mosque"}],a:1,
+ ex:{hi:"राजगीर की 'विपुलगिरि' पहाड़ी पर 'जैन मंदिर' (Vipulagiri Jain Temple) स्थित है। यहाँ महावीर का प्राचीन मंदिर है और यह जैन तीर्थ का प्रमुख केंद्र है। राजगीर की पाँच पहाड़ियों में से प्रत्येक पर जैन मंदिर हैं — विपुलगिरि, रत्नागिरि, वैभारगिरि, ऋषिगिरि और सोनगिरि।",en:"'Vipulagiri' hill at Rajgir hosts the 'Vipulagiri Jain Temple' with an ancient Mahavir shrine. All five hills of Rajgir have Jain temples — Vipulagiri, Ratnagiri, Vaibhargiri, Rishigiri and Sonagiri."}},
+
+{q:{hi:"'क्षत्रियकुंड' कहाँ स्थित है?",en:"Where is 'Kshatriyakund' located?"},
+ o:[{hi:"राजगीर",en:"Rajgir"},{hi:"वैशाली के पास",en:"Near Vaishali"},{hi:"नालंदा",en:"Nalanda"},{hi:"पटना",en:"Patna"}],a:1,
+ ex:{hi:"'क्षत्रियकुंड' (क्षत्रियकुंड) वैशाली के पास स्थित है — जहाँ महावीर का जन्म हुआ था। यह 'कुंडग्राम' का ही दूसरा नाम है। जैन परंपरा के अनुसार, इसे 'वासोकुंड' या 'कुंडलपुर' भी कहते हैं। यहाँ 'जल मंदिर' स्थित है और यह जैन धर्म का प्रमुख तीर्थ स्थल है।",en:"'Kshatriyakund' near Vaishali is where Mahavir was born — another name for 'Kundagram', also called 'Vasokund' or 'Kundalpur'. The 'Jal Mandir' here is a major Jain pilgrimage site."}},
+
+{q:{hi:"'वैशाली' में महावीर से जुड़ा कौन-सा स्थल है?",en:"Which site at 'Vaishali' is connected to Mahavir?"},
+ o:[{hi:"बुद्ध स्तूप",en:"Buddha stupa"},{hi:"कुंडग्राम (जन्मस्थल)",en:"Kundagram (birthplace)"},{hi:"अशोक स्तंभ",en:"Ashoka pillar"},{hi:"अभिषेक पुष्करिणी",en:"Abhishek Pushkarini"}],a:1,
+ ex:{hi:"'वैशाली' (बिहार) में महावीर से जुड़ा स्थल 'कुंडग्राम' है — जहाँ उनका जन्म हुआ। यह वैशाली के पास स्थित है और जैन धर्म का प्रमुख तीर्थ स्थल है। यहाँ 'जल मंदिर' और 'त्रिशला स्थान' स्थित हैं। महावीर ज्ञातृक गणराज्य के राजकुमार थे, जो वज्जि संघ का हिस्सा था।",en:"'Vaishali' hosts 'Kundagram', Mahavir's birthplace near the city — a major Jain pilgrimage with the 'Jal Mandir' and 'Trishala Sthan'. Mahavir was prince of the Jnatrika Republic, part of the Vajji confederacy."}},
+
+{q:{hi:"'नालंदा' जिले में कौन-सा जैन तीर्थ स्थल है?",en:"Which Jain pilgrimage site is in 'Nalanda district'?"},
+ o:[{hi:"कुंडग्राम",en:"Kundagram"},{hi:"पावापुरी",en:"Pavapuri"},{hi:"राजगीर",en:"Rajgir"},{hi:"वैशाली",en:"Vaishali"}],a:1,
+ ex:{hi:"'नालंदा' जिले में 'पावापुरी' स्थित है — जहाँ महावीर ने निर्वाण प्राप्त किया। यह जैन धर्म का सबसे पवित्र तीर्थ स्थल है और यहाँ 'जल मंदिर' है। राजगीर भी नालंदा जिले का हिस्सा है, जहाँ महावीर ने 14 वर्षावास बिताए। इसलिए नालंदा जिला जैन धर्म के लिए अत्यंत महत्वपूर्ण है।",en:"'Nalanda district' has 'Pavapuri' where Mahavir attained Nirvana — Jainism's holiest site with the 'Jal Mandir'. Rajgir, also in Nalanda, hosted his 14 rain retreats, making Nalanda highly significant for Jainism."}},
+
+{q:{hi:"'जल मंदिर' पावापुरी में किसकी स्मृति में बना है?",en:"'Jal Mandir' at Pavapuri was built in memory of whom?"},
+ o:[{hi:"बुद्ध",en:"Buddha"},{hi:"पार्श्वनाथ",en:"Parshvanatha"},{hi:"महावीर",en:"Mahavir"},{hi:"ऋषभनाथ",en:"Rishabhanatha"}],a:2,
+ ex:{hi:"'जल मंदिर' पावापुरी (नालंदा जिला) में महावीर की स्मृति में बना है — जहाँ उन्होंने 527 ईसा पूर्व में निर्वाण प्राप्त किया। यह मंदिर एक बड़े सरोवर के बीच में स्थित है और इसमें सफेद संगमरमर की मूर्ति है। इसे 'अप्रमेय' कहा जाता है।",en:"'Jal Mandir' at Pavapuri (Nalanda district) was built in memory of Mahavir, who attained Nirvana there in 527 BCE. It stands in a large tank with a white marble image, called 'Aprameya'."}},
+
+{q:{hi:"'कुंडग्राम' में कौन-सा मंदिर स्थित है?",en:"Which temple is at 'Kundagram'?"},
+ o:[{hi:"महाबोधि मंदिर",en:"Mahabodhi Temple"},{hi:"जल मंदिर (त्रिशला स्थान)",en:"Jal Mandir (Trishala Sthan)"},{hi:"विष्णुपद मंदिर",en:"Vishnupad Temple"},{hi:"अशोक स्तंभ",en:"Ashoka Pillar"}],a:1,
+ ex:{hi:"'कुंडग्राम' (वैशाली जिला) में 'जल मंदिर' (Jal Mandir) या 'त्रिशला स्थान' स्थित है — जहाँ महावीर का जन्म हुआ और उनकी माता त्रिशला ने 14 स्वप्न देखे। यह मंदिर एक सरोवर के बीच में है और इसमें महावीर की मूर्ति है। जैन तीर्थयात्री यहाँ दर्शन करने आते हैं।",en:"'Kundagram' (Vaishali district) has the 'Jal Mandir' or 'Trishala Sthan', where Mahavir was born and his mother Trishala saw 14 dreams. The temple stands in a tank with a Mahavir image, visited by Jain pilgrims."}},
+
+{q:{hi:"'सम्मेद शिखर' को जैन धर्म में क्या महत्व है?",en:"What is the significance of 'Sammed Shikhar' in Jainism?"},
+ o:[{hi:"महावीर का जन्मस्थल",en:"Mahavir's birthplace"},{hi:"20 तीर्थंकरों का निर्वाण स्थल",en:"Nirvana site of 20 Tirthankaras"},{hi:"प्रथम जैन संगीति",en:"First Jain Council"},{hi:"जैन धर्म का जन्मस्थल",en:"Jainism's birthplace"}],a:1,
+ ex:{hi:"'सम्मेद शिखर' (पारसनाथ पहाड़ी) को जैन धर्म में अत्यंत महत्व है — यहाँ '20 तीर्थंकरों' ने निर्वाण प्राप्त किया, केवल ऋषभनाथ (प्रथम) और महावीर (24वें) को छोड़कर। पार्श्वनाथ (23वें तीर्थंकर) ने यहाँ निर्वाण प्राप्त किया। यह झारखंड के गिरिडीह जिले में है।",en:"'Sammed Shikhar' (Parasnath Hill) is highly sacred — '20 Tirthankaras' attained Nirvana here, except Rishabhanatha (first) and Mahavir (24th). Parshvanatha attained Nirvana here. It is in Giridih district, Jharkhand."}},
+
+{q:{hi:"महावीर के निर्वाण दिवस को किस पर्व के रूप में मनाया जाता है?",en:"Mahavir's Nirvana day is observed as which festival?"},
+ o:[{hi:"बुद्ध पूर्णिमा",en:"Buddha Purnima"},{hi:"दीपावली",en:"Diwali"},{hi:"महावीर जयंती",en:"Mahavir Jayanti"},{hi:"महाशिवरात्रि",en:"Maha Shivratri"}],a:1,
+ ex:{hi:"महावीर के निर्वाण दिवस को 'दीपावली' के रूप में मनाया जाता है — जो कार्तिक अमावस्या को पड़ती है। जैन परंपरा के अनुसार, इस दिन महावीर ने पावापुरी में निर्वाण प्राप्त किया और उस समय 18 राजाओं ने दीप जलाकर उन्हें श्रद्धांजलि दी — जिससे दीपावली की परंपरा शुरू हुई।",en:"Mahavir's Nirvana day is observed as 'Diwali' on Kartik Amavasya. Jain tradition holds that when Mahavir attained Nirvana at Pavapuri, 18 kings lit lamps in tribute — starting the Diwali tradition."}},
+
+{q:{hi:"महावीर जयंती कब मनाई जाती है?",en:"When is Mahavir Jayanti celebrated?"},
+ o:[{hi:"कार्तिक अमावस्या",en:"Kartik Amavasya"},{hi:"चैत्र शुक्ल त्रयोदशी",en:"Chaitra Shukla Trayodashi"},{hi:"वैशाख पूर्णिमा",en:"Vaishakh Purnima"},{hi:"माघ पूर्णिमा",en:"Magh Purnima"}],a:1,
+ ex:{hi:"'महावीर जयंती' चैत्र शुक्ल त्रयोदशी को मनाई जाती है — महावीर के जन्मदिन के रूप में। यह मार्च-अप्रैल में पड़ती है। भारत में यह राष्ट्रीय पर्व है और जैन समुदाय द्वारा बड़े उत्साह से मनाया जाता है। इस दिन जैन मंदिरों में विशेष पूजा और रथ यात्रा होती है।",en:"'Mahavir Jayanti' is celebrated on Chaitra Shukla Trayodashi as Mahavir's birthday, in March-April. It is a national festival in India, celebrated with special puja and processions in Jain temples."}},
+
+{q:{hi:"बिहार में जैन धर्म के प्रमुख तीर्थ स्थल कितने हैं?",en:"How many major Jain pilgrimage sites are there in Bihar?"},
+ o:[{hi:"2",en:"2"},{hi:"3 (वैशाली, पावापुरी, राजगीर)",en:"3 (Vaishali, Pavapuri, Rajgir)"},{hi:"5",en:"5"},{hi:"7",en:"7"}],a:1,
+ ex:{hi:"बिहार में जैन धर्म के 3 प्रमुख तीर्थ स्थल हैं — (1) 'वैशाली/कुंडग्राम' — महावीर का जन्मस्थल, (2) 'पावापुरी' (नालंदा) — महावीर का निर्वाण स्थल, (3) 'राजगीर' — महावीर का 14 वर्षावास स्थल। इनके अलावा 'क्षत्रियकुंड' भी महत्वपूर्ण है। बिहार जैन धर्म का जन्मस्थल है।",en:"Bihar has 3 major Jain pilgrimage sites — (1) 'Vaishali/Kundagram' (Mahavir's birthplace), (2) 'Pavapuri' (Nalanda — Nirvana site) and (3) 'Rajgir' (14 rain retreats). 'Kshatriyakund' is also important. Bihar is Jainism's birthplace."}},
+
+/* ============ खंड D — जैन संगीतियाँ, ग्रंथ और विरासत (Q39–50) ============ */
+{q:{hi:"प्रथम जैन संगीति कब और कहाँ हुई?",en:"When and where was the First Jain Council held?"},
+ o:[{hi:"300 ईसा पूर्व, पाटलिपुत्र",en:"300 BCE, Pataliputra"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"527 ईसा पूर्व, पावापुरी",en:"527 BCE, Pavapuri"},{hi:"250 ईसा पूर्व, राजगृह",en:"250 BCE, Rajagriha"}],a:0,
+ ex:{hi:"प्रथम जैन संगीति 300 ईसा पूर्व में 'पाटलिपुत्र' (पटना, बिहार) में हुई — चंद्रगुप्त मौर्य के शासनकाल में, संभवतः चाणक्य की प्रेरणा से। इसकी अध्यक्षता 'स्थूलभद्र' ने की। इसमें जैन धर्म के 'अंग' और 'पूर्व' ग्रंथों को संकलित किया गया।",en:"The First Jain Council was held in 300 BCE at 'Pataliputra' (Patna, Bihar) during Chandragupta Maurya's reign, possibly on Chanakya's advice, presided by 'Sthulabhadra'. Jain texts — Angas and Purvas — were compiled."}},
+
+{q:{hi:"द्वितीय जैन संगीति कब और कहाँ हुई?",en:"When and where was the Second Jain Council held?"},
+ o:[{hi:"300 ईसा पूर्व, पाटलिपुत्र",en:"300 BCE, Pataliputra"},{hi:"512 ई. (या 5वीं शताब्दी ई.), वल्लभी (गुजरात)",en:"512 CE (or 5th century CE), Vallabhi (Gujarat)"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"1st century CE, कुंडलवन",en:"1st century CE, Kundalvana"}],a:1,
+ ex:{hi:"द्वितीय जैन संगीति 512 ई. (या 5वीं शताब्दी ई.) में 'वल्लभी' (गुजरात) में हुई — जिसकी अध्यक्षता 'देवर्धिगणि क्षमाश्रमण' ने की। इसमें जैन आगमों को लिखित रूप में संकलित किया गया। इसके बाद जैन धर्म श्वेतांबर और दिगंबर संप्रदायों में विभाजित हो गया।",en:"The Second Jain Council was held in 512 CE (or 5th century CE) at 'Vallabhi' (Gujarat) under 'Devardhigani Kshamashramana'. Jain Agamas were committed to writing. Afterwards, Jainism split into Shvetambara and Digambara sects."}},
+
+{q:{hi:"जैन धर्म के प्रमुख ग्रंथ कौन-से हैं?",en:"What are the main scriptures of Jainism?"},
+ o:[{hi:"त्रिपिटक",en:"Tripitaka"},{hi:"आगम (द्वादशांगी)",en:"Agamas (Dvadashangi)"},{hi:"वेद",en:"Vedas"},{hi:"उपनिषद",en:"Upanishads"}],a:1,
+ ex:{hi:"जैन धर्म के प्रमुख ग्रंथ 'आगम' हैं — जिन्हें 'द्वादशांगी' (12 अंग) भी कहा जाता है। ये 12 अंग, 12 उपांग, 10 प्रकीर्णक, 6 छेदसूत्र, 4 मूलसूत्र और अन्य हैं। इनमें 'आचारांग', 'सूत्रकृतांग', 'स्थानांग', 'भगवती सूत्र' प्रमुख हैं। ये 'अर्धमागधी' भाषा में लिखे गए हैं।",en:"Jain scriptures are the 'Agamas', also called 'Dvadashangi' (12 Angas) — plus 12 Upangas, 10 Prakirnakas, 6 Chedasutras and 4 Mulasutras. Key ones include Acharanga, Sutrakritanga, Sthananga and Bhagavati Sutra, written in Ardhamagadhi."}},
+
+{q:{hi:"जैन आगम किस भाषा में लिखे गए हैं?",en:"In which language were Jain Agamas written?"},
+ o:[{hi:"संस्कृत",en:"Sanskrit"},{hi:"पाली",en:"Pali"},{hi:"अर्धमागधी",en:"Ardhamagadhi"},{hi:"प्राकृत",en:"Prakrit"}],a:2,
+ ex:{hi:"जैन आगम 'अर्धमागधी' भाषा में लिखे गए हैं — जो प्राकृत की एक बोली है और मगध क्षेत्र में बोली जाती थी। महावीर ने अपने उपदेश अर्धमागधी में दिए थे, ताकि आम जनता समझ सके। बाद में इन्हें संस्कृत में भी अनुवादित किया गया।",en:"Jain Agamas are in 'Ardhamagadhi' — a Prakrit dialect of the Magadha region. Mahavir preached in it for the common people. Later, they were translated into Sanskrit."}},
+
+{q:{hi:"'कल्पसूत्र' के रचयिता कौन हैं?",en:"Who wrote the 'Kalpasutra'?"},
+ o:[{hi:"स्थूलभद्र",en:"Sthulabhadra"},{hi:"भद्रबाहु",en:"Bhadrabahu"},{hi:"हेमचंद्र",en:"Hemachandra"},{hi:"उमास्वामी",en:"Umaswami"}],a:1,
+ ex:{hi:"'कल्पसूत्र' के रचयिता 'भद्रबाहु' थे — जो अंतिम 'श्रुतकेवली' माने जाते हैं। कल्पसूत्र में महावीर और अन्य तीर्थंकरों की जीवनी, जैन संघ के नियम, पट्टावली (आचार्य परंपरा) और प्रायश्चित विधियाँ हैं। यह जैन धर्म का महत्वपूर्ण ग्रंथ है।",en:"'Kalpasutra' was written by 'Bhadrabahu', the last 'Shrutakevali'. It contains biographies of Mahavir and other Tirthankaras, Sangha rules, the Pattavali (lineage of Acharyas) and atonement rituals — a key Jain text."}},
+
+{q:{hi:"'तत्त्वार्थ सूत्र' के रचयिता कौन हैं?",en:"Who wrote the 'Tattvartha Sutra'?"},
+ o:[{hi:"उमास्वामी",en:"Umaswami"},{hi:"कुंदकुंद",en:"Kundakunda"},{hi:"हेमचंद्र",en:"Hemachandra"},{hi:"हरिभद्र",en:"Haribhadra"}],a:0,
+ ex:{hi:"'तत्त्वार्थ सूत्र' के रचयिता 'उमास्वामी' (या उमास्वाति) थे — जो जैन दर्शन के सबसे प्रमुख ग्रंथकार माने जाते हैं। यह ग्रंथ संस्कृत में है और जैन दर्शन की मूल बातें (सप्त तत्त्व, त्रिरत्न) प्रस्तुत करता है। दिगंबर और श्वेतांबर दोनों इसे मानते हैं।",en:"'Tattvartha Sutra' was written by 'Umaswami' (Umaswati), a top Jain philosopher. In Sanskrit, it presents the basics — seven Tattvas, Three Jewels — accepted by both Digambaras and Shvetambaras."}},
+
+{q:{hi:"जैन धर्म में 'सप्त तत्त्व' कौन-से हैं?",en:"What are the 'Seven Tattvas' in Jainism?"},
+ o:[{hi:"धर्म, अर्थ, काम, मोक्ष, ज्ञान, भक्ति, सेवा",en:"Dharma, Artha, Kama, Moksha, Jnana, Bhakti, Seva"},{hi:"जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष",en:"Jiva, Ajiva, Asrava, Bandha, Samvara, Nirjara, Moksha"},{hi:"सत्य, अहिंसा, तप, दान, ध्यान, यज्ञ, स्वाध्याय",en:"Satya, Ahimsa, Tapa, Dana, Dhyana, Yajna, Svadhyaya"},{hi:"श्रद्धा, ज्ञान, चरित्र, तप, दान, सेवा, प्रेम",en:"Shraddha, Jnana, Charitra, Tapa, Dana, Seva, Prema"}],a:1,
+ ex:{hi:"जैन धर्म के सात तत्त्व — (1) 'जीव' (आत्मा), (2) 'अजीव' (अचेतन), (3) 'आस्रव' (कर्म का आना), (4) 'बंध' (कर्म का बंधन), (5) 'संवर' (कर्म रोकना), (6) 'निर्जरा' (कर्म का क्षय), (7) 'मोक्ष' (पूर्ण मुक्ति)। इन सातों का ज्ञान आवश्यक है। 'तत्त्वार्थ सूत्र' में इनका वर्णन है।",en:"The seven Tattvas — (1) Jiva (soul), (2) Ajiva (non-soul), (3) Asrava (influx of karma), (4) Bandha (bondage), (5) Samvara (stopping karma), (6) Nirjara (shedding karma), (7) Moksha (liberation). Knowledge of these is essential, per the Tattvartha Sutra."}},
+
+{q:{hi:"जैन धर्म में 'संवर' क्या है?",en:"What is 'Samvara' in Jainism?"},
+ o:[{hi:"कर्म का आना",en:"Influx of karma"},{hi:"कर्म का बंधन",en:"Bondage of karma"},{hi:"कर्म को रोकना",en:"Stopping karma"},{hi:"कर्म का क्षय",en:"Shedding karma"}],a:2,
+ ex:{hi:"'संवर' का अर्थ है — 'कर्म को रोकना'। यह आत्मा में नए कर्मों के आने को रोकने की प्रक्रिया है। इसके लिए पाँच महाव्रतों का पालन, समिति (सावधानी), गुप्ति (संयम), धर्म, अनुप्रेक्षा, परीषह-जय, चारित्र और ध्यान आवश्यक हैं। 'संवर' मोक्ष मार्ग का महत्वपूर्ण चरण है।",en:"'Samvara' means 'stopping karma'. It prevents new karmas from entering the soul through the five Mahavratas, Samiti (carefulness), Gupti (restraint), Dharma, Anupreksha, conquering hardships, conduct and meditation — a key step towards Moksha."}},
+
+{q:{hi:"'निर्जरा' जैन धर्म में क्या है?",en:"What is 'Nirjara' in Jainism?"},
+ o:[{hi:"कर्म का आना",en:"Influx of karma"},{hi:"कर्म का क्षय",en:"Shedding of karma"},{hi:"कर्म का बंधन",en:"Bondage of karma"},{hi:"कोई कर्म नहीं",en:"No karma"}],a:1,
+ ex:{hi:"'निर्जरा' का अर्थ है — 'कर्म का क्षय' या 'कर्मों को झाड़ना'। यह तपस्या, ध्यान, उपवास और कठोर साधना से किया जाता है। 'निर्जरा' के बाद आत्मा शुद्ध हो जाती है और मोक्ष प्राप्त होता है। यह 'संवर' के बाद का चरण है।",en:"'Nirjara' means 'shedding of karma' through penance, meditation, fasting and austerity. It purifies the soul and leads to Moksha, following 'Samvara'."}},
+
+{q:{hi:"जैन धर्म में 'अणुव्रत' किसके लिए हैं?",en:"In Jainism, 'Anuvratas' are for whom?"},
+ o:[{hi:"साधुओं के लिए",en:"For monks"},{hi:"गृहस्थों के लिए",en:"For householders"},{hi:"राजाओं के लिए",en:"For kings"},{hi:"बच्चों के लिए",en:"For children"}],a:1,
+ ex:{hi:"जैन धर्म में 'अणुव्रत' (छोटे व्रत) गृहस्थों (श्रावकों) के लिए हैं — जो महाव्रतों का सरल रूप हैं। इनमें अहिंसा (सीमित), सत्य, अस्तेय, ब्रह्मचर्य (स्वदार संतोष) और अपरिग्रह (सीमित) शामिल हैं। महावीर ने गृहस्थों के लिए 12 व्रत बताए — 5 अणुव्रत + 3 गुणव्रत + 4 शिक्षाव्रत।",en:"'Anuvratas' (smaller vows) are for laypeople — simplified Mahavratas: limited Ahimsa, Satya, Asteya, Brahmacharya (contentment with one's spouse) and limited Aparigraha. Mahavir gave 12 vows for laity — 5 Anuvratas + 3 Gunavratas + 4 Shikshavratas."}},
+
+{q:{hi:"जैन धर्म का 'प्रतीक चिह्न' कौन-सा है?",en:"What is the 'symbol' of Jainism?"},
+ o:[{hi:"धर्मचक्र",en:"Dharmachakra"},{hi:"अहिंसा हाथ (हथेली पर चक्र)",en:"Ahimsa hand (wheel on palm)"},{hi:"ॐ",en:"Om"},{hi:"स्वास्तिक",en:"Swastika"}],a:1,
+ ex:{hi:"जैन धर्म का प्रतीक चिह्न 'अहिंसा हाथ' है — जिसमें हथेली के बीच में 'धर्मचक्र' (24 तीलियों वाला) होता है और हथेली पर 'अहिंसा' लिखा होता है। यह 1974 में जैन धर्म की 2500वीं वर्षगांठ पर अपनाया गया था। इसमें 'परस्परोपग्रहो जीवानाम्' (सभी जीवों का परस्पर सहयोग) लिखा है।",en:"Jainism's symbol is the 'Ahimsa Hand' — a palm with a 24-spoke Dharmachakra and 'Ahimsa' written on it, adopted in 1974 for Jainism's 2500th anniversary. It reads 'Parasparopagraho Jivanam' (all life is interdependent)."}},
+
+{q:{hi:"जैन धर्म का प्रसिद्ध आदर्श वाक्य क्या है?",en:"What is the famous motto of Jainism?"},
+ o:[{hi:"सत्यमेव जयते",en:"Satyameva Jayate"},{hi:"अहिंसा परमो धर्मः",en:"Ahimsa Paramo Dharma"},{hi:"परस्परोपग्रहो जीवानाम्",en:"Parasparopagraho Jivanam"},{hi:"वसुधैव कुटुम्बकम्",en:"Vasudhaiva Kutumbakam"}],a:2,
+ ex:{hi:"जैन धर्म का प्रसिद्ध आदर्श वाक्य है — 'परस्परोपग्रहो जीवानाम्' — अर्थात 'सभी जीवों का परस्पर सहयोग'। यह 'तत्त्वार्थ सूत्र' से लिया गया है और जैन धर्म के प्रतीक चिह्न पर अंकित है। यह अहिंसा और पारस्परिक सहयोग का संदेश देता है।",en:"Jainism's famous motto is 'Parasparopagraho Jivanam' — 'all life is interdependent'. From the Tattvartha Sutra, it appears on Jainism's emblem, teaching Ahimsa and mutual cooperation."}},
+
+{q:{hi:"जैन धर्म के 24 तीर्थंकरों में प्रथम कौन थे?",en:"Who was the first of the 24 Tirthankaras of Jainism?"},
+ o:[{hi:"पार्श्वनाथ",en:"Parshvanatha"},{hi:"ऋषभनाथ (आदिनाथ)",en:"Rishabhanatha (Adinatha)"},{hi:"नमिनाथ",en:"Naminatha"},{hi:"अरिष्टनेमि",en:"Arishtanemi"}],a:1,
+ ex:{hi:"जैन धर्म के 24 तीर्थंकरों में प्रथम 'ऋषभनाथ' (आदिनाथ) थे — जिन्हें 'आदिनाथ' और 'ऋषभदेव' भी कहा जाता है। उनका प्रतीक 'बैल' (वृषभ) है और उनका निर्वाण 'अष्टापद' (कैलाश) पर हुआ। वे हिंदू धर्म में भी पूजित हैं और 'ऋषभदेव' के रूप में जाने जाते हैं।",en:"The first of Jainism's 24 Tirthankaras was 'Rishabhanatha' (Adinatha), also 'Rishabhadeva'. His symbol is the bull; his Nirvana was at Ashtapada (Kailash). He is also revered in Hinduism as Rishabhadeva."}},
+
+{q:{hi:"महावीर को 'जिन' क्यों कहा जाता है?",en:"Why is Mahavir called 'Jina'?"},
+ o:[{hi:"क्योंकि वे राजा थे",en:"Because he was a king"},{hi:"क्योंकि उन्होंने कर्मों को जीत लिया",en:"Because he conquered karmas"},{hi:"क्योंकि वे ब्राह्मण थे",en:"Because he was a Brahmin"},{hi:"क्योंकि वे तपस्वी थे",en:"Because he was an ascetic"}],a:1,
+ ex:{hi:"महावीर को 'जिन' कहा जाता है क्योंकि उन्होंने 'कर्मों को जीत लिया' — जिसमें काम, क्रोध, लोभ, मोह और अहंकार जैसे शत्रुओं पर विजय प्राप्त की। 'जिन' का अर्थ है 'विजेता' या 'जीतने वाला'। जैन धर्म का नाम 'जिन' शब्द से ही आया — जिनके अनुयायी 'जैन' कहलाते हैं।",en:"Mahavir is called 'Jina' (Conqueror) as he conquered karmas — the inner enemies of desire, anger, greed, delusion and ego. Jainism derives its name from 'Jina'; his followers are 'Jains'."}},
+
+{q:{hi:"जैन धर्म के अनुयायियों को क्या कहा जाता है?",en:"What are the followers of Jainism called?"},
+ o:[{hi:"बौद्ध",en:"Buddhists"},{hi:"जैन (जिन के अनुयायी)",en:"Jains (followers of Jina)"},{hi:"जैनिस्ट",en:"Jainists"},{hi:"निर्ग्रंथ",en:"Nirgranthas"}],a:1,
+ ex:{hi:"जैन धर्म के अनुयायियों को 'जैन' कहा जाता है — यानी 'जिन' (विजेता) के अनुयायी। जैन धर्म को 'जिन धर्म' या 'जिन शासन' भी कहा जाता है। महावीर को 'निर्ग्रंथ' (बंधन-रहित) भी कहा जाता था। जैन धर्म के अनुयायी दिगंबर और श्वेतांबर दो संप्रदायों में विभाजित हैं।",en:"Followers of Jainism are called 'Jains' — followers of Jina (the Conqueror). Jainism is also called 'Jin Dharma' or 'Jin Shasan'. Mahavir was also called 'Nirgrantha' (free from bonds). Followers split into Digambara and Shvetambara sects."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! महावीर और जैन धर्म पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Mahavir and Jainism is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। महावीर के जीवन और शिक्षाओं को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Mahavir's life and teachings."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
