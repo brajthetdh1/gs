@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>वैशाली — 50 प्रश्न | Vaishali — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#b2dfdb;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#b2dfdb;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#4db6ac);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e0f2f1;color:#00695c;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🏛️ वैशाली — 50 प्रश्न
+              <small>Vaishali · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — वैशाली: प्राचीन इतिहास और गणराज्य</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   वैशाली — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — वैशाली: प्राचीन इतिहास और गणराज्य", en:"Section A — Vaishali: Ancient History & Republic"},
+  {hi:"खंड B — वैशाली: बौद्ध और जैन धर्म", en:"Section B — Vaishali: Buddhism & Jainism"},
+  {hi:"खंड C — वैशाली: अम्रपाली, अशोक और पुरातत्व", en:"Section C — Vaishali: Amrapali, Ashoka & Archaeology"},
+  {hi:"खंड D — वैशाली: आधुनिक जिला और विरासत", en:"Section D — Vaishali: Modern District & Legacy"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — वैशाली: प्राचीन इतिहास और गणराज्य (Q1–13) ============ */
+{q:{hi:"वैशाली को किस नाम से जाना जाता है?",en:"By which name is Vaishali known?"},
+ o:[{hi:"विश्व का पहला गणतंत्र",en:"World's first republic"},{hi:"विश्व का पहला साम्राज्य",en:"World's first empire"},{hi:"विश्व का पहला नगर",en:"World's first city"},{hi:"विश्व का पहला राजतंत्र",en:"World's first monarchy"}],a:0,
+ ex:{hi:"वैशाली को 'विश्व का पहला गणतंत्र' (World's first republic) कहा जाता है। यहाँ लिच्छवी गणराज्य की स्थापना हुई थी, जिसमें प्रतिनिधियों के माध्यम से शासन होता था। वैशाली बिहार में वर्तमान वैशाली जिले में स्थित है।",en:"Vaishali is called the 'World's first republic' — the Lichchhavi Republic was established here, governed through representatives. It is in present-day Vaishali district, Bihar."}},
+
+{q:{hi:"वैशाली किस महाजनपद का हिस्सा थी?",en:"Vaishali was part of which Mahajanapada?"},
+ o:[{hi:"मगध",en:"Magadha"},{hi:"वज्जि",en:"Vajji"},{hi:"कोशल",en:"Kosala"},{hi:"अवंति",en:"Avanti"}],a:1,
+ ex:{hi:"वैशाली वज्जि महाजनपद का हिस्सा थी और इसकी राजधानी भी थी। वज्जि एक संघ (confederacy) था, जिसमें 8 गणराज्य शामिल थे — लिच्छवी, विदेह, ज्ञातृक, वज्जि आदि। वैशाली को 'वज्जि संघ' का केंद्र माना जाता है।",en:"Vaishali was part of the Vajji Mahajanapada and its capital. Vajji was a confederacy of 8 republics — Lichchhavi, Videha, Jnatrika, Vajji etc. Vaishali was its centre."}},
+
+{q:{hi:"वज्जि संघ में कितने गणराज्य शामिल थे?",en:"How many republics were part of the Vajji Sangh?"},
+ o:[{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"8",en:"8"},{hi:"10",en:"10"}],a:2,
+ ex:{hi:"वज्जि संघ में 8 गणराज्य शामिल थे — लिच्छवी, विदेह, ज्ञातृक, वज्जि, उग्र, भोग, कौरव्य और वैशाली। इसका केंद्र वैशाली था और यह विश्व के पहले संघीय गणराज्यों में से एक था।",en:"The Vajji Sangh included 8 republics — Lichchhavi, Videha, Jnatrika, Vajji, Ugras, Bhogas, Kauravyas and Vaishali — centred at Vaishali, one of the world's first federal republics."}},
+
+{q:{hi:"लिच्छवी गणराज्य की राजधानी कौन-सी थी?",en:"What was the capital of the Lichchhavi Republic?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"वैशाली",en:"Vaishali"},{hi:"राजगृह",en:"Rajagriha"},{hi:"मिथिला",en:"Mithila"}],a:1,
+ ex:{hi:"लिच्छवी गणराज्य की राजधानी वैशाली थी। यह विश्व का पहला गणतंत्र माना जाता है। लिच्छवी गणराज्य का प्रशासन जनप्रतिनिधियों के माध्यम से चलता था — जिसमें 'गणपरिषद' और 'राजा' जैसी संस्थाएँ थीं।",en:"The Lichchhavi Republic's capital was Vaishali, considered the world's first republic, governed through representatives with bodies like the 'Gana Parishad' and a 'Raja'."}},
+
+{q:{hi:"वैशाली का प्राचीन नाम क्या था?",en:"What was the ancient name of Vaishali?"},
+ o:[{hi:"विशाला",en:"Vishala"},{hi:"वैशाली",en:"Vaishali"},{hi:"वज्जि",en:"Vajji"},{hi:"विदेह",en:"Videha"}],a:0,
+ ex:{hi:"वैशाली का प्राचीन नाम 'विशाला' था। यह नाम राजा विशाल के नाम पर पड़ा, जिन्होंने इस नगर की स्थापना की। वैशाली को 'वज्जि' और 'विदेह' नाम से भी जाना जाता था।",en:"Vaishali's ancient name was 'Vishala', named after King Vishala who founded the city. It was also known as 'Vajji' and 'Videha'."}},
+
+{q:{hi:"वैशाली की स्थापना किसने की?",en:"Who founded Vaishali?"},
+ o:[{hi:"राजा विशाल",en:"King Vishala"},{hi:"बिंबिसार",en:"Bimbisara"},{hi:"अजातशत्रु",en:"Ajatashatru"},{hi:"अशोक",en:"Ashoka"}],a:0,
+ ex:{hi:"वैशाली की स्थापना राजा विशाल ने की। वे वैशाली के संस्थापक माने जाते हैं। वैशाली का नाम उनके नाम पर 'विशाला' पड़ा, जो बाद में 'वैशाली' हो गया।",en:"Vaishali was founded by King Vishala, after whom the city was named 'Vishala', which later became 'Vaishali'."}},
+
+{q:{hi:"वैशाली किस नदी के तट पर स्थित है?",en:"Vaishali is situated on the bank of which river?"},
+ o:[{hi:"गंडक",en:"Gandak"},{hi:"गंगा",en:"Ganga"},{hi:"बागमती",en:"Bagmati"},{hi:"सोन",en:"Son"}],a:0,
+ ex:{hi:"वैशाली गंडक नदी के तट पर स्थित है। यह नदी नेपाल से निकलती है और बिहार में छपरा के पास गंगा में मिलती है। वैशाली की प्राचीन स्थिति गंडक नदी के उत्तर में थी।",en:"Vaishali is situated on the bank of the Gandak river, which rises in Nepal and joins the Ganga near Chhapra in Bihar. Ancient Vaishali lay north of the Gandak."}},
+
+{q:{hi:"लिच्छवी गणराज्य का शासन किस प्रकार का था?",en:"What type of governance did the Lichchhavi Republic have?"},
+ o:[{hi:"राजतंत्र",en:"Monarchy"},{hi:"गणतंत्र (जनप्रतिनिधि आधारित)",en:"Republic (representative-based)"},{hi:"सामंतवाद",en:"Feudalism"},{hi:"धर्मतंत्र",en:"Theocracy"}],a:1,
+ ex:{hi:"लिच्छवी गणराज्य में शासन जनप्रतिनिधियों के माध्यम से चलता था — इसे 'गणतंत्र' कहा जाता है। इसमें एक 'गणपरिषद' होती थी, जिसमें 7,707 सदस्य होते थे और एक 'राजा' (अध्यक्ष) होता था। यह विश्व का पहला लोकतांत्रिक शासन माना जाता है।",en:"Lichchhavi was a republic governed through representatives, with a Gana Parishad of 7,707 members and a Raja (chairman) — considered one of the world's first democratic governments."}},
+
+{q:{hi:"लिच्छवी गणराज्य में 'गणपरिषद' में कितने सदस्य थे?",en:"How many members were in the 'Gana Parishad' of the Lichchhavi Republic?"},
+ o:[{hi:"5,000",en:"5,000"},{hi:"7,707",en:"7,707"},{hi:"10,000",en:"10,000"},{hi:"12,500",en:"12,500"}],a:1,
+ ex:{hi:"लिच्छवी गणराज्य की 'गणपरिषद' (Gana Parishad) में 7,707 सदस्य थे। इनका नेतृत्व 'राजा' करते थे — जिन्हें कभी-कभी 'गणमुख्य' कहा जाता था। यह विश्व का पहला बड़ा प्रतिनिधि सभा था।",en:"The 'Gana Parishad' of the Lichchhavi Republic had 7,707 members led by a 'Raja' (sometimes called Ganamukh) — one of the world's first large representative assemblies."}},
+
+{q:{hi:"बुद्ध ने वैशाली में किस स्तूप का दौरा किया था?",en:"Which stupa did Buddha visit at Vaishali?"},
+ o:[{hi:"धमेख स्तूप",en:"Dhamek Stupa"},{hi:"रामभर स्तूप",en:"Ramabhar Stupa"},{hi:"आनंद स्तूप",en:"Ananda Stupa"},{hi:"बहु स्तूप",en:"Bahu Stupa"}],a:2,
+ ex:{hi:"बुद्ध ने वैशाली में 'आनंद स्तूप' (Ananda Stupa) का दौरा किया था। वैशाली में बुद्ध ने अपना अंतिम उपदेश दिया था और यहीं से उन्होंने अपने महापरिनिर्वाण की भविष्यवाणी की थी। 'बहु स्तूप' भी वैशाली में है।",en:"Buddha visited the 'Ananda Stupa' at Vaishali, where he gave his last sermon and foretold his Mahaparinirvana. The 'Bahu Stupa' is also at Vaishali."}},
+
+{q:{hi:"वैशाली में 'चतुर्थ बौद्ध संगीति' की जगह किस स्तूप को माना जाता है?",en:"Which stupa is considered the site of the 'Fourth Buddhist Council' at Vaishali?"},
+ o:[{hi:"आनंद स्तूप",en:"Ananda Stupa"},{hi:"चंपा स्तूप",en:"Champa Stupa"},{hi:"बहु स्तूप",en:"Bahu Stupa"},{hi:"रामभर स्तूप",en:"Ramabhar Stupa"}],a:2,
+ ex:{hi:"वैशाली का 'बहु स्तूप' चौथे बौद्ध संगीति से जुड़ा माना जाता है (हालांकि कुछ विद्वान इसे कुंडलवन से जोड़ते हैं)। यह वैशाली का प्रमुख पुरातात्विक स्थल है। स्तूप के चारों ओर अनेक छोटे स्तूप हैं, इसलिए इसे 'बहु स्तूप' कहा जाता है।",en:"The 'Bahu Stupa' at Vaishali is linked with the Fourth Buddhist Council (though some scholars associate it with Kundalvana). It is Vaishali's major archaeological site, with many smaller stupas around it."}},
+
+{q:{hi:"वैशाली में 'राजा विशाल का गढ़' किस लिए प्रसिद्ध है?",en:"Why is 'Raja Vishal's Fort' at Vaishali famous?"},
+ o:[{hi:"सैन्य किला",en:"Military fort"},{hi:"प्राचीन नगर की रक्षा दीवार",en:"Ancient city's protective wall"},{hi:"धार्मिक स्थल",en:"Religious site"},{hi:"महल",en:"Palace"}],a:1,
+ ex:{hi:"'राजा विशाल का गढ़' वैशाली की प्राचीन नगर-रक्षा दीवार के अवशेष हैं। यह मिट्टी की विशाल दीवार थी, जो नगर की सुरक्षा के लिए बनाई गई थी। इस दीवार की लंबाई लगभग 16 किमी थी और इसमें तीन परकोटे थे।",en:"'Raja Vishal's Fort' is the remains of Vaishali's ancient city wall — a massive earthen rampart built for defence, about 16 km long with three concentric ramparts."}},
+
+{q:{hi:"'अभिषेक पुष्करिणी' क्या है?",en:"What is 'Abhishek Pushkarini'?"},
+ o:[{hi:"बौद्ध स्तूप",en:"Buddhist stupa"},{hi:"राज्याभिषेक का तालाब",en:"Coronation tank"},{hi:"जैन मंदिर",en:"Jain temple"},{hi:"हाथी का स्नान स्थल",en:"Elephant bathing site"}],a:1,
+ ex:{hi:"'अभिषेक पुष्करिणी' वैशाली में स्थित एक प्राचीन तालाब है, जहाँ लिच्छवी गणराज्य के शासकों का राज्याभिषेक (coronation) होता था। इसे 'कोरोनेशन टैंक' (Coronation Tank) भी कहा जाता है। आज इसके पास अशोक स्तंभ स्थित है।",en:"'Abhishek Pushkarini' is an ancient tank at Vaishali where Lichchhavi rulers were crowned, hence called the 'Coronation Tank'. The Ashokan pillar stands nearby."}},
+
+/* ============ खंड B — वैशाली: बौद्ध और जैन धर्म (Q14–26) ============ */
+{q:{hi:"वर्धमान महावीर का जन्म कहाँ हुआ था?",en:"Where was Vardhamana Mahavira born?"},
+ o:[{hi:"वैशाली के पास कुंडग्राम",en:"Kundagram near Vaishali"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"राजगीर",en:"Rajgir"},{hi:"पाटलिपुत्र",en:"Pataliputra"}],a:0,
+ ex:{hi:"वर्धमान महावीर (24वें तीर्थंकर) का जन्म 599 ईसा पूर्व में वैशाली के पास कुंडग्राम (वर्तमान वैशाली जिला) में हुआ। उनके पिता सिद्धार्थ और माता त्रिशला थीं। वे ज्ञातृक गणराज्य के राजकुमार थे।",en:"Vardhamana Mahavira (24th Tirthankara) was born in 599 BCE at Kundagram near Vaishali (present-day Vaishali district). His parents were Siddhartha and Trishala; he was a prince of the Jnatrika Republic."}},
+
+{q:{hi:"महावीर का बचपन का नाम क्या था?",en:"What was Mahavira's childhood name?"},
+ o:[{hi:"सिद्धार्थ",en:"Siddhartha"},{hi:"वर्धमान",en:"Vardhamana"},{hi:"ज्ञातृक",en:"Jnatrika"},{hi:"नाथ",en:"Natha"}],a:1,
+ ex:{hi:"महावीर का बचपन का नाम 'वर्धमान' था। उन्हें 'महावीर' (महान वीर), 'जिन' (विजेता) और 'नाथ' कहा जाता था। वे जैन धर्म के 24वें और अंतिम तीर्थंकर थे।",en:"Mahavira's childhood name was 'Vardhamana'. He was also called 'Mahavira' (Great Hero), 'Jina' (Conqueror) and 'Natha'. He was the 24th and last Tirthankara of Jainism."}},
+
+{q:{hi:"महावीर ने कितने वर्षों तक तपस्या की थी?",en:"For how many years did Mahavira perform penance?"},
+ o:[{hi:"10 वर्ष",en:"10 years"},{hi:"12 वर्ष",en:"12 years"},{hi:"15 वर्ष",en:"15 years"},{hi:"20 वर्ष",en:"20 years"}],a:1,
+ ex:{hi:"महावीर ने 30 वर्ष की आयु में गृहत्याग किया और 12 वर्षों तक कठोर तपस्या की। 42 वर्ष की आयु में उन्हें 'केवल ज्ञान' (सर्वज्ञता) प्राप्त हुआ। फिर उन्होंने 30 वर्षों तक जैन धर्म का प्रचार किया।",en:"Mahavira left home at 30 and performed severe penance for 12 years, attaining 'Kevala Jnana' (omniscience) at 42. He then propagated Jainism for 30 years."}},
+
+{q:{hi:"महावीर की मृत्यु कहाँ हुई?",en:"Where did Mahavira die?"},
+ o:[{hi:"वैशाली",en:"Vaishali"},{hi:"पावापुरी",en:"Pavapuri"},{hi:"राजगीर",en:"Rajgir"},{hi:"नालंदा",en:"Nalanda"}],a:1,
+ ex:{hi:"महावीर की मृत्यु 527 ईसा पूर्व में पावापुरी (नालंदा जिला, बिहार) में हुई — जिसे 'महापरिनिर्वाण' कहा जाता है। उनका प्रथम शिष्य 'गौतम इंद्रभूति' था, जिसने जैन धर्म का प्रचार किया।",en:"Mahavira died in 527 BCE at Pavapuri (Nalanda district, Bihar) — called 'Mahaparinirvana'. His first disciple was Gautama Indrabhuti, who spread Jainism."}},
+
+{q:{hi:"बुद्ध ने वैशाली में अपना अंतिम उपदेश कब दिया?",en:"When did Buddha give his last sermon at Vaishali?"},
+ o:[{hi:"महापरिनिर्वाण से 1 वर्ष पहले",en:"1 year before Mahaparinirvana"},{hi:"महापरिनिर्वाण से 3 महीने पहले",en:"3 months before Mahaparinirvana"},{hi:"महापरिनिर्वाण से 6 महीने पहले",en:"6 months before Mahaparinirvana"},{hi:"महापरिनिर्वाण के समय",en:"At Mahaparinirvana"}],a:1,
+ ex:{hi:"बुद्ध ने वैशाली में अपना अंतिम उपदेश महापरिनिर्वाण से 3 महीने पहले दिया। उन्होंने वैशाली में वर्षावास किया और यहीं से अपने महापरिनिर्वाण की भविष्यवाणी की। वे वैशाली से कुशीनगर की ओर गए, जहाँ उनका महापरिनिर्वाण हुआ।",en:"Buddha gave his last sermon at Vaishali 3 months before his Mahaparinirvana, where he had his vassavasa (rain retreat) and foretold his passing. He went from Vaishali to Kushinagar where he attained Mahaparinirvana."}},
+
+{q:{hi:"बुद्ध की प्रिय शिष्या और भिक्षुणी 'आम्रपाली' कौन थीं?",en:"Who was Amrapali, Buddha's beloved disciple and nun?"},
+ o:[{hi:"राजकुमारी",en:"Princess"},{hi:"वैशाली की नगरवधू",en:"Court dancer of Vaishali"},{hi:"बौद्ध भिक्षुणी",en:"Buddhist nun"},{hi:"व्यापारी",en:"Trader"}],a:1,
+ ex:{hi:"आम्रपाली वैशाली की प्रसिद्ध नगरवधू (court dancer) थीं। बुद्ध के उपदेश से प्रभावित होकर उन्होंने बौद्ध धर्म अपनाया और भिक्षुणी बनीं। उन्होंने बुद्ध को अपना आम का बाग दान कर दिया, जहाँ बुद्ध ने अंतिम उपदेश दिया।",en:"Amrapali was the famous court dancer of Vaishali who, moved by Buddha's teachings, embraced Buddhism and became a nun. She donated her mango grove to Buddha, where he gave his last sermon."}},
+
+{q:{hi:"बुद्ध के महापरिनिर्वाण के बाद उनके अवशेष कितने भागों में बाँटे गए?",en:"After Buddha's Mahaparinirvana, into how many parts were his relics divided?"},
+ o:[{hi:"4",en:"4"},{hi:"8",en:"8"},{hi:"10",en:"10"},{hi:"12",en:"12"}],a:1,
+ ex:{hi:"बुद्ध के महापरिनिर्वाण के बाद उनके अवशेष 8 भागों में बाँटे गए — जो 8 राज्यों को दिए गए — मगध, वैशाली, कपिलवस्तु, अल्लकप्प, रामग्राम, वेठदीप, पावा और कुशीनगर। वैशाली को भी अवशेष मिले, जहाँ स्तूप बना।",en:"After Buddha's Mahaparinirvana, his relics were divided into 8 parts for 8 kingdoms — Magadha, Vaishali, Kapilavastu, Allakappa, Ramagrama, Vethadipa, Pava and Kushinagar. Vaishali received a share and built a stupa."}},
+
+{q:{hi:"वैशाली में 'द्वितीय बौद्ध संगीति' किस शताब्दी में हुई?",en:"In which century was the 'Second Buddhist Council' held at Vaishali?"},
+ o:[{hi:"5वीं शताब्दी ईसा पूर्व",en:"5th century BCE"},{hi:"4थी शताब्दी ईसा पूर्व",en:"4th century BCE"},{hi:"3री शताब्दी ईसा पूर्व",en:"3rd century BCE"},{hi:"2री शताब्दी ईसा पूर्व",en:"2nd century BCE"}],a:1,
+ ex:{hi:"द्वितीय बौद्ध संगीति 383 ईसा पूर्व (4थी शताब्दी ईसा पूर्व) में वैशाली में हुई — कालाशोक के शासनकाल में। इसका कारण वैशाली के भिक्षुओं द्वारा 'दस अनुशासनहीन बातों' (Ten Points) का पालन था। इसमें बौद्ध संघ स्थविरवादी और महासांघिक में विभाजित हो गया।",en:"The Second Buddhist Council was held at Vaishali in 383 BCE (4th century BCE) during Kalashoka's reign, over the 'Ten Points' of lax discipline. The Sangha split into Sthaviravada and Mahasanghika."}},
+
+{q:{hi:"द्वितीय बौद्ध संगीति की अध्यक्षता किसने की?",en:"Who presided over the Second Buddhist Council?"},
+ o:[{hi:"महाकस्सप",en:"Mahakassapa"},{hi:"साबकामी",en:"Sabakami"},{hi:"रेवत",en:"Revata"},{hi:"मोग्गलिपुत्त तिस्स",en:"Moggaliputta Tissa"}],a:2,
+ ex:{hi:"द्वितीय बौद्ध संगीति की अध्यक्षता 'रेवत' (Revata) ने की। प्रथम बौद्ध संगीति की अध्यक्षता 'महाकस्सप' ने की थी। तृतीय की 'मोग्गलिपुत्त तिस्स' ने और चतुर्थ की 'वसुमित्र' ने।",en:"The Second Buddhist Council was presided over by 'Revata'. The First was led by Mahakassapa, the Third by Moggaliputta Tissa, and the Fourth by Vasumitra."}},
+
+{q:{hi:"वैशाली में बुद्ध ने किस 'सूत्र' का उपदेश दिया था?",en:"Which 'Sutra' did Buddha preach at Vaishali?"},
+ o:[{hi:"धम्मचक्कप्पवत्तन सुत्त",en:"Dhammachakkappavattana Sutta"},{hi:"महापरिनिब्बान सुत्त",en:"Mahaparinibbana Sutta"},{hi:"अंगुत्तर निकाय",en:"Anguttara Nikaya"},{hi:"मज्झिम निकाय",en:"Majjhima Nikaya"}],a:1,
+ ex:{hi:"बुद्ध ने वैशाली में 'महापरिनिब्बान सुत्त' का उपदेश दिया, जिसमें उन्होंने अपने आसन्न महापरिनिर्वाण की भविष्यवाणी की और भिक्षुओं को अंतिम उपदेश दिए। इसमें बुद्ध ने 'आत्मदीपो भव' (अपना दीपक स्वयं बनो) का संदेश दिया।",en:"At Vaishali, Buddha preached the 'Mahaparinibbana Sutta', foretelling his Mahaparinirvana and giving final teachings, including 'Attadipo Bhava' (Be your own lamp)."}},
+
+{q:{hi:"वैशाली में जैन धर्म के किस तीर्थंकर का संबंध है?",en:"Which Tirthankara of Jainism is associated with Vaishali?"},
+ o:[{hi:"ऋषभनाथ",en:"Rishabhanatha"},{hi:"पार्श्वनाथ",en:"Parshvanatha"},{hi:"महावीर",en:"Mahavira"},{hi:"नमिनाथ",en:"Naminatha"}],a:2,
+ ex:{hi:"वैशाली का संबंध महावीर (24वें तीर्थंकर) से है। उनका जन्म वैशाली के पास कुंडग्राम में हुआ था और उन्होंने ज्ञातृक गणराज्य में जन्म लिया। उन्होंने वैशाली क्षेत्र में 30 वर्षों तक जैन धर्म का प्रचार किया।",en:"Vaishali is associated with Mahavira (24th Tirthankara), born at Kundagram near Vaishali in the Jnatrika Republic. He propagated Jainism in the Vaishali region for 30 years."}},
+
+{q:{hi:"वैशाली में महावीर के जन्मस्थान को क्या कहा जाता है?",en:"What is Mahavira's birthplace at Vaishali called?"},
+ o:[{hi:"कुंडग्राम",en:"Kundagram"},{hi:"कुंडलवन",en:"Kundalvana"},{hi:"वैशाली ग्राम",en:"Vaishali Gram"},{hi:"ज्ञातृक",en:"Jnatrika"}],a:0,
+ ex:{hi:"महावीर का जन्मस्थान 'कुंडग्राम' (Kundagram) है, जो वैशाली के पास स्थित है। इसे 'कुंडलपुर' या 'वासोकुंड' भी कहा जाता है। यहाँ जैन धर्म के अनुयायी आज भी तीर्थयात्रा करते हैं।",en:"Mahavira's birthplace is 'Kundagram' near Vaishali, also called 'Kundalpur' or 'Vasokund'. Jains still visit here on pilgrimage."}},
+
+{q:{hi:"महावीर के शरीर त्याग को जैन परंपरा में क्या कहा जाता है?",en:"What is Mahavira's death called in Jain tradition?"},
+ o:[{hi:"निर्वाण",en:"Nirvana"},{hi:"कैवल्य",en:"Kaivalya"},{hi:"मोक्ष",en:"Moksha"},{hi:"महापरिनिर्वाण",en:"Mahaparinirvana"}],a:3,
+ ex:{hi:"महावीर के शरीर त्याग को जैन परंपरा में 'महापरिनिर्वाण' या 'निर्वाण' कहा जाता है। उनका महापरिनिर्वाण पावापुरी में हुआ। जैन धर्म में 'कैवल्य' का अर्थ सर्वज्ञता है — जो महावीर को 42 वर्ष की आयु में प्राप्त हुई।",en:"Mahavira's death is called 'Mahaparinirvana' or 'Nirvana' in Jain tradition, occurring at Pavapuri. 'Kaivalya' refers to omniscience, attained at age 42."}},
+
+{q:{hi:"वैशाली में बुद्ध ने कितने वर्षावास (वर्षा ऋतु) बिताए?",en:"How many vassavasa (rain retreats) did Buddha spend at Vaishali?"},
+ o:[{hi:"1",en:"1"},{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"5",en:"5"}],a:3,
+ ex:{hi:"बुद्ध ने वैशाली में 5 वर्षावास बिताए। वे अंतिम वर्षावास (महापरिनिर्वाण से पहले) वैशाली में ही रहे। वैशाली बुद्ध का प्रिय स्थान था — जहाँ उन्होंने अनेक महत्वपूर्ण उपदेश दिए।",en:"Buddha spent 5 rain retreats at Vaishali, including his last one before Mahaparinirvana. Vaishali was one of his favourite places where he gave many important sermons."}},
+
+{q:{hi:"वैशाली में 'चंपा' नगर का संबंध किससे था?",en:"'Champa' city near Vaishali was associated with which of the following?"},
+ o:[{hi:"अंग महाजनपद",en:"Anga Mahajanapada"},{hi:"वज्जि महाजनपद",en:"Vajji Mahajanapada"},{hi:"मगध महाजनपद",en:"Magadha Mahajanapada"},{hi:"कोशल महाजनपद",en:"Kosala Mahajanapada"}],a:0,
+ ex:{hi:"चंपा नगर अंग महाजनपद की राजधानी थी, जो वैशाली के पास स्थित था। अंग महाजनपद वज्जि संघ का हिस्सा बना और बाद में मगध साम्राज्य में मिला दिया गया। चंपा गंगा-चंपा संगम पर स्थित था।",en:"Champa was the capital of Anga Mahajanapada, near Vaishali. Anga became part of the Vajji confederacy and later Magadha, located at the Ganga-Champa confluence."}},
+
+/* ============ खंड C — वैशाली: अम्रपाली, अशोक और पुरातत्व (Q27–38) ============ */
+{q:{hi:"आम्रपाली किसकी प्रसिद्ध नगरवधू थीं?",en:"Amrapali was the famous court dancer of which city?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"चंपा",en:"Champa"}],a:2,
+ ex:{hi:"आम्रपाली वैशाली की प्रसिद्ध नगरवधू (court dancer) थीं। उन्हें 'वैशाली की नगरवधू' कहा जाता है। बुद्ध के उपदेश से प्रभावित होकर उन्होंने बौद्ध धर्म अपनाया और भिक्षुणी बनीं।",en:"Amrapali was the famous court dancer of Vaishali, called the 'Nagar Vadhu' of Vaishali. Moved by Buddha's teachings, she embraced Buddhism and became a nun."}},
+
+{q:{hi:"आम्रपाली ने बुद्ध को क्या दान किया?",en:"What did Amrapali donate to Buddha?"},
+ o:[{hi:"स्वर्ण",en:"Gold"},{hi:"आम का बाग",en:"Mango grove"},{hi:"हाथी",en:"Elephant"},{hi:"महल",en:"Palace"}],a:1,
+ ex:{hi:"आम्रपाली ने बुद्ध को अपना 'आम का बाग' (Amravana) दान कर दिया। इसी बाग में बुद्ध ने अपना अंतिम उपदेश दिया और यहीं से उन्होंने महापरिनिर्वाण की भविष्यवाणी की। यह बाग आज 'आम्रवन' नाम से जाना जाता है।",en:"Amrapali donated her mango grove (Amravana) to Buddha, where he gave his last sermon and foretold his Mahaparinirvana. It is known as 'Amravana' today."}},
+
+{q:{hi:"वैशाली में अशोक का स्तंभ किस पशु से सुशोभित है?",en:"Ashoka's pillar at Vaishali is adorned with which animal?"},
+ o:[{hi:"शेर",en:"Lion"},{hi:"हाथी",en:"Elephant"},{hi:"सिंह",en:"Lion"},{hi:"सिंह और हाथी"}],a:0,
+ ex:{hi:"वैशाली में अशोक का स्तंभ एक 'शेर' की मूर्ति से सुशोभित है। यह स्तंभ अभिषेक पुष्करिणी के पास स्थित है और इसकी ऊँचाई ~18.3 मीटर है। यह अशोक के स्तंभों में एकमात्र है जो एक ही शेर की मूर्ति से सुशोभित है (सारनाथ में चार शेर हैं)।",en:"Ashoka's pillar at Vaishali features a single lion, unlike Sarnath's four. Standing near Abhishek Pushkarini, it is ~18.3 m tall — the only Ashokan pillar with a single lion capital."}},
+
+{q:{hi:"अशोक का वैशाली स्तंभ किस भाषा में उत्कीर्ण है?",en:"In which language is Ashoka's Vaishali pillar inscribed?"},
+ o:[{hi:"संस्कृत",en:"Sanskrit"},{hi:"प्राकृत",en:"Prakrit"},{hi:"पाली",en:"Pali"},{hi:"अरामाइक",en:"Aramaic"}],a:1,
+ ex:{hi:"अशोक का वैशाली स्तंभ प्राकृत भाषा और ब्राह्मी लिपि में उत्कीर्ण है। इस पर अशोक का कोई विशेष अभिलेख नहीं है, लेकिन यह अशोक के स्तंभ स्थापित करने की परंपरा को दर्शाता है। यह स्तंभ संभवतः बुद्ध की वैशाली यात्रा की स्मृति में बनाया गया।",en:"Ashoka's Vaishali pillar is inscribed in Prakrit and Brahmi script. It has no specific edict but reflects Ashoka's tradition of installing pillars, likely commemorating Buddha's visit to Vaishali."}},
+
+{q:{hi:"वैशाली में 'राजा विशाल का गढ़' किस काल का है?",en:"'Raja Vishal's Fort' at Vaishali belongs to which period?"},
+ o:[{hi:"मौर्य काल",en:"Mauryan period"},{hi:"गुप्त काल",en:"Gupta period"},{hi:"प्राचीन लिच्छवी काल",en:"Ancient Lichchhavi period"},{hi:"मध्यकाल",en:"Medieval period"}],a:2,
+ ex:{hi:"'राजा विशाल का गढ़' प्राचीन लिच्छवी काल का है (6ठी शताब्दी ईसा पूर्व)। यह मिट्टी की विशाल दीवार है, जिसकी लंबाई लगभग 16 किमी थी। इसमें तीन परकोटे थे। यह वैशाली की प्राचीन नगर-रक्षा प्रणाली को दर्शाता है।",en:"'Raja Vishal's Fort' belongs to the ancient Lichchhavi period (6th century BCE). It is a massive earthen rampart ~16 km long with three concentric walls, reflecting Vaishali's ancient defence system."}},
+
+{q:{hi:"'बहु स्तूप' वैशाली में किसके लिए प्रसिद्ध है?",en:"Why is 'Bahu Stupa' at Vaishali famous?"},
+ o:[{hi:"बुद्ध का प्रतिबिंब",en:"Buddha's image"},{hi:"अशोक का अभिलेख",en:"Ashoka's edict"},{hi:"स्तूप की अनोखी संरचना",en:"Unique stupa structure"},{hi:"जैन मंदिर",en:"Jain temple"}],a:2,
+ ex:{hi:"'बहु स्तूप' (Bahu Stupa) वैशाली में एक विशाल स्तूप है, जिसके चारों ओर अनेक छोटे स्तूप हैं — इसलिए इसे 'बहु स्तूप' (कई स्तूप) कहा जाता है। इसकी खोज 1958 में हुई। इसे बुद्ध के अवशेषों के स्तूप के रूप में माना जाता है।",en:"'Bahu Stupa' is a large stupa with many smaller stupas around it, hence the name. Discovered in 1958, it is considered a relic stupa of Buddha."}},
+
+{q:{hi:"वैशाली संग्रहालय में क्या प्रदर्शित है?",en:"What is exhibited in the Vaishali Museum?"},
+ o:[{hi:"केवल सिक्के",en:"Only coins"},{hi:"मूर्तियाँ, बर्तन, सिक्के, हथियार",en:"Sculptures, pottery, coins, weapons"},{hi:"केवल हथियार",en:"Only weapons"},{hi:"केवल मूर्तियाँ",en:"Only sculptures"}],a:1,
+ ex:{hi:"वैशाली संग्रहालय में प्राचीन मूर्तियाँ, मिट्टी के बर्तन, ताँबे के सिक्के, हथियार, आभूषण, और अन्य पुरातात्विक वस्तुएँ प्रदर्शित हैं — जो मौर्य, शुंग, कुषाण और गुप्त काल की हैं। यह संग्रहालय वैशाली के इतिहास को प्रकाशित करता है।",en:"The Vaishali Museum exhibits ancient sculptures, pottery, copper coins, weapons, ornaments and other artefacts from the Mauryan, Shunga, Kushana and Gupta periods."}},
+
+{q:{hi:"वैशाली की खोज किस ब्रिटिश पुरातत्ववेत्ता ने की?",en:"Which British archaeologist discovered Vaishali?"},
+ o:[{hi:"अलेक्जेंडर कनिंघम",en:"Alexander Cunningham"},{hi:"जॉन मार्शल",en:"John Marshall"},{hi:"मोर्टिमर व्हीलर",en:"Mortimer Wheeler"},{hi:"जेम्स प्रिंसेप",en:"James Prinsep"}],a:0,
+ ex:{hi:"वैशाली की खोज 1861 में ब्रिटिश पुरातत्ववेत्ता 'अलेक्जेंडर कनिंघम' ने की — जिन्हें 'भारतीय पुरातत्व का जनक' कहा जाता है। उन्होंने वैशाली की पहचान प्राचीन लिच्छवी गणराज्य की राजधानी के रूप में की।",en:"Vaishali was identified in 1861 by British archaeologist Alexander Cunningham, 'Father of Indian Archaeology', who recognised it as the Lichchhavi capital."}},
+
+{q:{hi:"वैशाली में 'कोरोनेशन टैंक' का दूसरा नाम क्या है?",en:"What is the other name for the 'Coronation Tank' at Vaishali?"},
+ o:[{hi:"अभिषेक पुष्करिणी",en:"Abhishek Pushkarini"},{hi:"आम्रवन",en:"Amravana"},{hi:"बहु सरोवर",en:"Bahu Sarovar"},{hi:"गंडक ताल",en:"Gandak Taal"}],a:0,
+ ex:{hi:"'कोरोनेशन टैंक' का दूसरा नाम 'अभिषेक पुष्करिणी' है। यह वैशाली में स्थित एक प्राचीन तालाब है, जहाँ लिच्छवी शासकों का राज्याभिषेक होता था। इसके पास अशोक का स्तंभ स्थित है।",en:"The 'Coronation Tank' is also called 'Abhishek Pushkarini', an ancient tank at Vaishali where Lichchhavi rulers were crowned. Ashoka's pillar stands nearby."}},
+
+{q:{hi:"वैशाली में 'विश्व शांति स्तूप' कहाँ स्थित है?",en:"Where is the 'Vishwa Shanti Stupa' located in Vaishali?"},
+ o:[{hi:"राजगीर में",en:"At Rajgir"},{hi:"वैशाली में",en:"At Vaishali"},{hi:"नालंदा में",en:"At Nalanda"},{hi:"बोधगया में",en:"At Bodh Gaya"}],a:1,
+ ex:{hi:"'विश्व शांति स्तूप' वैशाली में स्थित है — जिसका निर्माण 1996 में जापान के 'निप्पोज़न म्योहोजी' संप्रदाय द्वारा कराया गया। यह बुद्ध के अंतिम उपदेश की स्मृति में बनाया गया। राजगीर में भी विश्व शांति स्तूप है, जो 1969 में बना।",en:"'Vishwa Shanti Stupa' at Vaishali was built in 1996 by Japan's Nipponzan Myohoji sect, commemorating Buddha's last sermon. Rajgir has another Vishwa Shanti Stupa (1969)."}},
+
+{q:{hi:"वैशाली के 'कुंडग्राम' में किसका मंदिर है?",en:"Whose temple is at 'Kundagram' in Vaishali?"},
+ o:[{hi:"महावीर",en:"Mahavira"},{hi:"बुद्ध",en:"Buddha"},{hi:"अशोक",en:"Ashoka"},{hi:"राम",en:"Rama"}],a:0,
+ ex:{hi:"कुंडग्राम (वैशाली के पास) में महावीर का जन्मस्थल है और यहाँ 'जल मंदिर' (Jal Mandir) स्थित है। इसे 'त्रिशला स्थान' भी कहा जाता है — महावीर की माता त्रिशला के नाम पर। यह जैन धर्म का प्रमुख तीर्थ स्थल है।",en:"Kundagram (near Vaishali) is Mahavira's birthplace with the 'Jal Mandir', also called 'Trishla Sthan' after his mother Trishala — a major Jain pilgrimage site."}},
+
+{q:{hi:"वैशाली में 'अशोक स्तंभ' की ऊँचाई कितनी है?",en:"What is the height of the 'Ashoka Pillar' at Vaishali?"},
+ o:[{hi:"~12 मीटर",en:"~12 m"},{hi:"~15 मीटर",en:"~15 m"},{hi:"~18.3 मीटर",en:"~18.3 m"},{hi:"~22 मीटर",en:"~22 m"}],a:2,
+ ex:{hi:"वैशाली में अशोक स्तंभ की ऊँचाई ~18.3 मीटर (60 फीट) है। यह अभिषेक पुष्करिणी के पास स्थित है और एक शेर की मूर्ति से सुशोभित है। यह अशोक के स्तंभों में एक अनोखा उदाहरण है, क्योंकि इसमें केवल एक शेर है।",en:"Ashoka's pillar at Vaishali is ~18.3 m (60 ft) tall, near Abhishek Pushkarini, topped with a single lion — a unique example among Ashokan pillars."}},
+
+{q:{hi:"वैशाली में 'रामभर स्तूप' का संबंध किससे है?",en:"'Ramabhar Stupa' at Vaishali is associated with which of the following?"},
+ o:[{hi:"बुद्ध के महापरिनिर्वाण",en:"Buddha's Mahaparinirvana"},{hi:"महावीर के महापरिनिर्वाण",en:"Mahavira's Mahaparinirvana"},{hi:"अशोक के अभिषेक",en:"Ashoka's coronation"},{hi:"अम्रपाली के नृत्य",en:"Amrapali's dance"}],a:1,
+ ex:{hi:"'रामभर स्तूप' वैशाली में स्थित है और इसे महावीर के महापरिनिर्वाण स्थल से जोड़ा जाता है। हालांकि कुछ विद्वान इसे बुद्ध के अवशेषों से जोड़ते हैं। वैशाली में कई स्तूप हैं — बहु स्तूप, आनंद स्तूप और रामभर स्तूप प्रमुख हैं।",en:"'Ramabhar Stupa' at Vaishali is associated with Mahavira's Mahaparinirvana (some scholars link it to Buddha's relics). Vaishali has several stupas — Bahu, Ananda and Ramabhar being key."}},
+
+{q:{hi:"वैशाली में 'अशोक स्तंभ' का निर्माण किस वर्ष हुआ?",en:"In which year was the 'Ashoka Pillar' at Vaishali built?"},
+ o:[{hi:"~250 ईसा पूर्व",en:"~250 BCE"},{hi:"~200 ईसा पूर्व",en:"~200 BCE"},{hi:"~300 ईसा पूर्व",en:"~300 BCE"},{hi:"~150 ईसा पूर्व",en:"~150 BCE"}],a:0,
+ ex:{hi:"वैशाली में अशोक स्तंभ का निर्माण लगभग 250 ईसा पूर्व में हुआ — अशोक के शासनकाल के दौरान। यह बुद्ध की वैशाली यात्रा की स्मृति में बनाया गया माना जाता है। अशोक ने अपने शासनकाल में कई स्तंभ स्थापित किए — सारनाथ, वैशाली, लौरिया आदि में।",en:"The Ashoka pillar at Vaishali was built around 250 BCE during Ashoka's reign, commemorating Buddha's visit. Ashoka erected several pillars at Sarnath, Vaishali and Lauriya."}},
+
+/* ============ खंड D — वैशाली: आधुनिक जिला और विरासत (Q39–50) ============ */
+{q:{hi:"वैशाली बिहार का कौन-सा जिला है?",en:"Vaishali is which district of Bihar?"},
+ o:[{hi:"प्रमंडल",en:"Division"},{hi:"जिला",en:"District"},{hi:"अनुमंडल",en:"Sub-division"},{hi:"प्रखंड",en:"Block"}],a:1,
+ ex:{hi:"वैशाली बिहार का एक जिला है, जो 'तिरहुत प्रमंडल' में आता है। इसका मुख्यालय 'हाजीपुर' में है। वैशाली जिला 1972 में पटना और मुज़फ़्फ़रपुर जिलों के कुछ हिस्सों को मिलाकर बनाया गया था।",en:"Vaishali is a district of Bihar under Tirhut Division, headquartered at Hajipur. It was created in 1972 from parts of Patna and Muzaffarpur districts."}},
+
+{q:{hi:"वैशाली जिले का मुख्यालय कहाँ है?",en:"Where is the headquarters of Vaishali district?"},
+ o:[{hi:"वैशाली",en:"Vaishali"},{hi:"हाजीपुर",en:"Hajipur"},{hi:"लालगंज",en:"Lalganj"},{hi:"महुआ",en:"Mahua"}],a:1,
+ ex:{hi:"वैशाली जिले का मुख्यालय 'हाजीपुर' में है। हाजीपुर बिहार का एक प्रमुख शहर है — जो गंडक नदी के तट पर स्थित है और पटना से महात्मा गांधी सेतु द्वारा जुड़ा है। यह केले के उत्पादन के लिए प्रसिद्ध है।",en:"Vaishali district's headquarters is at Hajipur, on the Gandak river, connected to Patna by the Mahatma Gandhi Setu — famous for banana production."}},
+
+{q:{hi:"वैशाली जिले का क्षेत्रफल कितना है?",en:"What is the area of Vaishali district?"},
+ o:[{hi:"~1,500 वर्ग किमी",en:"~1,500 sq km"},{hi:"~2,036 वर्ग किमी",en:"~2,036 sq km"},{hi:"~2,500 वर्ग किमी",en:"~2,500 sq km"},{hi:"~3,000 वर्ग किमी",en:"~3,000 sq km"}],a:1,
+ ex:{hi:"वैशाली जिले का क्षेत्रफल लगभग 2,036 वर्ग किमी है। यह बिहार के उत्तर-मध्य भाग में स्थित है। जिले की सीमाएँ पटना, सारण, मुज़फ़्फ़रपुर, समस्तीपुर और दरभंगा जिलों से मिलती हैं।",en:"Vaishali district covers about 2,036 sq km in north-central Bihar, bordered by Patna, Saran, Muzaffarpur, Samastipur and Darbhanga districts."}},
+
+{q:{hi:"वैशाली जिले में कितने प्रखंड हैं?",en:"How many blocks are there in Vaishali district?"},
+ o:[{hi:"12",en:"12"},{hi:"14",en:"14"},{hi:"16",en:"16"},{hi:"18",en:"18"}],a:2,
+ ex:{hi:"वैशाली जिले में 16 प्रखंड हैं — जिनमें हाजीपुर, वैशाली, लालगंज, महुआ, पातेपुर, बिदुपुर, राजापाकर, देशरी, चेहराकला, राघोपुर, सहदेई बुज़ुर्ग, भगवानपुर, जंदाहा, करतारपुर, गोरौल और पटेढ़ी बेलसर शामिल हैं।",en:"Vaishali district has 16 blocks including Hajipur, Vaishali, Lalganj, Mahua, Patepur, Bidupur, Rajapakar, Desri, Chehrakala, Raghopur, Sahdei Buzurg, Bhagwanpur, Jandaha, Kartarpur, Goraul and Patedhi Belsar."}},
+
+{q:{hi:"वैशाली में किस प्रसिद्ध मेले का आयोजन होता है?",en:"Which famous fair is held at Vaishali?"},
+ o:[{hi:"सोनपुर मेला",en:"Sonepur Fair"},{hi:"वैशाली महोत्सव",en:"Vaishali Mahotsav"},{hi:"पितृपक्ष मेला",en:"Pitrapaksha Mela"},{hi:"सामा-चकेवा",en:"Sama-Chakeva"}],a:1,
+ ex:{hi:"वैशाली में प्रतिवर्ष 'वैशाली महोत्सव' का आयोजन होता है — जो बुद्ध के अंतिम उपदेश की स्मृति में मनाया जाता है। यह अप्रैल-मई में आयोजित होता है और इसमें बौद्ध अनुयायी विश्व भर से भाग लेते हैं।",en:"Vaishali hosts the annual 'Vaishali Mahotsav' commemorating Buddha's last sermon, held in April–May with Buddhists from around the world."}},
+
+{q:{hi:"वैशाली की 'गंडक नदी' किस लिए प्रसिद्ध है?",en:"Vaishali's 'Gandak river' is famous for which of the following?"},
+ o:[{hi:"मछली पालन",en:"Fisheries"},{hi:"डॉल्फिन",en:"Dolphins"},{hi:"पर्यटन",en:"Tourism"},{hi:"सिंचाई",en:"Irrigation"}],a:1,
+ ex:{hi:"वैशाली की गंडक नदी 'गंगा डॉल्फिन' के लिए प्रसिद्ध है — जो भारत का राष्ट्रीय जलीय जीव है। गंडक नदी में डॉल्फिन की संख्या अधिक है। 2020 में इसे 'गंडक डॉल्फिन अभयारण्य' के रूप में घोषित किया गया।",en:"Vaishali's Gandak river is famous for the Ganga Dolphin, India's national aquatic animal. It hosts significant numbers, and the 'Gandak Dolphin Sanctuary' was declared in 2020."}},
+
+{q:{hi:"वैशाली जिले की प्रमुख फसल कौन-सी है?",en:"What is the main crop of Vaishali district?"},
+ o:[{hi:"गेहूँ",en:"Wheat"},{hi:"केला",en:"Banana"},{hi:"गन्ना",en:"Sugarcane"},{hi:"धान"}],a:1,
+ ex:{hi:"वैशाली जिला (विशेषकर हाजीपुर) 'केला' उत्पादन के लिए प्रसिद्ध है। इसे 'केले का कटोरा' कहा जाता है। यहाँ केले की अनेक किस्में उगाई जाती हैं और यह बिहार के प्रमुख कृषि-निर्यात में से है। साथ ही धान, गेहूँ, गन्ना और दलहन भी उगाई जाती हैं।",en:"Vaishali district (especially Hajipur) is famous for banana production, called the 'Banana Bowl', with many varieties grown. Rice, wheat, sugarcane and pulses are also cultivated."}},
+
+{q:{hi:"वैशाली में किस प्रसिद्ध बौद्ध स्तूप का निर्माण किया गया?",en:"Which famous Buddhist stupa was built at Vaishali?"},
+ o:[{hi:"सांची स्तूप",en:"Sanchi Stupa"},{hi:"धमेख स्तूप",en:"Dhamek Stupa"},{hi:"बहु स्तूप",en:"Bahu Stupa"},{hi:"रामभर स्तूप",en:"Ramabhar Stupa"}],a:2,
+ ex:{hi:"वैशाली में 'बहु स्तूप' का निर्माण किया गया — जो बुद्ध के अवशेषों के लिए बना है। इसके चारों ओर अनेक छोटे स्तूप हैं। इसका निर्माण मौर्य काल में हुआ और बाद में इसे कुषाण और गुप्त काल में विकसित किया गया।",en:"'Bahu Stupa' at Vaishali was built for Buddha's relics, with many smaller stupas around it — built in Mauryan times and developed under Kushana and Gupta rule."}},
+
+{q:{hi:"वैशाली में 'अम्रपाली' के नाम पर किस स्थल का नाम है?",en:"Which site is named after 'Amrapali' at Vaishali?"},
+ o:[{hi:"आम्रवन",en:"Amravana"},{hi:"अम्रपाली महल",en:"Amrapali Palace"},{hi:"अम्रपाली स्तूप",en:"Amrapali Stupa"},{hi:"अम्रपाली उद्यान",en:"Amrapali Garden"}],a:0,
+ ex:{hi:"आम्रपाली के आम के बाग को 'आम्रवन' (Amravana) कहा जाता है, जहाँ बुद्ध ने अपना अंतिम उपदेश दिया। यह वैशाली के प्रमुख बौद्ध स्थलों में से एक है। कुछ विद्वानों के अनुसार यह वही स्थान है जहाँ बुद्ध ने 'महापरिनिब्बान सुत्त' का उपदेश दिया।",en:"Amrapali's mango grove is called 'Amravana', where Buddha gave his last sermon — a major Buddhist site at Vaishali, believed to be where he preached the Mahaparinibbana Sutta."}},
+
+{q:{hi:"वैशाली किस प्रमंडल में स्थित है?",en:"Vaishali is located in which division?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"तिरहुत",en:"Tirhut"},{hi:"सारण",en:"Saran"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"वैशाली जिला 'तिरहुत प्रमंडल' में स्थित है। तिरहुत प्रमंडल के अंतर्गत आने वाले जिले हैं — मुज़फ़्फ़रपुर, वैशाली, सीतामढ़ी, शिवहर, पूर्वी चंपारण और पश्चिम चंपारण। तिरहुत का मुख्यालय मुज़फ़्फ़रपुर है।",en:"Vaishali district is under Tirhut Division, comprising Muzaffarpur, Vaishali, Sitamarhi, Sheohar, East Champaran and West Champaran, headquartered at Muzaffarpur."}},
+
+{q:{hi:"वैशाली जिले की सीमा कितने जिलों से मिलती है?",en:"Vaishali district shares its boundary with how many districts?"},
+ o:[{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"}],a:2,
+ ex:{hi:"वैशाली जिले की सीमा 5 जिलों से मिलती है — पटना (दक्षिण), सारण (पश्चिम), मुज़फ़्फ़रपुर (उत्तर), समस्तीपुर (उत्तर-पूर्व) और दरभंगा (पूर्व)। इसके अलावा, गंगा नदी पटना से सीमा बनाती है।",en:"Vaishali borders 5 districts — Patna (south), Saran (west), Muzaffarpur (north), Samastipur (north-east) and Darbhanga (east), with the Ganga forming the Patna boundary."}},
+
+{q:{hi:"वैशाली में 'पातेपुर' किस लिए प्रसिद्ध है?",en:"Why is 'Patepur' in Vaishali famous?"},
+ o:[{hi:"बौद्ध स्तूप",en:"Buddhist stupa"},{hi:"प्राचीन मूर्तियाँ",en:"Ancient sculptures"},{hi:"पुरातात्विक स्थल",en:"Archaeological site"},{hi:"जैन मंदिर",en:"Jain temple"}],a:2,
+ ex:{hi:"पातेपुर (वैशाली जिला) एक प्रमुख पुरातात्विक स्थल है — जहाँ से प्राचीन मूर्तियाँ, मिट्टी के बर्तन और अन्य अवशेष मिले हैं। यह वैशाली की प्राचीन सभ्यता को प्रकाशित करता है। यहाँ से कुषाण और गुप्त काल की मूर्तियाँ प्राप्त हुई हैं।",en:"Patepur (Vaishali district) is a major archaeological site yielding ancient sculptures, pottery and other remains, illuminating Vaishali's ancient civilisation, including Kushana and Gupta sculptures."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! वैशाली पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Vaishali is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। वैशाली के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the Vaishali facts and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
