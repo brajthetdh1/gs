@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>बिहार का भूगोल और प्राचीन स्थल — 50 प्रश्न | Bihar Geography & Old Places</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#01579b,#0277bd);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#b3e5fc;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#b3e5fc;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#b3e5fc);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e1f5fe;color:#01579b;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🗺️ बिहार का भूगोल और प्राचीन स्थल — 50 प्रश्न
+              <small>Bihar Geography & Old Places · BPSC Special</small>
+              <small id="sectionLabel">खंड A — बिहार के प्राचीन नाम और स्थल</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   बिहार का भूगोल और प्राचीन स्थल — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — बिहार के प्राचीन नाम और स्थल", en:"Section A — Ancient Names & Sites of Bihar"},
+  {hi:"खंड B — बिहार की भौगोलिक संरचना", en:"Section B — Physical Features of Bihar"},
+  {hi:"खंड C — बिहार की नदियाँ और जल निकाय", en:"Section C — Rivers & Water Bodies of Bihar"},
+  {hi:"खंड D — बिहार के जिले और प्रमंडल", en:"Section D — Districts & Divisions of Bihar"},
+  {hi:"खंड E — बिहार के प्रमुख पर्यटन और धार्मिक स्थल", en:"Section E — Major Tourist & Religious Sites"}
+];
+const SECTION_STARTS = [0, 12, 22, 32, 42];
+
+const QUESTIONS = [
+/* ============ खंड A — बिहार के प्राचीन नाम और स्थल (Q1–12) ============ */
+{q:{hi:"पटना का प्राचीन नाम क्या था?",en:"What was the ancient name of Patna?"},
+ o:[{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"कुसुमपुर",en:"Kusumpur"},{hi:"अजीमाबाद",en:"Azimabad"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"पटना के कई प्राचीन नाम रहे — (1) 'पाटलिपुत्र' (मौर्य काल), (2) 'कुसुमपुर' (गुप्त काल), (3) 'अजीमाबाद' (मुगल काल, 1704 ई.)। पाटलिपुत्र मौर्य और गुप्त साम्राज्य की राजधानी थी। मुगल काल में शहजादे आजिम-उश-शान ने इसे 'अजीमाबाद' कहा। 1912 में इसका नाम फिर 'पटना' कर दिया गया।",en:"Patna had many ancient names — 'Pataliputra' (Mauryan), 'Kusumpur' (Gupta) and 'Azimabad' (Mughal, 1704 CE). It was the capital of the Maurya and Gupta empires; the Mughal prince Azim-ush-Shan renamed it, and in 1912 it was restored to 'Patna'."}},
+
+{q:{hi:"बोधगया का प्राचीन नाम क्या था?",en:"What was the ancient name of Bodh Gaya?"},
+ o:[{hi:"उरुवेला",en:"Uruvela"},{hi:"सम्बोधि",en:"Sambodhi"},{hi:"वज्रासन",en:"Vajrasana"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बोधगया के प्राचीन नाम — (1) 'उरुवेला' (बुद्ध के समय का गाँव), (2) 'सम्बोधि' (ज्ञान प्राप्ति के बाद), (3) 'वज्रासन' (जहाँ बुद्ध ने ध्यान किया — बोधि वृक्ष के नीचे का स्थान)। यहाँ बुद्ध को 528 ईसा पूर्व में ज्ञान की प्राप्ति हुई। महाबोधि मंदिर यहाँ स्थित है — यूनेस्को विश्व धरोहर स्थल।",en:"Bodh Gaya's ancient names — 'Uruvela' (Buddha's village), 'Sambodhi' (after enlightenment) and 'Vajrasana' (the seat of enlightenment under the Bodhi tree). Buddha attained enlightenment here in 528 BCE; the Mahabodhi Temple is a UNESCO site."}},
+
+{q:{hi:"राजगीर का प्राचीन नाम क्या था?",en:"What was the ancient name of Rajgir?"},
+ o:[{hi:"राजगृह",en:"Rajagriha"},{hi:"गिरिव्रज",en:"Girivraja"},{hi:"बराहगिरि",en:"Varahagiri"},{hi:"दोनों (राजगृह और गिरिव्रज)",en:"Both (Rajagriha and Girivraja)"}],a:3,
+ ex:{hi:"राजगीर का प्राचीन नाम 'राजगृह' और 'गिरिव्रज' — दोनों था। यह मगध साम्राज्य की प्रथम राजधानी थी और पाँच पहाड़ियों से घिरा अभेद्य नगर था। बुद्ध और महावीर दोनों की साधना स्थली रही। प्रथम बौद्ध संगीति यहाँ हुई। 'गिरिव्रज' का अर्थ 'पहाड़ी बाड़ों से घिरा नगर' है।",en:"Rajgir was anciently known as both 'Rajagriha' and 'Girivraja', Magadha's first capital — a city surrounded by five hills, a meditation site for Buddha and Mahavira, and venue of the First Buddhist Council."}},
+
+{q:{hi:"'बिहार' नाम की उत्पत्ति किस शब्द से हुई?",en:"The name 'Bihar' is derived from which word?"},
+ o:[{hi:"विहार (बौद्ध मठ)",en:"Vihara (Buddhist monastery)"},{hi:"बिहारी",en:"Bihari"},{hi:"बहार",en:"Bahar"},{hi:"विहारा नदी",en:"Vihara river"}],a:0,
+ ex:{hi:"'बिहार' नाम संस्कृत के 'विहार' शब्द से आया है, जिसका अर्थ 'बौद्ध मठ' या 'बौद्ध विहार' है। प्राचीन काल में इस क्षेत्र में अनेक बौद्ध विहार थे — जिनमें नालंदा, विक्रमशिला, ओदंतपुरी प्रमुख थे। मुस्लिम काल में बख्तियार खिलजी ने ओदंतपुरी (बिहार शरीफ) को केंद्र बनाया और 'बिहार' नाम प्रचलित हुआ।",en:"The name 'Bihar' comes from Sanskrit 'Vihara' — a Buddhist monastery. The region had many viharas — Nalanda, Vikramshila, Odantapuri. During the Muslim period, Bakhtiyar Khilji centred at Odantapuri (Bihar Sharif), popularising 'Bihar'."}},
+
+{q:{hi:"'बिहार शरीफ' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Bihar Sharif'?"},
+ o:[{hi:"ओदंतपुरी",en:"Odantapuri"},{hi:"नालंदा",en:"Nalanda"},{hi:"राजगृह",en:"Rajagriha"},{hi:"अपराजित",en:"Aparajita"}],a:0,
+ ex:{hi:"'बिहार शरीफ' (नालंदा जिला) का प्राचीन नाम 'ओदंतपुरी' था। यह एक प्रमुख बौद्ध महाविहार था, जिसे 1193 ई. में बख्तियार खिलजी ने नष्ट किया। बाद में यह 'बिहार' नाम से जाना जाने लगा और सूफी संत मखदूम शरफुद्दीन याहिया मनेरी की दरगाह के कारण 'बिहार शरीफ' कहलाया। यह नालंदा जिले का मुख्यालय है।",en:"'Bihar Sharif' (Nalanda district) was anciently 'Odantapuri', a major Buddhist Mahavihara destroyed by Bakhtiyar Khilji in 1193 CE. Later called 'Bihar' and, due to Sufi saint Makhdoom Sharfuddin Yahiya Maneri's dargah, 'Bihar Sharif' — now Nalanda's headquarters."}},
+
+{q:{hi:"'वैशाली' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Vaishali'?"},
+ o:[{hi:"विशाला",en:"Vishala"},{hi:"वज्जि",en:"Vajji"},{hi:"विदेह",en:"Videha"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"वैशाली के प्राचीन नाम — (1) 'विशाला' (राजा विशाल के नाम पर), (2) 'वज्जि' (वज्जि संघ की राजधानी), (3) 'विदेह' (राजा जनक की राजधानी)। वैशाली को 'विश्व का पहला गणतंत्र' माना जाता है। महावीर का जन्म यहाँ के कुंडग्राम में हुआ और द्वितीय बौद्ध संगीति भी यहीं हुई।",en:"Vaishali's ancient names — 'Vishala' (after King Vishala), 'Vajji' (capital of the Vajji confederacy) and 'Videha' (King Janaka's capital). Vaishali is called the 'world's first republic'; Mahavira was born at Kundagram here and the Second Buddhist Council was held here."}},
+
+{q:{hi:"'मुंगेर' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Munger'?"},
+ o:[{hi:"मुद्गलपुर",en:"Mudgalpur"},{hi:"मुद्गल",en:"Mudgala"},{hi:"मुंगेरिका",en:"Mungerika"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"'मुंगेर' (बिहार) का प्राचीन नाम 'मुद्गलपुर' या 'मुद्गल' था — जो ऋषि मुद्गल के नाम पर पड़ा। इसे 'मुंगेरिका' भी कहा जाता था। मुंगेर प्राचीन काल से सामरिक महत्व का केंद्र था, जो गंगा के तट पर स्थित है। मुगल काल में यहाँ का किला प्रसिद्ध था। मुंगेर को 'योग नगरी' भी कहा जाता है — बिहार स्कूल ऑफ योग की स्थापना 1964 में यहीं हुई।",en:"'Munger' (Bihar) was anciently 'Mudgalpur' or 'Mudgala', named after sage Mudgala — also called 'Mungerika'. A strategic Ganga-bank centre, its Mughal-era fort was famous. Munger is called 'Yoga Nagari' — Bihar School of Yoga was founded here in 1964."}},
+
+{q:{hi:"'भागलपुर' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Bhagalpur'?"},
+ o:[{hi:"चंपा (चंपापुरी)",en:"Champa (Champapuri)"},{hi:"अंग",en:"Anga"},{hi:"मुद्गल",en:"Mudgala"},{hi:"उपरोक्त सभी नहीं",en:"None of the above"}],a:0,
+ ex:{hi:"'भागलपुर' का प्राचीन नाम 'चंपा' (चंपापुरी) था — जो अंग महाजनपद की राजधानी थी। यह गंगा-चंपा संगम पर स्थित था। चंपा को 'चंपापुरी' भी कहा जाता था और यहाँ अंग राजा कर्ण का शासन था। भागलपुर को 'सिल्क सिटी' भी कहा जाता है — टसर रेशम उत्पादन के लिए प्रसिद्ध। बुद्ध और महावीर दोनों ने चंपा का दौरा किया था।",en:"'Bhagalpur' was anciently 'Champa' (Champapuri), capital of the Anga Mahajanapada at the Ganga-Champa confluence, ruled by King Karna. Bhagalpur is also called 'Silk City' for Tussar silk; Buddha and Mahavira both visited Champa."}},
+
+{q:{hi:"'सासाराम' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Sasaram'?"},
+ o:[{hi:"सहस्राम",en:"Sahasram"},{hi:"सासाराम",en:"Sasaram"},{hi:"रोहतासगढ़",en:"Rohtasgarh"},{hi:"उपरोक्त सभी नहीं",en:"None of the above"}],a:0,
+ ex:{hi:"'सासाराम' (रोहतास जिला, बिहार) का प्राचीन नाम 'सहस्राम' माना जाता है — जिसका अर्थ 'हज़ारों का नगर' है। यह शेरशाह सूरी का जन्मस्थान है (1472 ई.) और उनका मकबरा यहीं स्थित है — जिसे 'भारत का ताजमहल' कहा जाता है। सासाराम के पास 'रोहतासगढ़ किला' है — जो शेरशाह के समय का प्रसिद्ध किला है।",en:"'Sasaram' (Rohtas district, Bihar) was anciently 'Sahasram', meaning 'city of thousands'. It is Sher Shah Suri's birthplace (1472 CE) and site of his tomb — the 'Taj Mahal of India'. Nearby is 'Rohtasgarh Fort', famous from Sher Shah's time."}},
+
+{q:{hi:"'बक्सर' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Buxar'?"},
+ o:[{hi:"व्याघ्रसर",en:"Vyaghrasar"},{hi:"बक्सर",en:"Buxar"},{hi:"सिद्धाश्रम",en:"Siddhashram"},{hi:"उपरोक्त सभी नहीं",en:"None of the above"}],a:0,
+ ex:{hi:"'बक्सर' (बिहार) का प्राचीन नाम 'व्याघ्रसर' था — जिसका अर्थ 'बाघों का तालाब' है। यह गंगा के तट पर स्थित है और 'बक्सर का युद्ध' (1764 ई.) के लिए प्रसिद्ध है — जिसमें अंग्रेजों ने मीर कासिम, शुजा-उद-दौला और शाह आलम-II की संयुक्त सेना को हराया। यहाँ 'सीता राम मंदिर' और 'बिहार का मिनी ताजमहल' भी है।",en:"'Buxar' (Bihar) was anciently 'Vyaghrasar' ('tank of tigers'), on the Ganga's bank. It is famous for the 'Battle of Buxar' (1764 CE), where the British defeated Mir Qasim, Shuja-ud-Daulah and Shah Alam II. The Sita Ram Mandir and a 'mini Taj Mahal of Bihar' are here."}},
+
+{q:{hi:"'गया' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Gaya'?"},
+ o:[{hi:"गयापुरी",en:"Gayapuri"},{hi:"ब्रह्मगया",en:"Brahmagaya"},{hi:"गयाशीर्ष",en:"Gayashirsha"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"'गया' (बिहार) के प्राचीन नाम — (1) 'गयापुरी', (2) 'ब्रह्मगया', (3) 'गयाशीर्ष'। गया हिंदू धर्म का प्रमुख तीर्थ स्थल है — जहाँ पितृपक्ष में पिंडदान किया जाता है। यहाँ 'विष्णुपद मंदिर' (जहाँ विष्णु का पदचिह्न है) और 'बोधगया' (जहाँ बुद्ध को ज्ञान प्राप्त हुआ) स्थित है। गया का नाम 'गयासुर' राक्षस के नाम पर पड़ा।",en:"'Gaya' (Bihar) was anciently called 'Gayapuri', 'Brahmagaya' and 'Gayashirsha'. A major Hindu pilgrimage for Pind Daan during Pitrapaksha, it houses the Vishnupad Temple and Bodh Gaya. The name comes from the demon 'Gayasura'."}},
+
+{q:{hi:"'नालंदा' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Nalanda'?"},
+ o:[{hi:"नालंदा (वही नाम)",en:"Nalanda (same name)"},{hi:"नलंदा विहार",en:"Nalanda Vihara"},{hi:"नालंदा महाविहार",en:"Nalanda Mahavihara"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"'नालंदा' का नाम प्राचीन काल से 'नालंदा' ही था — जो 'नाल' (जल/कमल) और 'दा' (देने वाला) से बना है। इसे 'नालंदा विहार' या 'नालंदा महाविहार' कहा जाता था। यह विश्व का प्राचीनतम आवासीय विश्वविद्यालय था (5वीं शताब्दी ई.)। कुमारगुप्त प्रथम ने इसकी स्थापना की और 1193 ई. में बख्तियार खिलजी ने इसे नष्ट किया। 2014 में इसका पुनर्निर्माण हुआ।",en:"'Nalanda' retains its ancient name, from 'Nala' (water/lotus) and 'Da' (giver). Also called 'Nalanda Vihara' or 'Nalanda Mahavihara', it was the world's oldest residential university (5th century CE), founded by Kumaragupta I and destroyed by Bakhtiyar Khilji in 1193 CE; re-established in 2014."}},
+
+/* ============ खंड B — बिहार की भौगोलिक संरचना (Q13–22) ============ */
+{q:{hi:"बिहार का कुल क्षेत्रफल कितना है?",en:"What is the total area of Bihar?"},
+ o:[{hi:"~84,000 वर्ग किमी",en:"~84,000 sq km"},{hi:"~94,163 वर्ग किमी",en:"~94,163 sq km"},{hi:"~1,04,000 वर्ग किमी",en:"~1,04,000 sq km"},{hi:"~1,14,000 वर्ग किमी",en:"~1,14,000 sq km"}],a:1,
+ ex:{hi:"बिहार का कुल क्षेत्रफल ~94,163 वर्ग किमी है — जो भारत के कुल क्षेत्रफल का 2.86% है। क्षेत्रफल में बिहार भारत का 12वाँ सबसे बड़ा राज्य है। बिहार की उत्तर-दक्षिण लंबाई ~345 किमी और पूर्व-पश्चिम चौड़ाई ~483 किमी है। बिहार 24°20' से 27°31' उत्तरी अक्षांश और 82°19' से 88°17' पूर्वी देशांतर के बीच स्थित है।",en:"Bihar's area is ~94,163 sq km — 2.86% of India's area, making it the 12th-largest state. It extends ~345 km north-south and ~483 km east-west, between 24°20'–27°31' N latitude and 82°19'–88°17' E longitude."}},
+
+{q:{hi:"बिहार को कितनी प्राकृतिक भू-आकृति इकाइयों में विभाजित किया जाता है?",en:"How many natural physiographic units is Bihar divided into?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"बिहार को 3 प्राकृतिक भू-आकृति इकाइयों में विभाजित किया जाता है — (1) 'उत्तर का पर्वतीय क्षेत्र' (शिवालिक/तराई), (2) 'मध्य का गंगा का मैदान' (उपजाऊ मैदान), (3) 'दक्षिण का पठारी क्षेत्र' (छोटा नागपुर का विस्तार)। 90% भाग मैदानी है। उत्तर में शिवालिक की तराई और दक्षिण में पठारी भाग है।",en:"Bihar has 3 physiographic units — the northern hills (Shivalik/Terai), the central Ganga plain (fertile), and the southern plateau (Chota Nagpur extension). 90% is plain; hills in the north (Terai) and plateau in the south."}},
+
+{q:{hi:"बिहार का सबसे ऊँचा बिंदु कौन-सा है?",en:"What is the highest point in Bihar?"},
+ o:[{hi:"सोमेश्वर पहाड़ी",en:"Someshwar Hills"},{hi:"राजगीर पहाड़ी",en:"Rajgir Hills"},{hi:"कैमूर पहाड़ी",en:"Kaimur Hills"},{hi:"बराबर पहाड़ी",en:"Barabar Hills"}],a:0,
+ ex:{hi:"बिहार का सबसे ऊँचा बिंदु 'सोमेश्वर पहाड़ी' (लगभग 880 मीटर) है — जो पश्चिम चंपारण जिले में स्थित है। इसे 'सोमेश्वर की पहाड़ी' कहा जाता है। इसके बाद कैमूर पहाड़ी (~600 मी), राजगीर पहाड़ी (~388 मी) और बराबर पहाड़ी आती हैं। सोमेश्वर बिहार का सबसे ऊँचा और उत्तर-पश्चिमी कोने का हिस्सा है।",en:"Bihar's highest point is 'Someshwar Hills' (~880 m) in West Champaran district, followed by Kaimur (~600 m), Rajgir (~388 m) and Barabar hills."}},
+
+{q:{hi:"बिहार में कौन-सी मिट्टी सबसे अधिक पाई जाती है?",en:"Which soil is most commonly found in Bihar?"},
+ o:[{hi:"काली मिट्टी",en:"Black soil"},{hi:"लाल मिट्टी",en:"Red soil"},{hi:"जलोढ़ मिट्टी",en:"Alluvial soil"},{hi:"लेटराइट मिट्टी",en:"Laterite soil"}],a:2,
+ ex:{hi:"बिहार में सबसे अधिक 'जलोढ़ मिट्टी' पाई जाती है — जो उत्तर के मैदानी भाग में फैली है और कृषि के लिए सर्वाधिक उपजाऊ है। इसमें पोटाश, चूना और फॉस्फोरिक अम्ल पाया जाता है। दक्षिण बिहार में 'लाल और लेटराइट मिट्टी' और कुछ क्षेत्रों में 'काली मिट्टी' भी मिलती है। जलोढ़ मिट्टी गंगा और उसकी सहायक नदियों द्वारा लाई गई है।",en:"'Alluvial soil' predominates in Bihar's northern plains, most fertile for agriculture, containing potash, lime and phosphoric acid. Red and laterite soils appear in the south with patches of black soil — alluvium brought by the Ganga and its tributaries."}},
+
+{q:{hi:"बिहार की जलवायु कैसी है?",en:"What is the climate of Bihar?"},
+ o:[{hi:"शुष्क मरुस्थलीय",en:"Arid desert"},{hi:"उष्णकटिबंधीय मानसूनी",en:"Tropical monsoon"},{hi:"भूमध्यसागरीय",en:"Mediterranean"},{hi:"ध्रुवीय",en:"Polar"}],a:1,
+ ex:{hi:"बिहार की जलवायु 'उष्णकटिबंधीय मानसूनी' है — ग्रीष्मकाल (मार्च-मई) में 40°C+ तापमान, मानसून (जून-सितंबर) में वर्षा, और सर्दी (नवंबर-फरवरी) में 8-10°C तक। औसत वार्षिक वर्षा 1,000-1,200 मिमी होती है। उत्तर-पूर्व (किशनगंज, पूर्णिया) में सबसे अधिक वर्षा (~1,500 मिमी+) और दक्षिण-पश्चिम (रोहतास) में सबसे कम (~900 मिमी)।",en:"Bihar has a 'tropical monsoon' climate — summers (March–May) above 40°C, monsoon rains (June–September), and winters (Nov–Feb) down to 8–10°C, with average rainfall 1,000–1,200 mm — highest in the NE (Kishanganj, Purnia) and lowest in the SW (Rohtas)."}},
+
+{q:{hi:"बिहार में सबसे अधिक वर्षा किस क्षेत्र में होती है?",en:"Which region of Bihar receives the highest rainfall?"},
+ o:[{hi:"उत्तर-पश्चिम",en:"North-west"},{hi:"उत्तर-पूर्व (किशनगंज, पूर्णिया)",en:"North-east (Kishanganj, Purnia)"},{hi:"दक्षिण",en:"South"},{hi:"दक्षिण-पश्चिम",en:"South-west"}],a:1,
+ ex:{hi:"बिहार में 'उत्तर-पूर्वी क्षेत्र' (किशनगंज, अररिया, पूर्णिया) में सबसे अधिक वर्षा होती है — ~1,500 मिमी से अधिक। इसका कारण बंगाल की खाड़ी से आने वाली मानसूनी हवाएँ और हिमालय की तराई है। दक्षिण-पश्चिम (रोहतास, कैमूर) में सबसे कम वर्षा (~900 मिमी) होती है।",en:"Bihar's 'north-eastern region' (Kishanganj, Araria, Purnia) receives the highest rainfall (~1,500 mm+) due to Bay of Bengal monsoon winds and the Himalayan Terai; the south-west (Rohtas, Kaimur) gets the least (~900 mm)."}},
+
+{q:{hi:"बिहार में 'ताल' और 'चौर' क्या हैं?",en:"What are 'Taal' and 'Chaur' in Bihar?"},
+ o:[{hi:"पहाड़",en:"Mountains"},{hi:"प्राकृतिक जलाशय (झील/दलदल)",en:"Natural water bodies (lakes/marshes)"},{hi:"नहरें",en:"Canals"},{hi:"जंगल",en:"Forests"}],a:1,
+ ex:{hi:"बिहार में 'ताल' और 'चौर' 'प्राकृतिक जलाशय' या 'दलदली भूमि' हैं — जो उत्तर बिहार में अधिक पाई जाती हैं। प्रमुख — काँवर ताल (बेगूसराय), गोगाबील (कटिहार), उदाकिशुनगंज, कुशेश्वर स्थान (दरभंगा), बख्तियारपुर ताल (पटना)। ये मछली उत्पादन, जल संरक्षण और जैव विविधता के लिए महत्वपूर्ण हैं। 'चौर' मुख्यतः दलदली क्षेत्र हैं।",en:"'Taal' and 'Chaur' are natural water bodies or marshes, mainly in north Bihar — Kanwar Taal (Begusarai), Gogabeel (Katihar), Uda Kishanganj, Kusheshwar Sthan (Darbhanga), Bakhtiyarpur Taal (Patna) — vital for fisheries, water conservation and biodiversity."}},
+
+{q:{hi:"बिहार की सबसे बड़ी झील कौन-सी है?",en:"Which is the largest lake in Bihar?"},
+ o:[{hi:"काँवर ताल",en:"Kanwar Taal"},{hi:"गोगाबील",en:"Gogabeel"},{hi:"कुशेश्वर स्थान",en:"Kusheshwar Sthan"},{hi:"बख्तियारपुर ताल",en:"Bakhtiyarpur Taal"}],a:0,
+ ex:{hi:"बिहार की सबसे बड़ी झील 'काँवर ताल' (Kanwar Taal) है — जो बेगूसराय जिले में स्थित है। इसे 'काँवर झील' भी कहा जाता है और यह एशिया की सबसे बड़ी मीठे पानी की oxbow झील है। 1989 में इसे 'रामसर साइट' के रूप में मान्यता मिली। यह मानसूनी और प्रवासी पक्षियों का महत्वपूर्ण आश्रय स्थल है।",en:"Bihar's largest lake is 'Kanwar Taal' in Begusarai district — Asia's largest freshwater oxbow lake, designated a Ramsar site in 1989, and an important habitat for resident and migratory birds."}},
+
+{q:{hi:"बिहार की सबसे लंबी नदी कौन-सी है?",en:"Which is the longest river in Bihar?"},
+ o:[{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"},{hi:"गंगा",en:"Ganga"},{hi:"सोन",en:"Son"}],a:2,
+ ex:{hi:"बिहार की सबसे लंबी नदी 'गंगा' है — जो राज्य में ~445 किमी तक बहती है। यह बिहार को दो भागों में विभाजित करती है — 'उत्तर बिहार' (उपजाऊ मैदान) और 'दक्षिण बिहार' (पठारी)। प्रमुख शहर — पटना, भागलपुर, मुंगेर, बक्सर, हाजीपुर। गंगा बिहार की जीवनरेखा है — कृषि, परिवहन और संस्कृति का आधार।",en:"'Ganga' is Bihar's longest river (~445 km in Bihar), dividing the state into north (fertile plains) and south (plateau). Key cities — Patna, Bhagalpur, Munger, Buxar and Hajipur. Ganga is Bihar's lifeline for agriculture, transport and culture."}},
+
+{q:{hi:"'बिहार का शोक' किस नदी को कहा जाता है?",en:"Which river is called the 'Sorrow of Bihar'?"},
+ o:[{hi:"सोन",en:"Son"},{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"},{hi:"बागमती",en:"Bagmati"}],a:1,
+ ex:{hi:"'कोसी नदी' को 'बिहार का शोक' कहा जाता है। यह नेपाल में सप्तकोसी के रूप में निकलती है, हिमालय से भारी मात्रा में गाद लाती है और बार-बार अपना मार्ग बदलती है — जिससे उत्तर बिहार में भीषण बाढ़ आती है। 2008 की कोसी बाढ़ ने भारी तबाही मचाई थी। इसे 'कोसी की विस्थापन शक्ति' कहा जाता है।",en:"'Kosi' is called the 'Sorrow of Bihar'. Rising as Saptakosi in Nepal, it carries heavy silt and frequently shifts course, causing devastating floods in north Bihar — the 2008 Kosi flood was catastrophic."}},
+
+/* ============ खंड C — बिहार की नदियाँ और जल निकाय (Q23–32) ============ */
+{q:{hi:"गंडक नदी का उद्गम स्थल कहाँ है?",en:"Where does the Gandak river originate?"},
+ o:[{hi:"भारत में",en:"In India"},{hi:"नेपाल में",en:"In Nepal"},{hi:"तिब्बत में",en:"In Tibet"},{hi:"भूटान में",en:"In Bhutan"}],a:1,
+ ex:{hi:"गंडक नदी का उद्गम 'नेपाल' में सालिग्राम (मुस्तांग) के पास है। नेपाल में इसे 'नारायणी' और 'काली गंडक' कहा जाता है। यह बिहार में छपरा (सारण) के पास गंगा में मिलती है। गंडक को 'बिहार का शोक' नहीं कहा जाता, लेकिन यह उत्तर बिहार में बाढ़ लाती है। इसके तट पर 'सोनपुर पशु मेला' लगता है — जो एशिया का सबसे बड़ा पशु मेला है।",en:"The Gandak originates in 'Nepal' near Saligram (Mustang), called 'Narayani' and 'Kali Gandak'. It meets the Ganga near Chhapra (Saran), Bihar; the Sonepur Cattle Fair — Asia's largest — is held at its bank."}},
+
+{q:{hi:"सोन नदी बिहार में कहाँ गंगा में मिलती है?",en:"Where does the Son river meet the Ganga in Bihar?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"मनेर",en:"Maner"},{hi:"मुंगेर",en:"Munger"},{hi:"भागलपुर",en:"Bhagalpur"}],a:1,
+ ex:{hi:"सोन नदी 'मनेर' (पटना जिला) के पास गंगा में मिलती है। सोन नदी अमरकंटक (मध्य प्रदेश) से निकलती है और बिहार में दक्षिणी सीमा बनाती है। यह गंगा की सबसे बड़ी दक्षिणी सहायक नदी है — लंबाई ~780 किमी। मनेर में गंगा-सोन संगम है और यह सूफी संत शाह मखदूम दाउद की दरगाह के लिए प्रसिद्ध है।",en:"The Son river meets the Ganga near 'Maner' (Patna district). Rising at Amarkantak (MP), the Son forms Bihar's southern boundary — the Ganga's largest southern tributary (~780 km). Maner has the Ganga-Son confluence and the dargah of Sufi saint Shah Makhdoom Daud."}},
+
+{q:{hi:"बिहार में 'बागमती नदी' किन जिलों से बहती है?",en:"The 'Bagmati river' flows through which districts of Bihar?"},
+ o:[{hi:"सीतामढ़ी, मुज़फ़्फ़रपुर, दरभंगा",en:"Sitamarhi, Muzaffarpur, Darbhanga"},{hi:"गया, नवादा",en:"Gaya, Nawada"},{hi:"भागलपुर, मुंगेर",en:"Bhagalpur, Munger"},{hi:"पटना, भोजपुर",en:"Patna, Bhojpur"}],a:0,
+ ex:{hi:"बागमती नदी बिहार में 'सीतामढ़ी, शिवहर, मुज़फ़्फ़रपुर, दरभंगा, समस्तीपुर और खगड़िया' से बहती है और गंगा में मिलती है। नेपाल में इसे 'बागमती' और शिवालिक में 'कमला' कहा जाता है। यह हर वर्ष बाढ़ लाती है — 'कमला-बालान' बाढ़ क्षेत्र प्रसिद्ध है। बागमती को 'बिहार की शोक' भी कहा जाता है (कुछ क्षेत्रों में)।",en:"The Bagmati flows through 'Sitamarhi, Sheohar, Muzaffarpur, Darbhanga, Samastipur and Khagaria' in Bihar, meeting the Ganga. Called 'Bagmati' in Nepal and 'Kamala' in the Shivaliks, it floods annually — the 'Kamala-Balan' belt is famous."}},
+
+{q:{hi:"'कमला नदी' किस नदी की सहायक है?",en:"The 'Kamala river' is a tributary of which river?"},
+ o:[{hi:"गंडक",en:"Gandak"},{hi:"कोसी",en:"Kosi"},{hi:"बागमती",en:"Bagmati"},{hi:"सोन",en:"Son"}],a:2,
+ ex:{hi:"कमला नदी 'बागमती' की सहायक है। यह नेपाल में निकलती है और मधुबनी, दरभंगा से बहती हुई बागमती में मिलती है। इसके तट पर प्रसिद्ध 'कमला बालान' बाढ़ क्षेत्र है। मधुबनी जिले में 'कमला नदी' पर पुल है। बागमती-कमला नदी प्रणाली उत्तर बिहार की प्रमुख नदी प्रणाली है।",en:"The Kamala is a tributary of the 'Bagmati'. Rising in Nepal, it flows through Madhubani and Darbhanga to join the Bagmati — the 'Kamala-Balan' flood belt is famous."}},
+
+{q:{hi:"बिहार में सिंचाई का प्रमुख साधन कौन-सा है?",en:"What is the main source of irrigation in Bihar?"},
+ o:[{hi:"नहरें",en:"Canals"},{hi:"कुएँ",en:"Wells"},{hi:"नलकूप (ट्यूबवेल)",en:"Tubewells"},{hi:"तालाब",en:"Ponds"}],a:2,
+ ex:{hi:"बिहार में सिंचाई का प्रमुख साधन 'नलकूप' (ट्यूबवेल) है — ~60% क्षेत्र। इसके बाद नहरें (~30%) और कुएँ/तालाब। बिहार में कुल शुद्ध बोया गया क्षेत्र ~55 लाख हेक्टेयर है, जिसमें ~60% सिंचित है। बिहार सरकार का लक्ष्य 2025 तक 80% सिंचित क्षेत्र का है। प्रमुख नहरें — गंडक, सोन, कोसी, पूर्वी कौशल।",en:"'Tubewells' are Bihar's main irrigation source (~60%), followed by canals (~30%) and wells/ponds. Of ~55 lakh hectares net-sown area, ~60% is irrigated; Bihar targets 80% by 2025. Major canals: Gandak, Son, Kosi and Eastern Kosi."}},
+
+{q:{hi:"'फरक्का बैराज' किस नदी पर स्थित है?",en:"On which river is the 'Farakka Barrage' located?"},
+ o:[{hi:"सोन",en:"Son"},{hi:"गंगा",en:"Ganga"},{hi:"कोसी",en:"Kosi"},{hi:"गंडक",en:"Gandak"}],a:1,
+ ex:{hi:"फरक्का बैराज 'गंगा नदी' पर स्थित है — पश्चिम बंगाल में, बिहार सीमा के पास। यह 1975 ई. में बनाया गया। इससे कोलकाता बंदरगाह में जल की उपलब्धता सुनिश्चित की जाती है और बांग्लादेश के साथ जल-बँटवारा होता है। 1996 ई. में भारत-बांग्लादेश के बीच गंगा जल संधि हुई। यह बिहार की सीमा के पास होने के कारण बिहार के लिए भी महत्वपूर्ण है।",en:"Farakka Barrage is on the 'Ganga' in West Bengal, near Bihar's border, built in 1975 to ensure water to Kolkata port and regulate sharing with Bangladesh — the 1996 India-Bangladesh Ganga Waters Treaty followed."}},
+
+{q:{hi:"'कोसी बाँध परियोजना' किसके सहयोग से बनी?",en:"With whose cooperation was the 'Kosi Barrage Project' built?"},
+ o:[{hi:"चीन",en:"China"},{hi:"नेपाल",en:"Nepal"},{hi:"भूटान",en:"Bhutan"},{hi:"बांग्लादेश",en:"Bangladesh"}],a:1,
+ ex:{hi:"कोसी बाँध परियोजना 'भारत और नेपाल' के सहयोग से बनी — 1954 के 'कोसी समझौते' के तहत। बाँध नेपाल के हनुमाननगर में है और इससे बिहार में सिंचाई और बाढ़ नियंत्रण होता है। परियोजना के तहत पूर्वी कोसी नहर, पश्चिमी कोसी नहर और बाँध शामिल हैं। यह बिहार की सबसे बड़ी सिंचाई परियोजना है।",en:"The Kosi Barrage was built under 'India-Nepal' cooperation (1954 Kosi Agreement) at Hanumannagar, Nepal, providing irrigation and flood control in Bihar — including Eastern and Western Kosi canals, Bihar's largest irrigation project."}},
+
+{q:{hi:"बिहार में सबसे अधिक बाढ़ किस क्षेत्र में आती है?",en:"Which region of Bihar floods most frequently?"},
+ o:[{hi:"दक्षिण बिहार",en:"South Bihar"},{hi:"उत्तर बिहार",en:"North Bihar"},{hi:"पूर्वी बिहार",en:"East Bihar"},{hi:"पश्चिम बिहार",en:"West Bihar"}],a:1,
+ ex:{hi:"बिहार में सबसे अधिक बाढ़ 'उत्तर बिहार' में आती है — क्योंकि यहाँ की नदियाँ (कोसी, गंडक, बागमती, कमला, बलान, बूढ़ी गंडक) हिमालय से निकलकर भारी गाद लाती हैं और मैदानी भाग में तलछट जमा होने से बहाव बदल जाता है। बिहार का ~73% बाढ़ प्रभावित क्षेत्र उत्तर बिहार में है। 2008 की कोसी बाढ़ सबसे भीषण थी।",en:"Flooding is most frequent in 'north Bihar' — Himalayan rivers (Kosi, Gandak, Bagmati, Kamala, Balan) carry heavy silt, changing course on the plains. About 73% of Bihar's flood-prone area lies in north Bihar; the 2008 Kosi flood was the worst."}},
+
+{q:{hi:"'सोन नदी' का उद्गम स्थल कहाँ है?",en:"Where does the 'Son river' originate?"},
+ o:[{hi:"अमरकंटक",en:"Amarkantak"},{hi:"नेपाल",en:"Nepal"},{hi:"तिब्बत",en:"Tibet"},{hi:"कैमूर",en:"Kaimur"}],a:0,
+ ex:{hi:"सोन नदी 'अमरकंटक' (मध्य प्रदेश) से निकलती है — जो नर्मदा का भी उद्गम स्थल है। यह बिहार में प्रवेश करती है और मनेर (पटना के पश्चिम) के पास गंगा में मिलती है। सोन नदी गंगा की सबसे बड़ी दक्षिणी सहायक नदी है और बिहार-झारखंड की सीमा बनाती है। इसकी लंबाई ~780 किमी है।",en:"The Son river rises at 'Amarkantak' (MP), also the source of the Narmada, enters Bihar and meets the Ganga near Maner (west of Patna) — the Ganga's largest southern tributary (~780 km), forming the Bihar-Jharkhand border."}},
+
+{q:{hi:"'काँवर झील' बिहार के किस जिले में स्थित है?",en:"'Kanwar Lake' is in which district of Bihar?"},
+ o:[{hi:"बेगूसराय",en:"Begusarai"},{hi:"दरभंगा",en:"Darbhanga"},{hi:"समस्तीपुर",en:"Samastipur"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:0,
+ ex:{hi:"काँवर झील (काँवर ताल) 'बेगूसराय' जिले में स्थित है। यह एशिया की सबसे बड़ी मीठे पानी की oxbow झील है — जो गंगा की पुरानी धारा के अवशेष से बनी। 1989 में इसे 'रामसर साइट' के रूप में मान्यता मिली — भारत की पहली रामसर साइट। यह प्रवासी पक्षियों का महत्वपूर्ण आश्रय स्थल है और जैव विविधता से समृद्ध है।",en:"Kanwar Lake (Kanwar Taal) in 'Begusarai' district is Asia's largest freshwater oxbow lake, formed from an old Ganga channel. Designated a Ramsar site in 1989 — India's first — it is a key habitat for migratory birds and rich in biodiversity."}},
+
+/* ============ खंड D — बिहार के जिले और प्रमंडल (Q33–42) ============ */
+{q:{hi:"बिहार में कितने प्रमंडल हैं?",en:"How many divisions does Bihar have?"},
+ o:[{hi:"7",en:"7"},{hi:"8",en:"8"},{hi:"9",en:"9"},{hi:"10",en:"10"}],a:2,
+ ex:{hi:"बिहार में 9 प्रमंडल हैं — (1) पटना, (2) तिरहुत (मुज़फ़्फ़रपुर), (3) सारण (छपरा), (4) दरभंगा, (5) कोसी (सहरसा), (6) पूर्णिया, (7) भागलपुर, (8) मुंगेर, (9) मगध (गया)। इनमें कुल 38 जिले हैं। प्रत्येक प्रमंडल का प्रमुख 'कमिश्नर' होता है।",en:"Bihar has 9 divisions — Patna, Tirhut (Muzaffarpur), Saran (Chhapra), Darbhanga, Kosi (Saharsa), Purnia, Bhagalpur, Munger and Magadh (Gaya) — with 38 districts, each division under a Commissioner."}},
+
+{q:{hi:"बिहार में कितने जिले हैं?",en:"How many districts does Bihar have?"},
+ o:[{hi:"36",en:"36"},{hi:"37",en:"37"},{hi:"38",en:"38"},{hi:"40",en:"40"}],a:2,
+ ex:{hi:"बिहार में 38 जिले हैं — जो 9 प्रमंडलों में संगठित हैं। 2018 तक बिहार में 38 जिले थे — कुछ नए जिलों की माँग चल रही है। सबसे बड़ा जिला (क्षेत्रफल में) 'पश्चिम चंपारण' और सबसे छोटा 'शेखपुरा' है। सबसे अधिक जनसंख्या वाला जिला 'पटना' है। बिहार की राजधानी 'पटना' है।",en:"Bihar has 38 districts organised into 9 divisions (as of 2018; more are being demanded). The largest by area is 'West Champaran' and smallest 'Sheikhpura'; 'Patna' is the most populous and the state capital."}},
+
+{q:{hi:"क्षेत्रफल के अनुसार बिहार का सबसे बड़ा जिला कौन-सा है?",en:"Which is Bihar's largest district by area?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"},{hi:"पश्चिम चंपारण",en:"West Champaran"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"}],a:2,
+ ex:{hi:"क्षेत्रफल के अनुसार बिहार का सबसे बड़ा जिला 'पश्चिम चंपारण' (बेतिया) है। इसका क्षेत्रफल ~5,229 वर्ग किमी है। इसके बाद 'पूर्वी चंपारण' और 'गया' आते हैं। पश्चिम चंपारण में वाल्मीकि राष्ट्रीय उद्यान स्थित है — बिहार का एकमात्र टाइगर रिज़र्व। बेतिया जिले का मुख्यालय है।",en:"Bihar's largest district by area is 'West Champaran' (Bettiah), ~5,229 sq km, followed by East Champaran and Gaya. It houses the Valmiki National Park — Bihar's only tiger reserve."}},
+
+{q:{hi:"क्षेत्रफल के अनुसार बिहार का सबसे छोटा जिला कौन-सा है?",en:"Which is Bihar's smallest district by area?"},
+ o:[{hi:"शेखपुरा",en:"Sheikhpura"},{hi:"अरवल",en:"Arwal"},{hi:"सारण",en:"Saran"},{hi:"गया",en:"Gaya"}],a:0,
+ ex:{hi:"क्षेत्रफल के अनुसार बिहार का सबसे छोटा जिला 'शेखपुरा' है। इसका क्षेत्रफल ~689 वर्ग किमी है। यह मुंगेर प्रमंडल में आता है। शेखपुरा को 2001 में नालंदा जिले से अलग किया गया था। इसके बाद 'अरवल' और 'शिवहर' सबसे छोटे जिले हैं। 'शेखपुरा' जिला अपने बौद्ध और जैन स्थलों के लिए भी जाना जाता है।",en:"Bihar's smallest district by area is 'Sheikhpura' (~689 sq km) in Munger division, carved out of Nalanda in 2001 — followed by Arwal and Sheohar. It is known for Buddhist and Jain sites."}},
+
+{q:{hi:"बिहार की राजधानी कौन-सी है?",en:"What is the capital of Bihar?"},
+ o:[{hi:"गया",en:"Gaya"},{hi:"पटना",en:"Patna"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"भागलपुर",en:"Bhagalpur"}],a:1,
+ ex:{hi:"बिहार की राजधानी 'पटना' है — जो प्राचीन पाटलिपुत्र है। यह गंगा नदी के दक्षिणी तट पर स्थित है। पटना बिहार का प्रशासनिक, शैक्षिक और व्यापारिक केंद्र है। यहाँ पटना उच्च न्यायालय (1916), बिहार विधानसभा, विधान परिषद, कई विश्वविद्यालय (पटना विश्वविद्यालय — 1917, IIT — 2008) स्थित हैं। पटना भारत के सबसे पुराने नगरों में से एक है।",en:"'Patna' — ancient Pataliputra, on the Ganga's south bank — is Bihar's capital and its administrative, educational and commercial hub, home to the Patna High Court (1916), legislature, universities (Patna University, 1917; IIT, 2008)."}},
+
+{q:{hi:"'तिरहुत प्रमंडल' का मुख्यालय कहाँ है?",en:"Where is the headquarters of 'Tirhut division'?"},
+ o:[{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"},{hi:"सीतामढ़ी",en:"Sitamarhi"},{hi:"बेतिया",en:"Bettiah"}],a:0,
+ ex:{hi:"'तिरहुत प्रमंडल' का मुख्यालय 'मुज़फ़्फ़रपुर' है। इसमें 6 जिले हैं — मुज़फ़्फ़रपुर, वैशाली, सीतामढ़ी, शिवहर, पूर्वी चंपारण और पश्चिम चंपारण। 'तिरहुत' नाम प्राचीन 'त्रिहुत' (तीन हाथ) से आया है — जो मिथिला क्षेत्र का हिस्सा है। मुज़फ़्फ़रपुर 'शाही लीची' के लिए प्रसिद्ध है।",en:"Tirhut division is headquartered at 'Muzaffarpur' with 6 districts — Muzaffarpur, Vaishali, Sitamarhi, Sheohar, East Champaran and West Champaran. The name 'Tirhut' derives from 'Trihut' (three hands), part of the Mithila region; Muzaffarpur is famous for Shahi Litchi."}},
+
+{q:{hi:"'कोसी प्रमंडल' का मुख्यालय कहाँ है?",en:"Where is the headquarters of 'Kosi division'?"},
+ o:[{hi:"सहरसा",en:"Saharsa"},{hi:"मधेपुरा",en:"Madhepura"},{hi:"सुपौल",en:"Supaul"},{hi:"पूर्णिया",en:"Purnia"}],a:0,
+ ex:{hi:"'कोसी प्रमंडल' का मुख्यालय 'सहरसा' है — जो बिहार के पूर्वोत्तर भाग में स्थित है। इसमें 3 जिले हैं — सहरसा, मधेपुरा और सुपौल। यह प्रमंडल कोसी नदी के कारण बाढ़-प्रभावित है। 2008 की कोसी बाढ़ ने इस क्षेत्र में भारी तबाही मचाई थी। कोसी प्रमंडल कृषि प्रधान है — धान, मक्का, गन्ना, तिलहन मुख्य फसलें हैं।",en:"Kosi division is headquartered at 'Saharsa' in north-eastern Bihar with 3 districts — Saharsa, Madhepura and Supaul — flood-prone due to the Kosi; the 2008 flood was devastating. It is agricultural: rice, maize, sugarcane and oilseeds."}},
+
+{q:{hi:"'मगध प्रमंडल' का मुख्यालय कहाँ है?",en:"Where is the headquarters of 'Magadh division'?"},
+ o:[{hi:"गया",en:"Gaya"},{hi:"नालंदा",en:"Nalanda"},{hi:"नवादा",en:"Nawada"},{hi:"जहानाबाद",en:"Jehanabad"}],a:0,
+ ex:{hi:"'मगध प्रमंडल' का मुख्यालय 'गया' है — जो प्राचीन मगध साम्राज्य का केंद्र था। इसमें 5 जिले हैं — गया, नालंदा, नवादा, जहानाबाद और अरवल। यह प्रमंडल प्राचीन बौद्ध और जैन स्थलों के लिए प्रसिद्ध है — बोधगया, राजगीर, नालंदा, बराबर गुफाएँ। 'मगध' प्राचीन भारत का सबसे शक्तिशाली महाजनपद था।",en:"Magadh division is headquartered at 'Gaya', once the heart of ancient Magadha, with 5 districts — Gaya, Nalanda, Nawada, Jehanabad and Arwal — rich in Buddhist and Jain sites (Bodh Gaya, Rajgir, Nalanda, Barabar caves)."}},
+
+{q:{hi:"'पटना प्रमंडल' में कितने जिले हैं?",en:"How many districts are in 'Patna division'?"},
+ o:[{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"}],a:2,
+ ex:{hi:"'पटना प्रमंडल' में 6 जिले हैं — पटना, भोजपुर, बक्सर, कैमूर, रोहतास और नालंदा। (ध्यान दें: नालंदा कुछ स्रोतों में मगध प्रमंडल में भी दिखाया जाता है।) पटना प्रमंडल का मुख्यालय 'पटना' है। यह प्रमंडल गंगा नदी के दक्षिणी तट पर स्थित है और प्राचीन स्थलों (बक्सर, बोधगया) से समृद्ध है।",en:"Patna division has 6 districts — Patna, Bhojpur, Buxar, Kaimur, Rohtas and Nalanda (Nalanda appears in some sources under Magadh division too). Headquartered at Patna, it lies south of the Ganga with rich ancient sites (Buxar, Bodh Gaya)."}},
+
+{q:{hi:"'पूर्णिया प्रमंडल' में कितने जिले हैं?",en:"How many districts are in 'Purnia division'?"},
+ o:[{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"}],a:1,
+ ex:{hi:"'पूर्णिया प्रमंडल' में 4 जिले हैं — पूर्णिया, कटिहार, अररिया और किशनगंज। इसका मुख्यालय 'पूर्णिया' है। यह बिहार का पूर्वोत्तर कोना है और बंगाल की खाड़ी से निकट है। यहाँ सबसे अधिक वर्षा होती है और चाय, जूट, धान की खेती होती है। किशनगंज बिहार का सबसे पूर्वी जिला है।",en:"Purnia division has 4 districts — Purnia, Katihar, Araria and Kishanganj — headquartered at Purnia. It is Bihar's north-eastern corner, closest to the Bay of Bengal, with the highest rainfall and tea, jute and rice cultivation; Kishanganj is Bihar's easternmost district."}},
+
+{q:{hi:"'दरभंगा प्रमंडल' में कितने जिले हैं?",en:"How many districts are in 'Darbhanga division'?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"'दरभंगा प्रमंडल' में 3 जिले हैं — दरभंगा, मधुबनी और समस्तीपुर। मुख्यालय 'दरभंगा' है। यह मिथिला क्षेत्र का हिस्सा है — जो मधुबनी चित्रकला और मैथिली भाषा के लिए प्रसिद्ध है। दरभंगा को 'मिथिला की राजधानी' कहा जाता है। यहाँ की संस्कृति और साहित्य समृद्ध है।",en:"Darbhanga division has 3 districts — Darbhanga, Madhubani and Samastipur, with Darbhanga as headquarters. Part of the Mithila region, it is famous for Madhubani painting and Maithili language; Darbhanga is called the 'Capital of Mithila'."}},
+
+/* ============ खंड E — बिहार के प्रमुख पर्यटन और धार्मिक स्थल (Q43–50) ============ */
+{q:{hi:"'महाबोधि मंदिर' कहाँ स्थित है?",en:"Where is the 'Mahabodhi Temple' located?"},
+ o:[{hi:"राजगीर",en:"Rajgir"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"नालंदा",en:"Nalanda"},{hi:"वैशाली",en:"Vaishali"}],a:1,
+ ex:{hi:"महाबोधि मंदिर 'बोधगया' (गया जिला, बिहार) में स्थित है — जहाँ बुद्ध को बोधि वृक्ष के नीचे ज्ञान की प्राप्ति हुई। यह यूनेस्को विश्व धरोहर स्थल (2002) है और बौद्ध धर्म का सबसे पवित्र स्थल। इसका निर्माण अशोक ने तीसरी शताब्दी ईसा पूर्व में कराया। यहाँ 50 मीटर ऊँचा मंदिर और बोधि वृक्ष है।",en:"The Mahabodhi Temple is at 'Bodh Gaya' (Gaya district, Bihar), where Buddha attained enlightenment under the Bodhi tree — a UNESCO World Heritage Site (2002) and Buddhism's holiest site, originally built by Ashoka in the 3rd century BCE."}},
+
+{q:{hi:"'विष्णुपद मंदिर' कहाँ स्थित है?",en:"Where is the 'Vishnupad Temple' located?"},
+ o:[{hi:"गया",en:"Gaya"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"राजगीर",en:"Rajgir"},{hi:"पटना",en:"Patna"}],a:0,
+ ex:{hi:"'विष्णुपद मंदिर' गया (बिहार) में स्थित है — जो हिंदू धर्म का प्रमुख तीर्थ स्थल है। इसमें भगवान विष्णु का पदचिह्न (विष्णुपद) है — जो 'गयासुर' राक्षस पर विष्णु के पैर के निशान माने जाते हैं। यहाँ पितृपक्ष में पिंडदान किया जाता है। मंदिर को 1787 ई. में इंदौर की रानी अहिल्याबाई होल्कर ने बनवाया था।",en:"The Vishnupad Temple is at 'Gaya' (Bihar), a major Hindu pilgrimage site housing Vishnu's footprint, marking where Vishnu pressed the demon Gayasura. Pind Daan is performed here during Pitrapaksha. The temple was rebuilt in 1787 CE by Ahilyabai Holkar of Indore."}},
+
+{q:{hi:"'वैशाली' में कौन-सा स्तूप है?",en:"Which stupa is at 'Vaishali'?"},
+ o:[{hi:"बहु स्तूप",en:"Bahu Stupa"},{hi:"आनंद स्तूप",en:"Ananda Stupa"},{hi:"अशोक स्तंभ",en:"Ashoka Pillar"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"वैशाली (बिहार) में कई बौद्ध स्थल हैं — (1) 'बहु स्तूप' — विशाल स्तूप, जिसके चारों ओर छोटे स्तूप, (2) 'आनंद स्तूप' — बुद्ध के अंतिम उपदेश की स्मृति, (3) 'अशोक स्तंभ' — ~18.3 मीटर ऊँचा, एक शेर की मूर्ति से सुशोभित, (4) 'अभिषेक पुष्करिणी' — लिच्छवी राजाओं का राज्याभिषेक तालाब। वैशाली जैन धर्म का भी प्रमुख केंद्र है — महावीर का जन्मस्थल।",en:"Vaishali (Bihar) has several Buddhist sites — Bahu Stupa (with smaller stupas around), Ananda Stupa (commemorating Buddha's last sermon), the ~18.3 m Ashoka Pillar with a single lion, and Abhishek Pushkarini (Lichchhavi coronation tank). Vaishali is also a major Jain centre — Mahavira's birthplace."}},
+
+{q:{hi:"'विक्रमशिला' किस जिले में स्थित है?",en:"'Vikramshila' is located in which district?"},
+ o:[{hi:"नालंदा",en:"Nalanda"},{hi:"भागलपुर",en:"Bhagalpur"},{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"}],a:1,
+ ex:{hi:"'विक्रमशिला' (प्राचीन बौद्ध विश्वविद्यालय) 'भागलपुर' जिले (बिहार) में स्थित था — 'अंतिचक' गाँव के पास, गंगा नदी के तट पर। इसकी स्थापना 8वीं-9वीं शताब्दी में पाल राजा धर्मपाल ने की। यह बौद्ध शिक्षा का महान केंद्र था और इसे 1203 ई. में बख्तियार खिलजी ने नष्ट किया। अब यहाँ खुदाई से प्राप्त अवशेष संग्रहालय में प्रदर्शित हैं।",en:"'Vikramshila', an ancient Buddhist university, was in 'Bhagalpur' district (Bihar), near Antichak village on the Ganga, founded by Pala king Dharmapala (8th–9th century CE). Destroyed by Bakhtiyar Khilji in 1203 CE, its excavated remains are now in a museum."}},
+
+{q:{hi:"'बराबर की गुफाएँ' किस जिले में स्थित हैं?",en:"The 'Barabar Caves' are located in which district?"},
+ o:[{hi:"नालंदा",en:"Nalanda"},{hi:"जहानाबाद",en:"Jehanabad"},{hi:"गया",en:"Gaya"},{hi:"पटना",en:"Patna"}],a:1,
+ ex:{hi:"'बराबर की गुफाएँ' 'जहानाबाद' जिले (बिहार) में स्थित हैं — मगध प्रमंडल में। ये भारत की सबसे प्राचीन चट्टान-कटी गुफाएँ हैं (मौर्य काल, 3री शताब्दी ईसा पूर्व)। इनमें से एक 'लोमश ऋषि' की गुफा है — जिसे अशोक ने 'अजीविक' संप्रदाय को दान किया था। यहाँ अशोक के शिलालेख और मौर्यकालीन चिकनी पॉलिश मिलती है।",en:"The 'Barabar Caves' are in 'Jehanabad' district (Bihar), Magadh division — India's oldest rock-cut caves (Mauryan, 3rd century BCE). The 'Lomas Rishi' cave was donated by Ashoka to the Ajivika sect, with Ashokan edicts and Mauryan polish."}},
+
+{q:{hi:"'सोनपुर पशु मेला' कहाँ लगता है?",en:"Where is the 'Sonepur Cattle Fair' held?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"सोनपुर (सारण)",en:"Sonepur (Saran)"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"'सोनपुर पशु मेला' 'सोनपुर' (सारण जिला, बिहार) में गंगा-गंडक संगम पर लगता है। यह एशिया का सबसे बड़ा पशु मेला है — जो कार्तिक पूर्णिमा पर आयोजित होता है। इसमें हाथी, घोड़े, ऊँट, गाय, बैल, बकरी और पक्षी बेचे जाते हैं। इसका ऐतिहासिक महत्व है — मुगल काल से यह मेला लगता आ रहा है। 'हरिहरक्षेत्र' के नाम से भी जाना जाता है।",en:"The Sonepur Cattle Fair is held at 'Sonepur' (Saran district, Bihar) at the Ganga-Gandak confluence — Asia's largest, held on Kartik Purnima, selling elephants, horses, camels, cattle and birds. Historic since Mughal times, also called 'Hariharkshetra'."}},
+
+{q:{hi:"'राजगीर' में कौन-सा प्रसिद्ध स्तूप है?",en:"Which famous stupa is at 'Rajgir'?"},
+ o:[{hi:"विश्व शांति स्तूप",en:"Vishwa Shanti Stupa"},{hi:"धमेख स्तूप",en:"Dhamek Stupa"},{hi:"बहु स्तूप",en:"Bahu Stupa"},{hi:"आनंद स्तूप",en:"Ananda Stupa"}],a:0,
+ ex:{hi:"'राजगीर' (नालंदा जिला, बिहार) में 'विश्व शांति स्तूप' स्थित है — जिसे 'पीस पैगोडा' भी कहा जाता है। इसे 1969 ई. में जापान के 'निप्पोज़न म्योहोजी' संप्रदाय ने बनवाया। स्तूप रत्नागिरि पहाड़ी पर स्थित है और रोपवे द्वारा पहुँचा जा सकता है। यहाँ से पूरे राजगीर का विहंगम दृश्य दिखाई देता है। राजगीर में बुद्ध और महावीर दोनों की साधना स्थली है।",en:"'Rajgir' (Nalanda district, Bihar) has the 'Vishwa Shanti Stupa' (Peace Pagoda), built in 1969 CE by Japan's Nipponzan Myohoji sect on Ratnagiri hill, accessible by ropeway. It offers panoramic views of Rajgir — a meditation site of Buddha and Mahavira."}},
+
+{q:{hi:"'नालंदा' में कौन-सा संग्रहालय है?",en:"Which museum is at 'Nalanda'?"},
+ o:[{hi:"नालंदा पुरातत्व संग्रहालय",en:"Nalanda Archaeological Museum"},{hi:"बिहार संग्रहालय",en:"Bihar Museum"},{hi:"पटना संग्रहालय",en:"Patna Museum"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:0,
+ ex:{hi:"'नालंदा पुरातत्व संग्रहालय' नालंदा (बिहार) में स्थित है — जहाँ प्राचीन नालंदा महाविहार से प्राप्त अवशेष प्रदर्शित हैं। इसमें बुद्ध, बोधिसत्व, तारा, सरस्वती, प्रज्ञापारमिता की मूर्तियाँ, मिट्टी के बर्तन, ताँबे के सिक्के, हथियार, आभूषण शामिल हैं। ये मूर्तियाँ गुप्त, पाल और सेन काल की हैं। यह संग्रहालय 1917 ई. में स्थापित हुआ और यह बौद्ध कला का महत्वपूर्ण केंद्र है।",en:"The 'Nalanda Archaeological Museum' at Nalanda (Bihar) displays artefacts from ancient Nalanda Mahavihara — sculptures of Buddha, Bodhisattvas, Tara, Saraswati, Prajnaparamita, pottery, copper coins, weapons and ornaments from the Gupta, Pala and Sena periods. Established in 1917, it is a key centre of Buddhist art."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बिहार के भूगोल और प्राचीन स्थलों पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Bihar's geography and ancient sites is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बिहार के भूगोल के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Bihar's geography facts and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
