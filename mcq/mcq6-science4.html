@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>विज्ञान विशेष 4 — 100 प्रश्न | Science Special 4</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#c62828,#e53935);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#ffcdd2;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#ffcdd2;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.15);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffab91,#ffccbc);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#ffebee;color:#c62828;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              📝 विज्ञान विशेष — 4 (100 प्रश्न)
+              <small>Science Special 4 · मात्रक · गुरुत्वाकर्षण · रासायनिक बंधन · जैव प्रौद्योगिकी</small>
+              <small id="sectionLabel">खंड A — भौतिकी: मात्रक और मापन</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">100</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 100</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 100</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   विज्ञान विशेष 4 — 100 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — भौतिकी: मात्रक और मापन", en:"Section A — Physics: Units & Measurement"},
+  {hi:"खंड B — भौतिकी: सरल आवर्त गति और लोलक", en:"Section B — Physics: SHM & Pendulum"},
+  {hi:"खंड C — भौतिकी: गुरुत्वाकर्षण और उपग्रह", en:"Section C — Physics: Gravitation & Satellites"},
+  {hi:"खंड D — भौतिकी: पदार्थ के गुण और दबाव", en:"Section D — Physics: Properties of Matter"},
+  {hi:"खंड E — रसायन: रासायनिक बंधन", en:"Section E — Chemistry: Chemical Bonding"},
+  {hi:"खंड F — रसायन: रासायनिक साम्य और गति", en:"Section F — Chemistry: Equilibrium & Kinetics"},
+  {hi:"खंड G — रसायन: बहुलक, रेशे, प्लास्टिक", en:"Section G — Chemistry: Polymers, Fibres, Plastics"},
+  {hi:"खंड H — जीव विज्ञान: रोग और प्रतिरक्षा", en:"Section H — Biology: Diseases & Immunity"},
+  {hi:"खंड I — जीव विज्ञान: जैव प्रौद्योगिकी", en:"Section I — Biology: Biotechnology"}
+];
+const SECTION_STARTS = [0, 12, 24, 36, 48, 60, 72, 82, 92];
+
+const QUESTIONS = [
+/* ============ खंड A — भौतिकी: मात्रक और मापन (Q1–12) ============ */
+{q:{hi:"'SI' का पूरा नाम क्या है?",en:"What is the full form of 'SI'?"},
+ o:[{hi:"System of Units",en:"System of Units"},{hi:"Système International d'Unités",en:"Système International d'Unités"},{hi:"Standard International",en:"Standard International"},{hi:"Simple International",en:"Simple International"}],a:1,
+ ex:{hi:"SI = Système International d'Unités (फ्रेंच) — अर्थात 'अंतर्राष्ट्रीय मात्रक प्रणाली'। इसे 1960 में भार और माप पर 11वें अंतर्राष्ट्रीय सम्मेलन में अपनाया गया। इसमें 7 मूल मात्रक हैं।",en:"SI = Système International d'Unités (French), adopted in 1960 at the 11th CGPM. It has 7 base units."}},
+
+{q:{hi:"SI में कितने मूल मात्रक (Base Units) हैं?",en:"How many base units are there in SI?"},
+ o:[{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"7",en:"7"},{hi:"9",en:"9"}],a:2,
+ ex:{hi:"SI में 7 मूल मात्रक हैं — मीटर (लंबाई), किलोग्राम (द्रव्यमान), सेकंड (समय), केल्विन (तापमान), एम्पीयर (विद्युत धारा), मोल (पदार्थ की मात्रा) और कैंडेला (ज्योति तीव्रता)।",en:"SI has 7 base units — metre (length), kilogram (mass), second (time), kelvin (temperature), ampere (current), mole (amount), candela (luminous intensity)."}},
+
+{q:{hi:"'द्रव्यमान' का SI मूल मात्रक क्या है?",en:"What is the SI base unit of 'mass'?"},
+ o:[{hi:"ग्राम",en:"gram"},{hi:"किलोग्राम",en:"kilogram"},{hi:"पाउंड",en:"pound"},{hi:"टन",en:"tonne"}],a:1,
+ ex:{hi:"द्रव्यमान का SI मूल मात्रक किलोग्राम (kg) है — यह SI का एकमात्र मूल मात्रक है जिसमें उपसर्ग (kilo) लगा है। इसे प्लैटिनम-इरिडियम मिश्र धातु के बेलन से परिभाषित किया गया था, अब स्थिरांक से।",en:"Mass's SI base unit is kilogram (kg) — the only base unit with a prefix. Originally defined by a Pt-Ir cylinder, now by constants."}},
+
+{q:{hi:"'प्रकाश वर्ष' किस भौतिक राशि का मात्रक है?",en:"'Light year' is the unit of which physical quantity?"},
+ o:[{hi:"समय",en:"Time"},{hi:"दूरी",en:"Distance"},{hi:"चमक",en:"Brightness"},{hi:"गति",en:"Speed"}],a:1,
+ ex:{hi:"प्रकाश वर्ष (ly) दूरी का मात्रक है — लगभग 9.46 × 10¹² किमी। यह वह दूरी है जो प्रकाश एक वर्ष में तय करता है। खगोलीय दूरियों के लिए उपयोग किया जाता है।",en:"A light year is a distance unit (~9.46 × 10¹² km) — the distance light travels in one year, used for astronomical distances."}},
+
+{q:{hi:"'पारसेक' किसकी इकाई है?",en:"'Parsec' is the unit of which of the following?"},
+ o:[{hi:"समय",en:"Time"},{hi:"दूरी",en:"Distance"},{hi:"गति",en:"Speed"},{hi:"द्रव्यमान",en:"Mass"}],a:1,
+ ex:{hi:"पारसेक (pc) दूरी का खगोलीय मात्रक है — 1 pc ≈ 3.26 प्रकाश वर्ष ≈ 3.086 × 10¹³ किमी। इसका उपयोग तारों और गैलेक्सियों की दूरी मापने में होता है।",en:"A parsec (pc) is an astronomical distance unit — 1 pc ≈ 3.26 light years ≈ 3.086 × 10¹³ km, used for stars and galaxies."}},
+
+{q:{hi:"'एंगस्ट्रॉम' (Å) किसकी इकाई है?",en:"'Ångström' (Å) is the unit of which of the following?"},
+ o:[{hi:"अत्यंत छोटी लंबाई",en:"Very small length"},{hi:"अत्यंत बड़ी दूरी",en:"Very large distance"},{hi:"द्रव्यमान",en:"Mass"},{hi:"समय",en:"Time"}],a:0,
+ ex:{hi:"एंगस्ट्रॉम (Å) = 10⁻¹⁰ मीटर — अत्यंत छोटी लंबाई की इकाई। इसका उपयोग परमाणु आकार, रासायनिक बंधन की लंबाई और प्रकाश की तरंगदैर्ध्य मापने में होता है। हाइड्रोजन परमाणु की त्रिज्या ~0.53 Å है।",en:"Ångström (Å) = 10⁻¹⁰ metre — for very small lengths like atomic sizes, bond lengths and light wavelengths. Hydrogen's atomic radius is ~0.53 Å."}},
+
+{q:{hi:"'नैनोमीटर' कितने मीटर के बराबर होता है?",en:"One 'nanometre' equals how many metres?"},
+ o:[{hi:"10⁻³ m",en:"10⁻³ m"},{hi:"10⁻⁶ m",en:"10⁻⁶ m"},{hi:"10⁻⁹ m",en:"10⁻⁹ m"},{hi:"10⁻¹² m",en:"10⁻¹² m"}],a:2,
+ ex:{hi:"1 नैनोमीटर (nm) = 10⁻⁹ मीटर (1 मीटर का अरबवाँ भाग)। नैनो टेक्नोलॉजी इसी पैमाने पर कार्य करती है। 1 nm = 10 Å। विषाणुओं का आकार ~10-300 nm होता है।",en:"1 nanometre (nm) = 10⁻⁹ metre (one billionth). Nanotechnology works at this scale. 1 nm = 10 Å. Viruses are ~10–300 nm."}},
+
+{q:{hi:"'माइक्रोन' कितने मीटर के बराबर होता है?",en:"One 'micron' equals how many metres?"},
+ o:[{hi:"10⁻³ m",en:"10⁻³ m"},{hi:"10⁻⁶ m",en:"10⁻⁶ m"},{hi:"10⁻⁹ m",en:"10⁻⁹ m"},{hi:"10⁻¹² m",en:"10⁻¹² m"}],a:1,
+ ex:{hi:"1 माइक्रोन (μm) = 10⁻⁶ मीटर = 1000 नैनोमीटर। यह जीवाणुओं, रक्त कोशिकाओं और धूल के कणों के आकार का पैमाना है। मानव बाल की मोटाई ~70 μm होती है।",en:"1 micron (μm) = 10⁻⁶ m = 1000 nm — the scale of bacteria, blood cells and dust. Human hair is ~70 μm thick."}},
+
+{q:{hi:"'टेरा' (T) का गुणक कितना होता है?",en:"What is the multiplier for 'tera' (T)?"},
+ o:[{hi:"10⁹",en:"10⁹"},{hi:"10¹²",en:"10¹²"},{hi:"10¹⁵",en:"10¹⁵"},{hi:"10¹⁸",en:"10¹⁸"}],a:1,
+ ex:{hi:"टेरा (T) = 10¹² (एक लाख करोड़)। SI उपसर्ग: किलो (10³), मेगा (10⁶), गीगा (10⁹), टेरा (10¹²), पेटा (10¹⁵), एक्सा (10¹⁸)। टेराबाइट डेटा स्टोरेज में उपयोग होता है।",en:"Tera (T) = 10¹². SI prefixes: kilo (10³), mega (10⁶), giga (10⁹), tera (10¹²), peta (10¹⁵), exa (10¹⁸)."}},
+
+{q:{hi:"'आयामी सूत्र' में कार्य का सूत्र क्या है?",en:"What is the dimensional formula for 'work'?"},
+ o:[{hi:"[MLT⁻²]",en:"[MLT⁻²]"},{hi:"[ML²T⁻²]",en:"[ML²T⁻²]"},{hi:"[MLT⁻¹]",en:"[MLT⁻¹]"},{hi:"[ML²T⁻³]",en:"[ML²T⁻³]"}],a:1,
+ ex:{hi:"कार्य = बल × दूरी = [MLT⁻²] × [L] = [ML²T⁻²]। ऊर्जा और कार्य का आयाम समान होता है। बल = [MLT⁻²], शक्ति = [ML²T⁻³], संवेग = [MLT⁻¹]।",en:"Work = Force × distance = [MLT⁻²] × [L] = [ML²T⁻²]. Energy and work share dimensions. Force = [MLT⁻²], Power = [ML²T⁻³], Momentum = [MLT⁻¹]."}},
+
+{q:{hi:"'त्रुटि' और 'शुद्धता' का संबंध क्या है?",en:"What is the relation between 'error' and 'accuracy'?"},
+ o:[{hi:"अधिक त्रुटि = अधिक शुद्धता",en:"More error = more accuracy"},{hi:"कम त्रुटि = अधिक शुद्धता",en:"Less error = more accuracy"},{hi:"कोई संबंध नहीं",en:"No relation"},{hi:"दोनों समान",en:"Both same"}],a:1,
+ ex:{hi:"कम त्रुटि का अर्थ अधिक शुद्धता है। त्रुटियों के प्रकार — व्यवस्थित (systematic), यादृच्छिक (random) और स्थूल (gross)। शुद्धता (accuracy) = मापा मान और वास्तविक मान के बीच निकटता। परिशुद्धता (precision) = बार-बार मापन की सुसंगतता।",en:"Less error means more accuracy. Errors are systematic, random and gross. Accuracy is closeness to the true value; precision is consistency of repeated measurements."}},
+
+/* ============ खंड B — भौतिकी: सरल आवर्त गति (Q13–24) ============ */
+{q:{hi:"'सरल आवर्त गति' (SHM) में त्वरण किसके अनुक्रमानुपाती होता है?",en:"In 'SHM', acceleration is proportional to which of the following?"},
+ o:[{hi:"वेग",en:"Velocity"},{hi:"विस्थापन",en:"Displacement"},{hi:"समय",en:"Time"},{hi:"द्रव्यमान",en:"Mass"}],a:1,
+ ex:{hi:"SHM में त्वरण विस्थापन के अनुक्रमानुपाती और उसकी विपरीत दिशा में होता है: a = -ω²x। इसलिए वस्तु सदैव मध्य स्थिति की ओर खिंचती है। उदाहरण: स्प्रिंग, लोलक, झूला।",en:"In SHM, acceleration is proportional and opposite to displacement: a = -ω²x. The object is always pulled toward the mean position — springs, pendulums, swings."}},
+
+{q:{hi:"'सरल लोलक' का आवर्तकाल किस पर निर्भर करता है?",en:"The time period of a 'simple pendulum' depends on which of the following?"},
+ o:[{hi:"द्रव्यमान",en:"Mass"},{hi:"आयाम",en:"Amplitude"},{hi:"लंबाई",en:"Length"},{hi:"गोलक का रंग",en:"Colour of bob"}],a:2,
+ ex:{hi:"सरल लोलक का आवर्तकाल T = 2π√(L/g) — जो केवल लंबाई (L) और गुरुत्वीय त्वरण (g) पर निर्भर करता है। छोटे आयामों के लिए यह द्रव्यमान और आयाम पर निर्भर नहीं करता।",en:"Pendulum's time period T = 2π√(L/g), depending only on length (L) and gravity (g) for small amplitudes — not on mass."}},
+
+{q:{hi:"'स्प्रिंग' का आवर्तकाल किस पर निर्भर करता है?",en:"The time period of a 'spring' depends on which of the following?"},
+ o:[{hi:"केवल द्रव्यमान",en:"Only mass"},{hi:"केवल स्प्रिंग नियतांक",en:"Only spring constant"},{hi:"द्रव्यमान और स्प्रिंग नियतांक",en:"Mass and spring constant"},{hi:"केवल आयाम",en:"Only amplitude"}],a:2,
+ ex:{hi:"स्प्रिंग का आवर्तकाल T = 2π√(m/k) — जहाँ m द्रव्यमान और k स्प्रिंग नियतांक। द्रव्यमान बढ़ने पर आवर्तकाल बढ़ता है, कठोर स्प्रिंग (अधिक k) से घटता है।",en:"Spring time period T = 2π√(m/k) — m is mass, k the spring constant. More mass lengthens the period; stiffer springs shorten it."}},
+
+{q:{hi:"'आवर्तकाल' और 'आवृत्ति' का संबंध क्या है?",en:"What is the relation between 'time period' and 'frequency'?"},
+ o:[{hi:"T = f",en:"T = f"},{hi:"T = 1/f",en:"T = 1/f"},{hi:"T = f²",en:"T = f²"},{hi:"T = √f",en:"T = √f"}],a:1,
+ ex:{hi:"आवर्तकाल (T) और आवृत्ति (f) व्युत्क्रमानुपाती हैं: T = 1/f या f = 1/T। यदि आवर्तकाल 0.5 सेकंड है, तो आवृत्ति 2 Hz होगी।",en:"Time period (T) and frequency (f) are reciprocals: T = 1/f or f = 1/T. If T = 0.5 s, then f = 2 Hz."}},
+
+{q:{hi:"'कोणीय आवृत्ति' (ω) और आवर्तकाल का संबंध क्या है?",en:"What is the relation between 'angular frequency' (ω) and time period?"},
+ o:[{hi:"ω = 2πT",en:"ω = 2πT"},{hi:"ω = 2π/T",en:"ω = 2π/T"},{hi:"ω = T/2π",en:"ω = T/2π"},{hi:"ω = 2πT²",en:"ω = 2πT²"}],a:1,
+ ex:{hi:"कोणीय आवृत्ति ω = 2π/T = 2πf। इसका मात्रक rad/s है। यह SHM में एक महत्वपूर्ण राशि है — जो प्रति सेकंड कितने रेडियन कोण तय होता है, यह दर्शाती है।",en:"Angular frequency ω = 2π/T = 2πf, unit rad/s — showing radians covered per second in SHM."}},
+
+{q:{hi:"SHM में 'चरम स्थिति' पर क्या होता है?",en:"What happens at the 'extreme position' in SHM?"},
+ o:[{hi:"वेग अधिकतम, त्वरण शून्य",en:"Velocity max, acceleration zero"},{hi:"वेग शून्य, त्वरण अधिकतम",en:"Velocity zero, acceleration max"},{hi:"दोनों शून्य",en:"Both zero"},{hi:"दोनों अधिकतम",en:"Both maximum"}],a:1,
+ ex:{hi:"SHM में चरम स्थिति (extreme) पर वेग शून्य और त्वरण अधिकतम होता है — क्योंकि वस्तु दिशा बदलने वाली होती है। मध्य स्थिति (mean) पर वेग अधिकतम और त्वरण शून्य होता है।",en:"At the extreme position in SHM, velocity is zero and acceleration maximum as the object reverses. At the mean position, velocity is max and acceleration zero."}},
+
+{q:{hi:"SHM में 'मध्य स्थिति' पर क्या होता है?",en:"What happens at the 'mean position' in SHM?"},
+ o:[{hi:"वेग शून्य, त्वरण अधिकतम",en:"Velocity zero, acceleration max"},{hi:"वेग अधिकतम, त्वरण शून्य",en:"Velocity max, acceleration zero"},{hi:"दोनों शून्य",en:"Both zero"},{hi:"दोनों अधिकतम",en:"Both maximum"}],a:1,
+ ex:{hi:"मध्य स्थिति (mean position) पर वेग अधिकतम होता है और त्वरण शून्य होता है। झूले के सबसे नीचे बिंदु पर इसकी गति सबसे तेज़ होती है। वेग की दिशा नहीं बदलती।",en:"At the mean position, velocity is maximum and acceleration zero — a swing is fastest at the lowest point with no change in direction."}},
+
+{q:{hi:"'अवमंदन' (Damping) में क्या होता है?",en:"What happens during 'Damping'?"},
+ o:[{hi:"आयाम बढ़ता है",en:"Amplitude increases"},{hi:"आयाम घटता है",en:"Amplitude decreases"},{hi:"आवृत्ति बदलती है",en:"Frequency changes"},{hi:"कोई परिवर्तन नहीं",en:"No change"}],a:1,
+ ex:{hi:"अवमंदन में घर्षण, वायु प्रतिरोध जैसी हानिकारक बलों से दोलन का आयाम धीरे-धीरे घटता जाता है। आवृत्ति लगभग स्थिर रहती है। उदाहरण: झूले का धीरे-धीरे रुक जाना।",en:"Damping reduces the oscillation's amplitude over time due to friction and air resistance, with frequency nearly unchanged — e.g., a swing gradually stopping."}},
+
+{q:{hi:"'विवर्तन' (Diffraction) किसमें स्पष्ट दिखता है?",en:"'Diffraction' is most evident in which of the following?"},
+ o:[{hi:"लंबी तरंगदैर्ध्य",en:"Long wavelength"},{hi:"छोटी तरंगदैर्ध्य",en:"Short wavelength"},{hi:"कोई अंतर नहीं",en:"No difference"},{hi:"केवल यांत्रिक तरंग",en:"Only mechanical waves"}],a:0,
+ ex:{hi:"विवर्तन तब स्पष्ट दिखता है जब तरंगदैर्ध्य अवरोध के आकार के लगभग बराबर या बड़ी हो। इसलिए ध्वनि (लंबी λ) का विवर्तन स्पष्ट दिखता है — दीवार के पीछे भी सुनाई देती है, जबकि प्रकाश का विवर्तन कठिन है।",en:"Diffraction is prominent when wavelength is comparable to or larger than the obstacle — hence sound (long λ) bends around walls easily, while light's diffraction is subtle."}},
+
+{q:{hi:"'तरंग' में 'आयाम' क्या दर्शाता है?",en:"What does 'amplitude' represent in a wave?"},
+ o:[{hi:"तरंग की लंबाई",en:"Wave length"},{hi:"तरंग की ऊँचाई/तीव्रता",en:"Wave height/intensity"},{hi:"तरंग की गति",en:"Wave speed"},{hi:"तरंग की आवृत्ति",en:"Wave frequency"}],a:1,
+ ex:{hi:"आयाम (Amplitude) माध्य स्थिति से कण के अधिकतम विस्थापन की मात्रा है — जो तरंग की तीव्रता/ऊर्जा दर्शाता है। ध्वनि में अधिक आयाम = अधिक तेज़ आवाज़। प्रकाश में अधिक आयाम = अधिक चमक। ऊर्जा ∝ आयाम²।",en:"Amplitude is maximum displacement from mean — showing wave intensity/energy. Louder sound or brighter light means more amplitude. Energy ∝ amplitude²."}},
+
+{q:{hi:"'अनुप्रस्थ तरंग' में कण किस दिशा में दोलन करते हैं?",en:"In a 'transverse wave', particles oscillate in which direction?"},
+ o:[{hi:"तरंग की दिशा में",en:"Along wave direction"},{hi:"तरंग की दिशा के लंबवत",en:"Perpendicular to wave direction"},{hi:"45° पर",en:"At 45°"},{hi:"किसी भी दिशा में",en:"Any direction"}],a:1,
+ ex:{hi:"अनुप्रस्थ तरंग में कण तरंग संचरण की दिशा के लंबवत दोलन करते हैं — जैसे रस्सी की लहरें, प्रकाश तरंगें, विद्युत चुम्बकीय तरंगें। अनुदैर्घ्य तरंग में कण तरंग की दिशा में दोलन करते हैं (ध्वनि)।",en:"In transverse waves, particles oscillate perpendicular to wave propagation — rope waves, light, EM waves. Longitudinal waves oscillate along the direction (sound)."}},
+
+/* ============ खंड C — भौतिकी: गुरुत्वाकर्षण और उपग्रह (Q25–36) ============ */
+{q:{hi:"'केप्लर का प्रथम नियम' क्या कहता है?",en:"What does 'Kepler's First Law' state?"},
+ o:[{hi:"ग्रह वृत्ताकार कक्षा में घूमते हैं",en:"Planets move in circular orbits"},{hi:"ग्रह दीर्घवृत्ताकार कक्षा में घूमते हैं, जिसका एक केंद्र सूर्य पर होता है",en:"Planets move in elliptical orbits with the Sun at one focus"},{hi:"ग्रह की गति स्थिर होती है",en:"Planet speed is constant"},{hi:"ग्रह का क्षेत्रफल स्थिर होता है",en:"Planet's area is constant"}],a:1,
+ ex:{hi:"केप्लर का प्रथम नियम (कक्षा का नियम) — 'प्रत्येक ग्रह सूर्य के चारों ओर दीर्घवृत्ताकार कक्षा में घूमता है, जिसका एक केंद्र सूर्य पर होता है।' इसलिए ग्रह-सूर्य की दूरी बदलती रहती है।",en:"Kepler's First Law — every planet orbits the Sun in an ellipse with the Sun at one focus, so the Sun-planet distance varies."}},
+
+{q:{hi:"'केप्लर का द्वितीय नियम' क्या कहता है?",en:"What does 'Kepler's Second Law' state?"},
+ o:[{hi:"ग्रह की कक्षा वृत्ताकार है",en:"Planet's orbit is circular"},{hi:"ग्रह सूर्य के निकट तेज़ और दूर धीमी गति से चलता है",en:"Planet moves faster near the Sun and slower far"},{hi:"सभी ग्रह समान गति से चलते हैं",en:"All planets move at same speed"},{hi:"क्षेत्रफल का नियम",en:"Law of area"}],a:1,
+ ex:{hi:"केप्लर का द्वितीय नियम (क्षेत्रफल का नियम) — 'ग्रह और सूर्य को मिलाने वाली रेखा समान समय में समान क्षेत्रफल तय करती है।' अतः ग्रह सूर्य के निकट (उपसौर) तेज़ चलता है और दूर (अपसौर) धीमा।",en:"Kepler's Second Law (Law of Areas) — the Sun-planet line sweeps equal areas in equal times. So planets move faster near the Sun (perihelion) and slower far (aphelion)."}},
+
+{q:{hi:"'केप्लर का तृतीय नियम' क्या कहता है?",en:"What does 'Kepler's Third Law' state?"},
+ o:[{hi:"T² ∝ r³",en:"T² ∝ r³"},{hi:"T ∝ r²",en:"T ∝ r²"},{hi:"T ∝ r",en:"T ∝ r"},{hi:"T² ∝ r",en:"T² ∝ r"}],a:0,
+ ex:{hi:"केप्लर का तृतीय नियम (आवर्तकाल का नियम) — 'ग्रह के परिक्रमण काल का वर्ग उसकी कक्षा की अर्ध-दीर्घ अक्ष की तृतीय घात के अनुक्रमानुपाती होता है।' T² ∝ r³ या T²/r³ = स्थिरांक।",en:"Kepler's Third Law — the square of a planet's orbital period is proportional to the cube of the semi-major axis: T² ∝ r³ or T²/r³ = constant."}},
+
+{q:{hi:"'गुरुत्वीय नियतांक' (G) का मान कितना होता है?",en:"What is the value of the 'gravitational constant' (G)?"},
+ o:[{hi:"6.67 × 10⁻¹¹ N·m²/kg²",en:"6.67 × 10⁻¹¹ N·m²/kg²"},{hi:"9.8 × 10⁻¹¹ N·m²/kg²",en:"9.8 × 10⁻¹¹ N·m²/kg²"},{hi:"6.67 × 10⁻⁸ N·m²/kg²",en:"6.67 × 10⁻⁸ N·m²/kg²"},{hi:"3.14 × 10⁻¹¹ N·m²/kg²",en:"3.14 × 10⁻¹¹ N·m²/kg²"}],a:0,
+ ex:{hi:"सार्वत्रिक गुरुत्वीय नियतांक G = 6.67 × 10⁻¹¹ N·m²/kg² — यह पूरे ब्रह्मांड में स्थिर है। इसे हेनरी कैवेंडिश ने 1798 में प्रयोग द्वारा मापा। G एक सार्वत्रिक नियतांक है, g (9.8 m/s²) स्थान-आधारित है।",en:"The universal gravitational constant G = 6.67 × 10⁻¹¹ N·m²/kg², constant throughout the universe, measured by Henry Cavendish in 1798. Unlike g (9.8 m/s²), G is universal."}},
+
+{q:{hi:"'पलायन वेग' (Escape Velocity) का मान पृथ्वी पर कितना है?",en:"What is the 'escape velocity' of the Earth?"},
+ o:[{hi:"7.9 km/s",en:"7.9 km/s"},{hi:"9.8 km/s",en:"9.8 km/s"},{hi:"11.2 km/s",en:"11.2 km/s"},{hi:"13.5 km/s",en:"13.5 km/s"}],a:2,
+ ex:{hi:"पृथ्वी से पलायन वेग ~11.2 km/s है — यह वह न्यूनतम वेग जिससे कोई वस्तु पृथ्वी के गुरुत्वाकर्षण से मुक्त हो सकती है। चंद्रमा से 2.4 km/s। पलायन वेग ग्रह के द्रव्यमान पर निर्भर करता है।",en:"Earth's escape velocity is ~11.2 km/s — the minimum speed to escape Earth's gravity. From the Moon: 2.4 km/s. It depends on the planet's mass."}},
+
+{q:{hi:"'कृत्रिम उपग्रह' की न्यूनतम कक्षीय गति कितनी होती है?",en:"What is the minimum orbital velocity of an 'artificial satellite'?"},
+ o:[{hi:"5.6 km/s",en:"5.6 km/s"},{hi:"7.9 km/s",en:"7.9 km/s"},{hi:"11.2 km/s",en:"11.2 km/s"},{hi:"15 km/s",en:"15 km/s"}],a:1,
+ ex:{hi:"पृथ्वी की सतह के पास कृत्रिम उपग्रह की कक्षीय गति ~7.9 km/s होती है — जिसे 'प्रथम ब्रह्मांडीय वेग' भी कहते हैं। इतनी गति से वस्तु पृथ्वी के चारों ओर वृत्ताकार कक्षा में घूम सकती है।",en:"A satellite's orbital velocity near Earth is ~7.9 km/s (first cosmic velocity), keeping it in a circular orbit."}},
+
+{q:{hi:"'भूस्थिर उपग्रह' का परिक्रमण काल कितना होता है?",en:"What is the orbital period of a 'geostationary satellite'?"},
+ o:[{hi:"12 घंटे",en:"12 hours"},{hi:"18 घंटे",en:"18 hours"},{hi:"24 घंटे",en:"24 hours"},{hi:"48 घंटे",en:"48 hours"}],a:2,
+ ex:{hi:"भूस्थिर उपग्रह का परिक्रमण काल 24 घंटे होता है — पृथ्वी के घूर्णन के समान। यह पृथ्वी की भूमध्य रेखा के ऊपर ~36,000 किमी की ऊँचाई पर स्थित होता है और पृथ्वी से स्थिर दिखता है। संचार उपग्रह इसी प्रकार के होते हैं।",en:"A geostationary satellite has a 24-hour period, matching Earth's rotation, at ~36,000 km above the equator — used for communication."}},
+
+{q:{hi:"'भारहीनता' अंतरिक्ष यात्रियों में क्यों होती है?",en:"Why do astronauts experience 'weightlessness'?"},
+ o:[{hi:"गुरुत्वाकर्षण नहीं होता",en:"No gravity exists"},{hi:"वे मुक्त पतन में होते हैं",en:"They are in free fall"},{hi:"उनका द्रव्यमान घट जाता है",en:"Their mass decreases"},{hi:"उनका वजन बढ़ जाता है",en:"Their weight increases"}],a:1,
+ ex:{hi:"अंतरिक्ष यात्री भारहीनता अनुभव करते हैं क्योंकि वे अपने अंतरिक्ष यान के साथ मुक्त पतन में होते हैं — गुरुत्वाकर्षण बल यान को और यात्री को समान त्वरण देता है। यह वास्तव में 'सूक्ष्म गुरुत्व' (microgravity) की स्थिति है।",en:"Astronauts feel weightless because they and their spacecraft are in free fall together — gravity accelerates both equally, giving microgravity."}},
+
+{q:{hi:"'गुरुत्वीय त्वरण' (g) की दिशा क्या होती है?",en:"What is the direction of 'gravitational acceleration' (g)?"},
+ o:[{hi:"ऊपर की ओर",en:"Upward"},{hi:"केंद्र की ओर (नीचे)",en:"Toward the centre (downward)"},{hi:"पार्श्व में",en:"Sideways"},{hi:"किसी भी दिशा में",en:"Any direction"}],a:1,
+ ex:{hi:"गुरुत्वीय त्वरण की दिशा सदैव पृथ्वी के केंद्र की ओर होती है — सतह पर नीचे की ओर। इसका मान ध्रुवों पर 9.83 m/s² और भूमध्य रेखा पर 9.78 m/s² होता है। ऊँचाई बढ़ने पर g घटता है।",en:"Gravitational acceleration always points toward Earth's centre (downward) — 9.83 m/s² at poles and 9.78 at the equator. It decreases with altitude."}},
+
+{q:{hi:"'गुरुत्वाकर्षण' की खोज में किसने योगदान दिया?",en:"Who contributed to the discovery of 'gravitation'?"},
+ o:[{hi:"केवल न्यूटन",en:"Only Newton"},{hi:"ब्रह्मगुप्त और न्यूटन",en:"Brahmagupta and Newton"},{hi:"केवल आइंस्टीन",en:"Only Einstein"},{hi:"केवल गैलीलियो",en:"Only Galileo"}],a:1,
+ ex:{hi:"भारतीय गणितज्ञ ब्रह्मगुप्त (7वीं शताब्दी) ने गुरुत्वाकर्षण का प्रारंभिक विचार दिया — 'पृथ्वी का आकर्षण बल'। बाद में न्यूटन ने 1687 में इसे गणितीय रूप दिया। इसलिए गुरुत्वाकर्षण में दोनों का योगदान है।",en:"Indian mathematician Brahmagupta (7th century) had early ideas of gravitation; Newton gave it a mathematical form in 1687. Both contributed."}},
+
+{q:{hi:"'ज्वार-भाटा' (Tides) का मुख्य कारण क्या है?",en:"What is the main cause of 'tides'?"},
+ o:[{hi:"पृथ्वी का घूर्णन",en:"Earth's rotation"},{hi:"चंद्रमा और सूर्य का गुरुत्वाकर्षण",en:"Gravitational pull of Moon and Sun"},{hi:"पवन",en:"Wind"},{hi:"समुद्री धाराएँ",en:"Ocean currents"}],a:1,
+ ex:{hi:"ज्वार-भाटा मुख्यतः चंद्रमा के गुरुत्वाकर्षण से होता है (सूर्य का योगदान कम)। जब सूर्य, चंद्रमा और पृथ्वी एक सीध में होते हैं — अमावस्या/पूर्णिमा को 'वृहत् ज्वार' आता है। द्वितीय चतुर्थांश में 'लघु ज्वार'।",en:"Tides are mainly due to the Moon's gravity (the Sun contributes less). When Sun, Moon and Earth align (new/full moon), spring tides occur; at quadrature, neap tides."}},
+
+/* ============ खंड D — भौतिकी: पदार्थ के गुण (Q37–48) ============ */
+{q:{hi:"'यंग मापांक' किससे संबंधित है?",en:"'Young's Modulus' is related to which of the following?"},
+ o:[{hi:"द्रव का प्रवाह",en:"Fluid flow"},{hi:"ठोस की प्रत्यास्थता",en:"Elasticity of solids"},{hi:"गैस का दाब",en:"Gas pressure"},{hi:"प्रकाश",en:"Light"}],a:1,
+ ex:{hi:"यंग मापांक (Y) ठोस की प्रत्यास्थता का माप है — तनाव और विकृति का अनुपात: Y = (F/A)/(ΔL/L)। इसका SI मात्रक N/m² या पास्कल। स्टील का Y सबसे अधिक होता है — इसलिए यह अधिक भार सहन करता है।",en:"Young's Modulus (Y) measures a solid's elasticity — stress/strain. SI unit N/m² or Pa. Steel has a high Y, so it bears heavy loads."}},
+
+{q:{hi:"'प्वासों अनुपात' (Poisson's Ratio) की सीमा क्या है?",en:"What is the range of 'Poisson's Ratio'?"},
+ o:[{hi:"-1 से 0.5",en:"-1 to 0.5"},{hi:"0 से 1",en:"0 to 1"},{hi:"1 से 2",en:"1 to 2"},{hi:"-0.5 से 0",en:"-0.5 to 0"}],a:0,
+ ex:{hi:"प्वासों अनुपात सैद्धांतिक रूप से -1 से 0.5 तक हो सकता है — अधिकांश पदार्थों में 0 से 0.5 के बीच। यह अनुदैर्घ्य विकृति और अनुप्रस्थ विकृति का अनुपात है। स्टील का ~0.28, रबर का ~0.5।",en:"Poisson's ratio ranges from -1 to 0.5 theoretically (mostly 0–0.5). It is the ratio of lateral to longitudinal strain — steel ~0.28, rubber ~0.5."}},
+
+{q:{hi:"'हुक का नियम' किसके लिए लागू होता है?",en:"'Hooke's Law' applies to which of the following?"},
+ o:[{hi:"अत्यधिक विकृति",en:"Very large strain"},{hi:"प्रत्यास्थ सीमा के भीतर",en:"Within elastic limit"},{hi:"केवल द्रवों में",en:"Only in fluids"},{hi:"केवल गैसों में",en:"Only in gases"}],a:1,
+ ex:{hi:"हुक का नियम — 'प्रत्यास्थ सीमा के भीतर विकृति तनाव के अनुक्रमानुपाती होती है।' F ∝ x या F = kx। प्रत्यास्थ सीमा पार करने पर यह लागू नहीं होता — पदार्थ स्थायी रूप से विकृत हो जाता है।",en:"Hooke's Law — within the elastic limit, strain is proportional to stress: F = kx. Beyond the elastic limit, it fails as the material deforms permanently."}},
+
+{q:{hi:"'पृष्ठीय ऊर्जा' किससे संबंधित है?",en:"'Surface energy' is related to which of the following?"},
+ o:[{hi:"पृष्ठ तनाव",en:"Surface tension"},{hi:"श्यानता",en:"Viscosity"},{hi:"प्रत्यास्थता",en:"Elasticity"},{hi:"ऊष्मा",en:"Heat"}],a:0,
+ ex:{hi:"पृष्ठीय ऊर्जा = पृष्ठ तनाव × क्षेत्रफल। यह द्रव की सतह के क्षेत्रफल को बढ़ाने के लिए आवश्यक ऊर्जा है। इसका SI मात्रक J/m² है — जो पृष्ठ तनाव (N/m) के समान आयाम रखता है।",en:"Surface energy = surface tension × area, the energy needed to increase a liquid's surface area, unit J/m² — same dimensions as surface tension (N/m)."}},
+
+{q:{hi:"'केशिका नली' में जल क्यों चढ़ता है?",en:"Why does water rise in a 'capillary tube'?"},
+ o:[{hi:"गुरुत्वाकर्षण से",en:"By gravity"},{hi:"पृष्ठ तनाव और आसंजन से",en:"By surface tension and adhesion"},{hi:"वायु दाब से",en:"By air pressure"},{hi:"श्यानता से",en:"By viscosity"}],a:1,
+ ex:{hi:"केशिका नली में जल पृष्ठ तनाव, आसंजन (जल-काँच) और संसजन बलों के कारण चढ़ता है। ऊँचाई h = 2T cosθ / (rρg) — जहाँ T पृष्ठ तनाव, r त्रिज्या। पतली नली में अधिक ऊँचाई तक जल चढ़ता है।",en:"Water rises due to surface tension and adhesion (water-glass) and cohesion forces: h = 2T cosθ/(rρg). Narrower tubes give higher rise."}},
+
+{q:{hi:"'तनाव' (Stress) का SI मात्रक क्या है?",en:"What is the SI unit of 'Stress'?"},
+ o:[{hi:"न्यूटन",en:"Newton"},{hi:"न्यूटन/मीटर²",en:"Newton/metre²"},{hi:"जूल",en:"Joule"},{hi:"वाट",en:"Watt"}],a:1,
+ ex:{hi:"तनाव = बल / क्षेत्रफल — इसका SI मात्रक न्यूटन/मीटर² या पास्कल (Pa) है। तनाव के प्रकार: अनुदैर्घ्य, अपरूपण और आयतन तनाव। तनाव का आयाम दाब के समान होता है।",en:"Stress = force/area, SI unit N/m² or Pascal (Pa). Types: longitudinal, shear and volumetric — same dimensions as pressure."}},
+
+{q:{hi:"'विकृति' (Strain) किस प्रकार की राशि है?",en:"'Strain' is which type of quantity?"},
+ o:[{hi:"सदिश",en:"Vector"},{hi:"अदिश",en:"Scalar"},{hi:"टेन्सर",en:"Tensor"},{hi:"दिशारहित",en:"Directionless"}],a:1,
+ ex:{hi:"विकृति अदिश राशि है — क्योंकि यह लंबाई में परिवर्तन और मूल लंबाई का अनुपात है, इसका कोई मात्रक नहीं होता (विमाहीन)। विकृति = ΔL/L। तनाव सदिश या टेन्सर हो सकता है।",en:"Strain is a scalar (dimensionless) — the ratio of change in length to original length, ΔL/L. Stress may be a vector or tensor."}},
+
+{q:{hi:"'क्वथनांक' पर पदार्थ की अवस्था क्या होती है?",en:"What is a substance's state at its 'boiling point'?"},
+ o:[{hi:"केवल ठोस",en:"Only solid"},{hi:"द्रव और वाष्प साम्य में",en:"Liquid and vapour in equilibrium"},{hi:"केवल गैस",en:"Only gas"},{hi:"प्लाज़्मा",en:"Plasma"}],a:1,
+ ex:{hi:"क्वथनांक पर द्रव और वाष्प साम्य अवस्था में होते हैं — दोनों एक साथ रहते हैं। द्रव के वाष्प में बदलने के लिए दी गई ऊष्मा 'गुप्त ऊष्मा' कहलाती है। पानी का क्वथनांक 100°C (1 atm)।",en:"At boiling point, liquid and vapour coexist in equilibrium. Heat absorbed during vaporisation is latent heat. Water boils at 100°C (1 atm)."}},
+
+{q:{hi:"'क्रांतिक तापमान' क्या है?",en:"What is 'critical temperature'?"},
+ o:[{hi:"वह तापमान जिसके नीचे गैस द्रवीभूत हो सकती है",en:"Temperature below which a gas can liquefy"},{hi:"वह तापमान जिसके ऊपर गैस द्रवीभूत होती है",en:"Temperature above which a gas liquefies"},{hi:"कोई विशेष तापमान",en:"Any specific temperature"},{hi:"क्वथनांक",en:"Boiling point"}],a:0,
+ ex:{hi:"क्रांतिक तापमान वह तापमान है जिसके नीचे गैस को दाब द्वारा द्रवीभूत किया जा सकता है — इसके ऊपर नहीं। उदाहरण — CO₂ का 31.1°C, हीलियम का -268°C (सबसे कम)।",en:"Critical temperature is the temperature below which a gas can be liquefied by pressure — above it, not. CO₂: 31.1°C; helium: -268°C (lowest)."}},
+
+{q:{hi:"'पृष्ठ तनाव' तापमान बढ़ने पर कैसे बदलता है?",en:"How does 'surface tension' change with rising temperature?"},
+ o:[{hi:"बढ़ता है",en:"Increases"},{hi:"घटता है",en:"Decreases"},{hi:"स्थिर रहता है",en:"Remains constant"},{hi:"पहले बढ़ता फिर घटता है",en:"First up then down"}],a:1,
+ ex:{hi:"तापमान बढ़ने पर पृष्ठ तनाव घटता है — क्योंकि अणुओं की गतिज ऊर्जा बढ़ती है और संसजन बल कमजोर होते हैं। इसलिए गर्म पानी से कपड़े जल्दी धुलते हैं, गर्म साबुन का घोल अच्छा झाग देता है।",en:"Surface tension decreases with rising temperature as molecules gain kinetic energy and cohesion weakens — hence hot water cleans better."}},
+
+{q:{hi:"'प्लाज़्मा' क्या है?",en:"What is 'plasma'?"},
+ o:[{hi:"ठोस की अवस्था",en:"Solid state"},{hi:"द्रव की अवस्था",en:"Liquid state"},{hi:"आयनित गैस",en:"Ionised gas"},{hi:"बोस-आइंस्टीन",en:"Bose-Einstein"}],a:2,
+ ex:{hi:"प्लाज़्मा पदार्थ की चौथी अवस्था है — अत्यंत उच्च तापमान पर गैस के परमाणु आयनित होकर इलेक्ट्रॉन और आयनों में टूट जाते हैं। सूर्य, तारे, नीयन लैंप और बिजली की चमक प्लाज़्मा के उदाहरण हैं।",en:"Plasma is the fourth state of matter — gas ionised into electrons and ions at extreme temperatures. The Sun, stars, neon lamps and lightning are plasmas."}},
+
+/* ============ खंड E — रसायन: रासायनिक बंधन (Q49–60) ============ */
+{q:{hi:"'आयनिक बंधन' किनके बीच बनता है?",en:"An 'ionic bond' forms between which of the following?"},
+ o:[{hi:"अधातु-अधातु",en:"Non-metal to non-metal"},{hi:"धातु-अधातु",en:"Metal to non-metal"},{hi:"धातु-धातु",en:"Metal to metal"},{hi:"गैस-गैस",en:"Gas to gas"}],a:1,
+ ex:{hi:"आयनिक (विद्युतसंयोजक) बंधन धातु और अधातु के बीच इलेक्ट्रॉन के स्थानांतरण से बनता है — धातु इलेक्ट्रॉन खोकर धनायन और अधातु ग्रहण करके ऋणायन बनती है। उदाहरण: NaCl, CaCl₂, MgO।",en:"An ionic bond forms between a metal and a non-metal by electron transfer — metal becomes a cation, non-metal an anion. Examples: NaCl, CaCl₂, MgO."}},
+
+{q:{hi:"'सहसंयोजक बंधन' किनके बीच बनता है?",en:"A 'covalent bond' forms between which of the following?"},
+ o:[{hi:"धातु-धातु",en:"Metal to metal"},{hi:"अधातु-अधातु",en:"Non-metal to non-metal"},{hi:"धातु-अधातु",en:"Metal to non-metal"},{hi:"धातु-गैस",en:"Metal to gas"}],a:1,
+ ex:{hi:"सहसंयोजक बंधन दो अधातुओं के बीच इलेक्ट्रॉन की साझेदारी से बनता है। उदाहरण: H₂, O₂, H₂O, CH₄, CO₂। ये बंधन प्रबल होते हैं — इन्हें तोड़ने के लिए अधिक ऊर्जा चाहिए।",en:"A covalent bond forms between two non-metals via electron sharing — H₂, O₂, H₂O, CH₄, CO₂. These bonds are strong, needing high energy to break."}},
+
+{q:{hi:"'उपसहसंयोजक बंधन' में क्या होता है?",en:"What happens in a 'coordinate bond'?"},
+ o:[{hi:"इलेक्ट्रॉन साझेदारी समान",en:"Equal sharing of electrons"},{hi:"एक परमाणु दोनों इलेक्ट्रॉन देता है",en:"One atom donates both electrons"},{hi:"इलेक्ट्रॉन स्थानांतरण",en:"Electron transfer"},{hi:"इलेक्ट्रॉन गैस",en:"Electron gas"}],a:1,
+ ex:{hi:"उपसहसंयोजक (दाता-ग्राही) बंधन में एक परमाणु इलेक्ट्रॉन युग्म दान करता है और दूसरा ग्रहण करता है — दोनों साझा करते हैं। उदाहरण: NH₄⁺ (अमोनियम आयन) में N से H⁺ को इलेक्ट्रॉन दान।",en:"A coordinate (dative) bond has one atom donating an electron pair to another. Example: NH₄⁺, where N donates to H⁺."}},
+
+{q:{hi:"'धात्विक बंधन' की मुख्य विशेषता क्या है?",en:"What is the main feature of a 'metallic bond'?"},
+ o:[{hi:"इलेक्ट्रॉन स्थानीयकृत",en:"Localised electrons"},{hi:"इलेक्ट्रॉन विस्थानीकृत (मुक्त)",en:"Delocalised (free) electrons"},{hi:"इलेक्ट्रॉन साझा",en:"Shared electrons"},{hi:"कोई बंधन नहीं",en:"No bond"}],a:1,
+ ex:{hi:"धात्विक बंधन में संयोजक इलेक्ट्रॉन धातु आयनों के जालक में स्वतंत्र रूप से घूमते हैं — 'इलेक्ट्रॉन समुद्र'। इसी कारण धातुएँ विद्युत और ऊष्मा की अच्छी चालक, चमकदार, आघातवर्धनीय और तन्य होती हैं।",en:"In metallic bonding, valence electrons move freely among metal ion lattices — an 'electron sea'. Hence metals conduct, shine, and are malleable and ductile."}},
+
+{q:{hi:"'हाइड्रोजन बंधन' किसमें होता है?",en:"A 'hydrogen bond' occurs in which of the following?"},
+ o:[{hi:"HCl में",en:"In HCl"},{hi:"H₂O में",en:"In H₂O"},{hi:"CH₄ में",en:"In CH₄"},{hi:"NaCl में",en:"In NaCl"}],a:1,
+ ex:{hi:"हाइड्रोजन बंधन तब बनता है जब हाइड्रोजन अत्यंत विद्युत-ऋणात्मक परमाणु (F, O, N) से जुड़ा हो। पानी (H₂O), HF, NH₃, अल्कोहॉल, DNA में यह बंधन होता है। इससे पानी का क्वथनांक अधिक होता है और बर्फ पानी पर तैरती है।",en:"A hydrogen bond forms when H is attached to a highly electronegative atom (F, O, N) — water, HF, NH₃, alcohols, DNA. It raises water's boiling point and makes ice float."}},
+
+{q:{hi:"'वैद्युत संयोजकता' (Electrovalency) क्या है?",en:"What is 'electrovalency'?"},
+ o:[{hi:"इलेक्ट्रॉन साझेदारी",en:"Electron sharing"},{hi:"इलेक्ट्रॉन खोने/पाने की संख्या",en:"Number of electrons lost/gained"},{hi:"प्रोटॉन की संख्या",en:"Number of protons"},{hi:"न्यूट्रॉन की संख्या",en:"Number of neutrons"}],a:1,
+ ex:{hi:"वैद्युत संयोजकता आयनिक बंधन में परमाणु द्वारा खोए या पाए गए इलेक्ट्रॉनों की संख्या है। Na⁺ की +1, Ca²⁺ की +2, Cl⁻ की -1, O²⁻ की -2। यह आयन के आवेश के बराबर होती है।",en:"Electrovalency is the number of electrons lost or gained in ionic bonding: Na⁺ (+1), Ca²⁺ (+2), Cl⁻ (-1), O²⁻ (-2)."}},
+
+{q:{hi:"'संयोजकता' (Valency) क्या दर्शाती है?",en:"What does 'valency' represent?"},
+ o:[{hi:"परमाणु का आकार",en:"Atom's size"},{hi:"परमाणु की संयोजन क्षमता",en:"Atom's combining capacity"},{hi:"परमाणु का भार",en:"Atom's weight"},{hi:"परमाणु का रंग",en:"Atom's colour"}],a:1,
+ ex:{hi:"संयोजकता परमाणु की संयोजन क्षमता है — सबसे बाहरी कोश में इलेक्ट्रॉन की स्थिति से तय होती है। H की 1, O की 2, N की 3, C की 4। यह आवर्त सारणी में समूह से संबंधित है।",en:"Valency is an atom's combining capacity based on outer-shell electrons — H:1, O:2, N:3, C:4, related to the periodic group."}},
+
+{q:{hi:"'अष्टक नियम' (Octet Rule) क्या कहता है?",en:"What does the 'octet rule' state?"},
+ o:[{hi:"परमाणु 4 इलेक्ट्रॉन चाहते हैं",en:"Atoms need 4 electrons"},{hi:"परमाणु 8 इलेक्ट्रॉन वाली स्थिर अवस्था चाहते हैं",en:"Atoms seek a stable 8-electron state"},{hi:"परमाणु 2 इलेक्ट्रॉन चाहते हैं",en:"Atoms need 2 electrons"},{hi:"कोई नियम नहीं",en:"No rule"}],a:1,
+ ex:{hi:"अष्टक नियम — 'परमाणु स्थिर अवस्था के लिए अपने बाहरी कोश में 8 इलेक्ट्रॉन (नोबल गैस विन्यास) चाहते हैं।' यह बंधन बनने का आधार है। हाइड्रोजन और हीलियम 2 इलेक्ट्रॉन चाहते हैं।",en:"The octet rule states atoms seek 8 electrons in their outer shell (noble-gas configuration) for stability — the basis of bonding. H and He seek 2."}},
+
+{q:{hi:"'विद्युत-ऋणात्मकता' किस पर निर्भर करती है?",en:"'Electronegativity' depends on which of the following?"},
+ o:[{hi:"परमाणु आकार",en:"Atomic size"},{hi:"परमाणु त्रिज्या और नाभिकीय आवेश",en:"Atomic radius and nuclear charge"},{hi:"परमाणु भार",en:"Atomic weight"},{hi:"रंग",en:"Colour"}],a:1,
+ ex:{hi:"विद्युत-ऋणात्मकता परमाणु का इलेक्ट्रॉन खींचने का बल है — जो परमाणु त्रिज्या और नाभिकीय आवेश से तय होती है। छोटा परमाणु और अधिक नाभिकीय आवेश = अधिक विद्युत-ऋणात्मकता। फ्लोरीन सबसे अधिक (4.0)।",en:"Electronegativity is an atom's pull on electrons, depending on atomic radius and nuclear charge — small atoms with high charge are more electronegative. Fluorine tops at 4.0."}},
+
+{q:{hi:"'बंधन ऊर्जा' का मात्रक क्या है?",en:"What is the unit of 'bond energy'?"},
+ o:[{hi:"जूल/मोल",en:"Joule/mole"},{hi:"जूल",en:"Joule"},{hi:"न्यूटन",en:"Newton"},{hi:"वाट",en:"Watt"}],a:0,
+ ex:{hi:"बंधन ऊर्जा वह ऊर्जा है जो एक मोल बंधन को तोड़ने के लिए आवश्यक होती है — इसका मात्रक kJ/mol या J/mol है। यह बंधन की प्रबलता दर्शाती है। त्रि-आबंध > द्वि-आबंध > एकल आबंध।",en:"Bond energy is the energy needed to break one mole of bonds, in kJ/mol — indicating bond strength. Triple > double > single bonds."}},
+
+{q:{hi:"'आकारान्तर' (Allotropy) क्या है?",en:"What is 'allotropy'?"},
+ o:[{hi:"तत्व का भार बदलना",en:"Element's weight changes"},{hi:"एक तत्व के विभिन्न रूपों में रहने की क्षमता",en:"One element existing in different forms"},{hi:"रंग बदलना",en:"Colour change"},{hi:"बंधन बदलना",en:"Bond change"}],a:1,
+ ex:{hi:"आकारान्तर एक तत्व के दो या अधिक भौतिक रूपों में रहने की क्षमता है। उदाहरण: कार्बन (हीरा, ग्रेफाइट, फुलरीन), फॉस्फोरस (सफेद, लाल, काला), सल्फर। हीरा कठोर, ग्रेफाइट मुलायम।",en:"Allotropy is an element's ability to exist in different physical forms — carbon (diamond, graphite, fullerene), phosphorus (white, red, black), sulphur."}},
+
+{q:{hi:"'विद्युत अपघटन' (Electrolysis) में क्या होता है?",en:"What happens in 'electrolysis'?"},
+ o:[{hi:"रासायनिक अभिक्रिया से विद्युत",en:"Chemical reaction produces electricity"},{hi:"विद्युत से रासायनिक अभिक्रिया",en:"Electricity drives chemical reaction"},{hi:"केवल ऊष्मा",en:"Only heat"},{hi:"केवल प्रकाश",en:"Only light"}],a:1,
+ ex:{hi:"विद्युत अपघटन में विद्युत ऊर्जा से रासायनिक अभिक्रिया होती है — जैसे जल का विद्युत विश्लेषण (H₂ और O₂ में), धातु का शोधन (एल्युमिनियम, ताँबा), विद्युत लेपन (electroplating)।",en:"In electrolysis, electricity drives a chemical reaction — water splitting (into H₂, O₂), metal refining (Al, Cu), electroplating."}},
+
+/* ============ खंड F — रसायन: साम्य और गति (Q61–72) ============ */
+{q:{hi:"'उत्क्रमणीय अभिक्रिया' में रासायनिक साम्य कब होता है?",en:"When does 'chemical equilibrium' occur in a reversible reaction?"},
+ o:[{hi:"जब अभिक्रिया रुक जाए",en:"When reaction stops"},{hi:"जब अग्र और पश्च अभिक्रिया की दर समान हो",en:"When forward and backward rates are equal"},{hi:"जब अभिकारक खत्म हो जाए",en:"When reactants run out"},{hi:"जब उत्पाद खत्म हो जाए",en:"When products run out"}],a:1,
+ ex:{hi:"रासायनिक साम्य तब होता है जब अग्र और पश्च अभिक्रिया की दर समान हो जाती है — सांद्रताएँ स्थिर हो जाती हैं, लेकिन अभिक्रिया रुकती नहीं (गतिशील साम्य)।",en:"Chemical equilibrium occurs when forward and backward reaction rates are equal — concentrations become constant, but the reaction doesn't stop (dynamic equilibrium)."}},
+
+{q:{hi:"'ला-शातेलिए का सिद्धांत' क्या कहता है?",en:"What does 'Le Chatelier's Principle' state?"},
+ o:[{hi:"साम्य कभी नहीं बदलता",en:"Equilibrium never changes"},{hi:"बाहरी परिवर्तन पर साम्य उसका प्रतिकार करता है",en:"Equilibrium opposes external change"},{hi:"अभिक्रिया सदा अग्र चलती है",en:"Reaction always goes forward"},{hi:"अभिक्रिया सदा पश्च चलती है",en:"Reaction always goes backward"}],a:1,
+ ex:{hi:"ला-शातेलिए का सिद्धांत — 'जब साम्य पर बाहरी परिवर्तन (सांद्रता, दाब, तापमान) लगाया जाता है, तो साम्य उसका प्रतिकार करने की दिशा में आगे बढ़ता है।' यह औद्योगिक उत्पादन में महत्वपूर्ण है।",en:"Le Chatelier's Principle — when an external change (concentration, pressure, temperature) is applied to equilibrium, it shifts to oppose it — vital in industrial production."}},
+
+{q:{hi:"'अमोनिया संश्लेषण' (हैबर विधि) में दाब बढ़ाने पर क्या होता है?",en:"In 'ammonia synthesis' (Haber process), increasing pressure does what?"},
+ o:[{hi:"अमोनिया उत्पादन बढ़ता है",en:"Increases ammonia production"},{hi:"अमोनिया उत्पादन घटता है",en:"Decreases ammonia production"},{hi:"कोई प्रभाव नहीं",en:"No effect"},{hi:"अभिक्रिया रुक जाती है",en:"Reaction stops"}],a:0,
+ ex:{hi:"हैबर विधि N₂ + 3H₂ ⇌ 2NH₃ में 4 मोल से 2 मोल बनते हैं — दाब बढ़ाने पर अग्र अभिक्रिया बढ़ती है (ला-शातेलिए)। उद्योग में 200 atm दाब, 700 K तापमान और लोहे का उत्प्रेरक उपयोग होता है।",en:"In Haber's process, N₂ + 3H₂ ⇌ 2NH₃, 4 moles → 2 moles, so higher pressure favours forward reaction. Industry uses 200 atm, 700 K, iron catalyst."}},
+
+{q:{hi:"'उत्प्रेरक' अभिक्रिया की दर को कैसे बदलता है?",en:"How does a 'catalyst' change reaction rate?"},
+ o:[{hi:"सक्रियण ऊर्जा बढ़ाकर",en:"By increasing activation energy"},{hi:"सक्रियण ऊर्जा घटाकर",en:"By lowering activation energy"},{hi:"तापमान बढ़ाकर",en:"By increasing temperature"},{hi:"दाब बढ़ाकर",en:"By increasing pressure"}],a:1,
+ ex:{hi:"उत्प्रेरक सक्रियण ऊर्जा (activation energy) को घटाकर अभिक्रिया की दर बढ़ाता है — स्वयं अभिक्रिया में भाग नहीं लेता और अंत में अपरिवर्तित रहता है। जीवित तंत्र में एंजाइम जैव-उत्प्रेरक होते हैं।",en:"A catalyst speeds up reaction by lowering activation energy, remaining unchanged. Enzymes are biological catalysts in living systems."}},
+
+{q:{hi:"'सक्रियण ऊर्जा' क्या है?",en:"What is 'activation energy'?"},
+ o:[{hi:"अभिक्रिया के बाद ऊर्जा",en:"Energy after reaction"},{hi:"अभिक्रिया शुरू करने के लिए आवश्यक न्यूनतम ऊर्जा",en:"Minimum energy needed to start a reaction"},{hi:"कोई ऊर्जा नहीं",en:"No energy"},{hi:"उत्प्रेरक ऊर्जा",en:"Catalyst energy"}],a:1,
+ ex:{hi:"सक्रियण ऊर्जा वह न्यूनतम ऊर्जा है जो अभिकारकों को अभिक्रिया शुरू करने के लिए चाहिए — जिससे उनके बंधन टूट सकें। तापमान और उत्प्रेरक इसे प्रभावित करते हैं। अधिक सक्रियण ऊर्जा = धीमी अभिक्रिया।",en:"Activation energy is the minimum energy for reactants to start a reaction, breaking their bonds. Higher temperature and catalysts reduce it; high activation energy slows reactions."}},
+
+{q:{hi:"'अभिक्रिया की दर' किस पर निर्भर करती है?",en:"The 'rate of reaction' depends on which of the following?"},
+ o:[{hi:"केवल तापमान",en:"Only temperature"},{hi:"सांद्रता, तापमान, उत्प्रेरक, पृष्ठ क्षेत्रफल",en:"Concentration, temperature, catalyst, surface area"},{hi:"केवल दाब",en:"Only pressure"},{hi:"केवल उत्प्रेरक",en:"Only catalyst"}],a:1,
+ ex:{hi:"अभिक्रिया की दर कई कारकों पर निर्भर करती है — सांद्रता (अधिक सांद्रता, अधिक दर), तापमान (10°C वृद्धि से दर ~2 गुना), उत्प्रेरक, पृष्ठ क्षेत्रफल (चूर्ण में तेज़)।",en:"Reaction rate depends on concentration, temperature (10°C rise doubles rate), catalyst and surface area (powders react faster)."}},
+
+{q:{hi:"'प्रथम कोटि की अभिक्रिया' का अर्ध-आयु किस पर निर्भर है?",en:"The half-life of a 'first-order reaction' depends on which of the following?"},
+ o:[{hi:"प्रारंभिक सांद्रता",en:"Initial concentration"},{hi:"केवल दर स्थिरांक",en:"Only rate constant"},{hi:"तापमान और दाब",en:"Temperature and pressure"},{hi:"कोई नहीं",en:"None"}],a:1,
+ ex:{hi:"प्रथम कोटि की अभिक्रिया का अर्ध-आयु t₁/₂ = 0.693/k — जो केवल दर स्थिरांक पर निर्भर है, प्रारंभिक सांद्रता पर नहीं। इसलिए रेडियोधर्मी क्षय और प्रथम कोटि की अभिक्रियाओं में अर्ध-आयु स्थिर रहती है।",en:"A first-order reaction's half-life t₁/₂ = 0.693/k depends only on the rate constant, not initial concentration — hence constant for radioactive decay."}},
+
+{q:{hi:"'साम्य स्थिरांक' (K) का मान अधिक होने से क्या दर्शाता है?",en:"A high value of the 'equilibrium constant' (K) indicates what?"},
+ o:[{hi:"अभिकारक अधिक",en:"More reactants"},{hi:"उत्पाद अधिक",en:"More products"},{hi:"अभिक्रिया धीमी",en:"Slower reaction"},{hi:"कोई सूचना नहीं",en:"No information"}],a:1,
+ ex:{hi:"साम्य स्थिरांक K = [उत्पाद]/[अभिकारक]। K का अधिक मान = उत्पाद अधिक बनते हैं (अभिक्रिया लगभग पूर्ण)। K का कम मान = अभिकारक अधिक रहते हैं। K केवल तापमान पर निर्भर करता है।",en:"K = [products]/[reactants]. High K means more products (near-complete reaction); low K means more reactants. K depends only on temperature."}},
+
+{q:{hi:"'ऊष्माक्षेपी अभिक्रिया' में क्या होता है?",en:"What happens in an 'exothermic reaction'?"},
+ o:[{hi:"ऊष्मा अवशोषित",en:"Heat absorbed"},{hi:"ऊष्मा मुक्त",en:"Heat released"},{hi:"कोई ऊष्मा नहीं",en:"No heat"},{hi:"प्रकाश मुक्त",en:"Light released"}],a:1,
+ ex:{hi:"ऊष्माक्षेपी अभिक्रिया में ऊष्मा मुक्त होती है — ΔH ऋणात्मक। उदाहरण: दहन, श्वसन, उदासीनीकरण, चूने में जल डालना। ऊष्माशोषी में ऊष्मा अवशोषित होती है (ΔH धनात्मक) — जैसे प्रकाश संश्लेषण।",en:"In exothermic reactions, heat is released (ΔH negative) — combustion, respiration, neutralisation, slaking lime. Endothermic reactions absorb heat (ΔH positive), like photosynthesis."}},
+
+{q:{hi:"'कार्बन का अपररूप' नहीं है —",en:"Which is NOT an 'allotrope of carbon'?"},
+ o:[{hi:"हीरा",en:"Diamond"},{hi:"ग्रेफाइट",en:"Graphite"},{hi:"फुलरीन",en:"Fullerene"},{hi:"सिलिकॉन",en:"Silicon"}],a:3,
+ ex:{hi:"कार्बन के अपररूप: हीरा (कठोरतम), ग्रेफाइट (मुलायम, चालक), फुलरीन (C₆₀ बकमिंस्टरफुलरीन), ग्राफीन, कार्बन नैनोट्यूब। सिलिकॉन कार्बन का अपररूप नहीं — यह अलग तत्व है (परमाणु संख्या 14)।",en:"Carbon allotropes: diamond, graphite, fullerene (C₆₀), graphene, nanotubes. Silicon is a different element (atomic number 14), not a carbon allotrope."}},
+
+{q:{hi:"'विद्युत अपघटन' में धनायन किस इलेक्ट्रोड पर जाते हैं?",en:"In 'electrolysis', cations move to which electrode?"},
+ o:[{hi:"कैथोड (ऋण)",en:"Cathode (negative)"},{hi:"एनोड (धन)",en:"Anode (positive)"},{hi:"दोनों पर",en:"Both"},{hi:"किसी पर नहीं",en:"Neither"}],a:0,
+ ex:{hi:"विद्युत अपघटन में धनायन (positive ions) कैथोड (negative electrode) पर जाते हैं — जहाँ वे इलेक्ट्रॉन ग्रहण करके उदासीन हो जाते हैं (अपचयन)। ऋणायन एनोड पर जाते हैं (ऑक्सीकरण)।",en:"In electrolysis, cations move to the cathode (negative) where they gain electrons (reduction). Anions move to the anode (positive, oxidation)."}},
+
+{q:{hi:"'प्रबल विद्युत अपघट्य' क्या है?",en:"What is a 'strong electrolyte'?"},
+ o:[{hi:"जो पूर्णतः आयनित हो",en:"One that ionises completely"},{hi:"जो आंशिक आयनित हो",en:"One that ionises partially"},{hi:"जो आयनित न हो",en:"One that doesn't ionise"},{hi:"जो केवल ठोस हो",en:"One that is only solid"}],a:0,
+ ex:{hi:"प्रबल विद्युत अपघट्य जल में पूर्णतः आयनों में टूट जाते हैं — जैसे NaCl, HCl, H₂SO₄, KOH। दुर्बल विद्युत अपघट्य आंशिक आयनित होते हैं — जैसे CH₃COOH, NH₄OH, H₂CO₃।",en:"Strong electrolytes ionise completely in water (NaCl, HCl, H₂SO₄, KOH); weak electrolytes partially (CH₃COOH, NH₄OH, H₂CO₃)."}},
+
+{q:{hi:"'अनुमापन' (Titration) में किसका उपयोग होता है?",en:"What is used in 'titration'?"},
+ o:[{hi:"केवल अम्ल",en:"Only acid"},{hi:"केवल क्षार",en:"Only base"},{hi:"अम्ल, क्षार और सूचक",en:"Acid, base and indicator"},{hi:"केवल जल",en:"Only water"}],a:2,
+ ex:{hi:"अनुमापन में ज्ञात सांद्रता के विलयन (अम्ल/क्षार) से अज्ञात सांद्रता के विलयन का आकलन होता है — सूचक (indicator) की सहायता से। सूचक: फिनॉल्फ्थेलिन (गुलाबी), मेथिल ऑरेंज (नारंगी-पीला), लिटमस।",en:"Titration uses a known-concentration solution (acid/base) with an indicator to find unknown concentrations — phenolphthalein (pink), methyl orange (orange-yellow), litmus."}},
+
+/* ============ खंड G — रसायन: बहुलक, रेशे, प्लास्टिक (Q73–82) ============ */
+{q:{hi:"'बहुलक' (Polymer) क्या है?",en:"What is a 'polymer'?"},
+ o:[{hi:"एकल परमाणु",en:"Single atom"},{hi:"अणु",en:"Molecule"},{hi:"अनेक छोटी इकाइयों से बना विशाल अणु",en:"Large molecule from many small units"},{hi:"आयनिक यौगिक",en:"Ionic compound"}],a:2,
+ ex:{hi:"बहुलक अनेक छोटी इकाइयों (मोनोमर) से बहुलकीकरण द्वारा बने विशाल अणु होते हैं। उदाहरण: पॉलिथीन (एथिलीन से), PVC (विनाइल क्लोराइड से), नायलॉन, टेफ्लॉन, प्राकृतिक रबर (आइसोप्रीन से)।",en:"Polymers are giant molecules built from many small units (monomers) via polymerisation — polythene (from ethylene), PVC, nylon, Teflon, natural rubber (from isoprene)."}},
+
+{q:{hi:"'थर्मोप्लास्टिक' और 'थर्मोसेंटिंग' में क्या अंतर है?",en:"What is the difference between 'thermoplastic' and 'thermosetting'?"},
+ o:[{hi:"कोई अंतर नहीं",en:"No difference"},{hi:"थर्मोप्लास्टिक गर्म करने पर मुलायम, थर्मोसेंटिंग कठोर",en:"Thermoplastic softens on heating, thermosetting stays hard"},{hi:"थर्मोसेंटिंग गर्म करने पर मुलायम",en:"Thermosetting softens on heating"},{hi:"दोनों समान",en:"Both same"}],a:1,
+ ex:{hi:"थर्मोप्लास्टिक गर्म करने पर मुलायम होता है और ठंडा करने पर कठोर — बार-बार आकार बदला जा सकता है (पॉलिथीन, PVC, पॉलीस्टाइरीन)। थर्मोसेंटिंग एक बार आकार लेने पर दोबारा नहीं पिघलता (बेकलाइट, मेलामाइन, इपॉक्सी)।",en:"Thermoplastics soften on heating and harden on cooling, reshapable (polythene, PVC, polystyrene). Thermosetting plastics don't remelt once shaped (Bakelite, melamine, epoxy)."}},
+
+{q:{hi:"'नायलॉन' किस प्रकार का बहुलक है?",en:"'Nylon' is which type of polymer?"},
+ o:[{hi:"प्राकृतिक",en:"Natural"},{hi:"संश्लेषित पॉलिएमाइड",en:"Synthetic polyamide"},{hi:"सेल्यूलोज़",en:"Cellulose"},{hi:"प्रोटीन",en:"Protein"}],a:1,
+ ex:{hi:"नायलॉन एक संश्लेषित पॉलिएमाइड है — जिसकी खोज वैलेस कैरोथर्स ने 1935 में की। इसमें अमाइड बंधन (-CO-NH-) होते हैं। इसका उपयोग रस्सी, ब्रश, कपड़े, पैराशूट में होता है। यह प्रबल, प्रत्यास्थ और जल-प्रतिरोधी है।",en:"Nylon is a synthetic polyamide discovered by Wallace Carothers in 1935, with amide bonds — used in ropes, brushes, clothing and parachutes; strong and water-resistant."}},
+
+{q:{hi:"'टेफ्लॉन' का रासायनिक नाम क्या है?",en:"What is the chemical name of 'Teflon'?"},
+ o:[{hi:"पॉलीटेट्राफ्लोरोएथिलीन",en:"Polytetrafluoroethylene"},{hi:"पॉलिविनाइल क्लोराइड",en:"Polyvinyl Chloride"},{hi:"पॉलीस्टाइरीन",en:"Polystyrene"},{hi:"पॉलिएथिलीन",en:"Polyethylene"}],a:0,
+ ex:{hi:"टेफ्लॉन = पॉलीटेट्राफ्लोरोएथिलीन (PTFE) — जो टेट्राफ्लोरोएथिलीन के बहुलकीकरण से बनता है। यह अत्यंत निष्क्रिय, ऊष्मा-प्रतिरोधी और चिपकने वाला नहीं है — इसलिए नॉन-स्टिक बर्तनों में उपयोग होता है।",en:"Teflon = Polytetrafluoroethylene (PTFE), from tetrafluoroethylene, chemically inert and heat-resistant — used in non-stick cookware."}},
+
+{q:{hi:"'बेकलाइट' किसके बहुलकीकरण से बनता है?",en:"'Bakelite' is made by polymerisation of which of the following?"},
+ o:[{hi:"फिनॉल और फॉर्मेल्डिहाइड",en:"Phenol and formaldehyde"},{hi:"एथिलीन",en:"Ethylene"},{hi:"विनाइल क्लोराइड",en:"Vinyl chloride"},{hi:"स्टाइरीन",en:"Styrene"}],a:0,
+ ex:{hi:"बेकलाइट फिनॉल और फॉर्मेल्डिहाइड के संघनन बहुलकीकरण से बनता है — इसका आविष्कार लियो बेकलैंड ने 1907 में किया। यह थर्मोसेंटिंग प्लास्टिक है — जिसका उपयोग बिजली के स्विच, प्लग, हैंडल और टेलीफोन में होता है।",en:"Bakelite is made by condensation polymerisation of phenol and formaldehyde, invented by Leo Baekeland in 1907. A thermosetting plastic used in switches, plugs and handles."}},
+
+{q:{hi:"'प्राकृतिक रबर' का मोनोमर क्या है?",en:"What is the monomer of 'natural rubber'?"},
+ o:[{hi:"आइसोप्रीन",en:"Isoprene"},{hi:"एथिलीन",en:"Ethylene"},{hi:"ब्यूटाडाईन",en:"Butadiene"},{hi:"स्टाइरीन",en:"Styrene"}],a:0,
+ ex:{hi:"प्राकृतिक रबर का मोनोमर आइसोप्रीन (2-मिथाइल-1,3-ब्यूटाडाईन) है — जो रबर के पेड़ (Hevea brasiliensis) के लेटेक्स से प्राप्त होता है। वल्कनीकरण (सल्फर मिलाना) से इसकी प्रत्यास्थता बढ़ती है — खोज चार्ल्स गुडईयर ने की।",en:"Natural rubber's monomer is isoprene (2-methyl-1,3-butadiene) from the Hevea brasiliensis tree's latex. Vulcanisation with sulphur (Charles Goodyear) enhances its elasticity."}},
+
+{q:{hi:"'वल्कनीकरण' क्या है?",en:"What is 'vulcanisation'?"},
+ o:[{hi:"रबर में सल्फर मिलाना",en:"Adding sulphur to rubber"},{hi:"रबर को गर्म करना",en:"Heating rubber"},{hi:"रबर को ठंडा करना",en:"Cooling rubber"},{hi:"रबर को रंगना",en:"Colouring rubber"}],a:0,
+ ex:{hi:"वल्कनीकरण में कच्चे रबर में सल्फर (~3-5%) मिलाकर गर्म किया जाता है — जिससे रबर प्रबल, प्रत्यास्थ और तापमान-प्रतिरोधी हो जाता है। इसकी खोज 1839 में चार्ल्स गुडईयर ने की।",en:"Vulcanisation adds sulphur (~3–5%) to raw rubber and heats it, making it strong, elastic and heat-resistant — discovered by Charles Goodyear in 1839."}},
+
+{q:{hi:"'रेयॉन' किस प्रकार का रेशा है?",en:"'Rayon' is which type of fibre?"},
+ o:[{hi:"प्राकृतिक",en:"Natural"},{hi:"संश्लेषित",en:"Synthetic"},{hi:"अर्ध-संश्लेषित",en:"Semi-synthetic"},{hi:"खनिज",en:"Mineral"}],a:2,
+ ex:{hi:"रेयॉन एक अर्ध-संश्लेषित रेशा है — जो लकड़ी की लुगदी (सेल्यूलोज़) से रासायनिक उपचार द्वारा बनता है। इसे 'कृत्रिम रेशम' (artificial silk) कहते हैं। सस्ता और रेशम जैसा दिखता है — कपड़े, पर्दे, अपहोल्स्ट्री में उपयोग।",en:"Rayon is a semi-synthetic fibre from wood pulp (cellulose) via chemical treatment — 'artificial silk' — used in clothing, curtains and upholstery."}},
+
+{q:{hi:"'पॉलिएस्टर' का उदाहरण कौन-सा है?",en:"Which is an example of 'polyester'?"},
+ o:[{hi:"टेरिलीन",en:"Terylene"},{hi:"नायलॉन",en:"Nylon"},{hi:"बेकलाइट",en:"Bakelite"},{hi:"रेयॉन",en:"Rayon"}],a:0,
+ ex:{hi:"टेरिलीन (PET) एक पॉलिएस्टर है — जो एथिलीन ग्लाइकॉल और टेरेफ्थैलिक अम्ल से बनता है। इसका उपयोग कपड़े, बोतल, फिल्म में होता है। पॉलिएस्टर जल-प्रतिरोधी, प्रबल और सिकुड़न-रहित होते हैं।",en:"Terylene (PET) is a polyester from ethylene glycol and terephthalic acid — used in fabric, bottles and films; water-resistant, strong and wrinkle-free."}},
+
+{q:{hi:"'PVC' का उपयोग कहाँ नहीं होता?",en:"Where is 'PVC' NOT used?"},
+ o:[{hi:"पानी की पाइप",en:"Water pipes"},{hi:"बिजली के तार का आवरण",en:"Electrical wire insulation"},{hi:"फर्श और दरवाज़े",en:"Flooring and doors"},{hi:"नॉन-स्टिक बर्तन",en:"Non-stick cookware"}],a:3,
+ ex:{hi:"PVC (पॉलिविनाइल क्लोराइड) का उपयोग पाइप, बिजली के तार का आवरण, फर्श, दरवाज़े, खिलौनों, रक्त की थैलियों में होता है। नॉन-स्टिक बर्तनों में टेफ्लॉन (PTFE) का उपयोग होता है, PVC का नहीं।",en:"PVC is used in pipes, wire insulation, flooring, doors, toys and blood bags. Non-stick cookware uses Teflon (PTFE), not PVC."}},
+
+{q:{hi:"'जैव-अपघटनीय' बहुलक कौन-सा है?",en:"Which is a 'biodegradable' polymer?"},
+ o:[{hi:"पॉलिथीन",en:"Polythene"},{hi:"PVC",en:"PVC"},{hi:"PHBV",en:"PHBV"},{hi:"टेफ्लॉन",en:"Teflon"}],a:2,
+ ex:{hi:"PHBV (पॉली-β-हाइड्रॉक्सीब्यूटिरेट-को-β-हाइड्रॉक्सीवैलेरेट) एक जैव-अपघटनीय बहुलक है — जो कुछ जीवाणुओं से बनता है। इसका उपयोग पैकेजिंग और चिकित्सा (सीवन, इम्प्लांट) में होता है। पॉलिथीन, PVC, टेफ्लॉन जैव-अपघटनीय नहीं हैं।",en:"PHBV is a biodegradable polymer made by some bacteria, used in packaging and medicine. Polythene, PVC and Teflon are non-biodegradable."}},
+
+/* ============ खंड H — जीव विज्ञान: रोग और प्रतिरक्षा (Q83–92) ============ */
+{q:{hi:"'प्रतिरक्षा' (Immunity) के कितने प्रकार होते हैं?",en:"How many types of 'immunity' are there?"},
+ o:[{hi:"1",en:"1"},{hi:"2 (जन्मजात और अर्जित)",en:"2 (innate and acquired)"},{hi:"3",en:"3"},{hi:"4",en:"4"}],a:1,
+ ex:{hi:"प्रतिरक्षा दो प्रकार की है — जन्मजात (Innate — जन्म से, अविशिष्ट) और अर्जित (Acquired — जीवन में, विशिष्ट)। अर्जित प्रतिरक्षा सक्रिय (टीकाकरण/संक्रमण से) और निष्क्रिय (एंटीबॉडी देने से) होती है।",en:"Immunity is of two types — innate (from birth, non-specific) and acquired (during life, specific). Acquired is active (vaccination/infection) or passive (antibody transfer)."}},
+
+{q:{hi:"'सक्रिय प्रतिरक्षा' का उदाहरण क्या है?",en:"What is an example of 'active immunity'?"},
+ o:[{hi:"माँ से शिशु को एंटीबॉडी",en:"Antibodies from mother to infant"},{hi:"टीकाकरण",en:"Vaccination"},{hi:"एंटीबॉडी इंजेक्शन",en:"Antibody injection"},{hi:"सीरम थेरेपी",en:"Serum therapy"}],a:1,
+ ex:{hi:"सक्रिय प्रतिरक्षा में शरीर स्वयं एंटीबॉडी बनाता है — टीकाकरण या संक्रमण से। इसमें समय लगता है लेकिन दीर्घकालिक सुरक्षा मिलती है। निष्क्रिय प्रतिरक्षा में तैयार एंटीबॉडी दी जाती है — तत्काल सुरक्षा, कम समय।",en:"Active immunity develops when the body makes its own antibodies via vaccination/infection (long-lasting). Passive immunity involves ready-made antibodies (immediate but short-lived)."}},
+
+{q:{hi:"'टीका' (Vaccine) किस सिद्धांत पर कार्य करता है?",en:"A 'vaccine' works on which principle?"},
+ o:[{hi:"तत्काल रोग नष्ट",en:"Immediate disease destruction"},{hi:"कमजोर/मृत रोगजनक से प्रतिरक्षा विकसित करना",en:"Developing immunity from weakened/dead pathogens"},{hi:"एंटीबॉडी देना",en:"Giving antibodies"},{hi:"कीटाणु मारना",en:"Killing germs"}],a:1,
+ ex:{hi:"टीके में कमजोर या मृत रोगजनक, विषैले पदार्थ या उनके प्रोटीन होते हैं — जो शरीर में रोग नहीं करते पर प्रतिरक्षा प्रणाली को उत्तेजित करके एंटीबॉडी बनवाते हैं। इससे 'स्मृति कोशिकाएँ' बनती हैं जो भविष्य में रोग से बचाती हैं।",en:"Vaccines contain weakened/dead pathogens, toxins or proteins that trigger antibody production without causing disease, forming memory cells for future protection."}},
+
+{q:{hi:"'एड्स' (AIDS) किससे होता है?",en:"'AIDS' is caused by which of the following?"},
+ o:[{hi:"जीवाणु",en:"Bacteria"},{hi:"HIV विषाणु",en:"HIV virus"},{hi:"कवक",en:"Fungus"},{hi:"प्रोटोज़ोआ",en:"Protozoa"}],a:1,
+ ex:{hi:"AIDS = Acquired Immuno-Deficiency Syndrome — जो HIV (Human Immunodeficiency Virus) से होता है। यह CD4+ T-कोशिकाओं को नष्ट करके प्रतिरक्षा प्रणाली को कमजोर करता है। 1981 में पहली बार पहचाना गया।",en:"AIDS (Acquired Immuno-Deficiency Syndrome) is caused by HIV, which destroys CD4+ T-cells, weakening immunity. First identified in 1981."}},
+
+{q:{hi:"'कैंसर' किस प्रकार का रोग है?",en:"'Cancer' is which type of disease?"},
+ o:[{hi:"संक्रामक",en:"Infectious"},{hi:"असंक्रामक, कोशिका वृद्धि विकार",en:"Non-infectious, cell growth disorder"},{hi:"जीवाणुजनित",en:"Bacterial"},{hi:"विषाणुजनित",en:"Viral"}],a:1,
+ ex:{hi:"कैंसर असंक्रामक रोग है — जिसमें कोशिकाएँ अनियंत्रित रूप से बढ़ती हैं (अनियंत्रित विभाजन) और ट्यूमर बनाती हैं। कारण: उत्परिवर्तन, रसायन, विकिरण, विषाणु, आनुवंशिकता। 'मेटास्टेसिस' में कैंसर अन्य अंगों में फैलता है।",en:"Cancer is a non-infectious disease of uncontrolled cell division forming tumours, caused by mutations, chemicals, radiation, viruses or heredity. Metastasis spreads it."}},
+
+{q:{hi:"'मलेरिया' किस मच्छर से फैलता है?",en:"'Malaria' spreads through which mosquito?"},
+ o:[{hi:"एडीज़",en:"Aedes"},{hi:"एनोफिलीज़",en:"Anopheles"},{hi:"क्यूलेक्स",en:"Culex"},{hi:"मैंसोनिया",en:"Mansonia"}],a:1,
+ ex:{hi:"मलेरिया मादा एनोफिलीज़ मच्छर के काटने से फैलता है — जो प्लाज़्मोडियम परजीवी ले जाता है। मलेरिया से बचाव: मच्छरदानी, कीटनाशक, जल न भरने देना। भारत का राष्ट्रीय मलेरिया नियंत्रण कार्यक्रम 1953 से चल रहा है।",en:"Malaria spreads via the female Anopheles mosquito carrying the Plasmodium parasite. Prevention: mosquito nets, insecticides, avoiding stagnant water. India's programme dates to 1953."}},
+
+{q:{hi:"'टाइफाइड' का टीका कब दिया जाता है?",en:"When is the 'typhoid' vaccine given?"},
+ o:[{hi:"जन्म के तुरंत बाद",en:"Immediately after birth"},{hi:"2 वर्ष की आयु के बाद",en:"After 2 years"},{hi:"10 वर्ष की आयु में",en:"At 10 years"},{hi:"कभी नहीं",en:"Never"}],a:1,
+ ex:{hi:"टाइफाइड का टीका सामान्यतः 2 वर्ष की आयु के बाद दिया जाता है — हर 3 वर्ष में बूस्टर के साथ। यह साल्मोनेला टाइफी जीवाणु से बचाता है। टाइफाइड दूषित पानी/भोजन से फैलता है। विडाल टेस्ट से इसकी जाँच होती है।",en:"Typhoid vaccine is given after age 2, with boosters every 3 years, protecting against Salmonella typhi, spread via contaminated food/water. The Widal test detects it."}},
+
+{q:{hi:"'क्षय रोग' (TB) का टीका कौन-सा है?",en:"Which vaccine is for 'tuberculosis' (TB)?"},
+ o:[{hi:"OPV",en:"OPV"},{hi:"BCG",en:"BCG"},{hi:"DPT",en:"DPT"},{hi:"MMR",en:"MMR"}],a:1,
+ ex:{hi:"BCG (Bacillus Calmette-Guérin) टीका क्षय रोग (TB) से बचाता है — जो माइकोबैक्टीरियम ट्यूबरकुलोसिस जीवाणु से होता है। इसे जन्म के तुरंत बाद लगाया जाता है। DPT = डिप्थीरिया, पर्टुसिस, टेटनस। OPV = ओरल पोलियो वैक्सीन।",en:"BCG vaccine protects against TB (Mycobacterium tuberculosis), given right after birth. DPT = diphtheria, pertussis, tetanus; OPV = oral polio vaccine."}},
+
+{q:{hi:"'विषाणुजनित रोग' नहीं है —",en:"Which is NOT a 'viral disease'?"},
+ o:[{hi:"चेचक",en:"Smallpox"},{hi:"खसरा",en:"Measles"},{hi:"टाइफाइड",en:"Typhoid"},{hi:"डेंगू",en:"Dengue"}],a:2,
+ ex:{hi:"टाइफाइड जीवाणुजनित रोग है (साल्मोनेला टाइफी) — जबकि चेचक, खसरा, डेंगू, पोलियो, हेपेटाइटिस-B, रेबीज़, COVID-19 विषाणुजनित हैं। रोगजनक के प्रकार के अनुसार इलाज अलग होता है।",en:"Typhoid is bacterial (Salmonella typhi). Smallpox, measles, dengue, polio, hepatitis-B, rabies and COVID-19 are viral — treatment differs by pathogen type."}},
+
+{q:{hi:"'एंटीबायोटिक' किस पर कार्य करती है?",en:"An 'antibiotic' acts on which of the following?"},
+ o:[{hi:"विषाणु",en:"Viruses"},{hi:"जीवाणु",en:"Bacteria"},{hi:"कवक",en:"Fungi"},{hi:"प्रोटोज़ोआ",en:"Protozoa"}],a:1,
+ ex:{hi:"एंटीबायोटिक जीवाणु संक्रमण पर कार्य करती है — जीवाणु की कोशिका भित्ति, प्रोटीन संश्लेषण या DNA प्रतिकृति को रोककर। विषाणुजनित रोगों (जुकाम, फ्लू, COVID-19) पर एंटीबायोटिक कारगर नहीं — उनके लिए एंटीवायरल दवाएँ चाहिए।",en:"Antibiotics act on bacterial infections by blocking cell wall, protein synthesis or DNA replication. They don't work on viral diseases like cold, flu or COVID-19."}},
+
+{q:{hi:"'स्वयं-प्रतिरक्षा रोग' का उदाहरण कौन-सा है?",en:"Which is an example of an 'autoimmune disease'?"},
+ o:[{hi:"टाइफाइड",en:"Typhoid"},{hi:"मलेरिया",en:"Malaria"},{hi:"रूमेटॉइड आर्थराइटिस",en:"Rheumatoid arthritis"},{hi:"डेंगू",en:"Dengue"}],a:2,
+ ex:{hi:"स्वयं-प्रतिरक्षा रोग में शरीर की प्रतिरक्षा प्रणाली अपनी ही कोशिकाओं पर आक्रमण करती है — रूमेटॉइड आर्थराइटिस, टाइप-1 डायबिटीज, मल्टीपल स्क्लेरोसिस, सीलिएक रोग। यह संक्रामक नहीं होते।",en:"In autoimmune diseases, the immune system attacks its own cells — rheumatoid arthritis, type-1 diabetes, multiple sclerosis, celiac disease. They are not infectious."}},
+
+/* ============ खंड I — जीव विज्ञान: जैव प्रौद्योगिकी (Q93–100) ============ */
+{q:{hi:"'जैव प्रौद्योगिकी' क्या है?",en:"What is 'biotechnology'?"},
+ o:[{hi:"जीवों का अध्ययन",en:"Study of organisms"},{hi:"जीवों या उनके भागों का तकनीकी उपयोग",en:"Technological use of organisms or their parts"},{hi:"रसायन विज्ञान",en:"Chemistry"},{hi:"भौतिकी",en:"Physics"}],a:1,
+ ex:{hi:"जैव प्रौद्योगिकी जीवों, कोशिकाओं या उनके अणुओं का तकनीकी उपयोग है — जिससे उत्पाद या सेवाएँ बनाई जाती हैं। क्षेत्र: चिकित्सा (इंसुलिन, टीके), कृषि (GM फसलें), उद्योग (एंजाइम), पर्यावरण (बायो-रेमेडिएशन)।",en:"Biotechnology is the technological use of organisms, cells or molecules to make products/services — medicine (insulin, vaccines), agriculture (GM crops), industry and environment."}},
+
+{q:{hi:"'DNA फिंगरप्रिंटिंग' का उपयोग किसमें होता है?",en:"'DNA fingerprinting' is used in which of the following?"},
+ o:[{hi:"केवल चिकित्सा",en:"Only medicine"},{hi:"अपराध जाँच और पितृत्व परीक्षण",en:"Crime investigation and paternity testing"},{hi:"कृषि",en:"Agriculture"},{hi:"उद्योग",en:"Industry"}],a:1,
+ ex:{hi:"DNA फिंगरप्रिंटिंग का उपयोग अपराध जाँच, पितृत्व परीक्षण, प्रवासी विवाद, जीवाश्म पहचान में होता है — क्योंकि प्रत्येक व्यक्ति का DNA अनुक्रम अद्वितीय होता है (समरूप जुड़वाँ को छोड़कर)। इसकी खोज एलेक जेफरीज ने 1984 में की।",en:"DNA fingerprinting is used in crime investigation, paternity testing, immigration disputes and fossil identification — each person's DNA sequence is unique (except identical twins). Discovered by Alec Jeffreys in 1984."}},
+
+{q:{hi:"'PCR' का पूरा नाम क्या है?",en:"What is the full form of 'PCR'?"},
+ o:[{hi:"Polymerase Chain Reaction",en:"Polymerase Chain Reaction"},{hi:"Protein Chain Reaction",en:"Protein Chain Reaction"},{hi:"Polymer Chemical Reaction",en:"Polymer Chemical Reaction"},{hi:"Protein Chemical Reaction",en:"Protein Chemical Reaction"}],a:0,
+ ex:{hi:"PCR = Polymerase Chain Reaction — जिसमें DNA के एक छोटे टुकड़े को लाखों-करोड़ों गुना बढ़ाया जाता है (amplification)। इसका आविष्कार कैरी मुलिस ने 1983 में किया (नोबेल 1993)। COVID-19 जाँच में यह प्रमुख थी।",en:"PCR = Polymerase Chain Reaction, amplifying small DNA fragments into millions of copies. Invented by Kary Mullis in 1983 (Nobel 1993) — key in COVID-19 testing."}},
+
+{q:{hi:"'इंसुलिन' का उत्पादन अब किस विधि से होता है?",en:"'Insulin' is now produced by which method?"},
+ o:[{hi:"जंतुओं से निकालकर",en:"Extracted from animals"},{hi:"आनुवंशिक इंजीनियरिंग (E. coli)",en:"Genetic engineering (E. coli)"},{hi:"रासायनिक संश्लेषण",en:"Chemical synthesis"},{hi:"पौधों से",en:"From plants"}],a:1,
+ ex:{hi:"इंसुलिन अब आनुवंशिक इंजीनियरिंग से बनता है — मानव इंसुलिन जीन को E. coli जीवाणु में डालकर। यह पहला मानव प्रोटीन था जो इस विधि से बनाया गया (1982 में 'ह्यूमुलिन')। इससे मधुमेह रोगियों को शुद्ध इंसुलिन मिलती है।",en:"Insulin is now made by genetic engineering — human insulin gene inserted into E. coli, first human protein made this way (Humulin, 1982), giving diabetics pure insulin."}},
+
+{q:{hi:"'जीन थेरेपी' क्या है?",en:"What is 'gene therapy'?"},
+ o:[{hi:"जीन का अध्ययन",en:"Study of genes"},{hi:"दोषपूर्ण जीन का सुधार",en:"Correction of defective genes"},{hi:"जीन का विकास",en:"Development of genes"},{hi:"जीन का नष्ट होना",en:"Destruction of genes"}],a:1,
+ ex:{hi:"जीन थेरेपी में रोगजनक दोषपूर्ण जीन की भरपाई के लिए सामान्य जीन को रोगी की कोशिकाओं में डाला जाता है। पहली सफल जीन थेरेपी 1990 में ADA-SCID (प्रतिरक्षा कमी) पर हुई। यह आनुवंशिक रोगों के इलाज की संभावना देती है।",en:"Gene therapy inserts a normal gene to compensate for a defective one. First successful therapy was in 1990 for ADA-SCID, offering hope for genetic diseases."}},
+
+{q:{hi:"'GM फसल' क्या है?",en:"What is a 'GM crop'?"},
+ o:[{hi:"प्राकृतिक फसल",en:"Natural crop"},{hi:"आनुवंशिक रूप से संशोधित फसल",en:"Genetically modified crop"},{hi:"जैविक फसल",en:"Organic crop"},{hi:"मिश्रित फसल",en:"Mixed crop"}],a:1,
+ ex:{hi:"GM (Genetically Modified) फसलों में वांछित गुणों के लिए विदेशी जीन डाले जाते हैं — जैसे कीट-प्रतिरोध, रोग-प्रतिरोध, उच्च उत्पादन। भारत में Bt कपास एकमात्र मंजूर GM फसल है। Bt बैंगन और GM सरसों पर विवाद है।",en:"GM crops have foreign genes inserted for desired traits — pest resistance, disease resistance, higher yield. Bt cotton is India's only approved GM crop; Bt brinjal and GM mustard are debated."}},
+
+{q:{hi:"'Bt कपास' में कौन-सा जीन डाला जाता है?",en:"Which gene is inserted in 'Bt cotton'?"},
+ o:[{hi:"Bacillus thuringiensis से cry जीन",en:"cry gene from Bacillus thuringiensis"},{hi:"मानव इंसुलिन जीन",en:"Human insulin gene"},{hi:"HIV जीन",en:"HIV gene"},{hi:"पौधे का हार्मोन जीन",en:"Plant hormone gene"}],a:0,
+ ex:{hi:"Bt कपास में बैसिलस थुरिंजिएंसिस जीवाणु से 'cry' जीन डाला जाता है — जो Bt विष (toxin) बनाता है। यह लेपिडोप्टेरन कीटों (जैसे बॉलवर्म) को मारता है। इससे कीटनाशक का उपयोग कम होता है। 2002 में भारत में मंजूरी मिली।",en:"Bt cotton has a 'cry' gene from Bacillus thuringiensis producing a toxin against lepidopteran pests (bollworm), reducing pesticide use. Approved in India in 2002."}},
+
+{q:{hi:"'स्टेम सेल' क्या हैं?",en:"What are 'stem cells'?"},
+ o:[{hi:"विशेषीकृत कोशिकाएँ",en:"Specialised cells"},{hi:"अविशेषीकृत कोशिकाएँ जो किसी भी कोशिका में बदल सकें",en:"Unspecialised cells that can become any cell"},{hi:"मृत कोशिकाएँ",en:"Dead cells"},{hi:"रक्त कोशिकाएँ",en:"Blood cells"}],a:1,
+ ex:{hi:"स्टेम सेल अविशेषीकृत कोशिकाएँ हैं — जो विभाजित होकर विभिन्न प्रकार की कोशिकाएँ बना सकती हैं। भ्रूणीय स्टेम सेल सबसे शक्तिशाली हैं। इनका उपयोग ल्यूकीमिया, हृदय रोग, पार्किंसन के इलाज में होता है। नैतिक विवाद भी है।",en:"Stem cells are unspecialised cells able to differentiate into various cell types. Embryonic stem cells are most versatile, used for leukemia, heart disease and Parkinson's — with ethical debate."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! विज्ञान पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your science command is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को दोहराएँ।"; enMsg = "Good job! Revise the wrong answers."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। विज्ञान के मूल तथ्य दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the science basics."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
