@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>भगवान बुद्ध — 50 प्रश्न | Lord Buddha — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#b8860b,#daa520);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#fff8dc;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#fff8dc;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#c8ecc8}
+.progress-strip .scoreboard b.r{color:#ffcccb}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#fff8dc,#ffd700);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#fff8dc;color:#b8860b;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🕉️ भगवान बुद्ध — 50 प्रश्न
+              <small>Lord Buddha · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — बुद्ध का जीवन और परिवार</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   भगवान बुद्ध — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — बुद्ध का जीवन और परिवार", en:"Section A — Buddha's Life & Family"},
+  {hi:"खंड B — बुद्ध की शिक्षाएँ और दर्शन", en:"Section B — Buddha's Teachings & Philosophy"},
+  {hi:"खंड C — बिहार में बुद्ध के स्थल", en:"Section C — Buddha's Sites in Bihar"},
+  {hi:"खंड D — बौद्ध संगीतियाँ, ग्रंथ और विरासत", en:"Section D — Buddhist Councils, Texts & Legacy"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — बुद्ध का जीवन और परिवार (Q1–13) ============ */
+{q:{hi:"बुद्ध का जन्म कब और कहाँ हुआ?",en:"When and where was Buddha born?"},
+ o:[{hi:"563 ईसा पूर्व, लुम्बिनी",en:"563 BCE, Lumbini"},{hi:"563 ईसा पूर्व, बोधगया",en:"563 BCE, Bodh Gaya"},{hi:"483 ईसा पूर्व, सारनाथ",en:"483 BCE, Sarnath"},{hi:"500 ईसा पूर्व, कुशीनगर",en:"500 BCE, Kushinagar"}],a:0,
+ ex:{hi:"बुद्ध का जन्म 563 ईसा पूर्व में वैशाख पूर्णिमा को लुम्बिनी (वर्तमान नेपाल) में हुआ। उनके पिता शाक्य वंश के राजा शुद्धोधन और माता मायादेवी थीं। मायादेवी का संबंध कोलिय गणराज्य (देवदह) से था।",en:"Buddha was born on Vaishakh Purnima in 563 BCE at Lumbini (present-day Nepal). His father was King Shuddhodana of the Shakya clan and his mother was Mayadevi of the Koliya Republic."}},
+
+{q:{hi:"बुद्ध का बचपन का नाम क्या था?",en:"What was Buddha's childhood name?"},
+ o:[{hi:"वर्धमान",en:"Vardhamana"},{hi:"सिद्धार्थ",en:"Siddhartha"},{hi:"गौतम",en:"Gautama"},{hi:"अर्जुन",en:"Arjuna"}],a:1,
+ ex:{hi:"बुद्ध का बचपन का नाम 'सिद्धार्थ' था। उनका गोत्र 'गौतम' और वंश 'शाक्य' था, इसलिए उन्हें 'गौतम' और 'शाक्यमुनि' कहा जाता है। ज्ञान प्राप्ति के बाद वे 'बुद्ध' (ज्ञानी) कहलाए।",en:"Buddha's childhood name was 'Siddhartha'. His gotra was 'Gautama' and his clan was 'Shakya', hence 'Gautama' and 'Shakyamuni'. After enlightenment, he became 'Buddha' (the Enlightened One)."}},
+
+{q:{hi:"बुद्ध की माता मायादेवी का निधन कब हुआ?",en:"When did Buddha's mother Mayadevi die?"},
+ o:[{hi:"बुद्ध के जन्म के तुरंत बाद",en:"Immediately after Buddha's birth"},{hi:"बुद्ध के 7 दिन बाद",en:"7 days after Buddha's birth"},{hi:"बुद्ध के 7 वर्ष बाद",en:"7 years after Buddha's birth"},{hi:"बुद्ध के युवावस्था में",en:"During Buddha's youth"}],a:1,
+ ex:{hi:"मायादेवी का निधन बुद्ध के जन्म के 7 दिन बाद हो गया। इसके बाद बुद्ध का पालन-पोषण उनकी मौसी और सौतेली माता 'प्रजापति गौतमी' (महाप्रजापति) ने किया। प्रजापति गौतमी बाद में पहली बौद्ध भिक्षुणी बनीं।",en:"Mayadevi died 7 days after Buddha's birth. He was then raised by his aunt and stepmother 'Prajapati Gautami' (Mahaprajapati), who later became the first Buddhist nun."}},
+
+{q:{hi:"बुद्ध की पत्नी का नाम क्या था?",en:"What was the name of Buddha's wife?"},
+ o:[{hi:"गोपा",en:"Gopa"},{hi:"यशोधरा",en:"Yashodhara"},{hi:"राहुला",en:"Rahula"},{hi:"सुजाता",en:"Sujata"}],a:1,
+ ex:{hi:"बुद्ध की पत्नी का नाम 'यशोधरा' था — जो कोलिय गणराज्य की राजकुमारी थीं। उन्हें 'गोपा', 'बिंबा' और 'भद्रकच्चा' भी कहा जाता है। यशोधरा से बुद्ध के पुत्र 'राहुल' का जन्म हुआ।",en:"Buddha's wife was 'Yashodhara', princess of the Koliya Republic, also called Gopa, Bimba and Bhadrakachcha. Their son was 'Rahula'."}},
+
+{q:{hi:"बुद्ध के पुत्र का नाम क्या था?",en:"What was the name of Buddha's son?"},
+ o:[{hi:"आनंद",en:"Ananda"},{hi:"राहुल",en:"Rahula"},{hi:"सारिपुत्त",en:"Sariputta"},{hi:"मोग्गल्लान",en:"Moggallana"}],a:1,
+ ex:{hi:"बुद्ध के पुत्र का नाम 'राहुल' था — जिसका जन्म यशोधरा से हुआ। राहुल बाद में बौद्ध भिक्षु बने और बुद्ध के प्रमुख शिष्यों में से एक हुए। 'राहुल' का अर्थ 'बंधन' है — बुद्ध ने कहा कि पुत्र का जन्म गृहत्याग में बाधक था।",en:"Buddha's son was 'Rahula', born to Yashodhara. Rahula became a Buddhist monk and one of Buddha's chief disciples. 'Rahula' means 'fetter' — Buddha saw his birth as a hindrance to renunciation."}},
+
+{q:{hi:"बुद्ध ने गृहत्याग कब किया?",en:"When did Buddha renounce the world?"},
+ o:[{hi:"25 वर्ष की आयु में",en:"At age 25"},{hi:"29 वर्ष की आयु में",en:"At age 29"},{hi:"35 वर्ष की आयु में",en:"At age 35"},{hi:"40 वर्ष की आयु में",en:"At age 40"}],a:1,
+ ex:{hi:"बुद्ध ने 29 वर्ष की आयु में 'महाभिनिष्क्रमण' (गृहत्याग) किया। उन्होंने रात के समय पत्नी और पुत्र को छोड़कर अपने घोड़े 'कंथक' और सारथी 'छन्न' के साथ नगर छोड़ा। इस घटना को 'महाभिनिष्क्रमण' कहा जाता है।",en:"Buddha renounced the world at 29 (Mahabhinishkramana). He left at night with his horse 'Kanthaka' and charioteer 'Chhanna', leaving behind his wife and son — called the 'Great Renunciation'."}},
+
+{q:{hi:"बुद्ध ने गृहत्याग से पहले चार दृश्य (चतुर्निमित्त) कहाँ देखे?",en:"Where did Buddha see the Four Sights (Chaturnimitta) before renunciation?"},
+ o:[{hi:"कपिलवस्तु में",en:"In Kapilavastu"},{hi:"वैशाली में",en:"In Vaishali"},{hi:"राजगृह में",en:"In Rajagriha"},{hi:"बोधगया में",en:"In Bodh Gaya"}],a:0,
+ ex:{hi:"बुद्ध ने अपने नगर 'कपिलवस्तु' में चार दृश्य देखे — (1) वृद्ध व्यक्ति, (2) रोगी, (3) मृत शरीर और (4) संन्यासी। इन चार दृश्यों ने उन्हें सांसारिक जीवन की नश्वरता का बोध कराया और गृहत्याग के लिए प्रेरित किया।",en:"Buddha saw the Four Sights in Kapilavastu — an old man, a sick person, a corpse and an ascetic — revealing life's impermanence and inspiring his renunciation."}},
+
+{q:{hi:"बुद्ध ने कितने वर्षों तक तपस्या की?",en:"For how many years did Buddha perform penance?"},
+ o:[{hi:"4 वर्ष",en:"4 years"},{hi:"6 वर्ष",en:"6 years"},{hi:"10 वर्ष",en:"10 years"},{hi:"12 वर्ष",en:"12 years"}],a:1,
+ ex:{hi:"बुद्ध ने 6 वर्षों तक कठोर तपस्या की — जिसमें उन्होंने उरुवेला (बोधगया) के पास 'पंचवर्गी' भिक्षुओं के साथ अत्यंत कठोर तप किया। 6 वर्षों बाद उन्हें ज्ञान हुआ कि अत्यधिक तपस्या से मुक्ति नहीं मिलती — इसलिए उन्होंने 'मध्यम मार्ग' अपनाया।",en:"Buddha performed severe penance for 6 years with the 'Panchavargiya' monks near Uruvela (Bodh Gaya). Realising extreme austerity didn't lead to liberation, he adopted the 'Middle Path'."}},
+
+{q:{hi:"बुद्ध ने तपस्या के दौरान किस नदी के तट पर ध्यान किया?",en:"On which river's bank did Buddha meditate during his penance?"},
+ o:[{hi:"गंगा",en:"Ganga"},{hi:"निरंजना",en:"Niranjana"},{hi:"सोन",en:"Son"},{hi:"गंडक",en:"Gandak"}],a:1,
+ ex:{hi:"बुद्ध ने तपस्या के दौरान 'निरंजना नदी' के तट पर ध्यान किया — जो बोधगया के पास बहती है। इसी नदी में उन्होंने स्नान किया और 'सुजाता' नामक ग्रामीण महिला से खीर का दान स्वीकार किया।",en:"Buddha meditated on the bank of the 'Niranjana river' near Bodh Gaya, bathing in it and accepting kheer from a village woman named 'Sujata'."}},
+
+{q:{hi:"बुद्ध को ज्ञान की प्राप्ति कहाँ हुई?",en:"Where did Buddha attain enlightenment?"},
+ o:[{hi:"सारनाथ",en:"Sarnath"},{hi:"लुम्बिनी",en:"Lumbini"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"कुशीनगर",en:"Kushinagar"}],a:2,
+ ex:{hi:"बुद्ध को 35 वर्ष की आयु में वैशाख पूर्णिमा की रात बोधगया (बिहार) में 'पीपल के वृक्ष' (बोधि वृक्ष) के नीचे ज्ञान की प्राप्ति हुई। तीन रातों में उन्हें — पूर्वजन्म ज्ञान, दिव्य चक्षु और आसवों का क्षय — तीन विद्याएँ प्राप्त हुईं। उस वृक्ष को 'बोधि वृक्ष' कहा जाता है।",en:"Buddha attained enlightenment at 35 on Vaishakh Purnima night under a peepal tree (Bodhi tree) at Bodh Gaya. Over three nights he gained three knowledges — past lives, divine eye and destruction of taints. The tree became the 'Bodhi Tree'."}},
+
+{q:{hi:"बुद्ध को ज्ञान प्राप्ति के समय किसने सहायता की?",en:"Who assisted Buddha at the time of his enlightenment?"},
+ o:[{hi:"सुजाता",en:"Sujata"},{hi:"आनंद",en:"Ananda"},{hi:"कोई नहीं, स्वयं",en:"None, by himself"},{hi:"कौंडिन्य",en:"Kaundinya"}],a:2,
+ ex:{hi:"बुद्ध को ज्ञान की प्राप्ति स्वयं हुई — किसी की सहायता के बिना। 'सुजाता' ने ज्ञान प्राप्ति से पहले खीर का दान दिया था, जो उनका अंतिम भोजन था। 'कौंडिन्य' बुद्ध के पहले शिष्य बने, जिन्हें 'अन्नातकोण्डन्न' भी कहा जाता है।",en:"Buddha attained enlightenment by himself, without assistance. 'Sujata' had offered kheer before it — his last meal. 'Kaundinya' became his first disciple, called 'Annatakondanna'."}},
+
+{q:{hi:"बुद्ध के प्रथम शिष्य कौन थे?",en:"Who were Buddha's first disciples?"},
+ o:[{hi:"सारिपुत्त और मोग्गल्लान",en:"Sariputta and Moggallana"},{hi:"कौंडिन्य सहित पंचवर्गी",en:"The Five Ascetics including Kaundinya"},{hi:"आनंद और उपाली",en:"Ananda and Upali"},{hi:"महाकस्सप",en:"Mahakassapa"}],a:1,
+ ex:{hi:"बुद्ध के प्रथम शिष्य 'कौंडिन्य सहित पंचवर्गी' थे — कौंडिन्य, वप्प, भद्दिय, महानाम और अस्सजी। बुद्ध ने इन्हें सारनाथ में 'धम्मचक्कप्पवत्तन सुत्त' का उपदेश दिया और ये पाँचों अरहंत बन गए।",en:"Buddha's first disciples were the 'Five Ascetics' — Kaundinya, Vappa, Bhaddiya, Mahanama and Assaji — to whom he preached the Dhammachakkappavattana Sutta at Sarnath, all attaining Arhatship."}},
+
+{q:{hi:"बुद्ध ने अपना प्रथम उपदेश कहाँ दिया?",en:"Where did Buddha give his first sermon?"},
+ o:[{hi:"बोधगया",en:"Bodh Gaya"},{hi:"सारनाथ",en:"Sarnath"},{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"}],a:1,
+ ex:{hi:"बुद्ध ने अपना प्रथम उपदेश 'सारनाथ' (वाराणसी के पास) में दिया — जिसे 'धम्मचक्कप्पवत्तन' (धर्मचक्र प्रवर्तन) कहा जाता है। यह उनके ज्ञान प्राप्ति के बाद पहला उपदेश था। इसी दिन 'बौद्ध संघ' की स्थापना हुई।",en:"Buddha gave his first sermon at 'Sarnath' (near Varanasi) — called 'Dhammachakkappavattana' (Turning of the Wheel of Law), the day the Buddhist Sangha was founded."}},
+
+/* ============ खंड B — बुद्ध की शिक्षाएँ और दर्शन (Q14–26) ============ */
+{q:{hi:"बुद्ध की शिक्षाओं का मूल क्या है?",en:"What is the core of Buddha's teachings?"},
+ o:[{hi:"केवल ध्यान",en:"Only meditation"},{hi:"चार आर्य सत्य और अष्टांगिक मार्ग",en:"Four Noble Truths and Eightfold Path"},{hi:"केवल यज्ञ",en:"Only sacrifice"},{hi:"केवल तपस्या",en:"Only penance"}],a:1,
+ ex:{hi:"बुद्ध की शिक्षाओं का मूल 'चार आर्य सत्य' और 'अष्टांगिक मार्ग' हैं। उन्होंने दुःख, दुःख का कारण, दुःख का निरोध और दुःख निरोध का मार्ग बताया। यह उनका प्रथम उपदेश (धम्मचक्कप्पवत्तन) था — जो सारनाथ में दिया गया।",en:"The core of Buddha's teachings is the 'Four Noble Truths' and the 'Eightfold Path' — suffering, its cause, its cessation and the path to cessation, given in his first sermon at Sarnath."}},
+
+{q:{hi:"बुद्ध के 'चार आर्य सत्य' में प्रथम सत्य क्या है?",en:"What is the first of Buddha's 'Four Noble Truths'?"},
+ o:[{hi:"दुःख का कारण",en:"Cause of suffering"},{hi:"दुःख का निरोध",en:"Cessation of suffering"},{hi:"दुःख है",en:"There is suffering"},{hi:"दुःख का मार्ग",en:"Path to end suffering"}],a:2,
+ ex:{hi:"चार आर्य सत्य — (1) 'दुःख है' (सर्वं दुःखम्) — जन्म, जरा, मृत्यु, संयोग, वियोग सब दुःख है, (2) 'दुःख का कारण है' — तृष्णा, (3) 'दुःख का निरोध संभव है', (4) 'दुःख निरोध का मार्ग' — अष्टांगिक मार्ग।",en:"Four Noble Truths — (1) 'There is suffering' (birth, old age, death, union, separation), (2) 'Its cause' (craving), (3) 'Its cessation is possible', (4) 'The path to cessation' — the Eightfold Path."}},
+
+{q:{hi:"बुद्ध के अनुसार 'दुःख का मूल कारण' क्या है?",en:"According to Buddha, what is the 'root cause of suffering'?"},
+ o:[{hi:"अज्ञान",en:"Ignorance"},{hi:"तृष्णा (इच्छा)",en:"Trishna (craving)"},{hi:"क्रोध",en:"Anger"},{hi:"मोह",en:"Attachment"}],a:1,
+ ex:{hi:"बुद्ध के अनुसार दुःख का मूल कारण 'तृष्णा' (इच्छा/लालसा) है — जो मनुष्य को भव-चक्र में बाँधती है। तृष्णा तीन प्रकार की होती है — कामतृष्णा, भवतृष्णा और विभवतृष्णा। तृष्णा के नाश से दुःख का नाश होता है।",en:"Buddha identified 'Trishna' (craving) as the root cause of suffering — binding one to the cycle of rebirth. It has three forms — Kama, Bhava and Vibhava — and its destruction ends suffering."}},
+
+{q:{hi:"बुद्ध का 'अष्टांगिक मार्ग' कितने अंगों से बना है?",en:"How many parts make up Buddha's 'Eightfold Path'?"},
+ o:[{hi:"4",en:"4"},{hi:"6",en:"6"},{hi:"8",en:"8"},{hi:"10",en:"10"}],a:2,
+ ex:{hi:"अष्टांगिक मार्ग 8 अंगों से बना है — (1) सम्यक दृष्टि, (2) सम्यक संकल्प, (3) सम्यक वाणी, (4) सम्यक कर्म, (5) सम्यक आजीविका, (6) सम्यक प्रयास, (7) सम्यक स्मृति, (8) सम्यक समाधि। इसे 'मध्यम मार्ग' भी कहा जाता है।",en:"The Eightfold Path has 8 parts — Right View, Resolve, Speech, Action, Livelihood, Effort, Mindfulness and Meditation. It is also called the 'Middle Path'."}},
+
+{q:{hi:"'अष्टांगिक मार्ग' के किस अंग में 'सत्य बोलना' शामिल है?",en:"Which part of the 'Eightfold Path' includes 'speaking truth'?"},
+ o:[{hi:"सम्यक कर्म",en:"Right Action"},{hi:"सम्यक वाणी",en:"Right Speech"},{hi:"सम्यक आजीविका",en:"Right Livelihood"},{hi:"सम्यक दृष्टि",en:"Right View"}],a:1,
+ ex:{hi:"'सम्यक वाणी' (Right Speech) में सत्य बोलना, कठोर वचन न बोलना, चुगली न करना और व्यर्थ बात न करना शामिल है। बुद्ध ने वाणी को चार दोषों से बचाने की शिक्षा दी — मिथ्या, कठोर, चुगली और व्यर्थ।",en:"'Right Speech' (Samma Vaca) includes truthfulness, avoiding harsh words, slander and idle talk — Buddha taught avoiding four speech faults."}},
+
+{q:{hi:"बुद्ध ने अपने अनुयायियों के लिए कौन-सा मार्ग सुझाया?",en:"Which path did Buddha suggest for his followers?"},
+ o:[{hi:"अत्यधिक भोग",en:"Extreme indulgence"},{hi:"अत्यधिक तपस्या",en:"Extreme austerity"},{hi:"मध्यम मार्ग",en:"Middle Path"},{hi:"केवल ध्यान",en:"Only meditation"}],a:2,
+ ex:{hi:"बुद्ध ने 'मध्यम मार्ग' (Middle Path) सुझाया — जो अत्यधिक भोग और अत्यधिक तपस्या के बीच का है। उन्होंने स्वयं अत्यधिक तपस्या का त्याग किया और अष्टांगिक मार्ग अपनाया। यह बौद्ध धर्म का मूल सिद्धांत है।",en:"Buddha suggested the 'Middle Path' between extreme indulgence and extreme austerity, after abandoning severe penance himself. It is Buddhism's core principle."}},
+
+{q:{hi:"बुद्ध ने 'आत्मा' के बारे में क्या कहा?",en:"What did Buddha say about the 'soul'?"},
+ o:[{hi:"आत्मा है",en:"Soul exists"},{hi:"आत्मा नहीं है (अनात्म)",en:"Soul does not exist (Anatta)"},{hi:"आत्मा अमर है",en:"Soul is immortal"},{hi:"आत्मा ब्रह्म है",en:"Soul is Brahman"}],a:1,
+ ex:{hi:"बुद्ध ने 'अनात्म' (Anatta) का सिद्धांत दिया — 'कोई स्थायी आत्मा नहीं है।' उनके अनुसार मनुष्य पाँच स्कंधों (रूप, वेदना, संज्ञा, संस्कार, विज्ञान) से बना है और इनमें से कोई भी स्थायी 'आत्मा' नहीं है। यह हिंदू 'आत्मवाद' से भिन्न है।",en:"Buddha gave the doctrine of 'Anatta' (no-soul) — nothing permanent exists. A person is made of five aggregates (form, feeling, perception, formations, consciousness), none being a permanent 'self' — differing from Hindu Atman."}},
+
+{q:{hi:"बुद्ध ने किस सिद्धांत के तहत 'चार आर्य सत्य' दिए?",en:"Under which doctrine did Buddha give the 'Four Noble Truths'?"},
+ o:[{hi:"कर्मवाद",en:"Karma"},{hi:"धर्मचक्र",en:"Dharma Chakra"},{hi:"प्रतीत्यसमुत्पाद",en:"Pratityasamutpada"},{hi:"निर्वाण",en:"Nirvana"}],a:2,
+ ex:{hi:"बुद्ध ने 'प्रतीत्यसमुत्पाद' (Pratityasamutpada) या 'आश्रित उत्पत्ति' सिद्धांत दिया — 'जो कुछ भी है, वह कारणों से उत्पन्न होता है।' इसी सिद्धांत से चार आर्य सत्य और दुःख की उत्पत्ति का पता चलता है। यह 12 निदानों की श्रृंखला है।",en:"Buddha taught 'Pratityasamutpada' (dependent origination) — everything arises from causes. This underlies the Four Noble Truths and the arising of suffering, in a chain of 12 Nidanas."}},
+
+{q:{hi:"बुद्ध ने 'निर्वाण' का क्या अर्थ बताया?",en:"What did Buddha mean by 'Nirvana'?"},
+ o:[{hi:"मृत्यु के बाद स्वर्ग",en:"Heaven after death"},{hi:"तृष्णा के नाश से मुक्ति",en:"Liberation by destroying craving"},{hi:"यज्ञ से मुक्ति",en:"Liberation through sacrifice"},{hi:"जन्म-मरण चक्र",en:"Cycle of birth and death"}],a:1,
+ ex:{hi:"बुद्ध के अनुसार 'निर्वाण' का अर्थ है — तृष्णा, राग, द्वेष और मोह के नाश से मुक्ति। यह जन्म-मरण के चक्र से मुक्ति है और जीवित रहते हुए भी प्राप्त की जा सकती है। यह बौद्ध धर्म का अंतिम लक्ष्य है।",en:"Buddha's 'Nirvana' means liberation by destroying craving, attachment, hatred and delusion — freedom from the cycle of birth and death, attainable in life. It is Buddhism's ultimate goal."}},
+
+{q:{hi:"बुद्ध ने 'अहिंसा' के बारे में क्या कहा?",en:"What did Buddha say about 'ahimsa'?"},
+ o:[{hi:"केवल मनुष्यों के लिए",en:"Only for humans"},{hi:"सभी प्राणियों के लिए",en:"For all living beings"},{hi:"केवल संन्यासियों के लिए",en:"Only for monks"},{hi:"कोई नियम नहीं",en:"No rule"}],a:1,
+ ex:{hi:"बुद्ध ने सभी प्राणियों के लिए अहिंसा की शिक्षा दी — 'सभी प्राणी जीवन से प्रेम करते हैं, सब दुःख से डरते हैं। इसलिए किसी को न मारो, न सताओ।' यह बौद्ध धर्म का मूल नैतिक सिद्धांत है।",en:"Buddha taught ahimsa for all beings — all creatures love life and fear pain; do not kill or harm any. It is Buddhism's core ethical principle."}},
+
+{q:{hi:"बुद्ध ने यज्ञ और कर्मकांड के बारे में क्या कहा?",en:"What did Buddha say about sacrifices and rituals?"},
+ o:[{hi:"आवश्यक हैं",en:"They are necessary"},{hi:"निष्फल और अनावश्यक हैं",en:"They are futile and unnecessary"},{hi:"कभी-कभी आवश्यक",en:"Sometimes necessary"},{hi:"केवल ब्राह्मणों के लिए",en:"Only for Brahmins"}],a:1,
+ ex:{hi:"बुद्ध ने यज्ञ, कर्मकांड और जाति-भेद को 'निष्फल और अनावश्यक' बताया। उन्होंने कहा कि मुक्ति यज्ञ से नहीं, बल्कि नैतिक जीवन, ध्यान और ज्ञान से मिलती है। उन्होंने 'आत्म-शुद्धि' पर जोर दिया — यज्ञ की बजाय।",en:"Buddha called sacrifices, rituals and casteism 'futile and unnecessary'. Liberation comes not from sacrifice but from moral living, meditation and wisdom — emphasising self-purification."}},
+
+{q:{hi:"बुद्ध ने अपने संघ में किस जाति को प्रवेश दिया?",en:"Which castes did Buddha admit into his Sangha?"},
+ o:[{hi:"केवल ब्राह्मण",en:"Only Brahmins"},{hi:"केवल क्षत्रिय",en:"Only Kshatriyas"},{hi:"सभी जातियाँ (जातिभेद नहीं)",en:"All castes (no casteism)"},{hi:"केवल वैश्य",en:"Only Vaishyas"}],a:2,
+ ex:{hi:"बुद्ध ने अपने संघ में सभी जातियों को प्रवेश दिया — ब्राह्मण, क्षत्रिय, वैश्य, शूद्र, स्त्री, चांडाल, अपराधी तक। उन्होंने कहा, 'नदियाँ समुद्र में मिलकर एक हो जाती हैं, वैसे ही सभी जातियाँ संघ में एक हो जाती हैं।' यह क्रांतिकारी कदम था।",en:"Buddha admitted all castes into his Sangha — Brahmins, Kshatriyas, Vaishyas, Shudras, women, outcastes, even criminals. He said, 'Rivers become one in the ocean; so all castes become one in the Sangha.'"}},
+
+{q:{hi:"बुद्ध ने 'कर्म' के बारे में क्या कहा?",en:"What did Buddha say about 'karma'?"},
+ o:[{hi:"कर्म नहीं होता",en:"Karma doesn't exist"},{hi:"कर्म का फल मिलता है",en:"Karma bears fruit"},{hi:"केवल ब्राह्मण का कर्म",en:"Only Brahmin's karma"},{hi:"कर्म का कोई प्रभाव नहीं",en:"Karma has no effect"}],a:1,
+ ex:{hi:"बुद्ध ने 'कर्मवाद' को स्वीकार किया — 'जैसा कर्म करोगे, वैसा फल पाओगे।' लेकिन उन्होंने कर्म को जन्म से नहीं, बल्कि 'इच्छा और क्रिया' से जोड़ा। उनके अनुसार मनुष्य अपने भाग्य का निर्माता स्वयं है — 'अत्ता हि अत्तनो नाथो'।",en:"Buddha accepted karma — 'as you sow, so shall you reap' — but linked it to intention and action, not birth. One is the maker of one's own destiny: 'Atta hi attano natho'."}},
+
+/* ============ खंड C — बिहार में बुद्ध के स्थल (Q27–38) ============ */
+{q:{hi:"बुद्ध को ज्ञान प्राप्ति किस वृक्ष के नीचे हुई थी?",en:"Under which tree did Buddha attain enlightenment?"},
+ o:[{hi:"बरगद",en:"Banyan"},{hi:"पीपल (बोधि वृक्ष)",en:"Peepal (Bodhi tree)"},{hi:"आम",en:"Mango"},{hi:"अशोक",en:"Ashoka"}],a:1,
+ ex:{hi:"बुद्ध को बोधगया (बिहार) में 'पीपल के वृक्ष' के नीचे ज्ञान की प्राप्ति हुई। इस वृक्ष को 'बोधि वृक्ष' (Bodhi Tree) कहा जाता है। मूल वृक्ष नष्ट हो चुका है, लेकिन उसकी शाखा से उगा वृक्ष आज भी महाबोधि मंदिर परिसर में है।",en:"Buddha attained enlightenment under a 'Peepal tree' at Bodh Gaya (Bihar), called the 'Bodhi Tree'. The original was destroyed, but its descendant still stands at the Mahabodhi Temple complex."}},
+
+{q:{hi:"'महाबोधि मंदिर' कहाँ स्थित है?",en:"Where is the 'Mahabodhi Temple' located?"},
+ o:[{hi:"राजगीर",en:"Rajgir"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"नालंदा",en:"Nalanda"},{hi:"वैशाली",en:"Vaishali"}],a:1,
+ ex:{hi:"महाबोधि मंदिर बोधगया (बिहार) में स्थित है — जहाँ बुद्ध को ज्ञान की प्राप्ति हुई। यह बौद्ध धर्म का सबसे पवित्र स्थल है और यूनेस्को विश्व धरोहर स्थल (2002 से) है। इसका निर्माण अशोक ने तीसरी शताब्दी ईसा पूर्व में कराया था।",en:"Mahabodhi Temple is at Bodh Gaya (Bihar), where Buddha attained enlightenment — Buddhism's holiest site and a UNESCO World Heritage Site (2002). Ashoka built the original in the 3rd century BCE."}},
+
+{q:{hi:"'बोधगया' का प्राचीन नाम क्या था?",en:"What was the ancient name of 'Bodh Gaya'?"},
+ o:[{hi:"उरुवेला",en:"Uruvela"},{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"गया",en:"Gaya"}],a:0,
+ ex:{hi:"बोधगया का प्राचीन नाम 'उरुवेला' (Uruvela) था। बुद्ध ने यहीं छह वर्ष तपस्या की और ज्ञान प्राप्त किया। इसका वर्तमान नाम 'बोधगया' ज्ञान प्राप्ति की घटना से पड़ा। इसे 'संबोधि' या 'महाबोधि' भी कहा जाता है।",en:"Bodh Gaya was anciently 'Uruvela'. Buddha performed six years of penance here and attained enlightenment. The name 'Bodh Gaya' came from the event — also called 'Sambodhi' or 'Mahabodhi'."}},
+
+{q:{hi:"'महाबोधि मंदिर' के पास स्थित 'बोधि वृक्ष' की क्या विशेषता है?",en:"What is special about the 'Bodhi Tree' near the Mahabodhi Temple?"},
+ o:[{hi:"केवल बौद्ध भिक्षु देख सकते हैं",en:"Only monks can see it"},{hi:"यह मूल वृक्ष की शाखा से उगा है",en:"It grew from a branch of the original tree"},{hi:"यह नकली है",en:"It is artificial"},{hi:"यह सूख चुका है",en:"It has dried up"}],a:1,
+ ex:{hi:"महाबोधि मंदिर के पास स्थित वर्तमान 'बोधि वृक्ष' मूल वृक्ष की शाखा से उगा है — जिसे बुद्ध के शिष्य 'संघमित्रा' ने श्रीलंका ले जाकर लगाया था और बाद में उसकी शाखा वापस बोधगया लाई गई। मूल वृक्ष को कई बार नष्ट किया गया, लेकिन इसकी वंश-परंपरा जीवित है।",en:"The current Bodhi Tree grew from a branch of the original — taken to Sri Lanka by Sanghamitra and later returned. The original was destroyed several times, but the lineage survives."}},
+
+{q:{hi:"'राजगीर' में बुद्ध ने किस पहाड़ी पर उपदेश दिए?",en:"On which hill at 'Rajgir' did Buddha preach?"},
+ o:[{hi:"विपुलगिरि",en:"Vipulagiri"},{hi:"गृद्धकूट",en:"Griddhakuta"},{hi:"रत्नागिरि",en:"Ratnagiri"},{hi:"वैभारगिरि",en:"Vaibhargiri"}],a:1,
+ ex:{hi:"राजगीर (बिहार) में बुद्ध ने 'गृद्धकूट' (गिद्ध शिखर या Vulture Peak) पर अनेक महत्वपूर्ण उपदेश दिए — जिनमें 'सद्धर्मपुंडरीक सूत्र' और 'प्रज्ञापारमिता सूत्र' शामिल हैं। यह बौद्ध तीर्थ का प्रमुख स्थल है और बुद्ध के प्रिय स्थानों में से एक था।",en:"At Rajgir (Bihar), Buddha preached on 'Griddhakuta' (Vulture Peak) — including the 'Saddharma Pundarika Sutra' and 'Prajnaparamita Sutra'. It was one of his favourite places."}},
+
+{q:{hi:"'वेणुवन' क्या है?",en:"What is 'Venuvana'?"},
+ o:[{hi:"बुद्ध का जन्मस्थान",en:"Buddha's birthplace"},{hi:"बिंबिसार का बाँस का बाग",en:"Bimbisara's bamboo grove"},{hi:"ज्ञान प्राप्ति स्थल",en:"Enlightenment site"},{hi:"महापरिनिर्वाण स्थल",en:"Mahaparinirvana site"}],a:1,
+ ex:{hi:"'वेणुवन' (बाँस का बाग) राजगीर (बिहार) में स्थित है — जिसे मगध के राजा 'बिंबिसार' ने बुद्ध को दान किया था। यह बुद्ध का पहला विहार (मठ) था, जहाँ वे वर्षावास के लिए रुके। यह बौद्ध संघ के विकास का प्रारंभिक केंद्र था।",en:"'Venuvana' (bamboo grove) at Rajgir was donated to Buddha by King Bimbisara of Magadha — Buddha's first Vihara (monastery), where he stayed for rain retreats, an early hub of the Sangha."}},
+
+{q:{hi:"बुद्ध ने वर्षावास के लिए कितने स्थानों का उपयोग किया?",en:"How many places did Buddha use for vassavasa (rain retreat)?"},
+ o:[{hi:"केवल राजगृह",en:"Only Rajagriha"},{hi:"केवल वैशाली",en:"Only Vaishali"},{hi:"राजगृह, वैशाली, श्रावस्ती, कौशांबी आदि",en:"Rajagriha, Vaishali, Shravasti, Kaushambi etc."},{hi:"केवल श्रावस्ती",en:"Only Shravasti"}],a:2,
+ ex:{hi:"बुद्ध ने अपने 45 वर्ष के प्रचार काल में कई स्थानों पर वर्षावास किया — राजगृह, वैशाली, श्रावस्ती (जेतवन विहार), कौशांबी, कपिलवस्तु और वैशाली। राजगीर और श्रावस्ती में उन्होंने सबसे अधिक वर्षावास बिताए — 24 और 19 वर्ष।",en:"Over 45 years of preaching, Buddha stayed at Rajagriha, Vaishali, Shravasti (Jetavana Vihara), Kaushambi and Kapilavastu. Rajgir (24 years) and Shravasti (19) were his main retreats."}},
+
+{q:{hi:"बुद्ध ने वैशाली में कितने वर्षावास बिताए?",en:"How many vassavasa did Buddha spend at Vaishali?"},
+ o:[{hi:"3",en:"3"},{hi:"5",en:"5"},{hi:"7",en:"7"},{hi:"10",en:"10"}],a:1,
+ ex:{hi:"बुद्ध ने वैशाली (बिहार) में 5 वर्षावास बिताए — जिसमें अंतिम वर्षावास भी शामिल है। वैशाली में उन्होंने 'महापरिनिब्बान सुत्त' का उपदेश दिया और अपने आसन्न महापरिनिर्वाण की भविष्यवाणी की। यहाँ उन्होंने 'आत्मदीपो भव' का संदेश दिया।",en:"Buddha spent 5 rain retreats at Vaishali (Bihar), including his last — preaching the 'Mahaparinibbana Sutta' and foretelling his Mahaparinirvana, giving the message 'Attadipo Bhava'."}},
+
+{q:{hi:"'अम्रपाली' ने बुद्ध को क्या दान किया?",en:"What did 'Amrapali' donate to Buddha?"},
+ o:[{hi:"स्वर्ण",en:"Gold"},{hi:"आम का बाग",en:"Mango grove"},{hi:"विहार",en:"Monastery"},{hi:"हाथी",en:"Elephant"}],a:1,
+ ex:{hi:"वैशाली की नगरवधू 'अम्रपाली' ने बुद्ध को अपना 'आम का बाग' (आम्रवन) दान किया। इसी बाग में बुद्ध ने अपना अंतिम उपदेश दिया और महापरिनिर्वाण की भविष्यवाणी की। अम्रपाली बाद में भिक्षुणी बनीं और अरहंत बनीं।",en:"Vaishali's court dancer 'Amrapali' donated her mango grove (Amravana) to Buddha, where he gave his last sermon and foretold Mahaparinirvana. Amrapali later became a nun and attained Arhatship."}},
+
+{q:{hi:"बुद्ध ने अपना अंतिम उपदेश कहाँ दिया?",en:"Where did Buddha give his last sermon?"},
+ o:[{hi:"बोधगया",en:"Bodh Gaya"},{hi:"वैशाली",en:"Vaishali"},{hi:"राजगीर",en:"Rajgir"},{hi:"कुशीनगर",en:"Kushinagar"}],a:1,
+ ex:{hi:"बुद्ध ने अपना अंतिम उपदेश 'वैशाली' (बिहार) में दिया — अम्रपाली के आम्रवन में। यहाँ उन्होंने 'महापरिनिब्बान सुत्त' का उपदेश दिया और 3 महीने बाद महापरिनिर्वाण की भविष्यवाणी की। वैशाली से वे कुशीनगर की ओर चले, जहाँ उनका महापरिनिर्वाण हुआ।",en:"Buddha gave his last sermon at Vaishali (Bihar) in Amrapali's mango grove, preaching the 'Mahaparinibbana Sutta' and foretelling Mahaparinirvana 3 months later. He then proceeded to Kushinagar, where he passed away."}},
+
+{q:{hi:"बुद्ध ने किस बिहार के स्थल पर 'आत्मदीपो भव' का संदेश दिया?",en:"At which Bihar site did Buddha give the message 'Attadipo Bhava'?"},
+ o:[{hi:"बोधगया",en:"Bodh Gaya"},{hi:"वैशाली",en:"Vaishali"},{hi:"राजगीर",en:"Rajgir"},{hi:"नालंदा",en:"Nalanda"}],a:1,
+ ex:{hi:"बुद्ध ने वैशाली (बिहार) में 'आत्मदीपो भव' (अपना दीपक स्वयं बनो) का संदेश दिया। उन्होंने कहा, 'अपने दीपक स्वयं बनो, अपनी शरण स्वयं बनो, अन्य किसी की शरण में न जाओ।' यह उनका अंतिम उपदेश था — जो उनके महापरिनिर्वाण से पहले दिया गया।",en:"At Vaishali (Bihar), Buddha gave 'Attadipo Bhava' (Be your own lamp) — 'Be your own refuge, take no other refuge.' This was his last teaching before Mahaparinirvana."}},
+
+{q:{hi:"बुद्ध ने 'सुजाता' से क्या दान स्वीकार किया?",en:"What offering did Buddha accept from 'Sujata'?"},
+ o:[{hi:"फल",en:"Fruits"},{hi:"खीर (पायस)",en:"Kheer (rice pudding)"},{hi:"वस्त्र",en:"Clothes"},{hi:"स्वर्ण",en:"Gold"}],a:1,
+ ex:{hi:"बुद्ध ने 'सुजाता' नामक ग्रामीण महिला से 'खीर' (पायस) का दान स्वीकार किया — जो उनका अंतिम भोजन था, ज्ञान प्राप्ति से पहले। यह निरंजना नदी के तट पर बोधगया के पास हुआ। इस भोजन के बाद उन्होंने ध्यान में बैठकर ज्ञान प्राप्त किया।",en:"Buddha accepted 'kheer' from a village woman named 'Sujata' — his last meal before enlightenment, on the Niranjana river bank near Bodh Gaya. After it, he meditated and attained enlightenment."}},
+
+/* ============ खंड D — बौद्ध संगीतियाँ, ग्रंथ और विरासत (Q39–50) ============ */
+{q:{hi:"प्रथम बौद्ध संगीति कब और कहाँ हुई?",en:"When and where was the First Buddhist Council held?"},
+ o:[{hi:"483 ईसा पूर्व, राजगृह",en:"483 BCE, Rajagriha"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"250 ईसा पूर्व, पाटलिपुत्र",en:"250 BCE, Pataliputra"},{hi:"1st century CE, कुंडलवन",en:"1st century CE, Kundalvana"}],a:0,
+ ex:{hi:"प्रथम बौद्ध संगीति 483 ईसा पूर्व में 'राजगृह' (बिहार) में हुई — बुद्ध के महापरिनिर्वाण के तुरंत बाद। इसकी अध्यक्षता 'महाकस्सप' ने की और अजातशत्रु ने संरक्षण दिया। इसमें बुद्ध की शिक्षाओं को संकलित किया गया।",en:"The First Buddhist Council was held in 483 BCE at 'Rajagriha' (Bihar) soon after Buddha's Mahaparinirvana, presided by Mahakassapa and patronised by Ajatashatru. Buddha's teachings were compiled."}},
+
+{q:{hi:"द्वितीय बौद्ध संगीति कब और कहाँ हुई?",en:"When and where was the Second Buddhist Council held?"},
+ o:[{hi:"483 ईसा पूर्व, राजगृह",en:"483 BCE, Rajagriha"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"250 ईसा पूर्व, पाटलिपुत्र",en:"250 BCE, Pataliputra"},{hi:"1st century CE, कुंडलवन",en:"1st century CE, Kundalvana"}],a:1,
+ ex:{hi:"द्वितीय बौद्ध संगीति 383 ईसा पूर्व में 'वैशाली' (बिहार) में हुई — कालाशोक के शासनकाल में। इसकी अध्यक्षता 'रेवत' ने की। इसमें वैशाली के भिक्षुओं की 'दस अनुशासनहीन बातों' का विरोध हुआ और संघ स्थविरवादी तथा महासांघिक में विभाजित हो गया।",en:"The Second Buddhist Council was held in 383 BCE at 'Vaishali' (Bihar) during Kalashoka's reign, presided by Revata. The 'Ten Points' of lax discipline at Vaishali split the Sangha into Sthaviravada and Mahasanghika."}},
+
+{q:{hi:"तृतीय बौद्ध संगीति कब और कहाँ हुई?",en:"When and where was the Third Buddhist Council held?"},
+ o:[{hi:"483 ईसा पूर्व, राजगृह",en:"483 BCE, Rajagriha"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"250 ईसा पूर्व, पाटलिपुत्र",en:"250 BCE, Pataliputra"},{hi:"1st century CE, कुंडलवन",en:"1st century CE, Kundalvana"}],a:2,
+ ex:{hi:"तृतीय बौद्ध संगीति 250 ईसा पूर्व में 'पाटलिपुत्र' (पटना, बिहार) में हुई — अशोक के शासनकाल में। इसकी अध्यक्षता 'मोग्गलिपुत्त तिस्स' ने की। यहाँ 'अभिधम्म पिटक' की रचना हुई और 'धम्म संघ' की स्थापना हुई। यह सभी बिहार में हुई।",en:"The Third Buddhist Council was held in 250 BCE at 'Pataliputra' (Patna, Bihar) during Ashoka's reign, presided by Moggaliputta Tissa. The Abhidhamma Pitaka was composed and the Dhamma Sangha established — all in Bihar."}},
+
+{q:{hi:"चतुर्थ बौद्ध संगीति कब और कहाँ हुई?",en:"When and where was the Fourth Buddhist Council held?"},
+ o:[{hi:"483 ईसा पूर्व, राजगृह",en:"483 BCE, Rajagriha"},{hi:"383 ईसा पूर्व, वैशाली",en:"383 BCE, Vaishali"},{hi:"250 ईसा पूर्व, पाटलिपुत्र",en:"250 BCE, Pataliputra"},{hi:"1st century CE, कुंडलवन (कश्मीर)",en:"1st century CE, Kundalvana (Kashmir)"}],a:3,
+ ex:{hi:"चतुर्थ बौद्ध संगीति 1st century CE में 'कुंडलवन' (कश्मीर) में हुई — कनिष्क के शासनकाल में। इसकी अध्यक्षता 'वसुमित्र' ने की। इसमें बौद्ध धर्म 'महायान' और 'हीनयान' में विभाजित हो गया। यह बिहार से बाहर हुई पहली बौद्ध संगीति थी।",en:"The Fourth Buddhist Council was held in the 1st century CE at 'Kundalvana' (Kashmir) during Kanishka's reign, presided by Vasumitra. Buddhism split into Mahayana and Hinayana — the first council outside Bihar."}},
+
+{q:{hi:"बौद्ध धर्म के 'त्रिपिटक' में कितने पिटक हैं?",en:"How many Pitakas are there in the Buddhist 'Tripitaka'?"},
+ o:[{hi:"2",en:"2"},{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"}],a:1,
+ ex:{hi:"त्रिपिटक में 3 पिटक हैं — (1) विनय पिटक (संघ के नियम), (2) सुत्त पिटक (बुद्ध के उपदेश), (3) अभिधम्म पिटक (दर्शन)। ये पाली भाषा में लिखे गए हैं और बौद्ध धर्म के प्रमुख ग्रंथ हैं। 'पिटक' का अर्थ 'टोकरी' है।",en:"Tripitaka has 3 Pitakas — Vinaya (monastic rules), Sutta (Buddha's sermons) and Abhidhamma (philosophy), written in Pali — Buddhism's main scriptures. 'Pitaka' means 'basket'."}},
+
+{q:{hi:"बुद्ध के उपदेश किस पिटक में संकलित हैं?",en:"Buddha's sermons are compiled in which Pitaka?"},
+ o:[{hi:"विनय पिटक",en:"Vinaya Pitaka"},{hi:"सुत्त पिटक",en:"Sutta Pitaka"},{hi:"अभिधम्म पिटक",en:"Abhidhamma Pitaka"},{hi:"जातक",en:"Jataka"}],a:1,
+ ex:{hi:"बुद्ध के उपदेश और प्रवचन 'सुत्त पिटक' में संकलित हैं। इसमें 5 निकाय हैं — दीघ निकाय, मज्झिम निकाय, संयुत्त निकाय, अंगुत्तर निकाय और खुद्दक निकाय। 'धम्मपद' खुद्दक निकाय का हिस्सा है।",en:"Buddha's sermons are in the 'Sutta Pitaka', comprising 5 Nikayas — Digha, Majjhima, Samyutta, Anguttara and Khuddaka. The 'Dhammapada' is part of the Khuddaka Nikaya."}},
+
+{q:{hi:"'जातक कथाएँ' क्या हैं?",en:"What are the 'Jataka Tales'?"},
+ o:[{hi:"बुद्ध के उपदेश",en:"Buddha's sermons"},{hi:"बुद्ध के पूर्वजन्म की कथाएँ",en:"Stories of Buddha's previous births"},{hi:"संघ के नियम",en:"Monastic rules"},{hi:"बौद्ध दर्शन",en:"Buddhist philosophy"}],a:1,
+ ex:{hi:"'जातक कथाएँ' बुद्ध के पूर्वजन्मों की 550 कथाएँ हैं — जो 'सुत्त पिटक' के 'खुद्दक निकाय' में संकलित हैं। ये कथाएँ बुद्ध के बोधिसत्व काल की हैं और नैतिक शिक्षाएँ देती हैं। इनमें बुद्ध किसी न किसी रूप में जन्म लेते हैं। भारत की लोक-कथाओं पर इनका गहरा प्रभाव है।",en:"The 'Jataka Tales' are 550 stories of Buddha's previous births in the 'Khuddaka Nikaya' of the Sutta Pitaka, from his Bodhisattva period, teaching morals. Buddha appears in various forms, deeply influencing Indian folklore."}},
+
+{q:{hi:"'धम्मपद' किस भाषा में लिखा गया है?",en:"In which language is the 'Dhammapada' written?"},
+ o:[{hi:"संस्कृत",en:"Sanskrit"},{hi:"पाली",en:"Pali"},{hi:"प्राकृत",en:"Prakrit"},{hi:"हिंदी",en:"Hindi"}],a:1,
+ ex:{hi:"'धम्मपद' पाली भाषा में लिखा गया है — जो 'सुत्त पिटक' के 'खुद्दक निकाय' का हिस्सा है। इसमें 423 गाथाएँ हैं, जो 26 वर्गों में विभाजित हैं। यह बौद्ध धर्म का सबसे लोकप्रिय ग्रंथ है और विश्व की अनेक भाषाओं में अनूदित हुआ है।",en:"The 'Dhammapada' is in Pali, part of the Khuddaka Nikaya of the Sutta Pitaka — 423 verses in 26 chapters. It is Buddhism's most popular text, translated into many languages."}},
+
+{q:{hi:"बुद्ध के प्रमुख शिष्यों में कौन-कौन शामिल हैं?",en:"Who were Buddha's chief disciples?"},
+ o:[{hi:"सारिपुत्त, मोग्गल्लान, आनंद, महाकस्सप, उपाली",en:"Sariputta, Moggallana, Ananda, Mahakassapa, Upali"},{hi:"केवल आनंद",en:"Only Ananda"},{hi:"केवल सारिपुत्त",en:"Only Sariputta"},{hi:"केवल महाकस्सप",en:"Only Mahakassapa"}],a:0,
+ ex:{hi:"बुद्ध के प्रमुख शिष्य — सारिपुत्त (प्रज्ञा में अग्र), मोग्गल्लान (ऋद्धि में अग्र), आनंद (स्मृति में अग्र, बुद्ध के सेवक), महाकस्सप (धुतगुण में अग्र, प्रथम संगीति के अध्यक्ष), उपाली (विनय में अग्र), राहुल (बुद्ध के पुत्र) और अनुरुद्ध।",en:"Buddha's chief disciples — Sariputta (wisdom), Moggallana (psychic powers), Ananda (memory, Buddha's attendant), Mahakassapa (ascetic practices, First Council president), Upali (Vinaya), Rahula (Buddha's son) and Anuruddha."}},
+
+{q:{hi:"'आनंद' का बुद्ध के जीवन में क्या योगदान था?",en:"What was 'Ananda's contribution to Buddha's life?"},
+ o:[{hi:"प्रथम शिष्य",en:"First disciple"},{hi:"25 वर्षों तक बुद्ध के सेवक",en:"Buddha's attendant for 25 years"},{hi:"संघ के संस्थापक",en:"Founder of the Sangha"},{hi:"प्रथम बौद्ध संगीति के अध्यक्ष",en:"President of the First Council"}],a:1,
+ ex:{hi:"आनंद 25 वर्षों तक बुद्ध के निजी सेवक रहे और उनकी स्मृति के लिए प्रसिद्ध थे। उन्होंने बुद्ध के अधिकांश उपदेश याद रखे और प्रथम बौद्ध संगीति में 'सुत्त पिटक' का संकलन किया। उन्होंने महिलाओं को संघ में प्रवेश दिलाने में महत्वपूर्ण भूमिका निभाई — महाप्रजापति गौतमी के लिए बुद्ध से अनुरोध किया।",en:"Ananda served Buddha personally for 25 years, famed for his memory. He recited the Sutta Pitaka at the First Council and played a key role in admitting women to the Sangha, requesting Buddha on behalf of Mahaprajapati Gautami."}},
+
+{q:{hi:"'महाप्रजापति गौतमी' कौन थीं?",en:"Who was 'Mahaprajapati Gautami'?"},
+ o:[{hi:"बुद्ध की माता",en:"Buddha's mother"},{hi:"बुद्ध की मौसी और पहली भिक्षुणी",en:"Buddha's aunt and first nun"},{hi:"बुद्ध की पत्नी",en:"Buddha's wife"},{hi:"बुद्ध की बहन",en:"Buddha's sister"}],a:1,
+ ex:{hi:"'महाप्रजापति गौतमी' बुद्ध की मौसी और सौतेली माता थीं — जिन्होंने बुद्ध का पालन-पोषण किया। वे बौद्ध संघ की 'पहली भिक्षुणी' बनीं और महिलाओं के लिए संघ का द्वार खोला। बुद्ध ने उन्हें 'भिक्षुणी संघ' का प्रमुख बनाया। यह महिला सशक्तिकरण का प्रारंभिक उदाहरण है।",en:"'Mahaprajapati Gautami' was Buddha's aunt and stepmother, who raised him. She became the first Buddhist nun, opening the Sangha to women, and Buddha made her head of the Bhikkhuni Sangha — an early example of women's empowerment."}},
+
+{q:{hi:"बुद्ध के 'अंतिम शब्द' क्या थे?",en:"What were Buddha's 'last words'?"},
+ o:[{hi:"आत्मदीपो भव",en:"Attadipo Bhava"},{hi:"सभी संस्कार नश्वर हैं, अप्रमाद से साधना करो",en:"All formations are impermanent; strive with diligence"},{hi:"शांति",en:"Peace"},{hi:"करुणा",en:"Compassion"}],a:1,
+ ex:{hi:"बुद्ध के अंतिम शब्द थे — 'हंद दानि भिक्खवे आमन्तयामि वो, वयधम्मा संखारा, अप्पमादेन सम्पादेथ' — अर्थात 'हे भिक्षुओं, सभी संस्कार नश्वर हैं, अप्रमाद से अपनी साधना पूर्ण करो।' यह उनके महापरिनिर्वाण से पहले के अंतिम शब्द थे — कुशीनगर में।",en:"Buddha's last words were — 'All formations are impermanent; strive with diligence.' Spoken before his Mahaparinirvana at Kushinagar, urging monks to complete their practice mindfully."}},
+
+{q:{hi:"बुद्ध की मृत्यु को बौद्ध परंपरा में क्या कहा जाता है?",en:"What is Buddha's death called in Buddhist tradition?"},
+ o:[{hi:"महाभिनिष्क्रमण",en:"Mahabhinishkramana"},{hi:"संबोधि",en:"Sambodhi"},{hi:"महापरिनिर्वाण",en:"Mahaparinirvana"},{hi:"धर्मचक्र",en:"Dharma Chakra"}],a:2,
+ ex:{hi:"बुद्ध की मृत्यु को 'महापरिनिर्वाण' कहा जाता है — जो 483 ईसा पूर्व में कुशीनगर (उत्तर प्रदेश) में हुआ। उन्होंने 80 वर्ष की आयु में वैशाख पूर्णिमा को देह त्याग किया। 'परिनिर्वाण' का अर्थ है — पूर्ण निर्वाण या देह त्याग।",en:"Buddha's death is called 'Mahaparinirvana' at Kushinagar (UP) in 483 BCE at age 80 on Vaishakh Purnima. 'Parinirvana' means final liberation or passing away."}},
+
+{q:{hi:"बुद्ध के 45 वर्ष के प्रचार काल में कितने लोग बौद्ध बने?",en:"How many people embraced Buddhism during Buddha's 45-year preaching?"},
+ o:[{hi:"हज़ारों",en:"Thousands"},{hi:"लाखों",en:"Lakhs"},{hi:"करोड़ों",en:"Crores"},{hi:"आंकड़े उपलब्ध नहीं",en:"Figures not available"}],a:1,
+ ex:{hi:"बुद्ध के 45 वर्ष के प्रचार काल में लाखों लोग बौद्ध बने — इनमें राजा, ब्राह्मण, व्यापारी, शूद्र, महिलाएँ और चांडाल सभी शामिल थे। अशोक के काल तक बौद्ध धर्म भारत का प्रमुख धर्म बन गया। चीन, जापान, कोरिया, श्रीलंका, म्यांमार, थाईलैंड आदि में भी फैला।",en:"Lakhs embraced Buddhism during Buddha's 45 years of preaching — kings, Brahmins, merchants, Shudras, women and outcastes. By Ashoka's time, it became a major Indian religion, spreading to China, Japan, Korea, Sri Lanka, Myanmar and Thailand."}},
+
+{q:{hi:"बुद्ध के जीवन की चार प्रमुख घटनाएँ (चार महापर्व) कौन-सी हैं?",en:"What are the four major events (Chatur Mahaparv) in Buddha's life?"},
+ o:[{hi:"जन्म, ज्ञान, उपदेश, मृत्यु",en:"Birth, Enlightenment, Sermon, Death"},{hi:"जन्म, गृहत्याग, ज्ञान, महापरिनिर्वाण",en:"Birth, Renunciation, Enlightenment, Mahaparinirvana"},{hi:"जन्म, विवाह, ज्ञान, मृत्यु",en:"Birth, Marriage, Enlightenment, Death"},{hi:"गृहत्याग, ज्ञान, उपदेश, मृत्यु",en:"Renunciation, Enlightenment, Sermon, Death"}],a:1,
+ ex:{hi:"बुद्ध के जीवन की चार प्रमुख घटनाएँ — (1) जन्म (लुम्बिनी, 563 ईसा पूर्व), (2) गृहत्याग (कपिलवस्तु, 534 ईसा पूर्व), (3) ज्ञान प्राप्ति (बोधगया, 528 ईसा पूर्व), (4) महापरिनिर्वाण (कुशीनगर, 483 ईसा पूर्व)। ये चारों वैशाख पूर्णिमा को हुईं — इसलिए इसे 'बुद्ध पूर्णिमा' कहा जाता है।",en:"Four major events — Birth (Lumbini, 563 BCE), Renunciation (Kapilavastu, 534 BCE), Enlightenment (Bodh Gaya, 528 BCE), Mahaparinirvana (Kushinagar, 483 BCE) — all on Vaishakh Purnima, hence 'Buddha Purnima'."}},
+
+{q:{hi:"बौद्ध धर्म के प्रतीक 'धर्मचक्र' में कितनी तीलियाँ होती हैं?",en:"How many spokes are in the Buddhist 'Dharmachakra' symbol?"},
+ o:[{hi:"4",en:"4"},{hi:"6",en:"6"},{hi:"8",en:"8"},{hi:"12",en:"12"}],a:2,
+ ex:{hi:"बौद्ध 'धर्मचक्र' में 8 तीलियाँ होती हैं — जो अष्टांगिक मार्ग की आठ अंगों को दर्शाती हैं। यह बौद्ध धर्म का प्रमुख प्रतीक है। भारत के राष्ट्रीय ध्वज के केंद्र में स्थित अशोक चक्र भी 24 तीलियों वाला है — जो अशोक के सारनाथ स्तंभ से लिया गया है।",en:"The Buddhist 'Dharmachakra' has 8 spokes representing the Eightfold Path. It is Buddhism's main symbol. India's national flag's Ashoka Chakra has 24 spokes, taken from Ashoka's Sarnath pillar."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बुद्ध और बौद्ध धर्म पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Buddha and Buddhism is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बुद्ध के जीवन और शिक्षाओं को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Buddha's life and teachings."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
