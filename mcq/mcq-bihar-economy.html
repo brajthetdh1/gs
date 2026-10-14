@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>बिहार राजव्यवस्था — 50 प्रश्न | Bihar Polity — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#bbdefb;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#bbdefb;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ffeb3b);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e3f2fd;color:#0d47a1;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              ⚖️ बिहार राजव्यवस्था — 50 प्रश्न
+              <small>Bihar Polity & Governance · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — बिहार विधानमंडल और शासन</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   बिहार राजव्यवस्था — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — बिहार विधानमंडल और शासन", en:"Section A — Bihar Legislature & Government"},
+  {hi:"खंड B — बिहार न्यायपालिका और प्रशासन", en:"Section B — Bihar Judiciary & Administration"},
+  {hi:"खंड C — बिहार पंचायती राज और स्थानीय शासन", en:"Section C — Bihar Panchayati Raj & Local Governance"},
+  {hi:"खंड D — बिहार राजनीति, चुनाव और विविध", en:"Section D — Bihar Politics, Elections & Misc"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — बिहार विधानमंडल और शासन (Q1–13) ============ */
+{q:{hi:"बिहार का विधानमंडल किस प्रकार का है?",en:"What type of legislature does Bihar have?"},
+ o:[{hi:"एकसदनीय",en:"Unicameral"},{hi:"द्विसदनीय",en:"Bicameral"},{hi:"त्रिसदनीय",en:"Tricameral"},{hi:"कोई विधानमंडल नहीं",en:"No legislature"}],a:1,
+ ex:{hi:"बिहार का विधानमंडल 'द्विसदनीय' (Bicameral) है — जिसमें दो सदन हैं — (1) विधानसभा (Lower House) और (2) विधान परिषद (Upper House)। बिहार भारत के उन 6 राज्यों में से एक है जहाँ विधान परिषद है — अन्य हैं उत्तर प्रदेश, महाराष्ट्र, कर्नाटक, आंध्र प्रदेश और तेलंगाना।",en:"Bihar has a 'bicameral' legislature — Vidhan Sabha (Lower House) and Vidhan Parishad (Upper House). Bihar is one of India's 6 states with a Legislative Council, along with UP, Maharashtra, Karnataka, Andhra Pradesh and Telangana."}},
+
+{q:{hi:"बिहार विधानसभा में कितने निर्वाचित सदस्य होते हैं?",en:"How many elected members are in the Bihar Legislative Assembly?"},
+ o:[{hi:"230",en:"230"},{hi:"243",en:"243"},{hi:"250",en:"250"},{hi:"255",en:"255"}],a:1,
+ ex:{hi:"बिहार विधानसभा में 243 निर्वाचित सदस्य होते हैं। यदि आंग्ल-भारतीय समुदाय का एक सदस्य मनोनीत हो तो कुल 244 हो सकती है। हालांकि 2020 में आंग्ल-भारतीय आरक्षण समाप्त होने के बाद यह प्रावधान अब लागू नहीं है। विधानसभा का कार्यकाल 5 वर्ष होता है।",en:"The Bihar Legislative Assembly has 243 elected members (up to 244 with one nominated Anglo-Indian member earlier). After the 2020 lapse of Anglo-Indian reservation, that provision no longer applies. The term is 5 years."}},
+
+{q:{hi:"बिहार विधान परिषद में कितने सदस्य होते हैं?",en:"How many members are in the Bihar Legislative Council?"},
+ o:[{hi:"50",en:"50"},{hi:"60",en:"60"},{hi:"75",en:"75"},{hi:"90",en:"90"}],a:2,
+ ex:{hi:"बिहार विधान परिषद में कुल 75 सदस्य होते हैं — जो विभिन्न माध्यमों से चुने जाते हैं — (1) 27 विधानसभा सदस्यों द्वारा, (2) 27 स्थानीय निकायों द्वारा, (3) 6 शिक्षकों द्वारा, (4) 6 स्नातकों द्वारा और (5) 9 राज्यपाल द्वारा मनोनीत। यह स्थायी सदन है — 1/3 सदस्य हर 2 वर्ष में सेवानिवृत्त होते हैं।",en:"Bihar's Legislative Council has 75 members — 27 elected by Assembly members, 27 by local bodies, 6 by teachers, 6 by graduates, and 9 nominated by the Governor. It is a permanent house with 1/3 retiring every 2 years."}},
+
+{q:{hi:"बिहार विधान परिषद के सदस्य का कार्यकाल कितना होता है?",en:"What is the term of a Bihar Legislative Council member?"},
+ o:[{hi:"3 वर्ष",en:"3 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"},{hi:"स्थायी",en:"Permanent"}],a:2,
+ ex:{hi:"बिहार विधान परिषद के सदस्य का कार्यकाल 6 वर्ष होता है। हालांकि हर 2 वर्ष में एक-तिहाई सदस्य सेवानिवृत्त होते हैं, इसलिए यह सदन कभी भंग नहीं होता — इसे 'स्थायी सदन' (Permanent House) कहा जाता है। यह राज्यसभा की तरह है।",en:"Members of Bihar's Legislative Council serve 6-year terms, with one-third retiring every 2 years — so the House is never dissolved. It is called a 'Permanent House', like the Rajya Sabha."}},
+
+{q:{hi:"बिहार विधानसभा का अध्यक्ष कौन होता है?",en:"Who is the Speaker of the Bihar Legislative Assembly?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"विधानसभा द्वारा निर्वाचित अध्यक्ष",en:"A Speaker elected by the Assembly"},{hi:"मुख्य न्यायाधीश",en:"Chief Justice"}],a:2,
+ ex:{hi:"बिहार विधानसभा का अध्यक्ष 'विधानसभा के सदस्यों द्वारा निर्वाचित' होता है। अध्यक्ष सदन की अध्यक्षता करता है, नियम-प्रक्रिया बनाए रखता है, विधेयकों पर निर्णय देता है और विधानसभा की कार्यवाही का संचालन करता है। अध्यक्ष भारत के राष्ट्रपति की तरह निष्पक्ष रहता है।",en:"The Speaker is 'elected by the Assembly members', presiding over the House, maintaining rules, deciding on bills and conducting proceedings — expected to be impartial, like the President of India."}},
+
+{q:{hi:"बिहार विधानसभा का उपाध्यक्ष किसके द्वारा चुना जाता है?",en:"Who elects the Deputy Speaker of the Bihar Legislative Assembly?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"विधानसभा सदस्य",en:"Assembly members"},{hi:"राष्ट्रपति",en:"President"}],a:2,
+ ex:{hi:"बिहार विधानसभा का उपाध्यक्ष 'विधानसभा के सदस्यों द्वारा' चुना जाता है। वह अध्यक्ष की अनुपस्थिति में सदन की अध्यक्षता करता है और अध्यक्ष के कर्तव्यों का पालन करता है। उपाध्यक्ष भी अध्यक्ष की तरह निष्पक्ष रहता है।",en:"The Deputy Speaker of Bihar's Legislative Assembly is 'elected by Assembly members', presiding in the Speaker's absence and performing his duties impartially."}},
+
+{q:{hi:"बिहार का मुख्यमंत्री किसके द्वारा नियुक्त किया जाता है?",en:"Who appoints the Chief Minister of Bihar?"},
+ o:[{hi:"राष्ट्रपति",en:"President"},{hi:"राज्यपाल",en:"Governor"},{hi:"विधानसभा अध्यक्ष",en:"Speaker"},{hi:"प्रधानमंत्री",en:"Prime Minister"}],a:1,
+ ex:{hi:"बिहार के मुख्यमंत्री की नियुक्ति 'राज्यपाल' द्वारा की जाती है। राज्यपाल विधानसभा में बहुमत दल के नेता को मुख्यमंत्री नियुक्त करता है। मुख्यमंत्री राज्य सरकार का प्रमुख होता है और मंत्रिपरिषद का नेतृत्व करता है। मुख्यमंत्री विधानसभा या विधान परिषद का सदस्य होना चाहिए।",en:"The Governor 'appoints' Bihar's Chief Minister — usually the majority party leader in the Assembly. The CM heads the state government and leads the Council of Ministers, and must be a member of either House."}},
+
+{q:{hi:"बिहार में मंत्रिपरिषद का आकार किस पर निर्भर करता है?",en:"On what does the size of Bihar's Council of Ministers depend?"},
+ o:[{hi:"राज्यपाल की इच्छा",en:"Governor's wish"},{hi:"मुख्यमंत्री की इच्छा",en:"CM's wish"},{hi:"विधानसभा की कुल संख्या (15% अधिकतम)",en:"Total Assembly strength (max 15%)"},{hi:"कोई सीमा नहीं",en:"No limit"}],a:2,
+ ex:{hi:"बिहार में मंत्रिपरिषद का आकार 'विधानसभा की कुल संख्या के 15%' से अधिक नहीं हो सकता — यह 91वें संविधान संशोधन (2003) के तहत है। बिहार विधानसभा में 243 सदस्य हैं, इसलिए अधिकतम 36 मंत्री हो सकते हैं। इसमें मुख्यमंत्री और अन्य मंत्री शामिल हैं।",en:"Bihar's Council of Ministers cannot exceed '15% of Assembly strength' per the 91st Amendment (2003). With 243 MLAs, a maximum of 36 ministers is permitted, including the CM."}},
+
+{q:{hi:"बिहार विधान परिषद का सभापति कौन होता है?",en:"Who is the Chairman of the Bihar Legislative Council?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मुख्यमंत्री",en:"CM"},{hi:"परिषद सदस्यों द्वारा निर्वाचित सभापति",en:"Chairman elected by Council members"},{hi:"विधानसभा अध्यक्ष",en:"Speaker of Assembly"}],a:2,
+ ex:{hi:"बिहार विधान परिषद का सभापति 'परिषद के सदस्यों द्वारा निर्वाचित' होता है — जो परिषद की कार्यवाही की अध्यक्षता करता है। उपसभापति भी सदस्यों द्वारा चुना जाता है। सभापति का कार्य विधानसभा अध्यक्ष के समान है — लेकिन यह परिषद के लिए होता है।",en:"Bihar's Legislative Council Chairman is 'elected by Council members' and presides over its proceedings, with a Deputy Chairman also elected. The role parallels the Assembly Speaker but for the Council."}},
+
+{q:{hi:"बिहार विधानसभा का कार्यकाल कितना होता है?",en:"What is the term of the Bihar Legislative Assembly?"},
+ o:[{hi:"4 वर्ष",en:"4 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"},{hi:"7 वर्ष",en:"7 years"}],a:1,
+ ex:{hi:"बिहार विधानसभा का सामान्य कार्यकाल 5 वर्ष होता है — लेकिन इसे समय से पहले भंग किया जा सकता है या आपातकाल के समय बढ़ाया जा सकता है। राज्यपाल विधानसभा को भंग कर सकता है — मुख्यमंत्री की सलाह पर। विधानसभा का पहला चुनाव 1952 में हुआ था।",en:"The Bihar Assembly's normal term is 5 years, though it can be dissolved earlier or extended during Emergency. The Governor dissolves it on the CM's advice. The first election was in 1952."}},
+
+{q:{hi:"बिहार में विधान परिषद की सिफारिश किस समिति ने की थी?",en:"Which committee recommended the Bihar Legislative Council?"},
+ o:[{hi:"बलवंत राय मेहता समिति",en:"Balwant Rai Mehta Committee"},{hi:"सरकारिया आयोग",en:"Sarkaria Commission"},{hi:"अशोक मेहता समिति",en:"Ashok Mehta Committee"},{hi:"कोई नहीं — यह संविधान के तहत पहले से थी"}],a:3,
+ ex:{hi:"बिहार विधान परिषद (जिसे कभी-कभी विधान परिषद या 'विधान मंडल' कहा जाता है) 'स्वतंत्रता से पहले' बनी थी और भारतीय संविधान के लागू होने के साथ ही बनी रही। यह किसी समिति की सिफारिश पर नहीं बनी — बल्कि 1912 में बिहार-उड़ीसा प्रांत के गठन के साथ ही इसे मिला। स्वतंत्रता के बाद इसे 1952 में पुनर्गठित किया गया। इसे 1963 में कुछ समय के लिए भंग भी किया गया था और 1968 में पुनर्स्थापित किया गया।",en:"Bihar's Legislative Council predates independence and continued after the Constitution came into force. It was not recommended by any committee — it came with the Bihar-Orissa Province (1912), was reorganised in 1952, abolished briefly in 1963 and restored in 1968."}},
+
+{q:{hi:"बिहार का राज्यपाल किसके द्वारा नियुक्त किया जाता है?",en:"Who appoints the Governor of Bihar?"},
+ o:[{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"प्रधानमंत्री",en:"Prime Minister"},{hi:"राष्ट्रपति",en:"President"},{hi:"विधानसभा",en:"Assembly"}],a:2,
+ ex:{hi:"बिहार के राज्यपाल की नियुक्ति 'राष्ट्रपति' द्वारा की जाती है — अनुच्छेद 155 के तहत। राज्यपाल राष्ट्रपति के प्रसादपर्यंत पद पर रहता है, हालांकि सामान्य कार्यकाल 5 वर्ष होता है। राज्यपाल राज्य का संवैधानिक प्रमुख होता है और केंद्र सरकार का प्रतिनिधि भी माना जाता है।",en:"The Governor of Bihar is appointed by the 'President' under Article 155, holding office during the President's pleasure (normally 5 years). The Governor is the constitutional head of the state and also represents the Union."}},
+
+{q:{hi:"बिहार विधानसभा और विधान परिषद में मतभेद होने पर क्या होता है?",en:"What happens if the Bihar Assembly and Council disagree?"},
+ o:[{hi:"विधानसभा का निर्णय अंतिम",en:"Assembly's decision prevails"},{hi:"विधान परिषद का निर्णय अंतिम",en:"Council's decision prevails"},{hi:"संयुक्त बैठक",en:"Joint sitting"},{hi:"राज्यपाल निर्णय लेता है",en:"Governor decides"}],a:0,
+ ex:{hi:"धन विधेयक के मामले में 'विधानसभा का निर्णय अंतिम' होता है — विधान परिषद केवल 14 दिनों तक सिफारिश कर सकती है। साधारण विधेयकों पर मतभेद होने पर विधानसभा दोबारा पारित कर सकती है और विधान परिषद की सिफारिश मानने के लिए बाध्य नहीं है — हालांकि परिषद 4 महीने तक रोक सकती है। बिहार में संयुक्त बैठक का प्रावधान नहीं है (कुछ राज्यों में है)।",en:"For Money Bills, the 'Assembly's decision prevails' (Council can only recommend within 14 days). For ordinary bills, the Assembly can re-pass the bill and is not bound by Council recommendations, though the Council can delay up to 4 months. Bihar has no joint sitting provision."}},
+
+/* ============ खंड B — न्यायपालिका और प्रशासन (Q14–26) ============ */
+{q:{hi:"पटना उच्च न्यायालय की स्थापना कब हुई?",en:"When was the Patna High Court established?"},
+ o:[{hi:"1912",en:"1912"},{hi:"1916",en:"1916"},{hi:"1936",en:"1936"},{hi:"1947",en:"1947"}],a:1,
+ ex:{hi:"पटना उच्च न्यायालय की स्थापना 1 मार्च 1916 को हुई — यह बिहार-उड़ीसा प्रांत के लिए था। 1936 में उड़ीसा के अलग होने पर यह केवल बिहार का उच्च न्यायालय बना। इसका क्षेत्राधिकार बिहार पर है और यह भारत के सबसे पुराने उच्च न्यायालयों में से एक है। पहले मुख्य न्यायाधीश सर एडवर्ड चैमियर थे।",en:"The Patna High Court was established on 1 March 1916 for the Bihar-Orissa Province and became Bihar's High Court after Orissa separated in 1936. It is among India's oldest High Courts, with Sir Edward Chamier as its first Chief Justice."}},
+
+{q:{hi:"पटना उच्च न्यायालय के पहले भारतीय न्यायाधीश कौन थे?",en:"Who was the first Indian judge of the Patna High Court?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"सच्चिदानंद सिन्हा",en:"Sachchidananda Sinha"},{hi:"श्री कृष्ण सिंह",en:"Shri Krishna Singh"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"}],a:1,
+ ex:{hi:"पटना उच्च न्यायालय के पहले भारतीय न्यायाधीश 'सच्चिदानंद सिन्हा' थे — जो बाद में संविधान सभा के अस्थायी अध्यक्ष बने। उन्हें 1916 में न्यायाधीश नियुक्त किया गया। 'सच्चिदानंद सिन्हा' बिहार के प्रख्यात शिक्षाविद, राजनीतिज्ञ और न्यायविद थे। वे बिहार के विकास में अग्रणी थे।",en:"'Sachchidananda Sinha' was the first Indian judge of the Patna High Court (1916) and later temporary President of the Constituent Assembly. He was a noted educationist, politician and jurist from Bihar."}},
+
+{q:{hi:"बिहार में 'उच्च न्यायालय' की पीठ कहाँ-कहाँ हैं?",en:"Where are the 'High Court' benches located in Bihar?"},
+ o:[{hi:"केवल पटना",en:"Only Patna"},{hi:"पटना और मुज़फ़्फ़रपुर",en:"Patna and Muzaffarpur"},{hi:"पटना, मुज़फ़्फ़रपुर और भागलपुर",en:"Patna, Muzaffarpur and Bhagalpur"},{hi:"पटना, मुंगेर और गया",en:"Patna, Munger and Gaya"}],a:2,
+ ex:{hi:"बिहार में पटना उच्च न्यायालय की मुख्य पीठ पटना में है, और इसकी दो खंडपीठें हैं — (1) 'मुज़फ़्फ़रपुर' और (2) 'भागलपुर'। कुल 3 स्थानों पर उच्च न्यायालय की सुनवाई होती है। बिहार में उच्च न्यायालय के न्यायाधीशों की स्वीकृत संख्या ~53 है (मुख्य न्यायाधीश सहित)।",en:"The Patna High Court's principal seat is at Patna with two benches — at 'Muzaffarpur' and 'Bhagalpur'. Hearings occur at three locations; sanctioned judge strength is ~53 including the Chief Justice."}},
+
+{q:{hi:"बिहार में 'जिला न्यायालय' का प्रमुख कौन होता है?",en:"Who heads the 'District Court' in Bihar?"},
+ o:[{hi:"जिलाधिकारी",en:"District Magistrate"},{hi:"जिला एवं सत्र न्यायाधीश",en:"District & Sessions Judge"},{hi:"पुलिस अधीक्षक",en:"Superintendent of Police"},{hi:"मुख्यमंत्री",en:"Chief Minister"}],a:1,
+ ex:{hi:"बिहार में जिला न्यायालय का प्रमुख 'जिला एवं सत्र न्यायाधीश' (District & Sessions Judge) होता है — जो जिले का सर्वोच्च न्यायिक अधिकारी होता है। वह दीवानी और फौजदारी दोनों मामलों की सुनवाई करता है। उसकी नियुक्ति राज्यपाल द्वारा की जाती है — उच्च न्यायालय की सलाह पर।",en:"Bihar's District Court is headed by the 'District & Sessions Judge' — the top judicial officer hearing both civil and criminal cases, appointed by the Governor on the High Court's advice."}},
+
+{q:{hi:"बिहार में 'लोकायुक्त' संस्था का क्या कार्य है?",en:"What is the function of the 'Lokayukta' in Bihar?"},
+ o:[{hi:"वित्तीय जाँच",en:"Financial audit"},{hi:"भ्रष्टाचार के आरोपों की जाँच",en:"Investigation of corruption allegations"},{hi:"चुनाव",en:"Elections"},{hi:"शिक्षा",en:"Education"}],a:1,
+ ex:{hi:"बिहार में 'लोकायुक्त' संस्था का कार्य 'भ्रष्टाचार के आरोपों की जाँच' है — जो राज्य सरकार के कर्मचारियों, मंत्रियों और अन्य अधिकारियों के विरुद्ध शिकायतों की जाँच करती है। बिहार में लोकायुक्त अधिनियम 1973 में पारित हुआ और 1974 में लोकायुक्त की स्थापना हुई। यह केंद्र के लोकपाल के समान है।",en:"The 'Lokayukta' in Bihar investigates 'corruption allegations' against state employees, ministers and officials. The Bihar Lokayukta Act was passed in 1973, with the institution set up in 1974 — similar to the central Lokpal."}},
+
+{q:{hi:"बिहार में 'राज्यपाल' की भूमिका क्या है?",en:"What is the role of the 'Governor' in Bihar?"},
+ o:[{hi:"कार्यकारी प्रमुख",en:"Executive head"},{hi:"संवैधानिक प्रमुख (नाममात्र)",en:"Constitutional (nominal) head"},{hi:"न्यायिक प्रमुख",en:"Judicial head"},{hi:"विधायी प्रमुख",en:"Legislative head"}],a:1,
+ ex:{hi:"बिहार में राज्यपाल 'संवैधानिक प्रमुख' (नाममात्र कार्यकारी) होता है — वास्तविक शक्ति मुख्यमंत्री और मंत्रिपरिषद के पास होती है। राज्यपाल की भूमिका — विधेयकों पर हस्ताक्षर, अध्यादेश जारी करना, मुख्यमंत्री की नियुक्ति, राज्य विधानमंडल को संबोधित करना, विश्वविद्यालयों के कुलाधिपति होना, और आपातकाल में विशेष शक्तियाँ। राज्यपाल राष्ट्रपति का प्रतिनिधि होता है।",en:"Bihar's Governor is the 'constitutional (nominal) head', with real power vested in the CM and Council of Ministers. Roles include signing bills, promulgating ordinances, appointing the CM, addressing the legislature, serving as Chancellor of universities and exercising Emergency powers."}},
+
+{q:{hi:"बिहार में 'मुख्य सचिव' का क्या स्थान है?",en:"What is the position of the 'Chief Secretary' in Bihar?"},
+ o:[{hi:"राजनीतिक पद",en:"Political post"},{hi:"प्रशासनिक प्रमुख (शीर्ष IAS अधिकारी)",en:"Administrative head (top IAS officer)"},{hi:"न्यायिक पद",en:"Judicial post"},{hi:"सैन्य पद",en:"Military post"}],a:1,
+ ex:{hi:"बिहार में 'मुख्य सचिव' राज्य प्रशासन का 'शीर्ष IAS अधिकारी' होता है — जो मुख्यमंत्री का मुख्य सलाहकार और सभी विभागों के बीच समन्वयकर्ता होता है। वह राज्य सरकार के प्रशासनिक प्रमुख के रूप में कार्य करता है। मुख्य सचिव की नियुक्ति राज्य सरकार द्वारा की जाती है — केंद्र सरकार की सहमति से।",en:"Bihar's Chief Secretary is the top IAS officer heading the state administration — the CM's chief adviser and coordinator across departments, appointed by the state government with central concurrence."}},
+
+{q:{hi:"बिहार में 'जिलाधिकारी' (DM) का कार्य क्या है?",en:"What is the function of the 'District Magistrate' (DM) in Bihar?"},
+ o:[{hi:"केवल कर वसूली",en:"Only tax collection"},{hi:"जिले का प्रशासनिक प्रमुख",en:"District administrative head"},{hi:"केवल न्यायिक",en:"Only judicial"},{hi:"केवल पुलिस",en:"Only police"}],a:1,
+ ex:{hi:"बिहार में 'जिलाधिकारी' (DM) जिले का 'प्रशासनिक प्रमुख' होता है — जो कानून-व्यवस्था, राजस्व वसूली, विकास कार्यों, आपदा प्रबंधन, चुनाव और अन्य प्रशासनिक कार्यों का प्रभारी होता है। DM 'जिला कलेक्टर' और 'जिला मजिस्ट्रेट' दोनों भूमिकाएँ निभाता है। वह जिले का सर्वोच्च कार्यकारी अधिकारी होता है — IAS कैडर से।",en:"Bihar's DM is the 'district administrative head' in charge of law and order, revenue, development, disaster management, elections and more, serving as both Collector and Magistrate — the top executive officer from the IAS cadre."}},
+
+{q:{hi:"बिहार में 'पुलिस महानिदेशक' (DGP) का स्थान क्या है?",en:"What is the position of the 'Director General of Police' (DGP) in Bihar?"},
+ o:[{hi:"राजनीतिक",en:"Political"},{hi:"राज्य पुलिस का प्रमुख",en:"Head of state police"},{hi:"न्यायिक",en:"Judicial"},{hi:"प्रशासनिक सहायक",en:"Administrative assistant"}],a:1,
+ ex:{hi:"बिहार में 'पुलिस महानिदेशक' (DGP) 'राज्य पुलिस का प्रमुख' होता है — जो पुलिस विभाग का शीर्ष अधिकारी होता है और राज्य में कानून-व्यवस्था बनाए रखने का उत्तरदायी होता है। DGP गृह विभाग के अधीन कार्य करता है। उसकी नियुक्ति राज्य सरकार द्वारा की जाती है — IPS कैडर से। बिहार में DGP का मुख्यालय पटना में है।",en:"Bihar's DGP heads the state police, maintaining law and order and reporting to the Home Department. Appointed by the state government from the IPS cadre, the DGP is headquartered in Patna."}},
+
+{q:{hi:"बिहार में 'अनुसूचित जाति/जनजाति आयोग' की स्थापना कब हुई?",en:"When was the SC/ST Commission established in Bihar?"},
+ o:[{hi:"2000",en:"2000"},{hi:"2005",en:"2005"},{hi:"2010",en:"2010"},{hi:"2015",en:"2015"}],a:0,
+ ex:{hi:"बिहार में 'अनुसूचित जाति/जनजाति आयोग' की स्थापना 2000 में हुई — बिहार राज्य अनुसूचित जाति/जनजाति आयोग अधिनियम 1999 के तहत। इसका कार्य SC/ST के अधिकारों की रक्षा, उनके विकास के लिए सिफारिशें और भेदभाव की शिकायतों की जाँच करना है। इसका अध्यक्ष एक वरिष्ठ अधिकारी होता है।",en:"Bihar's SC/ST Commission was established in 2000 under the Bihar SC/ST Commission Act 1999, protecting SC/ST rights, recommending development measures and investigating discrimination complaints, headed by a senior official."}},
+
+{q:{hi:"बिहार में 'मानवाधिकार आयोग' की स्थापना कब हुई?",en:"When was the Human Rights Commission established in Bihar?"},
+ o:[{hi:"2000",en:"2000"},{hi:"2005",en:"2005"},{hi:"2010",en:"2010"},{hi:"2015",en:"2015"}],a:0,
+ ex:{hi:"बिहार में 'मानवाधिकार आयोग' की स्थापना 2000 में हुई। हालांकि इसे 2008 में पुनर्गठित किया गया। इसका कार्य मानवाधिकारों के उल्लंघन की जाँच, जागरूकता बढ़ाना और सिफारिशें देना है। आयोग का अध्यक्ष एक वरिष्ठ न्यायाधीश या प्रशासक होता है। यह राष्ट्रीय मानवाधिकार आयोग (NHRC) के समान है — राज्य स्तर पर।",en:"Bihar's Human Rights Commission was set up in 2000 and reorganised in 2008, investigating rights violations, raising awareness and issuing recommendations, headed by a senior judge or administrator — parallel to NHRC."}},
+
+{q:{hi:"बिहार में 'राज्य सूचना आयोग' (SIC) की स्थापना कब हुई?",en:"When was the State Information Commission (SIC) established in Bihar?"},
+ o:[{hi:"2005",en:"2005"},{hi:"2006",en:"2006"},{hi:"2008",en:"2008"},{hi:"2010",en:"2010"}],a:0,
+ ex:{hi:"बिहार में 'राज्य सूचना आयोग' (SIC) की स्थापना 2005 में हुई — सूचना का अधिकार अधिनियम 2005 के तहत। इसका कार्य नागरिकों को सूचना प्राप्त करने के अधिकार के प्रवर्तन की निगरानी और शिकायतों का निपटारा है। यह केंद्रीय सूचना आयोग (CIC) के समान है — राज्य स्तर पर। मुख्य सूचना आयुक्त और अन्य सूचना आयुक्त होते हैं।",en:"Bihar's SIC was established in 2005 under the RTI Act, overseeing citizens' right to information and handling complaints — the state counterpart of the CIC, headed by a Chief Information Commissioner and other commissioners."}},
+
+/* ============ खंड C — पंचायती राज और स्थानीय शासन (Q27–38) ============ */
+{q:{hi:"बिहार में पंचायती राज व्यवस्था की स्थापना कब हुई?",en:"When was the Panchayati Raj system established in Bihar?"},
+ o:[{hi:"1947",en:"1947"},{hi:"1952",en:"1952"},{hi:"1959",en:"1959"},{hi:"1961",en:"1961"}],a:3,
+ ex:{hi:"बिहार में पंचायती राज व्यवस्था की स्थापना 1961 में हुई — जब बिहार पंचायत समिति और जिला परिषद अधिनियम 1961 पारित हुआ। हालांकि बिहार ने 'बलवंत राय मेहता समिति' की सिफारिशों से पहले ही 1947 में ग्राम पंचायतों की व्यवस्था की थी। बिहार भारत के पहले राज्यों में से एक था जिसने पंचायती राज को लागू किया।",en:"Bihar established Panchayati Raj in 1961 through the Bihar Panchayat Samiti and Zila Parishad Act 1961, though gram panchayats date to 1947 — preceding even the Balwant Rai Mehta recommendations. Bihar was among the earliest states to implement it."}},
+
+{q:{hi:"बिहार में पंचायती राज की त्रिस्तरीय व्यवस्था कौन-सी है?",en:"What is Bihar's three-tier Panchayati Raj structure?"},
+ o:[{hi:"ग्राम पंचायत, पंचायत समिति, जिला परिषद",en:"Gram Panchayat, Panchayat Samiti, Zila Parishad"},{hi:"ग्राम सभा, पंचायत, नगर पालिका",en:"Gram Sabha, Panchayat, Municipality"},{hi:"जिला, तहसील, ग्राम",en:"District, Tehsil, Village"},{hi:"केवल ग्राम पंचायत",en:"Only Gram Panchayat"}],a:0,
+ ex:{hi:"बिहार में पंचायती राज की त्रिस्तरीय व्यवस्था है — (1) 'ग्राम पंचायत' (ग्राम स्तर), (2) 'पंचायत समिति' (प्रखंड स्तर), (3) 'जिला परिषद' (जिला स्तर)। 73वें संविधान संशोधन (1992) के बाद बिहार ने 'बिहार पंचायत राज अधिनियम 2006' बनाया और 2006 में पंचायत चुनाव कराए। बिहार भारत का पहला राज्य है जिसने महिलाओं को 50% आरक्षण दिया (2006)।",en:"Bihar has three tiers — Gram Panchayat (village), Panchayat Samiti (block) and Zila Parishad (district). After the 73rd Amendment (1992), Bihar passed the Bihar Panchayati Raj Act 2006 and held elections that year — becoming India's first state with 50% reservation for women (2006)."}},
+
+{q:{hi:"बिहार में पंचायत चुनाव कौन कराता है?",en:"Who conducts Panchayat elections in Bihar?"},
+ o:[{hi:"भारत निर्वाचन आयोग",en:"Election Commission of India"},{hi:"बिहार राज्य निर्वाचन आयोग",en:"Bihar State Election Commission"},{hi:"जिलाधिकारी",en:"District Magistrate"},{hi:"मुख्यमंत्री",en:"Chief Minister"}],a:1,
+ ex:{hi:"बिहार में पंचायत चुनाव 'बिहार राज्य निर्वाचन आयोग' द्वारा कराए जाते हैं — जो एक संवैधानिक निकाय है (अनुच्छेद 243ZA के तहत)। यह पंचायतों और नगरीय निकायों के चुनाव कराता है। भारत निर्वाचन आयोग केवल लोकसभा, विधानसभा और राष्ट्रपति-उपराष्ट्रपति के चुनाव कराता है।",en:"Panchayat elections in Bihar are held by the 'Bihar State Election Commission', a constitutional body under Article 243ZA, also conducting urban local body polls. The ECI handles only Lok Sabha, Assembly and Presidential elections."}},
+
+{q:{hi:"बिहार में 'ग्राम सभा' में कौन शामिल होते हैं?",en:"Who is part of the 'Gram Sabha' in Bihar?"},
+ o:[{hi:"केवल पंचायत सदस्य",en:"Only Panchayat members"},{hi:"गाँव के सभी पंजीकृत मतदाता",en:"All registered voters of the village"},{hi:"केवल ग्राम प्रधान",en:"Only the village head"},{hi:"केवल भूमिधारक",en:"Only landowners"}],a:1,
+ ex:{hi:"बिहार में 'ग्राम सभा' में गाँव के सभी पंजीकृत मतदाता (18 वर्ष से अधिक) शामिल होते हैं। यह पंचायती राज की सबसे निचली इकाई है — जो प्रत्यक्ष लोकतंत्र का रूप है। ग्राम सभा की बैठक वर्ष में कम से कम 4 बार होती है। यह ग्राम पंचायत के बजट, योजनाओं और विकास कार्यों को मंजूरी देती है। बिहार में ग्राम सभा को विशेष अधिकार दिए गए हैं।",en:"Bihar's Gram Sabha includes 'all registered voters (18+)' of the village — the base of Panchayati Raj and direct democracy. It meets at least 4 times a year, approving budgets, plans and development works, with special powers in Bihar."}},
+
+{q:{hi:"बिहार में महिलाओं को पंचायती राज में कितना आरक्षण मिला है?",en:"How much reservation do women have in Bihar's Panchayati Raj?"},
+ o:[{hi:"25%",en:"25%"},{hi:"33%",en:"33%"},{hi:"50%",en:"50%"},{hi:"60%",en:"60%"}],a:2,
+ ex:{hi:"बिहार में महिलाओं को पंचायती राज में '50% आरक्षण' मिला है — बिहार 2006 में 50% आरक्षण लागू करने वाला भारत का पहला राज्य था (73वें संशोधन में केवल 1/3 अनिवार्य था)। बिहार ने इससे भी आगे बढ़कर 50% किया। इससे बिहार में लाखों महिलाएँ पंचायतों में निर्वाचित हुईं। यह महिला सशक्तीकरण का ऐतिहासिक कदम था।",en:"Bihar provided '50% reservation' for women in Panchayati Raj — the first state to do so in 2006 (the 73rd Amendment mandated only 1/3). Lakhs of women have since been elected, marking a historic step in women's empowerment."}},
+
+{q:{hi:"बिहार में 'पंचायत समिति' का प्रमुख कौन होता है?",en:"Who heads the 'Panchayat Samiti' in Bihar?"},
+ o:[{hi:"मुखिया",en:"Mukhiya"},{hi:"प्रमुख",en:"Pramukh"},{hi:"अध्यक्ष",en:"Adhyaksh"},{hi:"सरपंच",en:"Sarpanch"}],a:1,
+ ex:{hi:"बिहार में 'पंचायत समिति' (प्रखंड स्तर) का प्रमुख 'प्रमुख' होता है — जो पंचायत समिति के सदस्यों द्वारा चुना जाता है। ग्राम पंचायत के प्रमुख 'मुखिया' होते हैं और जिला परिषद के प्रमुख 'अध्यक्ष' होते हैं। पंचायत समिति प्रखंड स्तर पर योजनाओं के क्रियान्वयन और विकास कार्यों की देखरेख करती है।",en:"Bihar's Panchayat Samiti (block level) is headed by a 'Pramukh' elected by its members; Gram Panchayats have a 'Mukhiya' and Zila Parishads an 'Adhyaksh'. The Samiti oversees block-level development plans."}},
+
+{q:{hi:"बिहार में 'जिला परिषद' का प्रमुख कौन होता है?",en:"Who heads the 'Zila Parishad' in Bihar?"},
+ o:[{hi:"प्रमुख",en:"Pramukh"},{hi:"अध्यक्ष",en:"Adhyaksh"},{hi:"मुखिया",en:"Mukhiya"},{hi:"जिलाधिकारी",en:"District Magistrate"}],a:1,
+ ex:{hi:"बिहार में 'जिला परिषद' का प्रमुख 'अध्यक्ष' (Adhyaksh) होता है — जो जिला परिषद के सदस्यों द्वारा चुना जाता है। जिला परिषद जिले स्तर पर पंचायती राज की सर्वोच्च इकाई है — जो जिले में पंचायतों के बीच समन्वय करती है और विकास योजनाओं को मंजूरी देती है। बिहार में 38 जिला परिषद हैं।",en:"Bihar's Zila Parishad is headed by an 'Adhyaksh' elected by its members. As the apex district-level Panchayati Raj body, it coordinates panchayats and approves development plans. Bihar has 38 Zila Parishads."}},
+
+{q:{hi:"बिहार में 'पंचायत सचिव' की नियुक्ति कौन करता है?",en:"Who appoints the 'Panchayat Secretary' in Bihar?"},
+ o:[{hi:"ग्राम सभा",en:"Gram Sabha"},{hi:"राज्य सरकार",en:"State Government"},{hi:"मुखिया",en:"Mukhiya"},{hi:"जिला परिषद",en:"Zila Parishad"}],a:1,
+ ex:{hi:"बिहार में 'पंचायत सचिव' की नियुक्ति 'राज्य सरकार' द्वारा की जाती है — पंचायत विभाग के माध्यम से। वह ग्राम पंचायत का प्रशासनिक प्रमुख होता है और मुखिया की सहायता करता है। पंचायत सचिव पंचायत की बैठकों का रिकॉर्ड रखता है, योजनाओं का क्रियान्वयन करता है और सरकारी योजनाओं को लागू करता है।",en:"Bihar's Panchayat Secretary is appointed by the 'State Government' through the Panchayati Raj Department, serving as the administrative head of the Gram Panchayat and assisting the Mukhiya — maintaining records and implementing schemes."}},
+
+{q:{hi:"बिहार में 'बिहार पंचायती राज अधिनियम' कब पारित हुआ?",en:"When was the 'Bihar Panchayati Raj Act' passed?"},
+ o:[{hi:"1992",en:"1992"},{hi:"1993",en:"1993"},{hi:"2005",en:"2005"},{hi:"2006",en:"2006"}],a:3,
+ ex:{hi:"बिहार में 'बिहार पंचायती राज अधिनियम' 2006 में पारित हुआ — 73वें संविधान संशोधन (1992) के बाद। इसके तहत 2006 में पंचायत चुनाव हुए और 2007 में पंचायतें गठित हुईं। इस अधिनियम में महिलाओं को 50% आरक्षण, SC/ST को आरक्षण और 5 वर्ष का कार्यकाल शामिल है।",en:"Bihar passed its Panchayati Raj Act in 2006 after the 73rd Amendment (1992). Panchayat elections were held that year and bodies formed in 2007. The Act mandates 50% women's reservation, SC/ST reservation and 5-year terms."}},
+
+{q:{hi:"बिहार में 'नगर निगम' किस प्रकार की संस्था है?",en:"What type of body is a 'Nagar Nigam' in Bihar?"},
+ o:[{hi:"ग्रामीण निकाय",en:"Rural body"},{hi:"शहरी स्थानीय निकाय",en:"Urban local body"},{hi:"राज्य निकाय",en:"State body"},{hi:"केंद्रीय निकाय",en:"Central body"}],a:1,
+ ex:{hi:"बिहार में 'नगर निगम' एक 'शहरी स्थानीय निकाय' (Urban Local Body) है — जो 74वें संविधान संशोधन (1992) के तहत गठित होता है। बिहार में प्रमुख नगर निगम — पटना, गया, भागलपुर, मुज़फ़्फ़रपुर, दरभंगा। नगर निगम में महापौर (Mayor) और वार्ड पार्षद होते हैं। महापौर प्रत्यक्ष निर्वाचित होता है।",en:"Bihar's Nagar Nigam is an 'urban local body' under the 74th Amendment (1992). Major ones include Patna, Gaya, Bhagalpur, Muzaffarpur and Darbhanga, with a directly elected Mayor and ward councillors."}},
+
+{q:{hi:"बिहार में 'नगर पालिका' और 'नगर निगम' में क्या अंतर है?",en:"What is the difference between 'Nagar Palika' and 'Nagar Nigam' in Bihar?"},
+ o:[{hi:"कोई अंतर नहीं",en:"No difference"},{hi:"नगर निगम बड़े शहरों के लिए, नगर पालिका छोटे शहरों के लिए",en:"Nagar Nigam for larger cities, Nagar Palika for smaller towns"},{hi:"नगर पालिका केंद्र सरकार के लिए",en:"Nagar Palika is for the Centre"},{hi:"दोनों ग्रामीण हैं",en:"Both are rural"}],a:1,
+ ex:{hi:"बिहार में 'नगर निगम' और 'नगर पालिका' में अंतर है — 'नगर निगम' बड़े शहरों (जनसंख्या 5 लाख+) के लिए होता है (जैसे पटना, गया), 'नगर पालिका' मध्यम शहरों के लिए होता है (जैसे हाजीपुर, बेगूसराय), और 'नगर पंचायत' छोटे शहरों के लिए। 74वें संविधान संशोधन के तहत तीनों प्रकार के शहरी निकाय हैं।",en:"In Bihar, 'Nagar Nigam' serves large cities (5+ lakh population — Patna, Gaya), 'Nagar Palika' medium towns (Hajipur, Begusarai), and 'Nagar Panchayat' smaller towns, under the 74th Amendment."}},
+
+{q:{hi:"बिहार में 'महापौर' का कार्यकाल कितना होता है?",en:"What is the term of a 'Mayor' in Bihar?"},
+ o:[{hi:"2 वर्ष",en:"2 years"},{hi:"3 वर्ष",en:"3 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"}],a:2,
+ ex:{hi:"बिहार में 'महापौर' (Mayor) का कार्यकाल 5 वर्ष होता है — 74वें संविधान संशोधन के तहत। महापौर नगर निगम का प्रमुख होता है — जो प्रत्यक्ष निर्वाचित होता है। वह नगर निगम की बैठकों की अध्यक्षता करता है, नगर के विकास कार्यों की देखरेख करता है और नगर प्रशासन का नेतृत्व करता है।",en:"Bihar's Mayor serves a 5-year term under the 74th Amendment, heading the Nagar Nigam as a directly elected leader — presiding over meetings and overseeing urban development and administration."}},
+
+{q:{hi:"बिहार में 'आंगनबाड़ी' किस विभाग के अंतर्गत आता है?",en:"Under which department does 'Anganwadi' fall in Bihar?"},
+ o:[{hi:"शिक्षा विभाग",en:"Education Department"},{hi:"समाज कल्याण विभाग",en:"Social Welfare Department"},{hi:"स्वास्थ्य विभाग",en:"Health Department"},{hi:"ग्रामीण विकास विभाग",en:"Rural Development Department"}],a:1,
+ ex:{hi:"बिहार में 'आंगनबाड़ी' केंद्र 'समाज कल्याण विभाग' (अब 'समाज कल्याण विभाग' या 'महिला एवं बाल विकास निगम') के अंतर्गत आते हैं। यह 'एकीकृत बाल विकास सेवा' (ICDS) योजना के तहत संचालित होते हैं। इनमें बच्चों (0-6 वर्ष), गर्भवती महिलाओं और स्तनपान कराने वाली माताओं को पोषण, स्वास्थ्य और शिक्षा दी जाती है। बिहार में ~1 लाख आंगनबाड़ी केंद्र हैं।",en:"Anganwadi centres in Bihar come under the 'Social Welfare Department' (Women & Child Development) via ICDS, providing nutrition, health and early education to children (0–6), pregnant and lactating mothers. Bihar has ~1 lakh centres."}},
+
+{q:{hi:"बिहार में 'पंचायती राज' को संवैधानिक दर्जा किस संशोधन ने दिया?",en:"Which amendment gave constitutional status to Panchayati Raj in Bihar?"},
+ o:[{hi:"42वाँ संशोधन",en:"42nd Amendment"},{hi:"73वाँ संशोधन",en:"73rd Amendment"},{hi:"74वाँ संशोधन",en:"74th Amendment"},{hi:"86वाँ संशोधन",en:"86th Amendment"}],a:1,
+ ex:{hi:"बिहार में पंचायती राज को संवैधानिक दर्जा '73वें संविधान संशोधन' (1992) ने दिया — जिसने संविधान में भाग IX और 11वीं अनुसूची जोड़ी। इसके तहत पंचायतों को संवैधानिक दर्जा, 5 वर्ष का कार्यकाल, चुनाव आयोग, वित्त आयोग और SC/ST/महिला आरक्षण अनिवार्य हुआ। बिहार ने इसके बाद 2006 में नया पंचायती राज अधिनियम पारित किया।",en:"The '73rd Amendment' (1992) gave Panchayati Raj constitutional status in Bihar, adding Part IX and the 11th Schedule — mandating 5-year terms, election and finance commissions and SC/ST/women reservation. Bihar passed a new Panchayati Raj Act in 2006."}},
+
+{q:{hi:"बिहार में 'ग्राम कचहरी' का क्या कार्य है?",en:"What is the function of 'Gram Kachahari' in Bihar?"},
+ o:[{hi:"वित्तीय",en:"Financial"},{hi:"न्यायिक (ग्राम स्तर पर न्याय)",en:"Judicial (village-level justice)"},{hi:"शैक्षणिक",en:"Educational"},{hi:"धार्मिक",en:"Religious"}],a:1,
+ ex:{hi:"बिहार में 'ग्राम कचहरी' (Gram Kachahari) का कार्य 'ग्राम स्तर पर न्याय' है — यह ग्राम पंचायत के तहत एक अर्ध-न्यायिक निकाय है, जो छोटे दीवानी और फौजदारी मामलों की सुनवाई करती है। इसमें 'सरपंच' (या मुखिया) और पंच होते हैं। यह बिहार की एक अनोखी व्यवस्था है — जो ग्रामीण न्याय को बढ़ावा देती है। बिहार पंचायती राज अधिनियम 2006 में इसका प्रावधान है।",en:"'Gram Kachahari' in Bihar is a semi-judicial body at village level hearing petty civil and criminal matters, composed of the Sarpanch (Mukhiya) and Panchas. It is a unique Bihar institution under the Bihar Panchayati Raj Act 2006, promoting rural justice."}},
+
+/* ============ खंड D — राजनीति, चुनाव और विविध (Q39–50) ============ */
+{q:{hi:"बिहार के पहले मुख्यमंत्री कौन थे?",en:"Who was Bihar's first Chief Minister?"},
+ o:[{hi:"डॉ. राजेंद्र प्रसाद",en:"Dr. Rajendra Prasad"},{hi:"श्री कृष्ण सिंह",en:"Shri Krishna Singh"},{hi:"अनुग्रह नारायण सिंह",en:"Anugrah Narayan Singh"},{hi:"बी.पी. मंडल",en:"B.P. Mandal"}],a:1,
+ ex:{hi:"बिहार के पहले मुख्यमंत्री 'श्री कृष्ण सिंह' ('श्री बाबू') थे — जो 2 अप्रैल 1946 से 31 जनवरी 1961 तक पद पर रहे। उनका कार्यकाल भारत के किसी भी मुख्यमंत्री का सबसे लंबा (लगभग 15 वर्ष) रहा। उन्हें 'बिहार के शिल्पकार' कहा जाता है। उनके साथ 'अनुग्रह नारायण सिंह' बिहार के पहले उपमुख्यमंत्री थे।",en:"Bihar's first CM was 'Shri Krishna Singh' ('Sri Babu'), serving from 2 April 1946 to 31 January 1961 — the longest tenure of any Indian CM (~15 years). Called the 'Architect of Bihar', he had 'Anugrah Narayan Singh' as Bihar's first Deputy CM."}},
+
+{q:{hi:"बिहार की पहली महिला मुख्यमंत्री कौन थीं?",en:"Who was Bihar's first woman Chief Minister?"},
+ o:[{hi:"राबड़ी देवी",en:"Rabri Devi"},{hi:"मीरा कुमार",en:"Meera Kumar"},{hi:"रामदुलारी सिन्हा",en:"Ramdulari Sinha"},{hi:"पद्मावती देवी",en:"Padmavati Devi"}],a:0,
+ ex:{hi:"बिहार की पहली महिला मुख्यमंत्री 'राबड़ी देवी' थीं — जो जुलाई 1997 में मुख्यमंत्री बनीं, जब लालू प्रसाद यादव को गिरफ्तार किया गया। वे लालू प्रसाद यादव की पत्नी हैं। उन्होंने तीन बार (1997-99, 1999-2000, 2000-2005) मुख्यमंत्री पद संभाला। वे बिहार की सबसे लंबे समय तक मुख्यमंत्री रहने वाली महिला हैं।",en:"'Rabri Devi' was Bihar's first woman CM — sworn in July 1997 after Lalu Prasad Yadav's arrest. Wife of Lalu Prasad, she served three terms (1997–2005), the longest by a woman CM in Bihar."}},
+
+{q:{hi:"बिहार के किस मुख्यमंत्री ने 'पिछड़ा वर्ग आयोग' की सिफारिशें लागू कीं?",en:"Which Bihar CM implemented the 'Backward Class Commission' recommendations?"},
+ o:[{hi:"श्री कृष्ण सिंह",en:"Shri Krishna Singh"},{hi:"कर्पूरी ठाकुर",en:"Karpoori Thakur"},{hi:"लालू प्रसाद यादव",en:"Lalu Prasad Yadav"},{hi:"नीतीश कुमार",en:"Nitish Kumar"}],a:1,
+ ex:{hi:"बिहार के मुख्यमंत्री 'कर्पूरी ठाकुर' ने 1978 में 'मुंगेरी लाल आयोग' की सिफारिशें लागू कीं — जो पिछड़ा वर्ग के लिए आरक्षण से संबंधित थीं। उन्होंने 'अति पिछड़ा वर्ग' (EBC) की अवधारणा दी। कर्पूरी ठाकुर को 'जन-नायक' कहा जाता है और उन्हें 2024 में मरणोपरांत 'भारत रत्न' से सम्मानित किया गया। उनका जन्म 1924 में समस्तीपुर में हुआ था।",en:"CM 'Karpoori Thakur' implemented the 'Mungeri Lal Commission' recommendations in 1978 for backward class reservation, introducing the 'Extremely Backward Class' (EBC) concept. Called 'Jan-Nayak', he received Bharat Ratna posthumously in 2024. Born 1924 in Samastipur."}},
+
+{q:{hi:"बिहार में 'मुंगेरी लाल आयोग' की नियुक्ति कब हुई?",en:"When was the 'Mungeri Lal Commission' appointed in Bihar?"},
+ o:[{hi:"1968",en:"1968"},{hi:"1971",en:"1971"},{hi:"1978",en:"1978"},{hi:"1980",en:"1980"}],a:1,
+ ex:{hi:"बिहार में 'मुंगेरी लाल आयोग' की नियुक्ति 1971 में हुई — जिसने 1976 में रिपोर्ट सौंपी। इसने बिहार में पिछड़ा वर्ग की पहचान की और आरक्षण की सिफारिश की। कर्पूरी ठाकुर सरकार ने 1978 में इसे लागू किया। यह भारत में पिछड़ा वर्ग आरक्षण का पहला बड़ा प्रयोग था — जिसने बाद में मंडल आयोग (1980) को प्रेरित किया।",en:"The 'Mungeri Lal Commission' was appointed in 1971 (report 1976), identifying Bihar's backward classes and recommending reservation, implemented by Karpoori Thakur in 1978 — India's first major backward class reservation, inspiring the Mandal Commission (1980)."}},
+
+{q:{hi:"बिहार में 'बी.पी. मंडल' किस लिए प्रसिद्ध हैं?",en:"Why is 'B.P. Mandal' famous in Bihar?"},
+ o:[{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"मंडल आयोग के अध्यक्ष",en:"Chairman of Mandal Commission"},{hi:"राज्यपाल",en:"Governor"},{hi:"न्यायाधीश",en:"Judge"}],a:1,
+ ex:{hi:"'बिंदेश्वरी प्रसाद मंडल' (B.P. Mandal) बिहार के मुख्यमंत्री (1968-1972) और 'मंडल आयोग' (1979) के अध्यक्ष थे। मंडल आयोग ने 1980 में रिपोर्ट सौंपी — जिसमें OBC के लिए 27% आरक्षण की सिफारिश की गई। यह 1990 में वी.पी. सिंह सरकार द्वारा लागू किया गया। बी.पी. मंडल का जन्म मधेपुरा (बिहार) में हुआ था। उन्हें 'मंडल कमीशन' के नाम से जाना जाता है।",en:"'Bindeshwari Prasad Mandal' (B.P. Mandal) was Bihar's CM (1968–72) and chaired the 'Mandal Commission' (1979), whose 1980 report recommended 27% OBC reservation, implemented by V.P. Singh in 1990. Born in Madhepura (Bihar)."}},
+
+{q:{hi:"बिहार का पहला राज्यपाल कौन था?",en:"Who was Bihar's first Governor?"},
+ o:[{hi:"सच्चिदानंद सिन्हा",en:"Sachchidananda Sinha"},{hi:"जयरामदास दौलतराम",en:"Jairamdas Daulatram"},{hi:"आर.आर. दिवाकर",en:"R.R. Diwakar"},{hi:"जाकिर हुसैन",en:"Zakir Husain"}],a:1,
+ ex:{hi:"स्वतंत्रता के बाद बिहार के पहले राज्यपाल 'जयरामदास दौलतराम' थे (1947-1948)। हालांकि 1936 में बिहार के अलग प्रांत बनने पर पहले राज्यपाल की नियुक्ति हुई थी — सर जेम्स डेविड सिफ्टन (1936-1937)। स्वतंत्रता के बाद जयरामदास दौलतराम पहले भारतीय राज्यपाल बने। डॉ. जाकिर हुसैन बिहार के पहले मुस्लिम राज्यपाल थे (1957-1962)।",en:"Post-independence Bihar's first Governor was 'Jairamdas Daulatram' (1947–48). Earlier, Sir James David Sifton was the first Governor (1936–37) when Bihar became a province. Dr. Zakir Husain was Bihar's first Muslim Governor (1957–62)."}},
+
+{q:{hi:"बिहार में 'जनसंख्या नीति' किस वर्ष घोषित हुई?",en:"In which year was Bihar's 'Population Policy' announced?"},
+ o:[{hi:"2000",en:"2000"},{hi:"2005",en:"2005"},{hi:"2007",en:"2007"},{hi:"2012",en:"2012"}],a:2,
+ ex:{hi:"बिहार में 'राज्य जनसंख्या नीति' 2007 में घोषित हुई — और बिहार राज्य जनसंख्या आयोग की स्थापना हुई। इसका उद्देश्य जनसंख्या स्थिरीकरण, स्वास्थ्य सुधार और परिवार नियोजन को बढ़ावा देना है। बिहार भारत का पहला राज्य है जिसने जनसंख्या आयोग बनाया (2007)। बिहार की जनसंख्या वृद्धि दर धीमी हो रही है — 2011 में 25.4% से 2021 तक ~15-16%।",en:"Bihar announced its 'State Population Policy' in 2007 and set up the Bihar State Population Commission — India's first such state commission, targeting stabilisation, health and family planning. Growth slowed from 25.4% (2011) toward ~15–16% by 2021."}},
+
+{q:{hi:"बिहार में 'आपदा प्रबंधन' किस विभाग के अंतर्गत आता है?",en:"Disaster management in Bihar falls under which department?"},
+ o:[{hi:"गृह विभाग",en:"Home Department"},{hi:"आपदा प्रबंधन विभाग (स्वतंत्र)",en:"Disaster Management Department (independent)"},{hi:"कृषि विभाग",en:"Agriculture Department"},{hi:"स्वास्थ्य विभाग",en:"Health Department"}],a:1,
+ ex:{hi:"बिहार में 'आपदा प्रबंधन' एक 'स्वतंत्र विभाग' के अंतर्गत आता है — जिसे 'बिहार आपदा प्रबंधन विभाग' कहा जाता है। यह बाढ़, सूखा, भूकंप, आग और अन्य आपदाओं की तैयारी, राहत और पुनर्वास का कार्य करता है। बिहार में 'बिहार आपदा प्रबंधन प्राधिकरण' (BSDMA) भी है। बिहार बाढ़ के लिए सर्वाधिक संवेदनशील राज्य है — ~76% बाढ़ प्रभावित क्षेत्र।",en:"In Bihar, 'Disaster Management' is an 'independent department' handling preparation, relief and rehabilitation for floods, droughts, earthquakes and fires, alongside the Bihar State Disaster Management Authority (BSDMA). Bihar is India's most flood-prone state (~76% area)."}},
+
+{q:{hi:"बिहार में 'राज्य वित्त आयोग' का गठन कितने वर्षों में होता है?",en:"How often is the 'State Finance Commission' constituted in Bihar?"},
+ o:[{hi:"3 वर्ष",en:"3 years"},{hi:"4 वर्ष",en:"4 years"},{hi:"5 वर्ष",en:"5 years"},{hi:"6 वर्ष",en:"6 years"}],a:2,
+ ex:{hi:"बिहार में 'राज्य वित्त आयोग' का गठन हर 5 वर्ष में किया जाता है — अनुच्छेद 243-I के तहत। इसका कार्य राज्य और पंचायतों/नगरीय निकायों के बीच वित्तीय संसाधनों के बँटवारे की सिफारिश करना है। बिहार में अब तक कई राज्य वित्त आयोग गठित हुए हैं। यह केंद्रीय वित्त आयोग के समान है — राज्य स्तर पर।",en:"Bihar constitutes a 'State Finance Commission' every 5 years under Article 243-I, recommending resource sharing between the state and panchayats/urban bodies — parallel to the central Finance Commission."}},
+
+{q:{hi:"बिहार में 'लोक सेवा आयोग' (BPSC) की स्थापना कब हुई?",en:"When was the Bihar Public Service Commission (BPSC) established?"},
+ o:[{hi:"1947",en:"1947"},{hi:"1949",en:"1949"},{hi:"1950",en:"1950"},{hi:"1952",en:"1952"}],a:1,
+ ex:{hi:"बिहार लोक सेवा आयोग (BPSC) की स्थापना 1 अप्रैल 1949 को हुई। यह एक संवैधानिक निकाय है — अनुच्छेद 315 के तहत। इसका कार्य बिहार राज्य में सिविल सेवा की भर्ती के लिए परीक्षा आयोजित करना और सलाह देना है। BPSC का मुख्यालय पटना में है। BPSC की प्रमुख परीक्षा 'संयुक्त प्रतियोगी परीक्षा' (CCE) है — जो तीन चरणों में होती है।",en:"BPSC was established on 1 April 1949 under Article 315 — a constitutional body conducting civil service recruitment exams and advising the state. Headquartered in Patna, its key exam is the three-stage 'Combined Competitive Examination' (CCE)."}},
+
+{q:{hi:"बिहार में 'राज्य सरकार' का प्रमुख कौन होता है?",en:"Who heads the 'State Government' in Bihar?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मुख्यमंत्री",en:"Chief Minister"},{hi:"मुख्य सचिव",en:"Chief Secretary"},{hi:"विधानसभा अध्यक्ष",en:"Speaker"}],a:1,
+ ex:{hi:"बिहार में 'राज्य सरकार' का वास्तविक प्रमुख 'मुख्यमंत्री' होता है — जो मंत्रिपरिषद का नेतृत्व करता है और राज्य प्रशासन का संचालन करता है। राज्यपाल नाममात्र प्रमुख होता है, लेकिन मुख्यमंत्री और मंत्रिपरिषद की सलाह पर कार्य करता है। मुख्यमंत्री विधानसभा में बहुमत दल का नेता होता है। बिहार के वर्तमान मुख्यमंत्री श्री नीतीश कुमार हैं।",en:"The real head of Bihar's state government is the 'Chief Minister', leading the Council of Ministers and running the administration. The Governor is the nominal head acting on the CM's advice. The CM is the majority leader in the Assembly — currently Nitish Kumar."}},
+
+{q:{hi:"बिहार में 'मंत्रिपरिषद' किसके प्रति उत्तरदायी होती है?",en:"To whom is Bihar's 'Council of Ministers' responsible?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"विधानसभा",en:"Legislative Assembly"},{hi:"राष्ट्रपति",en:"President"},{hi:"प्रधानमंत्री",en:"Prime Minister"}],a:1,
+ ex:{hi:"बिहार में 'मंत्रिपरिषद' 'विधानसभा' के प्रति सामूहिक रूप से उत्तरदायी होती है — यह संसदीय शासन प्रणाली का मूल सिद्धांत है। मुख्यमंत्री और मंत्री विधानसभा के सदस्य होते हैं और बहुमत खोने पर इस्तीफा देना पड़ता है। राज्यपाल मंत्रिपरिषद की सलाह मानने के लिए बाध्य होता है (कुछ अपवादों को छोड़कर)। विधानसभा अविश्वास प्रस्ताव पारित कर सकती है।",en:"Bihar's Council of Ministers is collectively responsible to the 'Legislative Assembly' — a core principle of parliamentary government. The CM and ministers are MLAs and must resign on losing majority. The Governor normally acts on their advice, and the Assembly can pass a no-confidence motion."}},
+
+{q:{hi:"बिहार में 'राज्यपाल' की नियुक्ति के लिए क्या योग्यता है?",en:"What is the qualification for appointment as Bihar's 'Governor'?"},
+ o:[{hi:"बिहार का मूल निवासी होना",en:"Must be a Bihar resident"},{hi:"भारत का नागरिक, 35 वर्ष की आयु",en:"Indian citizen, 35 years old"},{hi:"विधानसभा का सदस्य होना",en:"Must be an MLA"},{hi:"केवल IAS अधिकारी",en:"Only an IAS officer"}],a:1,
+ ex:{hi:"बिहार के राज्यपाल की नियुक्ति के लिए योग्यता — (1) 'भारत का नागरिक' होना, (2) '35 वर्ष की आयु' पूर्ण होना, (3) संसद या राज्य विधानमंडल का सदस्य न होना (चुनाव लड़ने पर इस्तीफा), (4) लाभ का पद न रखना। राज्यपाल किसी भी राज्य का मूल निवासी हो सकता है — बिहार का होना अनिवार्य नहीं। योग्यता अनुच्छेद 157-158 में दी गई है।",en:"Qualifications for Bihar's Governor — Indian citizen, 35+, not a member of Parliament/legislature (must resign if elected), no office of profit. The Governor need not be a Bihar native — per Articles 157–158."}},
+
+{q:{hi:"बिहार विधान परिषद को भंग करने का अधिकार किसके पास है?",en:"Who has the power to abolish the Bihar Legislative Council?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मुख्यमंत्री",en:"CM"},{hi:"संसद (राज्य विधानसभा के प्रस्ताव पर)",en:"Parliament (on Assembly resolution)"},{hi:"राष्ट्रपति",en:"President"}],a:2,
+ ex:{hi:"बिहार विधान परिषद को भंग या सृजित करने का अधिकार 'संसद' के पास है — अनुच्छेद 169 के तहत, लेकिन इसके लिए 'राज्य विधानसभा' को विशेष बहुमत से प्रस्ताव पारित करना होता है। बिहार विधान परिषद को 1963 में एक बार भंग किया गया था और 1968 में पुनर्स्थापित किया गया। यह प्रक्रिया जटिल है — इसलिए बार-बार नहीं होती।",en:"Parliament can abolish or create Bihar's Legislative Council under Article 169, but only if the 'Assembly' first passes a resolution by special majority. Bihar's Council was abolished in 1963 and restored in 1968 — a complex, infrequent process."}},
+
+{q:{hi:"बिहार में 'राज्य सरकार' की नीतियों का निर्माण कौन करता है?",en:"Who formulates 'state government policies' in Bihar?"},
+ o:[{hi:"राज्यपाल",en:"Governor"},{hi:"मंत्रिपरिषद (मुख्यमंत्री के नेतृत्व में)",en:"Council of Ministers (led by CM)"},{hi:"मुख्य सचिव",en:"Chief Secretary"},{hi:"विधानसभा अध्यक्ष",en:"Speaker"}],a:1,
+ ex:{hi:"बिहार में राज्य सरकार की नीतियों का निर्माण 'मंत्रिपरिषद' (मुख्यमंत्री के नेतृत्व में) करती है। मंत्रिपरिषद विभिन्न विभागों के माध्यम से नीतियाँ बनाती है, बजट तैयार करती है और विधेयक विधानमंडल में लाती है। मुख्य सचिव और अन्य अधिकारी इन नीतियों के क्रियान्वयन में सहायता करते हैं। राज्यपाल नीतियों को मंजूरी देता है।",en:"Bihar's Council of Ministers (led by the CM) formulates state policies — drafting them through departments, preparing budgets and introducing bills in the legislature. The Chief Secretary and officials implement them; the Governor approves them."}},
+
+{q:{hi:"बिहार में 'मुख्यमंत्री सचिवालय' का क्या कार्य है?",en:"What is the function of the 'Chief Minister's Secretariat' in Bihar?"},
+ o:[{hi:"वित्तीय",en:"Financial"},{hi:"मुख्यमंत्री की सहायता और नीति समन्वय",en:"Assisting the CM and policy coordination"},{hi:"न्यायिक",en:"Judicial"},{hi:"चुनावी",en:"Electoral"}],a:1,
+ ex:{hi:"बिहार में 'मुख्यमंत्री सचिवालय' का कार्य 'मुख्यमंत्री की सहायता और नीति समन्वय' है — यह मुख्यमंत्री को सभी विभागों की जानकारी देता है, उनके निर्णयों को लागू करता है, विभिन्न विभागों के बीच समन्वय करता है, जनता की शिकायतों का निपटारा करता है और नीतियों को तैयार करने में सहायता करता है। इसका नेतृत्व मुख्य सचिव के स्तर का अधिकारी करता है।",en:"Bihar's CM Secretariat assists the CM and coordinates policy — informing him about departments, implementing decisions, coordinating between them, redressing grievances and helping draft policy, led by a senior officer of Chief Secretary rank."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बिहार राजव्यवस्था पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Bihar polity is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बिहार राजव्यवस्था के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Bihar polity facts."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
