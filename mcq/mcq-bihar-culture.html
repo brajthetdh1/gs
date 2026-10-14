@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>बिहार की कला और संस्कृति — 50 प्रश्न | Bihar Art & Culture — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#f8bbd0;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#f8bbd0;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#f8bbd0);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#fce4ec;color:#880e4f;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🎨 बिहार की कला और संस्कृति — 50 प्रश्न
+              <small>Bihar Art & Culture · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — लोक नृत्य</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   बिहार की कला और संस्कृति — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — बिहार के लोक नृत्य", en:"Section A — Folk Dances of Bihar"},
+  {hi:"खंड B — बिहार का लोक संगीत और वाद्ययंत्र", en:"Section B — Folk Music & Instruments"},
+  {hi:"खंड C — बिहार की चित्रकला और हस्तशिल्प", en:"Section C — Painting & Handicrafts"},
+  {hi:"खंड D — बिहार के पर्व, मेले और त्योहार", en:"Section D — Festivals, Fairs & Celebrations"},
+  {hi:"खंड E — भाषा, साहित्य, व्यंजन और संस्कृति", en:"Section E — Language, Literature, Cuisine & Culture"}
+];
+const SECTION_STARTS = [0, 12, 22, 32, 42];
+
+const QUESTIONS = [
+/* ============ खंड A — बिहार के लोक नृत्य (Q1–12) ============ */
+{q:{hi:"'जट-जटिन' लोक नृत्य किस क्षेत्र से संबंधित है?",en:"The 'Jat-Jatin' folk dance belongs to which region?"},
+ o:[{hi:"मगध",en:"Magadh"},{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"'जट-जटिन' मिथिला क्षेत्र (उत्तर बिहार) का प्रसिद्ध लोक नृत्य है — जो पति-पत्नी के प्रेम और विरह पर आधारित है। 'जट' पति और 'जटिन' पत्नी को दर्शाता है। यह वर्षा और शरद ऋतु में किया जाता है। इसमें महिलाएँ जोड़े में नाचती हैं और लोकगीत गाती हैं।",en:"'Jat-Jatin' is a famous folk dance of the Mithila region (north Bihar) based on a couple's love and separation — 'Jat' (husband) and 'Jatin' (wife). Performed in the rainy and autumn seasons, women dance in pairs singing folk songs."}},
+
+{q:{hi:"'झिझिया' नृत्य किस पर्व पर किया जाता है?",en:"'Jhijhian' dance is performed during which festival?"},
+ o:[{hi:"छठ",en:"Chhath"},{hi:"होली",en:"Holi"},{hi:"भादो में दुर्गा पूजा",en:"Durga Puja in Bhadon"},{hi:"दिवाली",en:"Diwali"}],a:2,
+ ex:{hi:"'झिझिया' नृत्य मिथिला क्षेत्र (बिहार) की महिलाओं द्वारा 'भादो मास' (अगस्त-सितंबर) में 'दुर्गा पूजा' के दौरान किया जाता है। इसमें मिट्टी के घड़ों पर दीपक जलाकर सिर पर रखकर नृत्य किया जाता है। यह वर्षा ऋतु के अंत और शरद के आगमन का स्वागत है।",en:"'Jhijhian' is performed by women of the Mithila region (Bihar) during Durga Puja in the month of Bhadon (Aug-Sep), dancing with lit clay pots on their heads — welcoming autumn's arrival."}},
+
+{q:{hi:"'बिदेसिया' लोक नृत्य किस क्षेत्र से संबंधित है?",en:"'Bidesia' folk dance belongs to which region?"},
+ o:[{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुरी क्षेत्र",en:"Bhojpuri region"},{hi:"मगध",en:"Magadh"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"'बिदेसिया' लोक नृत्य और गीत 'भोजपुरी क्षेत्र' (पश्चिम बिहार और पूर्वी UP) से संबंधित है — जिसमें पति के विदेश जाने पर पत्नी की विरह व्यथा होती है। इसके रचयिता 'भिखारी ठाकुर' माने जाते हैं — जिन्हें 'भोजपुरी का शेक्सपियर' कहा जाता है। यह 20वीं शताब्दी की शुरुआत में लोकप्रिय हुआ।",en:"'Bidesia' folk dance and song belong to the 'Bhojpuri region' (west Bihar and east UP), depicting a wife's sorrow when her husband goes abroad. Bhikhari Thakur, called the 'Shakespeare of Bhojpuri', composed it — popularised in the early 20th century."}},
+
+{q:{hi:"'डोमकच' नृत्य किस अवसर पर किया जाता है?",en:"'Domkach' dance is performed on which occasion?"},
+ o:[{hi:"जन्म पर",en:"Birth"},{hi:"विवाह पर",en:"Marriage"},{hi:"मृत्यु पर",en:"Death"},{hi:"फसल कटाई पर",en:"Harvest"}],a:1,
+ ex:{hi:"'डोमकच' नृत्य बिहार (मिथिला और भोजपुर क्षेत्र) में 'विवाह' के अवसर पर किया जाता है। यह विवाह के विभिन्न रस्मों के दौरान महिलाओं द्वारा किया जाता है — जिसमें वर-वधू के परिवार के सदस्य भाग लेते हैं। इसमें ताली और पैर की थाप के साथ लोकगीत गाए जाते हैं।",en:"'Domkach' is performed at 'marriages' in Bihar (Mithila and Bhojpuri regions), with women dancing to folk songs during various wedding rituals, clapping and tapping feet, with family members participating."}},
+
+{q:{hi:"'पाइका' नृत्य किससे संबंधित है?",en:"'Paika' dance is related to which of the following?"},
+ o:[{hi:"कृषि",en:"Agriculture"},{hi:"युद्ध कला",en:"Martial art"},{hi:"धार्मिक अनुष्ठान",en:"Religious ritual"},{hi:"विवाह",en:"Marriage"}],a:1,
+ ex:{hi:"'पाइका' नृत्य बिहार (मुख्यतः मुंडा जनजाति) का 'युद्ध कला' से संबंधित लोक नृत्य है। इसमें पुरुष ढाल, तलवार और भाले के साथ नृत्य करते हैं। 'पाइका' का अर्थ है 'पैदल सैनिक'। यह वीरता और साहस का प्रतीक है — विशेषकर विवाह और त्योहारों पर किया जाता है।",en:"'Paika' is a 'martial' folk dance of Bihar (mainly the Munda tribe) where men dance with shields, swords and spears. 'Paika' means 'foot soldier' — symbolising valour, performed especially at weddings and festivals."}},
+
+{q:{hi:"'कजरी' और 'चैती' किस प्रकार के लोक गीत हैं?",en:"'Kajri' and 'Chaiti' are which type of folk songs?"},
+ o:[{hi:"विवाह गीत",en:"Wedding songs"},{hi:"ऋतु गीत",en:"Seasonal songs"},{hi:"भक्ति गीत",en:"Devotional songs"},{hi:"युद्ध गीत",en:"War songs"}],a:1,
+ ex:{hi:"'कजरी' और 'चैती' बिहार और पूर्वी UP के 'ऋतु गीत' हैं। 'कजरी' वर्षा ऋतु (सावन-भादो) में गाई जाती है — जिसमें विरह और श्रृंगार का भाव होता है। 'चैती' चैत मास (मार्च-अप्रैल) में गाई जाती है — जिसमें होली और फसल कटाई का उल्लास होता है। दोनों भोजपुरी लोक संगीत की महत्वपूर्ण विधाएँ हैं।",en:"'Kajri' and 'Chaiti' are 'seasonal songs' of Bihar and eastern UP. Kajri is sung in the rainy season (Sawan-Bhadon) with themes of love and longing, while Chaiti is sung in Chait (Mar-Apr) celebrating Holi and harvest — both important Bhojpuri folk genres."}},
+
+{q:{hi:"'सोहर' किस अवसर पर गाया जाता है?",en:"'Sohar' is sung on which occasion?"},
+ o:[{hi:"विवाह",en:"Marriage"},{hi:"जन्म",en:"Childbirth"},{hi:"मृत्यु",en:"Death"},{hi:"त्योहार",en:"Festival"}],a:1,
+ ex:{hi:"'सोहर' बिहार में 'जन्म' के अवसर पर गाया जाने वाला लोकगीत है — जिसमें नवजात शिशु के जन्म का उत्सव मनाया जाता है। यह मुख्यतः महिलाओं द्वारा गाया जाता है और इसमें भगवान राम के जन्म का वर्णन भी होता है। सोहर बिहार के तीन प्रमुख लोक गीतों (सोहर, कजरी, चैती) में से एक है।",en:"'Sohar' is a folk song sung at 'childbirth' in Bihar, celebrating the newborn's arrival, mainly sung by women and often narrating Rama's birth. It is one of Bihar's three main folk song genres (Sohar, Kajri, Chaiti)."}},
+
+{q:{hi:"'समा चकेवा' नृत्य किस पर्व पर किया जाता है?",en:"'Sama Chakeva' dance is performed on which festival?"},
+ o:[{hi:"छठ",en:"Chhath"},{hi:"भाई-बहन के प्रेम का पर्व",en:"Festival of brother-sister love"},{hi:"होली",en:"Holi"},{hi:"दिवाली",en:"Diwali"}],a:1,
+ ex:{hi:"'समा चकेवा' मिथिला क्षेत्र (बिहार) का लोक पर्व है — जो 'भाई-बहन के प्रेम का प्रतीक' है। यह कार्तिक पूर्णिमा से चैत सक्रांति तक मनाया जाता है। इसमें मिट्टी की मूर्तियाँ (सामा, चकेवा, चुगला) बनाई जाती हैं और बहनें अपने भाई की लंबी आयु की कामना करती हैं। यह लोक नृत्य और गीत का मेल है।",en:"'Sama Chakeva' is a folk festival of Mithila (Bihar), symbolising 'brother-sister love', celebrated from Kartik Purnima to Chaitra Sankranti with clay figurines (Sama, Chakeva, Chugla) and sisters praying for their brothers' long life — blending folk dance and song."}},
+
+{q:{hi:"'धोबिया' और 'नटुआ' किस प्रकार के लोक नृत्य हैं?",en:"'Dhobiya' and 'Natua' are which type of folk dances?"},
+ o:[{hi:"केवल महिलाओं के",en:"Only women's"},{hi:"केवल पुरुषों के",en:"Only men's"},{hi:"मिश्रित",en:"Mixed"},{hi:"कोई नहीं",en:"None"}],a:1,
+ ex:{hi:"'धोबिया' और 'नटुआ' बिहार के 'पुरुषों के' लोक नृत्य हैं। 'नटुआ' भोजपुरी क्षेत्र में किया जाता है — जिसमें पुरुष ढोल की थाप पर नाचते हैं। 'धोबिया' नृत्य भी पुरुषों द्वारा किया जाता है और इसमें धोबी समुदाय की परंपरा झलकती है। ये दोनों वीरता और उल्लास का प्रतीक हैं।",en:"'Dhobiya' and 'Natua' are 'men's' folk dances of Bihar. 'Natua' is performed in the Bhojpuri region with men dancing to drums; 'Dhobiya' also by men, reflecting the washermen community's tradition — both symbolising energy and valour."}},
+
+{q:{hi:"'जट-जटिन' नृत्य में कौन-सा भाव प्रमुख है?",en:"Which emotion dominates 'Jat-Jatin' dance?"},
+ o:[{hi:"वीरता",en:"Valour"},{hi:"प्रेम और विरह",en:"Love and separation"},{hi:"भक्ति",en:"Devotion"},{hi:"हास्य",en:"Humour"}],a:1,
+ ex:{hi:"'जट-जटिन' नृत्य में 'प्रेम और विरह' का भाव प्रमुख है। इसमें पत्नी 'जटिन' अपने पति 'जट' की प्रतीक्षा करती है, जो विदेश गया है। यह गरीब घर की स्त्री की कहानी है — जो अपने पति के लौटने की प्रतीक्षा में नृत्य और गीत के माध्यम से अपनी भावनाएँ व्यक्त करती है। मिथिला की संस्कृति में इसका विशेष स्थान है।",en:"'Jat-Jatin' is dominated by 'love and separation', where the wife 'Jatin' awaits her husband 'Jat' who has gone abroad — the story of a poor household woman expressing her feelings through dance and song, holding a special place in Mithila culture."}},
+
+{q:{hi:"बिहार के लोक नृत्यों में 'कठघोड़ा' क्या है?",en:"What is 'Kathghora' in Bihar's folk dances?"},
+ o:[{hi:"नृत्य का प्रकार",en:"Type of dance"},{hi:"कठपुतली नृत्य",en:"Puppet dance"},{hi:"युद्ध कला",en:"Martial art"},{hi:"लोक नाट्य",en:"Folk theatre"}],a:1,
+ ex:{hi:"'कठघोड़ा' बिहार का 'कठपुतली नृत्य' (Puppet dance) है — जिसमें लकड़ी के घोड़े की आकृति को कमर पर बाँधकर नृत्य किया जाता है। यह मिथिला और भोजपुर क्षेत्र में प्रचलित है और विवाह-समारोहों में किया जाता है। इसमें नर्तक घोड़े की सवारी करते हुए दिखते हैं और तेज़ संगीत पर नृत्य करते हैं — जिससे उत्सव का माहौल बनता है।",en:"'Kathghora' is Bihar's 'puppet/hobby-horse dance' where a wooden horse frame is tied to the waist, popular in the Mithila and Bhojpuri regions and performed at weddings — dancers appear to ride horses to fast music, creating a festive mood."}},
+
+/* ============ खंड B — बिहार का लोक संगीत और वाद्ययंत्र (Q13–22) ============ */
+{q:{hi:"'भिखारी ठाकुर' को किस नाम से जाना जाता है?",en:"'Bhikhari Thakur' is known by which name?"},
+ o:[{hi:"मैथिली कोकिल",en:"Maithili Kokil"},{hi:"भोजपुरी का शेक्सपियर",en:"Shakespeare of Bhojpuri"},{hi:"लोक कवि",en:"Folk poet"},{hi:"राष्ट्रकवि",en:"Rashtrakavi"}],a:1,
+ ex:{hi:"भिखारी ठाकुर (1887-1971) को 'भोजपुरी का शेक्सपियर' कहा जाता है। उनका जन्म कुटुंबपुर (सारण, बिहार) में हुआ। वे भोजपुरी लोक नाट्य, गीत और नाच के महान रचनाकार थे। उनकी प्रसिद्ध रचनाएँ — 'बिदेसिया', 'बेटी बेचवा', 'कलियुग प्रेम', 'गबर घिचोर'। उन्होंने सामाजिक कुरीतियों पर लोक नाट्यों के माध्यम से प्रहार किया।",en:"Bhikhari Thakur (1887–1971) is called the 'Shakespeare of Bhojpuri'. Born at Kutumbpur (Saran, Bihar), he was a great composer of Bhojpuri folk theatre and song — famous works: 'Bidesiya', 'Beti Bechwa', 'Kaliyug Prem' and 'Gabhar Ghichor' — attacking social evils through folk theatre."}},
+
+{q:{hi:"बिहार के लोक संगीत में 'मंगल गीत' कब गाए जाते हैं?",en:"When are 'Mangal songs' sung in Bihar's folk music?"},
+ o:[{hi:"शोक में",en:"In mourning"},{hi:"शुभ अवसरों पर",en:"On auspicious occasions"},{hi:"युद्ध में",en:"In war"},{hi:"कृषि में",en:"In agriculture"}],a:1,
+ ex:{hi:"बिहार में 'मंगल गीत' 'शुभ अवसरों' पर गाए जाते हैं — जैसे विवाह, जन्म, उपनयन और अन्य संस्कारों में। इनका उद्देश्य मंगल कामना और देवताओं का आह्वान होता है। 'मंगल' शब्द का अर्थ ही 'शुभ' है। मिथिला में विवाह के समय 'समदाउन', 'बिदाई' और 'गृह प्रवेश' के गीत इसी श्रेणी में आते हैं।",en:"In Bihar, 'Mangal songs' are sung on 'auspicious occasions' — marriage, birth, sacred thread ceremony and other rituals, invoking blessings and deities. 'Mangal' itself means 'auspicious'; in Mithila, wedding songs like 'Samdaun', 'Bidai' and 'Griha Pravesh' belong to this genre."}},
+
+{q:{hi:"'ढोल' बिहार का किस प्रकार का वाद्ययंत्र है?",en:"'Dhol' is which type of instrument in Bihar?"},
+ o:[{hi:"तत् वाद्य",en:"String instrument"},{hi:"अवनद्ध वाद्य",en:"Percussion instrument"},{hi:"सुषिर वाद्य",en:"Wind instrument"},{hi:"घन वाद्य",en:"Solid instrument"}],a:1,
+ ex:{hi:"'ढोल' बिहार का प्रमुख 'अवनद्ध वाद्य' (Percussion/Membranophone) है — जिसे लकड़ी के खोखले बेलन पर चमड़ा मढ़कर बनाया जाता है। इसे दोनों हाथों या डंडों से बजाया जाता है। बिहार के हर शुभ अवसर — विवाह, त्योहार, मेले में ढोल बजता है। 'ढोल' के साथ 'नगाड़ा', 'झाल', 'ढोलक' और 'बांसुरी' भी बजती हैं।",en:"'Dhol' is Bihar's main 'percussion (membranophone)' instrument — a hollow wooden barrel with stretched hide, played with both hands or sticks. It sounds at every auspicious occasion — weddings, festivals, fairs — along with 'Nagada', 'Jhaal', 'Dholak' and 'Bansuri'."}},
+
+{q:{hi:"'बांसुरी' बिहार का किस प्रकार का वाद्ययंत्र है?",en:"'Bansuri' is which type of instrument in Bihar?"},
+ o:[{hi:"तत् वाद्य",en:"String"},{hi:"अवनद्ध वाद्य",en:"Percussion"},{hi:"सुषिर वाद्य",en:"Wind"},{hi:"घन वाद्य",en:"Solid"}],a:2,
+ ex:{hi:"'बांसुरी' बिहार का प्रमुख 'सुषिर वाद्य' (Wind instrument/Aerophone) है — जिसे बाँस से बनाया जाता है। इसमें 6-7 छिद्र होते हैं और इसे फूँककर बजाया जाता है। बिहार में बांसुरी के साथ लोक संगीत, भजन, कीर्तन और शोभा यात्रा होती है। भगवान कृष्ण की बाँसुरी बिहार की लोक कला में विशेष स्थान रखती है — विशेषकर 'समा चकेवा' और 'झिझिया' में।",en:"'Bansuri' (flute) is Bihar's main 'wind instrument (aerophone)', made of bamboo with 6–7 holes, blown to produce sound — accompanying folk music, bhajans, kirtans and processions. Krishna's flute holds a special place, especially in 'Sama Chakeva' and 'Jhijhian'."}},
+
+{q:{hi:"'हारमोनियम' बिहार के लोक संगीत में किस प्रकार का वाद्य है?",en:"'Harmonium' in Bihar's folk music is which type of instrument?"},
+ o:[{hi:"तत् वाद्य",en:"String"},{hi:"सुषिर वाद्य (हवा से)",en:"Wind (bellows)"},{hi:"अवनद्ध वाद्य",en:"Percussion"},{hi:"घन वाद्य",en:"Solid"}],a:1,
+ ex:{hi:"'हारमोनियम' बिहार के लोक संगीत में 'सुषिर वाद्य' (Wind/Bellows) है — जिसे हवा भरकर और कुंजियाँ दबाकर बजाया जाता है। यह भोजपुरी, मैथिली और मगही लोकगीतों के साथ बजता है। 'हारमोनियम' 19वीं शताब्दी में भारत आया और जल्दी ही लोक संगीत का अभिन्न हिस्सा बन गया। भिखारी ठाकुर के नाट्यों में भी इसका उपयोग होता था।",en:"'Harmonium' is a 'wind/bellows' instrument in Bihar's folk music, played by pumping air and pressing keys — accompanying Bhojpuri, Maithili and Magahi folk songs. Introduced in the 19th century, it quickly became integral, including in Bhikhari Thakur's theatre."}},
+
+{q:{hi:"बिहार में 'लोकगीत' के मुख्य प्रकार कौन-से हैं?",en:"What are the main types of 'folk songs' in Bihar?"},
+ o:[{hi:"सोहर, कजरी, चैती",en:"Sohar, Kajri, Chaiti"},{hi:"समदाउन, बिदाई",en:"Samdaun, Bidai"},{hi:"जट-जटिन, झिझिया",en:"Jat-Jatin, Jhijhian"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार के लोकगीतों के कई प्रकार हैं — (1) 'सोहर' — जन्म पर, (2) 'कजरी' — सावन में, (3) 'चैती' — चैत में, (4) 'समदाउन' — विवाह पर, (5) 'बिदाई' — विदा के समय, (6) 'जट-जटिन' और 'झिझिया' — नृत्य के साथ। इसके अलावा 'फगुआ', 'समा चकेवा', 'निर्गुणी', 'बारहमासा', 'नचारी' आदि भी प्रचलित हैं। बिहार की लोकगीत परंपरा अत्यंत समृद्ध है।",en:"Bihar's folk songs include 'Sohar' (birth), 'Kajri' (Sawan), 'Chaiti' (Chait), 'Samdaun' (wedding), 'Bidai' (farewell), and 'Jat-Jatin'/'Jhijhian' (with dance), plus 'Fagua', 'Sama Chakeva', 'Nirguni', 'Barahmasa' and 'Nachari' — a rich folk-song tradition."}},
+
+{q:{hi:"बिहार का 'समदाउन' गीत किस अवसर पर गाया जाता है?",en:"Bihar's 'Samdaun' song is sung on which occasion?"},
+ o:[{hi:"जन्म",en:"Birth"},{hi:"विवाह",en:"Marriage"},{hi:"मृत्यु",en:"Death"},{hi:"फसल",en:"Harvest"}],a:1,
+ ex:{hi:"'समदाउन' गीत बिहार (मिथिला क्षेत्र) में 'विवाह' के अवसर पर गाया जाता है — विशेषकर वर पक्ष के आगमन पर। इसमें वर और उसके परिवार का स्वागत और स्तुति होती है। 'समदाउन' शब्द 'समधी' (विवाह संबंध) से आया है। यह मैथिली लोकगीत की प्रमुख विधा है और इसमें सामाजिक रीति-रिवाजों का वर्णन होता है।",en:"'Samdaun' is sung at 'marriage' in Bihar (Mithila region), especially on the groom's party's arrival, welcoming and praising the groom and his family. The word derives from 'Samdhi' (in-law relationship) — a major Maithili folk genre describing social customs."}},
+
+{q:{hi:"'नचारी' और 'बारहमासा' किस प्रकार के लोकगीत हैं?",en:"'Nachari' and 'Barahmasa' are which type of folk songs?"},
+ o:[{hi:"केवल विवाह के",en:"Only wedding"},{hi:"भक्ति और ऋतु वर्णन के",en:"Devotional and seasonal"},{hi:"केवल फसल के",en:"Only harvest"},{hi:"केवल युद्ध के",en:"Only war"}],a:1,
+ ex:{hi:"'नचारी' और 'बारहमासा' बिहार के 'भक्ति और ऋतु वर्णन' के लोकगीत हैं। 'नचारी' भगवान शिव की स्तुति में गाया जाता है — विशेषकर सावन में। 'बारहमासा' में बारह महीनों का वर्णन होता है — जिसमें नायिका की विरह व्यथा और ऋतुओं का चित्रण होता है। ये मैथिली और भोजपुरी दोनों परंपराओं में मिलते हैं और भारतीय लोक साहित्य की प्राचीन विधाएँ हैं।",en:"'Nachari' and 'Barahmasa' are 'devotional and seasonal' folk songs. 'Nachari' praises Lord Shiva, especially in Sawan; 'Barahmasa' describes twelve months with the heroine's longing and changing seasons. Found in both Maithili and Bhojpuri traditions, they are ancient genres of Indian folk literature."}},
+
+{q:{hi:"बिहार में 'कीर्तन' किससे संबंधित है?",en:"In Bihar, 'Kirtan' is related to which of the following?"},
+ o:[{hi:"युद्ध",en:"War"},{hi:"भक्ति",en:"Devotion"},{hi:"विवाह",en:"Marriage"},{hi:"कृषि",en:"Agriculture"}],a:1,
+ ex:{hi:"बिहार में 'कीर्तन' 'भक्ति' से संबंधित है — जिसमें भगवान के नाम का सामूहिक गान होता है। 'कीर्तन' मुख्यतः वैष्णव परंपरा में प्रचलित है और इसमें ढोल, झाल, करताल और हारमोनियम के साथ भजन गाए जाते हैं। बिहार में 'समा चकेवा', 'सत्यनारायण कथा', 'रामकथा' और 'शिव कीर्तन' लोकप्रिय हैं। 'नामसंकीर्तन' वैष्णव संतों की देन है।",en:"In Bihar, 'Kirtan' is related to 'devotion' — collective singing of God's name, mainly in the Vaishnava tradition, with dhol, jhaal, kartal and harmonium. Popular forms: 'Sama Chakeva', 'Satyanarayan Katha', 'Ramkatha' and 'Shiv Kirtan'; 'Nam Sankirtan' is a contribution of Vaishnava saints."}},
+
+{q:{hi:"बिहार की 'पंडित राजकुमार' या 'छोटे' और 'बड़े' घराने किससे संबंधित हैं?",en:"Bihar's 'Pandit Rajkumar' or 'Chhote' and 'Bade' gharanas are related to which of the following?"},
+ o:[{hi:"लोक नृत्य",en:"Folk dance"},{hi:"शास्त्रीय संगीत (ध्रुपद)",en:"Classical music (Dhrupad)"},{hi:"लोकगीत",en:"Folk song"},{hi:"कीर्तन",en:"Kirtan"}],a:1,
+ ex:{hi:"'पंडित राजकुमार' या 'छोटे' और 'बड़े' घराने बिहार के 'शास्त्रीय संगीत' (ध्रुपद) से संबंधित हैं। बिहार में 'दरभंगा घराना' ध्रुपद गायन के लिए विश्व प्रसिद्ध है — जिसके प्रवर्तक 'पंडित विदुर मल्लिक' थे। दरभंगा के महाराजा 'लक्ष्मीश्वर सिंह' ने ध्रुपद को संरक्षण दिया। दरभंगा घराना को 'ध्रुपद का केंद्र' कहा जाता है और यह भारत के प्रमुख शास्त्रीय संगीत घरानों में से एक है।",en:"The 'Pandit Rajkumar' or 'Chhote' and 'Bade' gharanas relate to Bihar's 'classical music' (Dhrupad). Bihar's 'Darbhanga gharana', founded by 'Pandit Vidur Mallik', is world-famous for Dhrupad. Maharaja 'Lakshmishwar Singh' of Darbhanga patronised it. Darbhanga gharana is called the 'centre of Dhrupad', a leading Indian classical music gharana."}},
+
+{q:{hi:"बिहार में 'पंडित राम चतुर मल्लिक' का योगदान किस क्षेत्र में था?",en:"In which field did 'Pandit Ram Chatur Mallik' contribute?"},
+ o:[{hi:"ध्रुपद गायन",en:"Dhrupad singing"},{hi:"लोक नृत्य",en:"Folk dance"},{hi:"चित्रकला",en:"Painting"},{hi:"साहित्य",en:"Literature"}],a:0,
+ ex:{hi:"'पंडित राम चतुर मल्लिक' (1902-1990) बिहार के 'ध्रुपद गायन' के महान कलाकार थे — जो दरभंगा घराने के प्रमुख प्रतिनिधि थे। उन्हें 'पद्मभूषण' से सम्मानित किया गया। उन्होंने ध्रुपद की 'दरभंगा शैली' को विश्व भर में प्रसिद्ध किया। उनके शिष्यों ने ध्रुपद परंपरा को आगे बढ़ाया। बिहार को 'ध्रुपद की जन्मभूमि' कहा जाता है — जहाँ से यह संगीत विकसित हुआ।",en:"'Pandit Ram Chatur Mallik' (1902–1990) was a great 'Dhrupad singer' from Bihar, representing the Darbhanga gharana, honoured with the Padma Bhushan. He spread the 'Darbhanga style' worldwide; his disciples carried the tradition forward. Bihar is called the 'birthplace of Dhrupad'."}},
+
+/* ============ खंड C — बिहार की चित्रकला और हस्तशिल्प (Q23–32) ============ */
+{q:{hi:"'मधुबनी चित्रकला' किस क्षेत्र से संबंधित है?",en:"'Madhubani painting' belongs to which region?"},
+ o:[{hi:"मगध",en:"Magadh"},{hi:"मिथिला",en:"Mithila"},{hi:"भोजपुर",en:"Bhojpur"},{hi:"अंग",en:"Anga"}],a:1,
+ ex:{hi:"'मधुबनी चित्रकला' (मिथिला पेंटिंग) बिहार के 'मिथिला क्षेत्र' — मधुबनी, दरभंगा, समस्तीपुर, सहरसा — से संबंधित है। इसका संबंध सीता-राम विवाह से माना जाता है — जब राजा जनक ने बेटी सीता के विवाह पर पूरे मिथिला को चित्रों से सजाया था। यह विश्व प्रसिद्ध है और इसे 2007 में 'भौगोलिक संकेत' (GI) टैग मिला।",en:"'Madhubani painting' (Mithila painting) belongs to Bihar's 'Mithila region' — Madhubani, Darbhanga, Samastipur, Saharsa — linked to Sita-Ram's wedding, when King Janaka decorated Mithila. It is world-famous and received a GI tag in 2007."}},
+
+{q:{hi:"'मधुबनी चित्रकला' में कौन-सी विशेषता होती है?",en:"What is special about 'Madhubani painting'?"},
+ o:[{hi:"प्राकृतिक दृश्य",en:"Natural scenes"},{hi:"भौगोलिक नक्शे",en:"Geographical maps"},{hi:"भराव और ज्यामितीय आकृतियाँ",en:"Filling and geometric patterns"},{hi:"केवल रेखाचित्र",en:"Only line drawings"}],a:2,
+ ex:{hi:"'मधुबनी चित्रकला' की मुख्य विशेषता — 'भराव और ज्यामितीय आकृतियाँ'। इसमें चित्र के सभी खाली स्थानों को रेखाओं, फूलों, पत्तियों, पशु-पक्षियों, मछलियों और ज्यामितीय आकृतियों से भरा जाता है। रंग प्राकृतिक होते हैं — लाल, हरा, पीला, नीला, काला। इसमें कोई खाली स्थान नहीं छोड़ा जाता। मुख्य शैलियाँ — भरनी, कचनी, तांत्रिक, गोदना।",en:"Madhubani painting's hallmark is 'filling and geometric patterns' — every empty space filled with lines, flowers, leaves, animals, fish and geometry, using natural colours (red, green, yellow, blue, black). Key styles: Bharni, Kachni, Tantrik and Godna."}},
+
+{q:{hi:"'मधुबनी चित्रकला' के किस शैली में केवल रेखाएँ होती हैं?",en:"Which style of 'Madhubani painting' uses only lines?"},
+ o:[{hi:"भरनी",en:"Bharni"},{hi:"कचनी",en:"Kachni"},{hi:"तांत्रिक",en:"Tantrik"},{hi:"गोदना",en:"Godna"}],a:1,
+ ex:{hi:"'कचनी' शैली में केवल रेखाएँ होती हैं — जिसमें रंग का उपयोग न्यूनतम होता है। 'भरनी' शैली में चित्रों को रंगों से भरा जाता है। 'तांत्रिक' शैली में देवी-देवताओं और तांत्रिक प्रतीकों का चित्रण होता है। 'गोदना' शैली में शरीर पर गोदने की तरह रेखाएँ बनाई जाती हैं। ये चारों शैलियाँ मधुबनी चित्रकला की मुख्य विधाएँ हैं।",en:"'Kachni' uses only lines with minimal colour; 'Bharni' fills shapes with colour; 'Tantrik' depicts deities and tantric symbols; 'Godna' imitates tattoo-like lines — the four main Madhubani styles."}},
+
+{q:{hi:"'पटना कलम' (Patna Kalam) किस प्रकार की चित्रकला है?",en:"'Patna Kalam' is which type of painting?"},
+ o:[{hi:"भित्ति चित्रकला",en:"Mural painting"},{hi:"लघु चित्रकला (मुगल शैली)",en:"Miniature (Mughal style)"},{hi:"आधुनिक चित्रकला",en:"Modern painting"},{hi:"लोक चित्रकला",en:"Folk painting"}],a:1,
+ ex:{hi:"'पटना कलम' (Patna Qalam) 'लघु चित्रकला' (Miniature painting) है — जो मुगल शैली पर आधारित है और बिहार में 18वीं-19वीं शताब्दी में विकसित हुई। इसके प्रमुख कलाकार — सेवक राम, शिव लाल, हुलास लाल, फकीर चंद लाल। इसमें आम जनजीवन, बाजार, मेले और दरबार के दृश्य चित्रित होते हैं। यह मुगल और स्थानीय शैलियों का संगम है — जो पटना में 'पटना कलम' के नाम से प्रसिद्ध हुई।",en:"'Patna Kalam' is 'miniature (Mughal-style) painting' developed in Bihar in the 18th–19th centuries, with artists like Sewak Ram, Shiv Lal, Hulas Lal and Fakir Chand Lal, depicting common life, bazaars, fairs and courts — a blend of Mughal and local styles."}},
+
+{q:{hi:"'सिक्की' कला किससे संबंधित है?",en:"'Sikki' art is related to which of the following?"},
+ o:[{hi:"लकड़ी की नक्काशी",en:"Wood carving"},{hi:"सिक्की घास से बनी वस्तुएँ",en:"Sikki grass craft"},{hi:"मिट्टी के बर्तन",en:"Pottery"},{hi:"कपड़े की कला",en:"Textile art"}],a:1,
+ ex:{hi:"'सिक्की' कला बिहार के मिथिला क्षेत्र की पारंपरिक कला है — जिसमें 'सिक्की घास' (एक प्रकार की सुगंधित घास) से टोकरी, डिब्बे, गहने, खिलौने और सजावटी वस्तुएँ बनाई जाती हैं। यह मुख्यतः महिलाओं द्वारा की जाती है। सिक्की कला को 'भौगोलिक संकेत' (GI) टैग भी मिला है। इसके अलावा 'मंजूषा कला' (कागज़ की कला) भी मिथिला की प्रसिद्ध कला है।",en:"'Sikki' is a traditional art of Bihar's Mithila region using 'sikki grass' (a fragrant grass) to make baskets, boxes, jewellery, toys and decorative items, mainly by women. It has a GI tag; 'Manjusha art' (paper craft) is another famous Mithila art."}},
+
+{q:{hi:"'सुजनी' कला किससे संबंधित है?",en:"'Sujni' art is related to which of the following?"},
+ o:[{hi:"कढ़ाई",en:"Embroidery"},{hi:"चित्रकला",en:"Painting"},{hi:"मूर्तिकला",en:"Sculpture"},{hi:"मिट्टी के बर्तन",en:"Pottery"}],a:0,
+ ex:{hi:"'सुजनी' कला बिहार की 'कढ़ाई' (Embroidery) की पारंपरिक कला है — जिसमें पुराने कपड़ों को कई परतों में जोड़कर उस पर रंगीन धागों से कढ़ाई की जाती है। इसमें रामायण, महाभारत, कृष्ण लीला और सामाजिक विषयों के चित्र बनाए जाते हैं। यह मुख्यतः बिहार के भोजपुर और मिथिला क्षेत्र में प्रचलित है। सुजनी कला को बिहार की सांस्कृतिक विरासत का हिस्सा माना जाता है।",en:"'Sujni' is Bihar's traditional 'embroidery' art — layering old cloth and stitching colourful threads to depict Ramayana, Mahabharata, Krishna-lila and social themes, mainly in Bhojpur and Mithila regions, part of Bihar's cultural heritage."}},
+
+{q:{hi:"'मंजूषा' कला किससे संबंधित है?",en:"'Manjusha' art is related to which of the following?"},
+ o:[{hi:"लोक चित्रकला",en:"Folk painting"},{hi:"कढ़ाई",en:"Embroidery"},{hi:"मिट्टी की कला",en:"Clay art"},{hi:"लकड़ी की कला",en:"Wood art"}],a:0,
+ ex:{hi:"'मंजूषा कला' बिहार (भागलपुर क्षेत्र) की 'लोक चित्रकला' है — जिसमें 'मंजूषा' (मिट्टी का बर्तन/डिब्बा) पर चित्र बनाए जाते हैं। इसमें 'बिसहरी' (नाग-देवी) की पूजा की जाती है — जो भागलपुर की कुल देवी हैं। मंजूषा कला भागलपुर जिले की विशिष्ट कला है और इसे 'अंग कला' भी कहा जाता है। इसमें लाल, हरे, पीले रंगों का प्रयोग होता है — जो मिथिला पेंटिंग से भिन्न है।",en:"'Manjusha' is Bihar's (Bhagalpur region) 'folk painting' — on clay pots/boxes, worshipping 'Bishahari' (serpent goddess), the clan deity of Bhagalpur. It is unique to Bhagalpur ('Anga art'), using red, green and yellow — distinct from Mithila painting."}},
+
+{q:{hi:"बिहार का 'टिकुली' कला किससे संबंधित है?",en:"Bihar's 'Tikuli' art is related to which of the following?"},
+ o:[{hi:"मिट्टी के बर्तन",en:"Pottery"},{hi:"काँच की चूड़ियाँ",en:"Glass bangles"},{hi:"कढ़ाई",en:"Embroidery"},{hi:"लकड़ी की कला",en:"Wood art"}],a:0,
+ ex:{hi:"'टिकुली' कला बिहार की 'काँच की चूड़ियों' से संबंधित पारंपरिक कला है — जो मुख्यतः पटना, नालंदा और आसपास के क्षेत्रों में प्रचलित है। इसमें काँच के टुकड़ों को जोड़कर विभिन्न आकृतियों में चूड़ियाँ बनाई जाती हैं। 'टिकुली' का अर्थ 'छोटी चूड़ी' है। इसे बनाने वाले कारीगर 'टिकुलीहार' कहलाते हैं। बिहार की 'काँच की चूड़ी' उद्योग की यह विशिष्ट पहचान है।",en:"'Tikuli' is Bihar's traditional 'glass bangle' art, mainly in Patna and Nalanda, joining glass pieces into various bangle designs. 'Tikuli' means 'small bangle'; artisans are called 'Tikulihar' — a hallmark of Bihar's glass bangle industry."}},
+
+{q:{hi:"बिहार में 'सिक्की' कला का प्रमुख केंद्र कौन-सा है?",en:"Which is Bihar's main centre for 'Sikki' art?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"मधुबनी",en:"Madhubani"},{hi:"गया",en:"Gaya"}],a:2,
+ ex:{hi:"'सिक्की' कला का प्रमुख केंद्र 'मधुबनी' (मिथिला) है — जहाँ की महिलाएँ सिक्की घास से विभिन्न सजावटी वस्तुएँ बनाती हैं। सिक्की के अलावा 'मंजूषा कला' का केंद्र 'भागलपुर', 'मधुबनी पेंटिंग' का केंद्र 'मधुबनी और दरभंगा', 'पटना कलम' का केंद्र 'पटना' और 'टिकुली' का केंद्र 'पटना' है। बिहार में प्रत्येक क्षेत्र की अपनी विशिष्ट कला है — जो इसकी सांस्कृतिक विविधता को दर्शाती है।",en:"'Sikki' art's main centre is 'Madhubani' (Mithila), where women craft decorative items from sikki grass. Manjusha art is centred at Bhagalpur, Madhubani painting at Madhubani-Darbhanga, Patna Kalam at Patna and Tikuli at Patna — each region has its unique art, reflecting Bihar's diversity."}},
+
+{q:{hi:"बिहार में 'सुजनी' कला का उपयोग किस लिए होता है?",en:"What is 'Sujni' art used for in Bihar?"},
+ o:[{hi:"भित्ति सजावट",en:"Wall decoration"},{hi:"शयन कक्ष की सजावट",en:"Bedroom decoration"},{hi:"कपड़े की सजावट",en:"Cloth decoration"},{hi:"बर्तन की सजावट",en:"Utensil decoration"}],a:1,
+ ex:{hi:"'सुजनी' कला मुख्यतः 'शयन कक्ष की सजावट' (दुल्हन के कमरे या विवाह के बिस्तर) के लिए उपयोग की जाती है — जिसमें पुराने कपड़ों की कई परतों पर कढ़ाई करके 'सुजनी' बनाई जाती है। इसे 'गिलाफ' या 'कवर' के रूप में उपयोग किया जाता है। सुजनी में रामायण, महाभारत, कृष्ण लीला के दृश्य चित्रित होते हैं — जो स्त्रियों की सृजनात्मकता और भक्ति को दर्शाते हैं।",en:"'Sujni' is mainly used for 'bedroom decoration' (the bridal room or wedding bed), stitched over layers of old cloth and used as a quilt or cover. It depicts scenes from the Ramayana, Mahabharata and Krishna-lila, showing women's creativity and devotion."}},
+
+{q:{hi:"'मधुबनी चित्रकला' में किस रंग का उपयोग सबसे अधिक होता है?",en:"Which colour is most used in 'Madhubani painting'?"},
+ o:[{hi:"लाल",en:"Red"},{hi:"हरा",en:"Green"},{hi:"पीला",en:"Yellow"},{hi:"सभी प्राकृतिक रंगों का",en:"All natural colours"}],a:3,
+ ex:{hi:"'मधुबनी चित्रकला' में 'सभी प्राकृतिक रंगों' का उपयोग होता है — लाल, हरा, पीला, नीला, काला और सफेद। पारंपरिक रूप से ये रंग प्राकृतिक स्रोतों से बनाए जाते थे — जैसे हल्दी से पीला, पलाश के फूलों से लाल, नील से नीला। अब रासायनिक रंग भी उपयोग होते हैं। प्रत्येक रंग का विशेष अर्थ होता है — लाल प्रेम और ऊर्जा, हरा प्रकृति, पीला ज्ञान और सफेद शांति।",en:"Madhubani painting uses 'all natural colours' — red, green, yellow, blue, black and white, traditionally from natural sources (turmeric for yellow, palash for red, indigo for blue), though synthetic colours are now common. Each colour has meaning — red for love and energy, green for nature, yellow for knowledge, white for peace."}},
+
+{q:{hi:"बिहार का 'बम्बू वर्क' (बाँस कला) किससे संबंधित है?",en:"Bihar's 'Bamboo work' is related to which of the following?"},
+ o:[{hi:"बाँस से बनी वस्तुएँ",en:"Bamboo craft items"},{hi:"लकड़ी की कला",en:"Wood craft"},{hi:"कपड़े की कला",en:"Textile craft"},{hi:"मिट्टी की कला",en:"Clay craft"}],a:0,
+ ex:{hi:"बिहार का 'बम्बू वर्क' 'बाँस से बनी वस्तुएँ' से संबंधित है — जिनमें टोकरी, झूला, पंखा, टेबल, कुर्सी, फूलदान और सजावटी सामान शामिल हैं। बिहार में बाँस प्रचुर मात्रा में पाया जाता है — विशेषकर पूर्वी चंपारण, पश्चिम चंपारण और पूर्णिया क्षेत्र में। यह 'बाँस उद्योग' बिहार के ग्रामीण क्षेत्रों का महत्वपूर्ण लघु उद्योग है — जो हज़ारों परिवारों को रोज़गार देता है।",en:"Bihar's 'bamboo work' involves 'bamboo craft items' — baskets, swings, fans, tables, chairs, vases and decorative goods. Bamboo is abundant, especially in East/West Champaran and Purnia; the bamboo industry is a key rural cottage industry employing thousands."}},
+
+{q:{hi:"'मंजूषा कला' में किस देवी की पूजा होती है?",en:"Which goddess is worshipped in 'Manjusha art'?"},
+ o:[{hi:"दुर्गा",en:"Durga"},{hi:"लक्ष्मी",en:"Lakshmi"},{hi:"बिसहरी (नाग-देवी)",en:"Bishahari (serpent goddess)"},{hi:"सरस्वती",en:"Saraswati"}],a:2,
+ ex:{hi:"'मंजूषा कला' में 'बिसहरी' (नाग-देवी) की पूजा होती है — जो भागलपुर क्षेत्र की कुल देवी हैं। 'बिसहरी' को 'नाग-देवी' या 'मनसा देवी' भी कहा जाता है — जो सर्प दंश से रक्षा करती हैं। मंजूषा कला में बिसहरी की कथा को चित्रों के माध्यम से दर्शाया जाता है — जिसमें 'चंद्रधर' और 'बिहुला' की कथा प्रमुख है। यह भागलपुर की विशिष्ट लोक कला है — जो मिथिला चित्रकला से भिन्न है।",en:"'Manjusha art' worships 'Bishahari' (serpent goddess), the clan deity of Bhagalpur, also called 'Mansa Devi', protecting from snakebite. Manjusha art depicts her legend — especially 'Chandradhar' and 'Bihula' — a unique Bhagalpur folk art distinct from Mithila painting."}},
+
+/* ============ खंड D — बिहार के पर्व, मेले और त्योहार (Q33–42) ============ */
+{q:{hi:"बिहार का 'महापर्व' किसे कहा जाता है?",en:"Which is called Bihar's 'great festival'?"},
+ o:[{hi:"होली",en:"Holi"},{hi:"दिवाली",en:"Diwali"},{hi:"छठ पूजा",en:"Chhath Puja"},{hi:"दुर्गा पूजा",en:"Durga Puja"}],a:2,
+ ex:{hi:"'छठ पूजा' को बिहार का 'महापर्व' कहा जाता है — जो सूर्य देव और छठी मैया की उपासना का पर्व है। यह कार्तिक शुक्ल षष्ठी (अक्टूबर-नवंबर) को मनाया जाता है — दिवाली के 6 दिन बाद। इसका अनुष्ठान 4 दिन का होता है — नहाय-खाय, खरना, सायं अर्घ्य (डूबते सूर्य को) और उषा अर्घ्य (उगते सूर्य को)। यह बिहार, झारखंड और पूर्वी UP का प्रमुख पर्व है।",en:"'Chhath Puja' is called Bihar's 'great festival', worshipping Surya Dev and Chhathi Maiya on Kartik Shukla Shashthi (Oct-Nov), 6 days after Diwali. The 4-day ritual — Nahay-Khay, Kharna, Sandhya Arghya (to the setting Sun) and Usha Arghya (to the rising Sun) — is major in Bihar, Jharkhand and eastern UP."}},
+
+{q:{hi:"'छठ पूजा' में किसकी उपासना की जाती है?",en:"Who is worshipped in 'Chhath Puja'?"},
+ o:[{hi:"शिव-पार्वती",en:"Shiva-Parvati"},{hi:"राम-सीता",en:"Ram-Sita"},{hi:"सूर्य देव और छठी मैया",en:"Surya Dev and Chhathi Maiya"},{hi:"कृष्ण-राधा",en:"Krishna-Radha"}],a:2,
+ ex:{hi:"'छठ पूजा' में 'सूर्य देव और छठी मैया' की उपासना की जाती है। सूर्य देव को ऊर्जा, स्वास्थ्य और समृद्धि का देवता माना जाता है और छठी मैया को संतान की रक्षक देवी। यह पर्व मुख्यतः महिलाओं द्वारा किया जाता है — जो 36 घंटे का निर्जला व्रत रखती हैं। छठ का प्रसाद — ठेकुआ, कसार, चावल के लड्डू और गन्ना — पवित्र माना जाता है।",en:"'Chhath Puja' worships 'Surya Dev and Chhathi Maiya' — the Sun for energy, health and prosperity, and Chhathi Maiya as protector of children. Mainly observed by women keeping a 36-hour waterless fast, with prasad like Thekua, Kasar, rice laddus and sugarcane."}},
+
+{q:{hi:"'सोनपुर पशु मेला' कहाँ लगता है?",en:"Where is the 'Sonepur Cattle Fair' held?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"सोनपुर (सारण)",en:"Sonepur (Saran)"},{hi:"मुज़फ़्फ़रपुर",en:"Muzaffarpur"},{hi:"दरभंगा",en:"Darbhanga"}],a:1,
+ ex:{hi:"'सोनपुर पशु मेला' 'सोनपुर' (सारण जिला, बिहार) में गंगा-गंडक संगम पर लगता है। यह एशिया का सबसे बड़ा पशु मेला है — जो कार्तिक पूर्णिमा पर आयोजित होता है। इसमें हाथी, घोड़े, ऊँट, गाय, बैल, बकरी और पक्षी बेचे जाते हैं। इसे 'हरिहरक्षेत्र मेला' भी कहा जाता है। मुगल काल से यह मेला लगता आ रहा है और बिहार की सांस्कृतिक विरासत का प्रतीक है।",en:"The Sonepur Cattle Fair is held at 'Sonepur' (Saran district, Bihar) at the Ganga-Gandak confluence — Asia's largest, held on Kartik Purnima, selling elephants, horses, camels, cattle and birds. Also called 'Hariharkshetra Mela', held since Mughal times, a symbol of Bihar's heritage."}},
+
+{q:{hi:"'पितृपक्ष मेला' बिहार के किस शहर में लगता है?",en:"The 'Pitrapaksha Mela' is held in which city of Bihar?"},
+ o:[{hi:"पटना",en:"Patna"},{hi:"गया",en:"Gaya"},{hi:"बोधगया",en:"Bodh Gaya"},{hi:"राजगीर",en:"Rajgir"}],a:1,
+ ex:{hi:"'पितृपक्ष मेला' बिहार के 'गया' शहर में लगता है — जो पितृपक्ष (सितंबर-अक्टूबर) के दौरान 15 दिनों तक चलता है। यहाँ हिंदू परंपरा में पितरों का पिंडदान, तर्पण और श्राद्ध किया जाता है। 'विष्णुपद मंदिर' और 'फल्गु नदी' के तट पर यह अनुष्ठान होता है। यह मेला भारत और विदेशों से लाखों श्रद्धालुओं को आकर्षित करता है — जो अपने पितरों की मुक्ति के लिए आते हैं।",en:"The 'Pitrapaksha Mela' is held at 'Gaya' (Bihar) during Pitrapaksha (Sep-Oct) for 15 days, where Hindus perform Pind Daan, Tarpan and Shraddha for ancestors at the Vishnupad Temple and Falgu river — attracting lakhs from India and abroad."}},
+
+{q:{hi:"'होली' का बिहार में कौन-सा विशेष रूप प्रचलित है?",en:"Which special form of 'Holi' is prevalent in Bihar?"},
+ o:[{hi:"फगुआ",en:"Fagua"},{hi:"होलिका दहन",en:"Holika Dahan"},{hi:"धुरखेल",en:"Dhurkhel"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार में होली के कई विशेष रूप हैं — (1) 'फगुआ' — होली का लोक नाम, (2) 'होलिका दहन' — चैत पूर्णिमा की रात, (3) 'धुरखेल' — मिथिला क्षेत्र में चैत मास में खेला जाने वाला विशेष रंग, (4) 'फगुआ गीत' — होली के लोकगीत। बिहार में होली 'फगुआ' के नाम से जानी जाती है और इसमें 'फगुआ' गीत सामूहिक रूप से गाए जाते हैं। 'धुरखेल' में रंग-गुलाल के साथ पारंपरिक वाद्ययंत्र बजते हैं।",en:"Bihar's Holi has many forms — 'Fagua' (folk name), 'Holika Dahan' (Chait Purnima night), 'Dhurkhel' (special Mithila colour play in Chait) and 'Fagua songs'. Bihar celebrates Holi as 'Fagua' with collective folk songs; Dhurkhel features colours with traditional instruments."}},
+
+{q:{hi:"'सामा चकेवा' पर्व किस राज्य/क्षेत्र में मनाया जाता है?",en:"'Sama Chakeva' festival is celebrated in which state/region?"},
+ o:[{hi:"उत्तर प्रदेश",en:"Uttar Pradesh"},{hi:"बिहार का मिथिला क्षेत्र",en:"Mithila region of Bihar"},{hi:"झारखंड",en:"Jharkhand"},{hi:"पश्चिम बंगाल",en:"West Bengal"}],a:1,
+ ex:{hi:"'सामा चकेवा' पर्व बिहार के 'मिथिला क्षेत्र' में मनाया जाता है — जो भाई-बहन के प्रेम का प्रतीक है। यह कार्तिक पूर्णिमा से चैत सक्रांति तक मनाया जाता है — यानी लगभग 4-5 महीने। इसमें मिट्टी की मूर्तियाँ (सामा, चकेवा, चुगला) बनाई जाती हैं और बहनें अपने भाई की लंबी आयु की कामना करती हैं। इस पर्व में लोकगीत और नृत्य भी होते हैं — जो मिथिला की संस्कृति की विशेषता है।",en:"'Sama Chakeva' is celebrated in Bihar's 'Mithila region', symbolising brother-sister love, from Kartik Purnima to Chaitra Sankranti (4–5 months) with clay figurines (Sama, Chakeva, Chugla) and sisters praying for their brothers' long life, including folk songs and dance."}},
+
+{q:{hi:"'जीवित्पुत्रिका' (जिउतिया) व्रत किसके लिए किया जाता है?",en:"'Jivitputrika' (Jiutiya) vrat is observed for whom?"},
+ o:[{hi:"पति की लंबी आयु",en:"Husband's long life"},{hi:"संतान की लंबी आयु",en:"Children's long life"},{hi:"माता-पिता की",en:"Parents'"},{hi:"भाई की",en:"Brother's"}],a:1,
+ ex:{hi:"'जीवित्पुत्रिका' (जिउतिया) व्रत बिहार, झारखंड और पूर्वी UP की माताएँ अपने 'संतान की लंबी आयु' के लिए रखती हैं। यह आश्विन कृष्ण अष्टमी (सितंबर-अक्टूबर) को किया जाता है — जिसमें माताएँ निर्जला व्रत रखती हैं। इसमें 'जिउतिया' पूजा की जाती है और 'जिमूतवाहन' (यम का भाई) की कथा सुनी जाती है। यह छठ जैसा कठिन व्रत है — जो बिहारी महिलाओं की ममता और श्रद्धा का प्रतीक है।",en:"'Jivitputrika' (Jiutiya) vrat is observed by mothers in Bihar, Jharkhand and eastern UP for their 'children's long life' on Ashwin Krishna Ashtami (Sep-Oct), with a waterless fast and worship of 'Jimutavahana' (Yama's brother) — as rigorous as Chhath, symbolising a mother's love."}},
+
+{q:{hi:"बिहार में 'वट सावित्री' व्रत कब किया जाता है?",en:"When is 'Vat Savitri' vrat observed in Bihar?"},
+ o:[{hi:"चैत पूर्णिमा",en:"Chait Purnima"},{hi:"ज्येष्ठ पूर्णिमा",en:"Jyeshtha Purnima"},{hi:"कार्तिक पूर्णिमा",en:"Kartik Purnima"},{hi:"आश्विन पूर्णिमा",en:"Ashwin Purnima"}],a:1,
+ ex:{hi:"'वट सावित्री' व्रत बिहार में 'ज्येष्ठ पूर्णिमा' (मई-जून) को किया जाता है — जिसमें सुहागिन महिलाएँ अपने पति की लंबी आयु और अखंड सौभाग्य के लिए व्रत रखती हैं। यह 'सावित्री-सत्यवान' की कथा से जुड़ा है — जिसमें सावित्री ने यमराज से अपने पति का जीवन वापस लिया। इसमें बरगद के पेड़ की पूजा की जाती है। यह हिंदू विवाहित महिलाओं का प्रमुख व्रत है।",en:"'Vat Savitri' vrat is observed on 'Jyeshtha Purnima' (May-June) in Bihar, where married women fast for their husband's long life and unbroken marital bliss, linked to the Savitri-Satyavan legend — worshipping the banyan tree."}},
+
+{q:{hi:"बिहार में 'मकर संक्रांति' का क्या महत्व है?",en:"What is the significance of 'Makar Sankranti' in Bihar?"},
+ o:[{hi:"केवल धार्मिक",en:"Only religious"},{hi:"दान-पुण्य, तिल-चूड़ा, खिचड़ी",en:"Charity, til-chura, khichdi"},{hi:"केवल फसल",en:"Only harvest"},{hi:"कोई महत्व नहीं",en:"No significance"}],a:1,
+ ex:{hi:"बिहार में 'मकर संक्रांति' (14-15 जनवरी) का अत्यंत महत्व है — जिसमें 'दान-पुण्य, तिल-चूड़ा और खिचड़ी' प्रमुख हैं। इसे 'तिला संक्रांति' या 'खिचड़ी पर्व' भी कहा जाता है। लोग तिल, गुड़, चूड़ा, दही और खिचड़ी का दान करते हैं। गंगा स्नान और सूर्य पूजा का विशेष महत्व है — विशेषकर बिहार के गंगा तटों पर। यह फसल कटाई के उत्सव के साथ जुड़ा है।",en:"'Makar Sankranti' (14-15 January) is highly significant in Bihar with 'charity, til-chura and khichdi' — also called 'Tila Sankranti' or 'Khichdi Parv'. People donate sesame, jaggery, chura, curd and khichdi; Ganga snan and Surya puja are emphasised, especially at Bihar's Ganga ghats, linked to harvest."}},
+
+{q:{hi:"बिहार का 'सोनपुर मेला' कितने दिनों तक चलता है?",en:"For how many days does Bihar's 'Sonepur Fair' run?"},
+ o:[{hi:"1 दिन",en:"1 day"},{hi:"1 सप्ताह",en:"1 week"},{hi:"लगभग 1 महीना (कार्तिक पूर्णिमा से)",en:"About 1 month (from Kartik Purnima)"},{hi:"3 महीने",en:"3 months"}],a:2,
+ ex:{hi:"'सोनपुर मेला' 'लगभग 1 महीने' तक चलता है — कार्तिक पूर्णिमा से शुरू होकर मार्गशीर्ष तक। यह एशिया का सबसे बड़ा पशु मेला है और विश्व भर से पर्यटकों और व्यापारियों को आकर्षित करता है। इसमें हाथी, घोड़े, ऊँट, गाय, बैल के अलावा कृषि उपकरण, मनोरंजन सामग्री, खाद्य सामग्री और सांस्कृतिक कार्यक्रम भी होते हैं। यह बिहार की जीवंत सांस्कृतिक परंपरा का प्रतीक है।",en:"The Sonepur Fair runs for 'about a month' from Kartik Purnima to Margashirsha — Asia's largest cattle fair, attracting tourists and traders, featuring elephants, horses, camels, cattle, farm equipment, entertainment, food and cultural events, a symbol of Bihar's living tradition."}},
+
+{q:{hi:"बिहार में 'विश्वकर्मा पूजा' किस दिन मनाई जाती है?",en:"'Vishwakarma Puja' is celebrated on which day in Bihar?"},
+ o:[{hi:"15 अगस्त",en:"15 August"},{hi:"17 सितंबर",en:"17 September"},{hi:"दिवाली के बाद",en:"After Diwali"},{hi:"26 जनवरी",en:"26 January"}],a:1,
+ ex:{hi:"बिहार में 'विश्वकर्मा पूजा' '17 सितंबर' को मनाई जाती है — जो भगवान विश्वकर्मा (देवताओं के शिल्पकार) की पूजा का दिन है। यह मुख्यतः कारखानों, उद्योगों, मशीनों, वाहनों और कार्यशालाओं में मनाई जाती है। मज़दूर, कारीगर, मिस्त्री, वाहन चालक और उद्योगपति इस पर्व को श्रद्धा से मनाते हैं। इसमें मशीनों और औज़ारों की पूजा की जाती है और कारखानों में भोज का आयोजन होता है।",en:"'Vishwakarma Puja' is celebrated on '17 September' in Bihar, honouring Lord Vishwakarma (the divine architect), mainly in factories, industries and workshops by workers, artisans, mechanics and vehicle owners, with machine/tool worship and community feasts."}},
+
+{q:{hi:"बिहार में 'पितृपक्ष' का क्या महत्व है?",en:"What is the significance of 'Pitrapaksha' in Bihar?"},
+ o:[{hi:"केवल धार्मिक",en:"Only religious"},{hi:"पितरों का श्राद्ध, पिंडदान, तर्पण",en:"Shraddha, Pind Daan, Tarpan for ancestors"},{hi:"केवल गया में",en:"Only in Gaya"},{hi:"कोई महत्व नहीं",en:"No significance"}],a:1,
+ ex:{hi:"बिहार में 'पितृपक्ष' (सितंबर-अक्टूबर) का अत्यंत महत्व है — जिसमें 'पितरों का श्राद्ध, पिंडदान और तर्पण' किया जाता है। यह 15 दिनों का पक्ष है — भाद्रपद पूर्णिमा से आश्विन अमावस्या तक। बिहार के 'गया' में पिंडदान का विशेष महत्व है — जहाँ 'फल्गु नदी' और 'विष्णुपद मंदिर' के तट पर श्राद्ध होता है। मान्यता है कि गया में पिंडदान से पितरों को मोक्ष मिलता है। इसीलिए गया को 'पितृतीर्थ' कहा जाता है।",en:"'Pitrapaksha' (Sep-Oct) is highly significant in Bihar with 'Shraddha, Pind Daan and Tarpan' for ancestors over 15 days (Bhadrapada Purnima to Ashwin Amavasya). Gaya is especially sacred — Pind Daan at the Falgu river and Vishnupad Temple liberates ancestors, hence Gaya is the 'Pitru Tirth'."}},
+
+/* ============ खंड E — भाषा, साहित्य, व्यंजन और संस्कृति (Q43–50) ============ */
+{q:{hi:"बिहार की प्रमुख भाषाएँ कौन-सी हैं?",en:"What are Bihar's major languages?"},
+ o:[{hi:"भोजपुरी, मैथिली, मगही",en:"Bhojpuri, Maithili, Magahi"},{hi:"भोजपुरी, मैथिली",en:"Bhojpuri, Maithili"},{hi:"हिंदी, उर्दू",en:"Hindi, Urdu"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार की प्रमुख भाषाएँ — (1) 'भोजपुरी' (पश्चिम बिहार, पूर्वी UP), (2) 'मैथिली' (मिथिला क्षेत्र — दरभंगा, मधुबनी, समस्तीपुर), (3) 'मगही' (मगध क्षेत्र — गया, नालंदा, पटना), (4) 'अंगिका' (भागलपुर क्षेत्र), (5) 'बज्जिका' (मुज़फ़्फ़रपुर, वैशाली), (6) 'हिंदी' (राजभाषा), (7) 'उर्दू' (दूसरी राजभाषा)। 'मैथिली' को 8वीं अनुसूची में शामिल किया गया है (92वाँ संविधान संशोधन, 2003)।",en:"Bihar's major languages — 'Bhojpuri' (west Bihar, east UP), 'Maithili' (Mithila — Darbhanga, Madhubani, Samastipur), 'Magahi' (Magadh — Gaya, Nalanda, Patna), 'Angika' (Bhagalpur), 'Bajjika' (Muzaffarpur, Vaishali), Hindi (official) and Urdu (second official). Maithili is in the 8th Schedule (92nd Amendment, 2003)."}},
+
+{q:{hi:"'मैथिली' भाषा को किस अनुसूची में शामिल किया गया है?",en:"'Maithili' is included in which Schedule?"},
+ o:[{hi:"7वीं अनुसूची",en:"7th Schedule"},{hi:"8वीं अनुसूची",en:"8th Schedule"},{hi:"9वीं अनुसूची",en:"9th Schedule"},{hi:"10वीं अनुसूची",en:"10th Schedule"}],a:1,
+ ex:{hi:"'मैथिली' को '8वीं अनुसूची' में शामिल किया गया है — 92वें संविधान संशोधन (2003 ई.) द्वारा। यह बिहार के मिथिला क्षेत्र और नेपाल की प्रमुख भाषा है। मैथिली की अपनी लिपि 'तिरहुता' (मिथिलाक्षर) भी है — हालांकि अब यह मुख्यतः देवनागरी में लिखी जाती है। मैथिली साहित्य समृद्ध है — विद्यापति इसके महान कवि थे।",en:"'Maithili' was added to the '8th Schedule' by the 92nd Constitutional Amendment (2003 CE). It is the main language of Bihar's Mithila region and Nepal, with its own 'Tirhuta' script (Mithilakshar), now mostly written in Devanagari. Its literature is rich — Vidyapati was a great poet."}},
+
+{q:{hi:"'विद्यापति' किस भाषा के महान कवि थे?",en:"'Vidyapati' was a great poet of which language?"},
+ o:[{hi:"भोजपुरी",en:"Bhojpuri"},{hi:"मैथिली",en:"Maithili"},{hi:"मगही",en:"Magahi"},{hi:"हिंदी",en:"Hindi"}],a:1,
+ ex:{hi:"'विद्यापति' (1352-1448 ई.) 'मैथिली' के महान कवि थे — जिन्हें 'मैथिल कोकिल' (मिथिला का कोयल) कहा जाता है। उनका जन्म विस्फी (मधुबनी जिला, बिहार) में हुआ। उन्होंने 'पदावली' की रचना की — जिसमें राधा-कृष्ण की प्रेम लीला है। वे संस्कृत, मैथिली और अवहट्ट में लिखते थे। उनका प्रभाव बांग्ला, ओड़िया और असमिया साहित्य पर भी पड़ा। उन्हें 'अभिनव जयदेव' भी कहा जाता है।",en:"'Vidyapati' (1352–1448 CE) was a great 'Maithili' poet, called 'Maithil Kokil' (Mithila's cuckoo). Born at Bisphi (Madhubani, Bihar), he composed the 'Padavali' on Radha-Krishna love, writing in Sanskrit, Maithili and Avahatta, influencing Bengali, Odia and Assamese literature — also called 'Abhinav Jayadeva'."}},
+
+{q:{hi:"'बाबा नागार्जुन' किस भाषा के प्रसिद्ध कवि थे?",en:"'Baba Nagarjun' was a famous poet of which language?"},
+ o:[{hi:"केवल हिंदी",en:"Only Hindi"},{hi:"केवल मैथिली",en:"Only Maithili"},{hi:"हिंदी और मैथिली दोनों",en:"Both Hindi and Maithili"},{hi:"केवल भोजपुरी",en:"Only Bhojpuri"}],a:2,
+ ex:{hi:"'बाबा नागार्जुन' (वैद्यनाथ मिश्र, 1911-1998) हिंदी और मैथिली 'दोनों' भाषाओं के प्रसिद्ध कवि और लेखक थे। उनका जन्म तरौनी (दरभंगा जिला, बिहार) में हुआ। वे 'जनकवि' कहलाते थे और मार्क्सवादी विचारधारा से प्रभावित थे। उनकी प्रमुख रचनाएँ — 'युगधारा', 'प्यासी पथराई आँखें', 'बलचनमा', 'रतिनाथ की चाची', 'देश की चेतना'। उन्हें 'साहित्य अकादमी पुरस्कार' भी मिला।",en:"'Baba Nagarjun' (Vaidyanath Mishra, 1911–1998) was a famous poet and writer in 'both Hindi and Maithili', born at Tarauani (Darbhanga, Bihar), called 'Janakavi', influenced by Marxist ideology — works include 'Yugdhara', 'Pyasi Pithrai Aankhen', 'Balchanama', 'Ratinath ki Chachi' — recipient of the Sahitya Akademi Award."}},
+
+{q:{hi:"'रामधारी सिंह दिनकर' को किस उपाधि से जाना जाता है?",en:"'Ramdhari Singh Dinkar' is known by which title?"},
+ o:[{hi:"राष्ट्रकवि",en:"Rashtrakavi"},{hi:"जनकवि",en:"Janakavi"},{hi:"मैथिल कोकिल",en:"Maithil Kokil"},{hi:"लोक कवि",en:"Lok Kavi"}],a:0,
+ ex:{hi:"'रामधारी सिंह दिनकर' (1908-1974) को 'राष्ट्रकवि' कहा जाता है। उनका जन्म सिमरिया (बेगूसराय जिला, बिहार) में हुआ। वे हिंदी के प्रसिद्ध कवि और लेखक थे। उनकी प्रमुख रचनाएँ — 'उर्वशी' (ज्ञानपीठ पुरस्कार, 1972), 'रश्मिरथी', 'कुरुक्षेत्र', 'संस्कृति के चार अध्याय', 'परशुराम की प्रतीक्षा'। उन्हें 'पद्मविभूषण' और 'ज्ञानपीठ' से सम्मानित किया गया। उनकी रचनाओं में वीरता और राष्ट्रीयता का भाव है।",en:"'Ramdhari Singh Dinkar' (1908–1974) is called 'Rashtrakavi'. Born at Simaria (Begusarai, Bihar), a famous Hindi poet — works: 'Urvashi' (Jnanpith, 1972), 'Rashmirathi', 'Kurukshetra', 'Sanskriti ke Char Adhyay', 'Parashuram ki Pratiksha' — awarded Padma Vibhushan and Jnanpith, with valour and nationalism in his verse."}},
+
+{q:{hi:"बिहार के प्रसिद्ध व्यंजन 'लिट्टी-चोखा' में 'चोखा' किससे बनता है?",en:"In Bihar's famous 'Litti-Chokha', 'Chokha' is made from which of the following?"},
+ o:[{hi:"आलू",en:"Potato"},{hi:"बैंगन",en:"Brinjal"},{hi:"टमाटर",en:"Tomato"},{hi:"उपरोक्त सभी",en:"All of the above"}],a:3,
+ ex:{hi:"बिहार के प्रसिद्ध व्यंजन 'लिट्टी-चोखा' में 'चोखा' मुख्यतः 'आलू, बैंगन और टमाटर' — तीनों से बनता है। इन्हें भूनकर, मसलकर और मसालों के साथ मिलाया जाता है — जिसमें सरसों का तेल, हरी मिर्च, लहसुन, अदरक, नींबू और धनिया पत्ती डाली जाती है। 'लिट्टी' गेहूँ के आटे में सत्तू की भराई डालकर बनाई जाती है — जिसे आग पर या तंदूर में सेंका जाता है। यह बिहार का 'राष्ट्रीय व्यंजन' माना जाता है।",en:"In Bihar's famous 'Litti-Chokha', Chokha is made from 'potato, brinjal and tomato', roasted, mashed and mixed with mustard oil, green chilli, garlic, ginger, lemon and coriander. Litti is wheat dough stuffed with sattu, roasted over fire or in a tandoor — Bihar's national dish."}},
+
+{q:{hi:"'सत्तू' किससे बनता है?",en:"'Sattu' is made from which of the following?"},
+ o:[{hi:"गेहूँ",en:"Wheat"},{hi:"चना",en:"Gram"},{hi:"चावल",en:"Rice"},{hi:"मक्का",en:"Maize"}],a:1,
+ ex:{hi:"'सत्तू' मुख्यतः 'चना' (भुने हुए चने) को पीसकर बनाया जाता है — कभी-कभी जौ और गेहूँ भी मिलाए जाते हैं। यह बिहार का अत्यंत लोकप्रिय और पौष्टिक आहार है — जिसमें प्रोटीन, फाइबर और आयरन भरपूर होता है। बिहार में सत्तू का उपयोग लिट्टी, परांठा, शरबत, और 'सत्तू परांठा' में होता है। गर्मियों में सत्तू का शरबत शरीर को ठंडा रखता है — यह बिहार की पहचान है।",en:"'Sattu' is made mainly from ground roasted 'gram' (chana), sometimes with barley and wheat — a popular, nutritious Bihari food rich in protein, fibre and iron, used in litti, paratha, sharbat and sattu paratha. In summers, sattu sharbat cools the body — a Bihar identity."}},
+
+{q:{hi:"बिहार का 'खाजा' किससे बनता है?",en:"Bihar's 'Khaja' is made from which of the following?"},
+ o:[{hi:"दूध से",en:"Milk"},{hi:"गेहूँ के आटे से",en:"Wheat flour"},{hi:"चावल के आटे से",en:"Rice flour"},{hi:"दाल से",en:"Pulses"}],a:1,
+ ex:{hi:"बिहार का 'खाजा' मुख्यतः 'गेहूँ के आटे' से बनता है — जिसमें परतों में घी, चीनी और सूखे मेवे भरे जाते हैं। यह बिहार का प्रसिद्ध मिठाई है — विशेषकर 'सिलाव' (नालंदा जिला) का खाजा पूरे भारत में प्रसिद्ध है। सिलाव का खाजा 'भौगोलिक संकेत' (GI) टैग भी प्राप्त कर चुका है। इसे 'बिहार की मिठाई' कहा जाता है और यह हर शुभ अवसर पर बनाई जाती है।",en:"Bihar's 'Khaja' is made mainly from 'wheat flour' — layered with ghee, sugar and dry fruits, especially famous from 'Silao' (Nalanda district), which has a GI tag. Called 'Bihar's sweet', it's made at every auspicious occasion."}},
+
+{q:{hi:"बिहार में 'ठेकुआ' कब बनाया जाता है?",en:"When is 'Thekua' made in Bihar?"},
+ o:[{hi:"होली पर",en:"On Holi"},{hi:"छठ पूजा पर",en:"On Chhath Puja"},{hi:"दिवाली पर",en:"On Diwali"},{hi:"विवाह पर",en:"On Marriage"}],a:1,
+ ex:{hi:"'ठेकुआ' बिहार में मुख्यतः 'छठ पूजा' के अवसर पर बनाया जाता है — जो छठ का प्रमुख प्रसाद है। इसे गेहूँ के आटे, गुड़, घी, सूखा नारियल और सौंफ से बनाया जाता है — और तेल या घी में तला जाता है। छठ में ठेकुआ के अलावा 'कसार' (चावल का लड्डू), 'चीला', 'भुसवा' और 'गन्ना' भी प्रसाद में शामिल होते हैं। ठेकुआ को सांचे में दबाकर बनाया जाता है — जिस पर विशेष डिज़ाइन होते हैं।",en:"'Thekua' is made in Bihar mainly during 'Chhath Puja' — its chief prasad, made from wheat flour, jaggery, ghee, dry coconut and fennel, deep-fried. Along with it, 'Kasar' (rice laddu), 'Chila', 'Bhuswa' and sugarcane are offered. Thekua is pressed in moulds with special designs."}},
+
+{q:{hi:"बिहार की संस्कृति में 'पान' का क्या महत्व है?",en:"What is the significance of 'Paan' in Bihar's culture?"},
+ o:[{hi:"केवल खाने का",en:"Only food"},{hi:"सामाजिक और धार्मिक प्रतीक",en:"Social and religious symbol"},{hi:"औषधि",en:"Medicine"},{hi:"व्यापार",en:"Trade"}],a:1,
+ ex:{hi:"बिहार की संस्कृति में 'पान' का महत्व 'सामाजिक और धार्मिक प्रतीक' के रूप में है। पान का उपयोग विवाह, मंगल कार्य, पूजा, और मेहमान नवाज़ी में होता है। 'पान' को शुभ और मांगलिक माना जाता है — जिसे 'बीड़ा' कहा जाता है। बिहार में 'मगही पान' और 'मिथिला का पान' प्रसिद्ध हैं। किसी भी शुभ कार्य की शुरुआत 'पान' से होती है और अंत भी 'पान' से होता है। मिथिला में विवाह के समय 'पान-बीड़ा' भेजने की परंपरा है।",en:"In Bihar's culture, 'Paan' is a 'social and religious symbol' — used in weddings, auspicious events, worship and hospitality, considered auspicious as 'Bira'. 'Magahi Paan' and Mithila paan are famous. Every auspicious work begins and ends with paan; in Mithila, sending 'Paan-Bira' at weddings is a tradition."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! बिहार की कला-संस्कृति पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over Bihar's art and culture is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। बिहार की कला-संस्कृति के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read Bihar's art and culture facts."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
