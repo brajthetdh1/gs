@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2b52">
+<title>मौर्य साम्राज्य — 50 प्रश्न | Maurya Empire — 50 Questions</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.quiz-shell{max-width:1180px;margin:0 auto;padding-bottom:40px}
+.quiz-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.lang-switch{display:flex;gap:4px;background:#f1f4fa;border:1px solid var(--line);
+  border-radius:10px;padding:4px;margin-bottom:16px;width:fit-content;box-shadow:var(--shadow);}
+.lang-switch button{background:transparent;border:0;cursor:pointer;padding:8px 16px;
+  border-radius:7px;font-size:.84rem;font-weight:800;color:#5d6b80;transition:.15s;font-family:inherit;}
+.lang-switch button:hover{color:var(--navy-2);background:#eaf1fc}
+.lang-switch button.active{background:var(--navy);color:#fff;box-shadow:0 3px 8px rgba(13,43,82,.25);}
+body.lang-hi .lang-en{display:none !important}
+body.lang-en .lang-hi{display:none !important}
+body.lang-both .lang-hi{display:block}
+body.lang-both .lang-en{display:block;margin-top:2px;font-size:.88em;color:#5d6b80;font-weight:500;font-style:normal}
+.palette-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);position:sticky;top:80px;}
+.palette-panel h3{font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.palette-panel h3 .score-pill{background:#eaf1fc;color:var(--navy-2);font-size:.68rem;
+  padding:3px 8px;border-radius:5px;letter-spacing:.3px;}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-bottom:16px;
+  padding-bottom:14px;border-bottom:1px dashed var(--line);font-size:.72rem;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;flex:none;border:1.5px solid transparent;}
+.legend i.grey{background:#f1f4fa;border-color:#d5deec}
+.legend i.yellow{background:#fff3c4;border-color:#e6c34a}
+.legend i.green{background:#c8ecc8;border-color:#4caf50}
+.legend i.red{background:#fbd5d0;border-color:#e57373}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-height:340px;
+  overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
+.palette::-webkit-scrollbar{width:5px}
+.palette::-webkit-scrollbar-thumb{background:#cdd8e8;border-radius:99px}
+.pal-btn{aspect-ratio:1;border:1.5px solid #d5deec;background:#f1f4fa;border-radius:7px;
+  font-size:.72rem;font-weight:800;color:#5d6b80;cursor:pointer;transition:.14s;
+  display:grid;place-items:center;padding:0;position:relative;font-family:inherit;}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn.visited{background:#e8eef8;color:#41526e}
+.pal-btn.attempted{background:#fff3c4;border-color:#e6c34a;color:#7a5c00}
+.pal-btn.correct{background:#c8ecc8;border-color:#4caf50;color:#0f7b0f}
+.pal-btn.wrong{background:#fbd5d0;border-color:#e57373;color:#a82121}
+.pal-btn.current{box-shadow:0 0 0 3px var(--navy-2),0 0 0 5px rgba(22,74,138,.18);
+  transform:scale(1.08);z-index:1;}
+.pal-btn.sec-start::after{content:"";position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--saffron);}
+.progress-strip{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;
+  border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow-lg);}
+.progress-strip .row1{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.progress-strip .title{font-size:.98rem;font-weight:800;letter-spacing:-.1px}
+.progress-strip .title small{display:block;font-size:.72rem;color:#c8e6c9;
+  font-weight:500;letter-spacing:.2px;margin-top:3px}
+.progress-strip .scoreboard{display:flex;gap:18px;flex-wrap:wrap}
+.progress-strip .scoreboard div{font-size:.65rem;color:#c8e6c9;
+  text-transform:uppercase;letter-spacing:.6px;}
+.progress-strip .scoreboard b{display:block;font-size:1.05rem;color:#fff;
+  margin-top:1px;letter-spacing:0;text-transform:none;}
+.progress-strip .scoreboard b.g{color:#7fe08b}
+.progress-strip .scoreboard b.r{color:#ff8b80}
+.progress-strip .bar{height:5px;background:rgba(255,255,255,.2);
+  border-radius:99px;overflow:hidden;}
+.progress-strip .bar i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ffd700,#ffeb3b);
+  border-radius:99px;transition:width .35s ease;}
+.q-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;
+  box-shadow:var(--shadow);animation:slide .28s ease;}
+@keyframes slide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.q-card .q-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.7px;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:#e8f5e9;color:#1b5e20;margin-bottom:12px;}
+.q-card .q-text{font-size:1rem;color:var(--navy);font-weight:600;
+  line-height:1.7;margin-bottom:18px;}
+.q-card .q-text .q-num{color:var(--saffron);font-weight:800;margin-right:8px}
+.opt-list{display:grid;gap:10px;margin-bottom:16px}
+.opt-btn{display:flex;align-items:flex-start;gap:14px;width:100%;background:#f7f9fd;
+  border:1.5px solid var(--line);border-radius:11px;padding:14px 16px;cursor:pointer;
+  text-align:left;font-size:.94rem;color:#33415c;transition:.15s;font-family:inherit;
+  min-height:52px;line-height:1.6;}
+.opt-btn:hover:not(:disabled){border-color:#a9c6ea;background:#eef4fd}
+.opt-btn:disabled{cursor:default}
+.opt-btn .key{flex:none;width:28px;height:28px;border-radius:50%;background:#fff;
+  border:1.5px solid #cbd6e8;display:grid;place-items:center;
+  font-size:.78rem;font-weight:800;color:#5d6b80;transition:.2s;}
+.opt-btn.selected{background:#eaf1fc;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(22,74,138,.08);}
+.opt-btn.selected .key{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+.opt-btn.correct{background:#e9f8e9;border-color:#4caf50;
+  box-shadow:0 0 0 3px rgba(76,175,80,.12);}
+.opt-btn.correct .key{background:#4caf50;border-color:#4caf50;color:#fff}
+.opt-btn.wrong{background:#fdecea;border-color:#e57373;
+  box-shadow:0 0 0 3px rgba(229,115,115,.12);}
+.opt-btn.wrong .key{background:#e57373;border-color:#e57373;color:#fff}
+.explain{margin-top:6px;padding:16px 18px;border-radius:11px;background:#f0f6ff;
+  border-left:4px solid var(--navy-2);font-size:.92rem;color:#33415c;
+  line-height:1.8;display:none;}
+.explain.show{display:block;animation:fadeIn .25s ease}
+.explain b{color:#0f7b0f;font-weight:800}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.nav-bar{display:flex;gap:10px;margin-top:18px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;}
+.nav-bar .spacer{flex:1}
+.btn-lg{padding:13px 24px;font-size:.94rem;border-radius:11px;font-weight:800;min-width:130px;}
+.btn-prev{background:#fff;border:1.5px solid var(--line);color:#33415c;}
+.btn-prev:hover:not(:disabled){border-color:var(--navy-2);color:var(--navy-2);background:#eef4fd}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-reveal{background:#fff8ee;border:1.5px solid var(--saffron);color:#8a5a00;}
+.btn-reveal:hover:not(:disabled){background:var(--saffron);color:#3d2200}
+.btn-reveal:disabled{opacity:.4;cursor:not-allowed}
+.btn-next{background:var(--navy);color:#fff;border:1.5px solid var(--navy);}
+.btn-next:hover:not(:disabled){background:var(--navy-2);border-color:var(--navy-2)}
+.kbd-hint{font-size:.74rem;color:var(--muted);text-align:center;margin-top:14px;}
+.kbd-hint kbd{background:#f1f4fa;border:1px solid var(--line);border-bottom-width:2px;
+  padding:1px 6px;border-radius:4px;font-size:.7rem;font-family:inherit;
+  font-weight:700;color:#41526e;}
+.result-screen{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:40px 28px;text-align:center;box-shadow:var(--shadow);}
+.result-screen .ring{width:150px;height:150px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;font-size:2.1rem;font-weight:800;color:var(--navy);
+  background:conic-gradient(var(--green) var(--pct,0%),#e6ecf6 0);position:relative;}
+.result-screen .ring::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#fff;}
+.result-screen .ring span{position:relative;z-index:1}
+.result-screen h2{color:var(--navy);font-size:1.35rem;margin-bottom:8px}
+.result-screen p{color:var(--muted);font-size:.94rem;margin-bottom:22px;line-height:1.7}
+.result-screen .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;max-width:420px;margin:0 auto 24px;}
+.result-screen .stat-grid div{background:#f7f9fd;border:1px solid var(--line);
+  border-radius:10px;padding:12px 8px;}
+.result-screen .stat-grid b{display:block;font-size:1.4rem;color:var(--navy)}
+.result-screen .stat-grid span{font-size:.72rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px}
+.result-screen .stat-grid .g b{color:#0f7b0f}
+.result-screen .stat-grid .r b{color:#a82121}
+.result-screen .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.palette-toggle{display:none;width:100%;background:#fff;border:1px solid var(--line);
+  border-radius:11px;padding:12px 16px;margin-bottom:14px;font-weight:800;
+  font-size:.88rem;color:var(--navy);cursor:pointer;
+  justify-content:space-between;align-items:center;font-family:inherit;}
+.palette-toggle .chip{background:#eaf1fc;color:var(--navy-2);font-size:.7rem;
+  font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.4px;}
+.palette-toggle .arrow{transition:transform .25s;display:inline-block;margin-left:8px}
+.palette-toggle.open .arrow{transform:rotate(180deg)}
+@media (max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .palette-toggle{display:flex}
+  .palette-panel{position:static;max-height:0;overflow:hidden;padding:0 18px;
+    border-width:0;transition:max-height .3s ease,padding .3s ease,border-width .3s;}
+  .palette-panel.open{max-height:520px;padding:18px;border-width:1px;overflow-y:auto}
+  .palette{grid-template-columns:repeat(8,1fr);max-height:none}
+}
+@media (max-width:640px){
+  .q-card{padding:18px 16px;border-radius:12px}
+  .q-card .q-text{font-size:.95rem;margin-bottom:16px}
+  .opt-btn{padding:13px 14px;font-size:.9rem;gap:11px;min-height:50px}
+  .opt-btn .key{width:26px;height:26px;font-size:.74rem}
+  .progress-strip{padding:14px 16px;border-radius:12px}
+  .nav-bar{position:sticky;bottom:0;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);margin:18px -16px -16px;padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom,0));
+    border-top:1px solid var(--line);border-radius:0;z-index:20;gap:8px;}
+  .nav-bar .btn-lg{min-width:0;padding:12px 16px;font-size:.86rem;flex:1}
+  .nav-bar .spacer{display:none}
+  .btn-reveal{order:-1;flex-basis:100%;margin-bottom:8px}
+  .palette{grid-template-columns:repeat(6,1fr)}
+  .pal-btn{font-size:.66rem}
+  .lang-switch{width:100%;justify-content:center}
+  .lang-switch button{flex:1;padding:8px 10px;font-size:.8rem}
+  .kbd-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+</style>
+</head>
+<body class="lang-both">
+
+<div class="tricolor"></div>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <span>🇮🇳 GS पोर्टल — BPSC और SSC के लिए सामान्य अध्ययन</span>
+      <span class="topbar-links">
+        <a href="#">हिंदी</a><a href="#">पाठ्यक्रम</a><a href="#">पेपर</a><a href="#">संपर्क</a>
+      </span>
+    </div>
+  </div>
+  <div class="navbar wrap">
+    <a class="brand" href="../index.html">
+      <div class="emblem">📖</div>
+      <div><strong>GS पोर्टल</strong><small>BPSC और SSC सामान्य अध्ययन</small></div>
+    </a>
+    <input type="checkbox" id="menuToggle" class="menu-toggle">
+    <label for="menuToggle" class="menu-btn" aria-label="मेन्यू">☰</label>
+    <nav class="main">
+      <a class="tab" href="../index.html">होम</a>
+      <a class="tab" href="../resource/index.html">संसाधन</a>
+      <a class="tab active" href="index.html">MCQ</a>
+      <a class="tab" href="../blog/index.html">ब्लॉग</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:22px">
+    <div class="wrap">
+      <div class="quiz-shell">
+
+        <div class="lang-switch" role="tablist">
+          <button data-lang="hi" role="tab">हिंदी</button>
+          <button data-lang="en" role="tab">English</button>
+          <button data-lang="both" class="active" role="tab">दोनों / Both</button>
+        </div>
+
+        <div class="progress-strip">
+          <div class="row1">
+            <div class="title">
+              🏛️ मौर्य साम्राज्य — 50 प्रश्न
+              <small>Maurya Empire · BPSC Special · विस्तृत व्याख्या सहित</small>
+              <small id="sectionLabel">खंड A — मौर्य साम्राज्य की स्थापना और चंद्रगुप्त</small>
+            </div>
+            <div class="scoreboard">
+              <div>सही<b class="g" id="sCorrect">0</b></div>
+              <div>गलत<b class="r" id="sWrong">0</b></div>
+              <div>प्रयास<b id="sAttempted">0</b></div>
+              <div>शेष<b id="sRemaining">50</b></div>
+            </div>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+        </div>
+
+        <button class="palette-toggle" id="paletteToggle" aria-expanded="false">
+          <span>📋 प्रश्न पैलेट <span class="chip" id="paletteChip">प्र.1 / 50</span></span>
+          <span class="arrow">▾</span>
+        </button>
+
+        <div class="quiz-layout">
+          <aside class="palette-panel" id="palettePanel">
+            <h3>प्रश्न पैलेट <span class="score-pill" id="paletteScore">0 / 50</span></h3>
+            <div class="legend">
+              <div><i class="grey"></i>नहीं देखा</div>
+              <div><i class="yellow"></i>प्रयास किया</div>
+              <div><i class="green"></i>सही</div>
+              <div><i class="red"></i>गलत</div>
+            </div>
+            <div class="palette" id="palette"></div>
+          </aside>
+          <div class="quiz-main" id="quizMain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>अस्वीकरण / Disclaimer:</strong> यह एक स्वतंत्र अध्ययन संसाधन है। यह BPSC, SSC या किसी सरकारी निकाय से संबद्ध नहीं है।
+    </div>
+    <div class="foot-grid">
+      <div><h4>अध्ययन</h4><ul>
+        <li><a href="../resource/index.html">सभी संसाधन</a></li>
+        <li><a href="index.html">MCQ अभ्यास</a></li>
+        <li><a href="../blog/index.html">रणनीति ब्लॉग</a></li>
+      </ul></div>
+      <div><h4>MCQ विषय</h4><ul>
+        <li><a href="polity.html">राजव्यवस्था</a></li>
+        <li><a href="history.html">इतिहास</a></li>
+        <li><a href="geography.html">भूगोल</a></li>
+      </ul></div>
+      <div><h4>परीक्षाएँ</h4><ul>
+        <li><a href="#">BPSC CCE प्रारंभिक</a></li>
+        <li><a href="#">BPSC CCE मुख्य</a></li>
+        <li><a href="#">SSC CGL टियर-1</a></li>
+      </ul></div>
+      <div><h4>संपर्क</h4><ul>
+        <li>📧 hello@gspanel.example</li>
+        <li>📞 1800-000-0000</li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GS पोर्टल। सर्वाधिकार सुरक्षित।</span>
+      <span>गोपनीयता · शर्तें · अभिगम्यता</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   मौर्य साम्राज्य — 50 प्रश्न
+   ========================================================= */
+const SECTIONS = [
+  {hi:"खंड A — मौर्य साम्राज्य की स्थापना और चंद्रगुप्त मौर्य", en:"Section A — Foundation & Chandragupta Maurya"},
+  {hi:"खंड B — बिंदुसार और अशोक", en:"Section B — Bindusara & Ashoka"},
+  {hi:"खंड C — मौर्य प्रशासन, अर्थव्यवस्था और संस्कृति", en:"Section C — Mauryan Administration, Economy & Culture"},
+  {hi:"खंड D — मौर्य साम्राज्य का पतन और विरासत", en:"Section D — Decline & Legacy of Maurya Empire"}
+];
+const SECTION_STARTS = [0, 13, 26, 38];
+
+const QUESTIONS = [
+/* ============ खंड A — स्थापना और चंद्रगुप्त मौर्य (Q1–13) ============ */
+{q:{hi:"मौर्य साम्राज्य की स्थापना कब हुई?",en:"When was the Maurya Empire founded?"},
+ o:[{hi:"322 ईसा पूर्व",en:"322 BCE"},{hi:"305 ईसा पूर्व",en:"305 BCE"},{hi:"298 ईसा पूर्व",en:"298 BCE"},{hi:"273 ईसा पूर्व",en:"273 BCE"}],a:0,
+ ex:{hi:"मौर्य साम्राज्य की स्थापना 322 ईसा पूर्व में चंद्रगुप्त मौर्य ने की। उन्होंने चाणक्य (कौटिल्य) की सहायता से धनानंद को पराजित करके नंद वंश का अंत किया। यह भारत के इतिहास का पहला विशाल साम्राज्य था — जिसने लगभग पूरे उपमहाद्वीप को एकजुट किया।",en:"The Maurya Empire was founded in 322 BCE by Chandragupta Maurya, who defeated Dhanananda with Chanakya's help, ending the Nanda dynasty — India's first great empire, unifying most of the subcontinent."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य के गुरु और सलाहकार कौन थे?",en:"Who was Chandragupta Maurya's guru and advisor?"},
+ o:[{hi:"अरस्तु",en:"Aristotle"},{hi:"चाणक्य (कौटिल्य)",en:"Chanakya (Kautilya)"},{hi:"विष्णुगुप्त",en:"Vishnugupta"},{hi:"बिंबिसार",en:"Bimbisara"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य के गुरु और सलाहकार 'चाणक्य' (कौटिल्य/विष्णुगुप्त) थे — जो तक्षशिला के प्रसिद्ध आचार्य थे। उन्होंने 'अर्थशास्त्र' की रचना की — जो राजनीति, प्रशासन और अर्थव्यवस्था का प्रसिद्ध ग्रंथ है। चाणक्य ने चंद्रगुप्त को सत्ता प्राप्ति में मदद की।",en:"Chandragupta's guru was 'Chanakya' (Kautilya/Vishnugupta), a famed teacher of Taxila, who wrote the 'Arthashastra' on politics, administration and economy, and helped Chandragupta rise to power."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य का संबंध किस वंश से था?",en:"Chandragupta Maurya belonged to which clan?"},
+ o:[{hi:"शाक्य",en:"Shakya"},{hi:"मौर्य (मोरिय)",en:"Maurya (Moriya)"},{hi:"लिच्छवी",en:"Lichchhavi"},{hi:"ज्ञातृक",en:"Jnatrika"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य का संबंध 'मौर्य' (मोरिय) वंश से था — जो मयूर-पालक (मोर पालने वाले) क्षत्रिय कुल का था। बौद्ध ग्रंथों के अनुसार वे शाक्य वंश के थे, हालांकि विद्वानों में मतभेद है। उनका जन्म पिप्पलिवन (वर्तमान नेपाल) में माना जाता है।",en:"Chandragupta belonged to the 'Maurya' (Moriya) clan — peacock-keepers (mayura-poshaka) of Kshatriya descent. Buddhist texts link him to the Shakya clan, though scholars disagree. He is said to have been born at Pippalivana (Nepal)."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य ने किस यूनानी शासक को हराया था?",en:"Which Greek ruler did Chandragupta Maurya defeat?"},
+ o:[{hi:"सिकंदर",en:"Alexander"},{hi:"सेल्यूकस निकेटर",en:"Seleucus Nicator"},{hi:"डेमेट्रियस",en:"Demetrius"},{hi:"पोरस",en:"Porus"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य ने 305 ईसा पूर्व में 'सेल्यूकस निकेटर' को हराया — जो सिकंदर के मृत्यु के बाद उत्तर-पश्चिम भारत पर अधिकार करना चाहता था। संधि के अनुसार — चंद्रगुप्त को 4 सत्रापियाँ (आराकोसिया, गेड्रोसिया, एरिया, पारोपनिसदे) मिलीं, 500 हाथी दिए गए, और उनके पुत्र बिंदुसार से सेल्यूकस की पुत्री का विवाह हुआ।",en:"In 305 BCE, Chandragupta defeated 'Seleucus Nicator'. By the treaty, Chandragupta received 4 satrapies (Arachosia, Gedrosia, Aria, Paropamisadae), gave 500 elephants, and Seleucus' daughter married Chandragupta's son Bindusara."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य के दरबार में कौन यूनानी राजदूत आया था?",en:"Which Greek ambassador visited Chandragupta Maurya's court?"},
+ o:[{hi:"ह्वेनसांग",en:"Hiuen Tsang"},{hi:"मेगस्थनीज",en:"Megasthenes"},{hi:"फाह्यान",en:"Fa-Hien"},{hi:"अल्बेरुनी",en:"Alberuni"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य के दरबार में यूनानी राजदूत 'मेगस्थनीज' आया था — जिसे सेल्यूकस ने भेजा था। उसने 'इंडिका' नामक पुस्तक लिखी, जो मौर्यकालीन भारत के समाज, प्रशासन, अर्थव्यवस्था और संस्कृति का महत्वपूर्ण स्रोत है। हालांकि उसका कुछ विवरण अतिशयोक्तिपूर्ण माना जाता है।",en:"The Greek ambassador 'Megasthenes' visited Chandragupta's court, sent by Seleucus. He wrote 'Indica', a key source on Mauryan society, administration and economy, though partly exaggerated."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य की राजधानी कौन-सी थी?",en:"What was Chandragupta Maurya's capital?"},
+ o:[{hi:"राजगृह",en:"Rajagriha"},{hi:"वैशाली",en:"Vaishali"},{hi:"पाटलिपुत्र",en:"Pataliputra"},{hi:"उज्जैन",en:"Ujjain"}],a:2,
+ ex:{hi:"चंद्रगुप्त मौर्य की राजधानी 'पाटलिपुत्र' (आधुनिक पटना, बिहार) थी। उनके शासनकाल में पाटलिपुत्र विश्व के सबसे बड़े और समृद्ध नगरों में से एक बन गया। मेगस्थनीज ने 'इंडिका' में पाटलिपुत्र का विस्तृत वर्णन किया — जिसमें नगर की लंबाई 9.5 मील, 64 द्वार, 570 बुर्ज बताई गई है।",en:"Chandragupta's capital was 'Pataliputra' (modern Patna, Bihar), which became one of the world's largest and richest cities. Megasthenes described it in 'Indica' — 9.5 miles long, 64 gates and 570 towers."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य के शासनकाल में पाटलिपुत्र का प्रशासन कितने समितियों द्वारा चलता था?",en:"How many committees administered Pataliputra during Chandragupta's reign?"},
+ o:[{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"6",en:"6"},{hi:"8",en:"8"}],a:2,
+ ex:{hi:"मेगस्थनीज के अनुसार पाटलिपुत्र का प्रशासन 6 समितियों द्वारा चलता था — प्रत्येक में 5 सदस्य थे। ये समितियाँ — (1) उद्योग, (2) विदेशी मामले, (3) जनगणना, (4) व्यापार, (5) निर्माण और (6) कर वसूली। कुल 30 सदस्यों वाला नगर परिषद था, जिसका अध्यक्ष 'नगरक' था।",en:"Per Megasthenes, Pataliputra was administered by 6 committees of 5 members each — industry, foreign affairs, census, trade, construction and taxation. A 30-member city council led by the 'Nagaraka' oversaw everything."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य ने अपने जीवन के अंत में कौन-सा धर्म अपनाया?",en:"Which religion did Chandragupta Maurya embrace at the end of his life?"},
+ o:[{hi:"बौद्ध",en:"Buddhism"},{hi:"जैन",en:"Jainism"},{hi:"हिंदू",en:"Hinduism"},{hi:"अजीविक",en:"Ajivika"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य ने अपने जीवन के अंत में 'जैन धर्म' अपनाया — भद्रबाहु नामक जैन आचार्य से दीक्षा ली। उन्होंने 298 ईसा पूर्व में सिंहासन त्याग दिया और अपने पुत्र बिंदुसार को राज्य सौंपा। वे दक्षिण भारत के 'श्रवणबेलगोला' (कर्नाटक) गए और वहाँ 'सल्लेखना' (उपवास द्वारा मृत्यु) की प्रथा से शरीर त्याग किया।",en:"Chandragupta embraced 'Jainism' at the end of his life, initiated by Jain acharya Bhadrabahu. He abdicated in 298 BCE, handed power to Bindusara, retired to 'Shravanabelagola' (Karnataka) and died by 'Sallekhana' (fasting unto death)."}},
+
+{q:{hi:"'अर्थशास्त्र' के अनुसार चंद्रगुप्त मौर्य के प्रशासन में मंत्रियों की परिषद को क्या कहा जाता था?",en:"Per the 'Arthashastra', what was the council of ministers in Chandragupta's administration called?"},
+ o:[{hi:"सभा",en:"Sabha"},{hi:"मंत्रिपरिषद",en:"Mantriparishad"},{hi:"जनपद",en:"Janapada"},{hi:"परिषद",en:"Parishad"}],a:1,
+ ex:{hi:"अर्थशास्त्र के अनुसार चंद्रगुप्त मौर्य के प्रशासन में मंत्रियों की परिषद को 'मंत्रिपरिषद' कहा जाता था — जिसमें अमात्य, मंत्री, परामर्शदाता और विभागों के कार्यकारी शामिल थे। इसका कार्य राजा को सलाह देना, नीति बनाना, युद्ध-शांति के निर्णय लेना और प्रशासनिक सहायता देना था। 'अर्थशास्त्र' में मंत्रियों के गुणों का विस्तृत वर्णन है।",en:"Per the Arthashastra, the council was the 'Mantriparishad', including Amatyas, ministers, advisers and department heads, advising the king on policy, war-peace decisions and administration."}},
+
+{q:{hi:"मौर्य साम्राज्य की स्थापना में चाणक्य का क्या योगदान था?",en:"What was Chanakya's contribution to the Maurya Empire's foundation?"},
+ o:[{hi:"केवल सलाहकार",en:"Only adviser"},{hi:"राजनीतिक और रणनीतिक सहायक",en:"Political and strategic helper"},{hi:"सेनापति",en:"Commander"},{hi:"दूत",en:"Ambassador"}],a:1,
+ ex:{hi:"चाणक्य (कौटिल्य) मौर्य साम्राज्य की स्थापना में 'राजनीतिक और रणनीतिक सहायक' थे। नंद वंश के अपमान का बदला लेने के लिए उन्होंने चंद्रगुप्त को तैयार किया, उन्हें सत्ता प्राप्ति के लिए मार्गदर्शन किया और 'अर्थशास्त्र' के माध्यम से प्रशासन की नींव रखी। चाणक्य को 'भारतीय मैकियावेली' कहा जाता है।",en:"Chanakya was the 'political and strategic helper' in founding the Maurya Empire, grooming Chandragupta to avenge Nanda's insult and laying administrative foundations via the Arthashastra. He is called the 'Indian Machiavelli'."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य का शासनकाल कितने वर्षों तक रहा?",en:"How many years did Chandragupta Maurya rule?"},
+ o:[{hi:"15 वर्ष",en:"15 years"},{hi:"20 वर्ष",en:"20 years"},{hi:"24 वर्ष",en:"24 years"},{hi:"30 वर्ष",en:"30 years"}],a:2,
+ ex:{hi:"चंद्रगुप्त मौर्य ने लगभग '24 वर्षों' (322–298 ईसा पूर्व) तक शासन किया — जिसमें उन्होंने नंद वंश को उखाड़ा, सेल्यूकस को हराया, लगभग पूरे उपमहाद्वीप को एकजुट किया और मौर्य साम्राज्य की मजबूत नींव रखी। 298 ईसा पूर्व में उन्होंने सिंहासन त्याग दिया।",en:"Chandragupta ruled for about '24 years' (322–298 BCE), overthrowing the Nandas, defeating Seleucus, unifying most of the subcontinent and establishing a strong Maurya foundation. He abdicated in 298 BCE."}},
+
+{q:{hi:"मौर्य साम्राज्य की स्थापना से पहले चंद्रगुप्त मौर्य ने किस वंश का अंत किया?",en:"Which dynasty did Chandragupta Maurya end before founding the Maurya Empire?"},
+ o:[{hi:"हर्यंक",en:"Haryanka"},{hi:"शिशुनाग",en:"Shishunaga"},{hi:"नंद",en:"Nanda"},{hi:"शुंग",en:"Shunga"}],a:2,
+ ex:{hi:"चंद्रगुप्त मौर्य ने 322 ईसा पूर्व में 'नंद वंश' का अंत किया — इसके अंतिम शासक 'धनानंद' को पराजित कर। यह चाणक्य की रणनीति का परिणाम था। नंद वंश ने 345–322 ईसा पूर्व तक मगध पर शासन किया था। मौर्य साम्राज्य इसी मगध साम्राज्य का विस्तार था।",en:"Chandragupta ended the 'Nanda dynasty' in 322 BCE by defeating its last ruler Dhanananda, as part of Chanakya's strategy. The Nandas had ruled Magadha from 345–322 BCE — the Maurya Empire extended Magadha's power."}},
+
+{q:{hi:"चंद्रगुप्त मौर्य के समय के प्रसिद्ध जैन आचार्य कौन थे?",en:"Who was the famous Jain acharya during Chandragupta Maurya's time?"},
+ o:[{hi:"स्थूलभद्र",en:"Sthulabhadra"},{hi:"भद्रबाहु",en:"Bhadrabahu"},{hi:"हेमचंद्र",en:"Hemachandra"},{hi:"उमास्वामी",en:"Umaswami"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य के समय के प्रसिद्ध जैन आचार्य 'भद्रबाहु' थे — जो अंतिम 'श्रुतकेवली' माने जाते हैं। उन्होंने चंद्रगुप्त को जैन धर्म की दीक्षा दी और उनके साथ श्रवणबेलगोला गए। वहीं चंद्रगुप्त ने सल्लेखना की प्रथा से शरीर त्याग किया।",en:"The famous Jain acharya of Chandragupta's time was 'Bhadrabahu', the last Shrutakevali. He initiated Chandragupta into Jainism and accompanied him to Shravanabelagola, where Chandragupta died by Sallekhana."}},
+
+/* ============ खंड B — बिंदुसार और अशोक (Q14–26) ============ */
+{q:{hi:"चंद्रगुप्त मौर्य के बाद मौर्य साम्राज्य का शासक कौन बना?",en:"Who became the Maurya ruler after Chandragupta Maurya?"},
+ o:[{hi:"अशोक",en:"Ashoka"},{hi:"बिंदुसार",en:"Bindusara"},{hi:"कुणाल",en:"Kunala"},{hi:"दशरथ",en:"Dasharatha"}],a:1,
+ ex:{hi:"चंद्रगुप्त मौर्य के बाद उनके पुत्र 'बिंदुसार' (298–273 ईसा पूर्व) मौर्य साम्राज्य के शासक बने। उन्हें 'अमित्रघात' (शत्रुओं का नाशक) कहा जाता था। उनका शासनकाल लगभग 25 वर्षों का रहा और उन्होंने साम्राज्य को और मजबूत किया।",en:"After Chandragupta, his son 'Bindusara' (298–273 BCE) became the Maurya ruler, called 'Amitraghata' (slayer of enemies). His reign of ~25 years further strengthened the empire."}},
+
+{q:{hi:"बिंदुसार का दूसरा नाम क्या था?",en:"What was Bindusara's other name?"},
+ o:[{hi:"अमित्रघात",en:"Amitraghata"},{hi:"देवानांप्रिय",en:"Devanampriya"},{hi:"प्रियदर्शी",en:"Priyadarshi"},{hi:"चक्रवर्ती",en:"Chakravarti"}],a:0,
+ ex:{hi:"बिंदुसार का दूसरा नाम 'अमित्रघात' (शत्रुओं का नाश करने वाला) था। यह नाम उनकी सैन्य शक्ति और विजयों को दर्शाता है। जैन परंपरा में उन्हें 'सिंहसेन' भी कहा गया है। यूनानी स्रोतों में उन्हें 'अमित्रोकेट्स' कहा गया है।",en:"Bindusara's other name was 'Amitraghata' (slayer of enemies), reflecting his military strength. Jain tradition calls him 'Simhasena'; Greek sources call him 'Amitrochates'."}},
+
+{q:{hi:"बिंदुसार ने किस यूनानी शासक के साथ संबंध बनाए रखे?",en:"With which Greek ruler did Bindusara maintain relations?"},
+ o:[{hi:"सिकंदर",en:"Alexander"},{hi:"सेल्यूकस और एंटिओकस",en:"Seleucus and Antiochus"},{hi:"पोरस",en:"Porus"},{hi:"डेमेट्रियस",en:"Demetrius"}],a:1,
+ ex:{hi:"बिंदुसार ने 'सेल्यूकस' और उनके पुत्र 'एंटिओकस-I' के साथ मैत्रीपूर्ण संबंध बनाए रखे। उन्होंने एंटिओकस को मिठाई, अंजीर और दार्शनिक माँगने के लिए पत्र भेजा। एंटिओकस ने डायमेकस को बिंदुसार के दरबार में राजदूत के रूप में भेजा। यह भारत-यूनान के बीच कूटनीतिक संबंधों का उदाहरण है।",en:"Bindusara maintained friendly ties with 'Seleucus' and his son 'Antiochus I'. He asked Antiochus for sweets, figs and a philosopher. Antiochus sent Deimachus as his ambassador to Bindusara's court — an example of Indo-Greek diplomacy."}},
+
+{q:{hi:"अशोक का जन्म कब और कहाँ हुआ?",en:"When and where was Ashoka born?"},
+ o:[{hi:"304 ईसा पूर्व, पाटलिपुत्र",en:"304 BCE, Pataliputra"},{hi:"269 ईसा पूर्व, वैशाली",en:"269 BCE, Vaishali"},{hi:"273 ईसा पूर्व, उज्जैन",en:"273 BCE, Ujjain"},{hi:"298 ईसा पूर्व, तक्षशिला",en:"298 BCE, Taxila"}],a:0,
+ ex:{hi:"अशोक का जन्म 304 ईसा पूर्व में 'पाटलिपुत्र' (पटना, बिहार) में हुआ। उनके पिता बिंदुसार और माता 'सुभद्रांगी' (या धम्मा) थीं। वे बिंदुसार के पुत्र थे और उन्हें 'देवानांप्रिय प्रियदर्शी' कहा जाता था। उनके अभिलेखों में उनका नाम 'अशोक' के रूप में मिलता है।",en:"Ashoka was born in 304 BCE at 'Pataliputra' (Patna, Bihar). His father was Bindusara and mother 'Subhadrangi' (or Dhamma). Called 'Devanampriya Priyadarshi', he is named 'Ashoka' in his own inscriptions."}},
+
+{q:{hi:"अशोक को 'देवानांप्रिय' और 'प्रियदर्शी' क्यों कहा जाता था?",en:"Why was Ashoka called 'Devanampriya' and 'Priyadarshi'?"},
+ o:[{hi:"सैन्य शक्ति के कारण",en:"Due to military power"},{hi:"देवताओं का प्रिय और दयालु दृष्टि वाला",en:"Beloved of gods and of kindly appearance"},{hi:"राज्य विस्तार के कारण",en:"Due to expansion"},{hi:"धन के कारण",en:"Due to wealth"}],a:1,
+ ex:{hi:"अशोक को 'देवानांप्रिय' (देवताओं का प्रिय) और 'प्रियदर्शी' (प्रिय दर्शन वाला) कहा जाता था — ये उनकी उपाधियाँ थीं। ये नाम उनके अभिलेखों में मिलते हैं। 'देवानांप्रिय' उनकी धार्मिकता और 'प्रियदर्शी' उनकी दयालुता और सौम्यता को दर्शाते हैं। कलिंग युद्ध के बाद उन्होंने ये उपाधियाँ धारण कीं।",en:"Ashoka's titles 'Devanampriya' (beloved of gods) and 'Priyadarshi' (of kindly appearance) appear in his inscriptions, reflecting his religiosity and benevolence, especially after the Kalinga War."}},
+
+{q:{hi:"अशोक का राज्याभिषेक किस वर्ष हुआ?",en:"In which year was Ashoka crowned?"},
+ o:[{hi:"273 ईसा पूर्व",en:"273 BCE"},{hi:"269 ईसा पूर्व",en:"269 BCE"},{hi:"261 ईसा पूर्व",en:"261 BCE"},{hi:"250 ईसा पूर्व",en:"250 BCE"}],a:1,
+ ex:{hi:"अशोक का राज्याभिषेक 269 ईसा पूर्व में हुआ, हालांकि वे 273 ईसा पूर्व में ही सिंहासन पर बैठे थे — 4 वर्ष के उत्तराधिकार संघर्ष के बाद। उन्होंने अपने 99 भाइयों में से 98 को मारकर सत्ता प्राप्त की (कुछ स्रोतों के अनुसार)। उनके शासनकाल में 261 ईसा पूर्व में कलिंग युद्ध हुआ।",en:"Ashoka was crowned in 269 BCE, though he ascended the throne in 273 BCE after 4 years of succession struggle. The Kalinga War (261 BCE) occurred during his reign."}},
+
+{q:{hi:"अशोक ने किस युद्ध के बाद बौद्ध धर्म अपनाया?",en:"After which war did Ashoka embrace Buddhism?"},
+ o:[{hi:"हाइडेस्पीज़ का युद्ध",en:"Battle of Hydaspes"},{hi:"कलिंग का युद्ध",en:"Kalinga War"},{hi:"पानीपत का युद्ध",en:"Battle of Panipat"},{hi:"प्लासी का युद्ध",en:"Battle of Plassey"}],a:1,
+ ex:{hi:"261 ईसा पूर्व में कलिंग युद्ध में हुए भीषण नरसंहार के बाद अशोक ने बौद्ध धर्म अपनाया। उस युद्ध में लगभग 1,00,000 लोग मारे गए, 1,50,000 विस्थापित हुए और हज़ारों बंदी बनाए गए। इससे उन्हें गहरा दुख हुआ और उन्होंने 'धम्म विजय' की नीति अपनाई। उनके गुरु 'उपगुप्त' थे।",en:"After the Kalinga War (261 BCE) with its terrible carnage — 100,000 killed, 150,000 displaced — Ashoka embraced Buddhism and adopted 'Dhamma Vijaya'. His guru was 'Upagupta'."}},
+
+{q:{hi:"अशोक के किस अभिलेख में कलिंग युद्ध का वर्णन है?",en:"Which of Ashoka's edicts describes the Kalinga War?"},
+ o:[{hi:"शिलालेख I",en:"Rock Edict I"},{hi:"शिलालेख XIII",en:"Rock Edict XIII"},{hi:"स्तंभ लेख I",en:"Pillar Edict I"},{hi:"शिलालेख V",en:"Rock Edict V"}],a:1,
+ ex:{hi:"अशोक के 13वें शिलालेख में कलिंग युद्ध का विस्तृत वर्णन है। इसमें अशोक ने बताया है कि युद्ध में 1,00,000 लोग मारे गए, 1,50,000 विस्थापित हुए और इससे उन्हें गहरा दुख हुआ। इसी कारण उन्होंने बौद्ध धर्म अपनाया और 'धम्म' का प्रचार किया। यह अभिलेख अशोक की मानसिक परिवर्तन की कहानी बताता है।",en:"Ashoka's 13th Rock Edict describes the Kalinga War in detail — 100,000 killed, 150,000 displaced — causing him deep sorrow, leading him to embrace Buddhism and propagate Dhamma."}},
+
+{q:{hi:"अशोक के अभिलेख मुख्यतः किस भाषा और लिपि में हैं?",en:"Ashoka's inscriptions are mainly in which language and script?"},
+ o:[{hi:"संस्कृत और देवनागरी",en:"Sanskrit and Devanagari"},{hi:"प्राकृत और ब्राह्मी",en:"Prakrit and Brahmi"},{hi:"पाली और खरोष्ठी",en:"Pali and Kharosthi"},{hi:"तमिल और ग्रंथ",en:"Tamil and Grantha"}],a:1,
+ ex:{hi:"अशोक के अधिकांश अभिलेख 'प्राकृत' भाषा में 'ब्राह्मी' लिपि में लिखे गए थे। उत्तर-पश्चिम भारत में कुछ अभिलेख खरोष्ठी लिपि में और कुछ ग्रीक तथा अरामाइक में भी मिले हैं। अभिलेखों की खोज 1837 में 'जेम्स प्रिंसेप' ने की, जिन्होंने ब्राह्मी लिपि को पढ़ा।",en:"Most of Ashoka's inscriptions are in 'Prakrit' language and 'Brahmi' script. In NW India, some use Kharosthi, Greek and Aramaic. James Prinsep deciphered Brahmi in 1837."}},
+
+{q:{hi:"अशोक के 'धम्म' में कौन-कौन से सिद्धांत शामिल थे?",en:"What principles were included in Ashoka's 'Dhamma'?"},
+ o:[{hi:"केवल बौद्ध धर्म",en:"Only Buddhism"},{hi:"अहिंसा, सत्य, दया, सहिष्णुता, परोपकार",en:"Ahimsa, truth, compassion, tolerance, charity"},{hi:"केवल यज्ञ",en:"Only sacrifice"},{hi:"केवल ध्यान",en:"Only meditation"}],a:1,
+ ex:{hi:"अशोक के 'धम्म' में कई सार्वभौमिक सिद्धांत शामिल थे — (1) अहिंसा (जीव हत्या का त्याग), (2) सत्य, (3) दया, (4) सहिष्णुता (सभी धर्मों का सम्मान), (5) परोपकार, (6) माता-पिता और गुरुओं का आदर, (7) दान, (8) संयम। यह बौद्ध धर्म से प्रेरित था लेकिन सार्वभौमिक नैतिकता पर आधारित था।",en:"Ashoka's Dhamma included universal principles — Ahimsa (non-violence), truth, compassion, tolerance (respect for all religions), charity, respect for parents and elders, giving and restraint — inspired by Buddhism but universal in scope."}},
+
+{q:{hi:"अशोक ने 'धम्म महामात्र' क्यों नियुक्त किए?",en:"Why did Ashoka appoint 'Dhamma Mahamatra'?"},
+ o:[{hi:"कर वसूलने के लिए",en:"For tax collection"},{hi:"धम्म के प्रचार और जनता की भलाई के लिए",en:"For propagating Dhamma and public welfare"},{hi:"युद्ध के लिए",en:"For war"},{hi:"व्यापार के लिए",en:"For trade"}],a:1,
+ ex:{hi:"अशोक ने 'धम्म महामात्र' नामक अधिकारियों को 'धम्म के प्रचार और जनता की भलाई के लिए' नियुक्त किया। ये अधिकारी जनता के बीच घूमकर धम्म का प्रचार करते, नैतिक जीवन की शिक्षा देते, विभिन्न धर्मों में सहिष्णुता बढ़ाते और जनता की समस्याओं का समाधान करते थे। उनका निरीक्षण स्वयं अशोक करते थे।",en:"Ashoka appointed 'Dhamma Mahamatra' to propagate Dhamma and promote public welfare — touring among people, teaching morality, fostering religious tolerance and solving grievances, supervised by Ashoka himself."}},
+
+{q:{hi:"अशोक की मृत्यु कब हुई?",en:"When did Ashoka die?"},
+ o:[{hi:"232 ईसा पूर्व",en:"232 BCE"},{hi:"261 ईसा पूर्व",en:"261 BCE"},{hi:"240 ईसा पूर्व",en:"240 BCE"},{hi:"210 ईसा पूर्व",en:"210 BCE"}],a:0,
+ ex:{hi:"अशोक की मृत्यु 232 ईसा पूर्व में हुई — लगभग 72 वर्ष की आयु में। उन्होंने लगभग 37 वर्षों (269–232 ईसा पूर्व) तक शासन किया। उनकी मृत्यु के बाद मौर्य साम्राज्य का पतन प्रारंभ हो गया — क्योंकि उनके उत्तराधिकारी कमजोर थे और साम्राज्य विघटित होने लगा।",en:"Ashoka died in 232 BCE at ~72, having ruled for about 37 years (269–232 BCE). After his death, the Maurya Empire declined due to weak successors and disintegration."}},
+
+/* ============ खंड C — मौर्य प्रशासन, अर्थव्यवस्था और संस्कृति (Q27–38) ============ */
+{q:{hi:"मौर्य प्रशासन में राजा का पद कैसा था?",en:"What was the position of the king in Mauryan administration?"},
+ o:[{hi:"निरंकुश",en:"Autocratic"},{hi:"संवैधानिक",en:"Constitutional"},{hi:"निर्वाचित",en:"Elected"},{hi:"पुरोहित-शासित",en:"Priest-ruled"}],a:0,
+ ex:{hi:"मौर्य प्रशासन में राजा का पद 'निरंकुश' (Autocratic) था — राजा सर्वोच्च शक्ति का केंद्र था। कौटिल्य के अनुसार राजा 'प्रजा का रक्षक', 'न्याय का स्रोत' और 'सेना का सेनापति' था। हालांकि राजा को धर्म, मंत्रियों की सलाह और जनमत का ध्यान रखना पड़ता था। राजा की सहायता के लिए मंत्रिपरिषद थी।",en:"The king was 'autocratic' — the supreme source of power. Per Kautilya, the king was protector, source of justice and commander of the army, though he had to heed Dhamma, ministers' advice and public opinion. The Mantriparishad assisted him."}},
+
+{q:{hi:"मौर्य प्रशासन में 'समाहर्ता' का कार्य क्या था?",en:"What was the function of 'Samaharta' in Mauryan administration?"},
+ o:[{hi:"न्यायाधीश",en:"Judge"},{hi:"राजस्व संग्रह का प्रमुख",en:"Chief of revenue collection"},{hi:"सेनापति",en:"Commander"},{hi:"धार्मिक गुरु",en:"Religious teacher"}],a:1,
+ ex:{hi:"मौर्य प्रशासन में 'समाहर्ता' राजस्व संग्रह का प्रमुख अधिकारी था — जो साम्राज्य के सभी राजस्व के संग्रह का प्रभारी था। वह प्रत्येक विभाग से कर एकत्र करने का उत्तरदायी था। अर्थशास्त्र के अनुसार समाहर्ता साम्राज्य के आर्थिक प्रशासन का मुख्य स्तंभ था।",en:"'Samaharta' was the chief revenue collection officer, responsible for collecting taxes from all departments — the pillar of Mauryan economic administration per the Arthashastra."}},
+
+{q:{hi:"मौर्य प्रशासन में 'युक्त' का कार्य क्या था?",en:"What was the function of 'Yukta' in Mauryan administration?"},
+ o:[{hi:"सैन्य अधिकारी",en:"Military officer"},{hi:"राजस्व और सार्वजनिक निर्माण के अधिकारी",en:"Revenue and public works officer"},{hi:"न्यायाधीश",en:"Judge"},{hi:"धार्मिक अधिकारी",en:"Religious officer"}],a:1,
+ ex:{hi:"मौर्य काल में 'युक्त' राजस्व अधिकारी थे — जो समाहर्ता के अधीन कार्य करते थे। वे राजस्व वसूली और सार्वजनिक निर्माण कार्यों की देखरेख में सहायक थे। सड़कों, पुलों, नहरों और अन्य सार्वजनिक संरचनाओं के निर्माण-रखरखाव की जिम्मेदारी भी उनके पास थी।",en:"'Yuktas' were revenue officers under the Samaharta, assisting in revenue collection and supervising public works — roads, bridges, canals and other infrastructure."}},
+
+{q:{hi:"मौर्य काल में 'राज्जुक' का कार्य क्या था?",en:"What was the function of 'Rajjuka' in the Mauryan period?"},
+ o:[{hi:"ग्रामीण प्रशासन और न्याय",en:"Rural administration and justice"},{hi:"सैन्य अधिकारी",en:"Military officer"},{hi:"कर वसूली",en:"Tax collection"},{hi:"धार्मिक प्रचार",en:"Religious propagation"}],a:0,
+ ex:{hi:"मौर्य काल में 'राज्जुक' ग्रामीण प्रशासन और न्याय के अधिकारी थे। अशोक के शिलालेख में उल्लेख है कि वे जनता के बीच घूमकर न्याय करते थे और धम्म का प्रचार करते थे। अशोक के अनुसार उन्हें जनता की भलाई, न्याय और प्रशासन के लिए नियुक्त किया गया था।",en:"'Rajjukas' were officers of rural administration and justice. Ashoka's edicts mention they toured among the people delivering justice and propagating Dhamma, appointed for public welfare."}},
+
+{q:{hi:"मौर्य काल में 'प्रदेशिक' का पद क्या था?",en:"What was the position of 'Pradeshika' in the Mauryan period?"},
+ o:[{hi:"केंद्रीय मंत्री",en:"Central minister"},{hi:"प्रांतीय गवर्नर",en:"Provincial governor"},{hi:"ग्राम प्रधान",en:"Village head"},{hi:"सैन्य अधिकारी",en:"Military officer"}],a:1,
+ ex:{hi:"मौर्य काल में 'प्रदेशिक' प्रांतीय गवर्नर होते थे — जो प्रांतों के प्रशासन के प्रमुख अधिकारी थे। वे राजा द्वारा नियुक्त होते थे और प्रांत में राजा के प्रतिनिधि के रूप में कार्य करते थे। मौर्य साम्राज्य में कुल 5 प्रमुख प्रांत थे — जिनके प्रमुख 'कुमार' (राजकुमार) या 'प्रदेशिक' होते थे।",en:"'Pradeshika' were provincial governors — the chief officers of provincial administration, appointed by the king as his representatives. The empire had 5 major provinces, each under a 'Kumara' (prince) or Pradeshika."}},
+
+{q:{hi:"मौर्य प्रशासन में 'मंत्रिपरिषद' का कार्य क्या था?",en:"What was the function of 'Mantriparishad' in Mauryan administration?"},
+ o:[{hi:"राजा को सलाह देना",en:"Advising the king"},{hi:"कर वसूलना",en:"Collecting taxes"},{hi:"न्याय करना",en:"Delivering justice"},{hi:"सेना का नेतृत्व",en:"Leading the army"}],a:0,
+ ex:{hi:"मौर्य काल में 'मंत्रिपरिषद' राजा को सलाह देने वाली मंत्रियों की परिषद थी — जिसमें अमात्य, मंत्री, परामर्शदाता और विभागों के कार्यकारी शामिल होते थे। इसका कार्य राजा को प्रशासन, युद्ध-शांति, विदेश नीति और आंतरिक मामलों में सलाह देना था। 'अर्थशास्त्र' में मंत्रियों के गुणों का विस्तृत वर्णन है।",en:"The 'Mantriparishad' was the council advising the king, including Amatyas, ministers and department heads, on administration, war-peace, foreign policy and internal affairs — described in the Arthashastra."}},
+
+{q:{hi:"मौर्य काल में 'अमात्य' का क्या पद था?",en:"What was the position of 'Amatya' in the Mauryan period?"},
+ o:[{hi:"केवल सैन्य अधिकारी",en:"Only military officer"},{hi:"उच्च अधिकारी, परामर्शदाता और विभागों के कार्यकारी",en:"High officials, advisers and department executives"},{hi:"केवल धार्मिक अधिकारी",en:"Only religious officer"},{hi:"केवल कर वसूलने वाला",en:"Only tax collector"}],a:1,
+ ex:{hi:"मौर्य प्रशासन में 'अमात्य' उच्च अधिकारी, परामर्शदाता और विभागों/मंत्रियों के कार्यकारी थे। वे मंत्रिपरिषद के सदस्य होते थे और राजा को प्रशासन में सहायता करते थे। 'अर्थशास्त्र' में अमात्यों के गुणों और कार्यों का विस्तृत वर्णन है — उन्हें 'राजा की आँखें' भी कहा जाता था।",en:"'Amatyas' were high officials, advisers and executives of departments — members of the Mantriparishad assisting the king, described in the Arthashastra as 'eyes of the king'."}},
+
+{q:{hi:"मौर्य काल में कितने प्रमुख प्रांत थे?",en:"How many major provinces were there in the Mauryan period?"},
+ o:[{hi:"3",en:"3"},{hi:"4",en:"4"},{hi:"5",en:"5"},{hi:"7",en:"7"}],a:2,
+ ex:{hi:"मौर्य साम्राज्य में 5 प्रमुख प्रांत थे — (1) उत्तरापथ (तक्षशिला), (2) अवंती (उज्जैन), (3) प्राची (पाटलिपुत्र), (4) दक्षिणापथ (सुवर्णगिरि), (5) कलिंग (तोसली)। प्रत्येक प्रांत का प्रमुख 'कुमार' (राजकुमार) या 'प्रदेशिक' होता था। प्रांतों में भी मंत्रिपरिषद जैसी व्यवस्था थी।",en:"The Mauryan Empire had 5 major provinces — Uttarapatha (Taxila), Avanti (Ujjain), Prachi (Pataliputra), Dakshinapatha (Suvarnagiri) and Kalinga (Tosali), each under a Kumara or Pradeshika."}},
+
+{q:{hi:"मौर्य काल में 'नगरक' का कार्य क्या था?",en:"What was the function of 'Nagaraka' in the Mauryan period?"},
+ o:[{hi:"ग्राम प्रशासन",en:"Village administration"},{hi:"नगर प्रशासन का प्रमुख",en:"Chief of city administration"},{hi:"सैन्य प्रशासन",en:"Military administration"},{hi:"धार्मिक प्रशासन",en:"Religious administration"}],a:1,
+ ex:{hi:"मौर्य काल में 'नगरक' नगर प्रशासन का प्रमुख अधिकारी था — जो नगर परिषद का अध्यक्ष होता था। उसके अधीन 6 समितियाँ होती थीं (प्रत्येक में 5 सदस्य) — उद्योग, विदेशी मामले, जनगणना, व्यापार, निर्माण और कर वसूली। मेगस्थनीज ने 'इंडिका' में पाटलिपुत्र के नगर प्रशासन का वर्णन किया है।",en:"'Nagaraka' was the chief of city administration, head of the city council with 6 committees of 5 members each — industry, foreign affairs, census, trade, construction and taxation, as described by Megasthenes."}},
+
+{q:{hi:"मौर्य काल में 'सीता' क्या था?",en:"What was 'Sita' in the Mauryan period?"},
+ o:[{hi:"नगर",en:"City"},{hi:"राजकीय भूमि/कृषि भूमि",en:"Crown land/agricultural land"},{hi:"सेना",en:"Army"},{hi:"कर",en:"Tax"}],a:1,
+ ex:{hi:"मौर्य काल में 'सीता' का अर्थ 'राजकीय भूमि' या 'कृषि भूमि' था — जो सरकार के प्रत्यक्ष नियंत्रण में होती थी। इसका प्रबंधन 'सीताध्यक्ष' नामक अधिकारी करता था। 'सीता' से होने वाली आय राज्य का प्रमुख आय स्रोत थी। अर्थशास्त्र में सीताध्यक्ष के कार्यों का वर्णन है।",en:"'Sita' referred to 'crown or agricultural land' directly managed by the state, under the 'Sitadhyaksha'. Revenue from Sita was a major source of state income, detailed in the Arthashastra."}},
+
+{q:{hi:"मौर्य काल में 'अकर' और 'प्रणय' क्या थे?",en:"What were 'Akara' and 'Pranaya' in the Mauryan period?"},
+ o:[{hi:"दो प्रकार के कर",en:"Two types of taxes"},{hi:"दो प्रकार के सिक्के",en:"Two types of coins"},{hi:"दो प्रकार की सेना",en:"Two types of armies"},{hi:"दो प्रकार के मंदिर",en:"Two types of temples"}],a:0,
+ ex:{hi:"मौर्य काल में 'अकर' और 'प्रणय' दो प्रकार के कर थे। 'अकर' = राजकीय भूमि से मिलने वाला राजस्व, 'प्रणय' = आपातकालीन कर (युद्ध या विपत्ति के समय लगाया जाने वाला)। इसके अलावा 'बलि' (धार्मिक कर), 'भाग' (उपज का छठा भाग), 'कर' (व्यापार कर) भी लगाए जाते थे।",en:"'Akara' was revenue from crown lands, while 'Pranaya' was an emergency tax (for war or calamity). Other taxes included Bali (religious), Bhaga (1/6 of produce) and Kara (trade tax)."}},
+
+{q:{hi:"मौर्य काल में 'बलि' कर क्या था?",en:"What was the 'Bali' tax in the Mauryan period?"},
+ o:[{hi:"व्यापार कर",en:"Trade tax"},{hi:"धार्मिक/स्वैच्छिक कर",en:"Religious/voluntary tax"},{hi:"भूमि कर",en:"Land tax"},{hi:"सैन्य कर",en:"Military tax"}],a:1,
+ ex:{hi:"मौर्य काल में 'बलि' धार्मिक या स्वैच्छिक कर था — जो धार्मिक अनुष्ठानों और यज्ञों के लिए दिया जाता था। यह अनिवार्य नहीं था। ग्रामीण जनता स्वेच्छा से इसे देती थी। इसका उल्लेख 'अर्थशास्त्र' में मिलता है। मौर्य प्रशासन में कर व्यवस्था बहुत विकसित थी।",en:"'Bali' was a religious or voluntary tax for rituals and sacrifices, not compulsory, given voluntarily by villagers — mentioned in the Arthashastra. Mauryan taxation was highly developed."}},
+
+{q:{hi:"मौर्य काल में 'गुप्तचर' (स्पाई) प्रणाली का क्या महत्व था?",en:"What was the importance of the 'spy system' in the Mauryan period?"},
+ o:[{hi:"कोई महत्व नहीं",en:"No importance"},{hi:"राजा की सुरक्षा और प्रशासनिक निगरानी",en:"King's security and administrative supervision"},{hi:"केवल युद्ध के लिए",en:"Only for war"},{hi:"केवल कर वसूली",en:"Only for tax"}],a:1,
+ ex:{hi:"मौर्य काल में 'गुप्तचर' (स्पाई) प्रणाली अत्यंत विकसित थी — जो राजा की सुरक्षा, प्रशासनिक निगरानी, जनमत जानने, अफवाहें रोकने और दुश्मनों की जानकारी प्राप्त करने के लिए थी। कौटिल्य के 'अर्थशास्त्र' में गुप्तचरों के कई प्रकार बताए गए हैं — संस्था, संचार, गृहपतिक, वैदेहिक, तापस, सत्री आदि। अशोक के शासनकाल में भी ये सक्रिय थे।",en:"The spy system was highly developed for the king's security, administrative surveillance, public opinion, rumour control and enemy intelligence. The Arthashastra lists types — Sanstha, Sanchara, Grihapatika, Vaidehika, Tapasa, Satri — active even under Ashoka."}},
+
+{q:{hi:"मौर्य काल में 'सड़क मार्ग' और 'व्यापार' का क्या महत्व था?",en:"What was the importance of 'roads' and 'trade' in the Mauryan period?"},
+ o:[{hi:"केवल सैन्य उपयोग",en:"Only military use"},{hi:"व्यापार, संचार और सैन्य गतिशीलता",en:"Trade, communication and military mobility"},{hi:"केवल धार्मिक यात्रा",en:"Only religious travel"},{hi:"कोई महत्व नहीं",en:"No importance"}],a:1,
+ ex:{hi:"मौर्य काल में सड़क मार्गों का 'व्यापार, संचार और सैन्य गतिशीलता' के लिए अत्यंत महत्व था। चंद्रगुप्त मौर्य ने 'ग्रैंड ट्रंक रोड' (उत्तरापथ) बनवाई, जो पाटलिपुत्र से तक्षशिला तक जाती थी। 'अर्थशास्त्र' में 'शुल्काध्यक्ष' नामक अधिकारी का वर्णन है, जो व्यापार मार्गों और बाजारों की निगरानी करता था। मौर्य साम्राज्य में व्यापार समृद्ध था।",en:"Roads were crucial for trade, communication and military mobility. Chandragupta built the 'Grand Trunk Road' (Uttarapatha) from Pataliputra to Taxila. The Arthashastra mentions a 'Shulkadhyaksha' overseeing trade routes and markets — trade flourished under the Mauryas."}},
+
+{q:{hi:"मौर्य काल में 'सिक्के' किस धातु के बने होते थे?",en:"Coins in the Mauryan period were made of which metal?"},
+ o:[{hi:"केवल सोने के",en:"Only gold"},{hi:"केवल चाँदी के",en:"Only silver"},{hi:"चाँदी, ताँबा और सोना",en:"Silver, copper and gold"},{hi:"केवल ताँबे के",en:"Only copper"}],a:2,
+ ex:{hi:"मौर्य काल में सिक्के मुख्यतः 'चाँदी, ताँबा और सोना' — तीनों धातुओं के बने होते थे। 'पण' चाँदी का सिक्का था, 'कार्षापण' ताँबे का और 'निष्क' सोने का। इन सिक्कों पर पंच-चिह्न (punch marks) अंकित होते थे। मौर्य काल में मुद्रा व्यवस्था विकसित थी और व्यापार में इनका व्यापक उपयोग होता था।",en:"Mauryan coins were of 'silver, copper and gold' — Pana (silver), Karshapana (copper) and Nishka (gold) — bearing punch marks. Currency was developed and widely used in trade."}},
+
+/* ============ खंड D — मौर्य साम्राज्य का पतन और विरासत (Q39–50) ============ */
+{q:{hi:"अशोक के बाद मौर्य साम्राज्य का अंतिम शासक कौन था?",en:"Who was the last Maurya ruler after Ashoka?"},
+ o:[{hi:"कुणाल",en:"Kunala"},{hi:"बृहद्रथ",en:"Brihadratha"},{hi:"दशरथ",en:"Dasharatha"},{hi:"सम्प्रति",en:"Samprati"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य का अंतिम शासक 'बृहद्रथ' था — जिसे 185 ईसा पूर्व में उसके सेनापति 'पुष्यमित्र शुंग' ने मार डाला और शुंग वंश की स्थापना की। अशोक के बाद मौर्य शासक कमजोर थे — कुणाल, सम्प्रति, दशरथ, संगमित्र, शालिशुक, देववर्मन, शतधन्वन और बृहद्रथ।",en:"The last Maurya ruler was 'Brihadratha', killed in 185 BCE by his commander 'Pushyamitra Shunga', who founded the Shunga dynasty. After Ashoka, Mauryan rulers were weak — Kunala, Samprati, Dasharatha, Salisuka and finally Brihadratha."}},
+
+{q:{hi:"मौर्य साम्राज्य का पतन किस वर्ष हुआ?",en:"In which year did the Maurya Empire decline?"},
+ o:[{hi:"232 ईसा पूर्व",en:"232 BCE"},{hi:"200 ईसा पूर्व",en:"200 BCE"},{hi:"185 ईसा पूर्व",en:"185 BCE"},{hi:"150 ईसा पूर्व",en:"150 BCE"}],a:2,
+ ex:{hi:"मौर्य साम्राज्य का पतन 185 ईसा पूर्व में हुआ — जब अंतिम मौर्य शासक बृहद्रथ को उसके सेनापति पुष्यमित्र शुंग ने मार डाला। अशोक की मृत्यु (232 ईसा पूर्व) के बाद साम्राज्य कमजोर पड़ने लगा और लगभग 47 वर्षों बाद इसका अंत हो गया।",en:"The Maurya Empire declined in 185 BCE when the last ruler Brihadratha was killed by his commander Pushyamitra Shunga. After Ashoka's death (232 BCE), the empire weakened and ended about 47 years later."}},
+
+{q:{hi:"मौर्य साम्राज्य के पतन के मुख्य कारण क्या थे?",en:"What were the main causes of the Maurya Empire's decline?"},
+ o:[{hi:"केवल विदेशी आक्रमण",en:"Only foreign invasions"},{hi:"कमजोर उत्तराधिकारी, अशोक की अहिंसा नीति, आर्थिक संकट, प्रांतीय विद्रोह",en:"Weak successors, Ashoka's non-violence policy, economic crisis, provincial revolts"},{hi:"केवल धार्मिक कारण",en:"Only religious reasons"},{hi:"केवल प्राकृतिक आपदा",en:"Only natural disasters"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य के पतन के कई कारण थे — (1) कमजोर उत्तराधिकारी, (2) अशोक की अहिंसा नीति से सैन्य शक्ति का क्षय, (3) विशाल साम्राज्य का प्रबंधन कठिन, (4) प्रांतीय गवर्नरों का विद्रोह, (5) आर्थिक संकट और कर बोझ, (6) ब्राह्मणों का विरोध (धार्मिक नीति के कारण), (7) विदेशी आक्रमण (यवन, शक, कुषाण), (8) अंतिम शासकों की अयोग्यता।",en:"Causes of decline — weak successors, erosion of military strength due to Ashoka's non-violence, difficulty managing a vast empire, provincial revolts, economic strain, Brahmin opposition, foreign invasions (Yavanas, Shakas, Kushanas) and incompetent later rulers."}},
+
+{q:{hi:"अशोक की 'अहिंसा नीति' का मौर्य साम्राज्य पर क्या प्रभाव पड़ा?",en:"What was the effect of Ashoka's 'non-violence policy' on the Maurya Empire?"},
+ o:[{hi:"सैन्य शक्ति बढ़ी",en:"Military strength increased"},{hi:"सैन्य शक्ति कमजोर पड़ी और साम्राज्य की रक्षा कठिन हुई",en:"Military weakened, defence became difficult"},{hi:"कोई प्रभाव नहीं",en:"No effect"},{hi:"केवल धार्मिक प्रभाव",en:"Only religious effect"}],a:1,
+ ex:{hi:"अशोक की अहिंसा नीति से मौर्य साम्राज्य की 'सैन्य शक्ति कमजोर पड़ी' — क्योंकि उन्होंने युद्ध और सैन्य अभियानों को हतोत्साहित किया। इससे साम्राज्य की रक्षा कठिन हो गई और विदेशी आक्रमणों का सामना करना मुश्किल हो गया। हालांकि कुछ इतिहासकार इसे पतन का एकमात्र कारण नहीं मानते — वे इसे अन्य कारणों के साथ जोड़ते हैं।",en:"Ashoka's non-violence weakened military strength as wars and campaigns were discouraged, making defence difficult against foreign invasions. Some historians, however, see it as one of many causes, not the sole reason."}},
+
+{q:{hi:"'अर्थशास्त्र' के रचयिता कौन थे?",en:"Who wrote the 'Arthashastra'?"},
+ o:[{hi:"मेगस्थनीज",en:"Megasthenes"},{hi:"कौटिल्य (चाणक्य)",en:"Kautilya (Chanakya)"},{hi:"बाणभट्ट",en:"Banabhatta"},{hi:"कालिदास",en:"Kalidasa"}],a:1,
+ ex:{hi:"'अर्थशास्त्र' की रचना 'कौटिल्य' (चाणक्य/विष्णुगुप्त) ने की — जो चंद्रगुप्त मौर्य के गुरु और मुख्य सलाहकार थे। यह 15 अधिकरणों (books) में विभाजित है और इसमें राजनीति, प्रशासन, अर्थव्यवस्था, कर व्यवस्था, दंड विधि, विदेश नीति और सैन्य संगठन का विस्तृत वर्णन है। यह मौर्य प्रशासन का प्रमुख स्रोत है।",en:"'Arthashastra' was written by 'Kautilya' (Chanakya/Vishnugupta), guru and chief adviser of Chandragupta Maurya. In 15 books, it covers politics, administration, economy, taxation, penal law, foreign policy and military organisation — a key source on Mauryan administration."}},
+
+{q:{hi:"'इंडिका' के रचयिता कौन थे?",en:"Who wrote 'Indica'?"},
+ o:[{hi:"कौटिल्य",en:"Kautilya"},{hi:"मेगस्थनीज",en:"Megasthenes"},{hi:"ह्वेनसांग",en:"Hiuen Tsang"},{hi:"फाह्यान",en:"Fa-Hien"}],a:1,
+ ex:{hi:"'इंडिका' के रचयिता 'मेगस्थनीज' थे — जो सेल्यूकस का राजदूत था और चंद्रगुप्त मौर्य के दरबार में रहा। उसने मौर्यकालीन भारत के समाज, प्रशासन, अर्थव्यवस्था, जाति व्यवस्था और संस्कृति का वर्णन किया। हालांकि उसका कुछ वर्णन अतिशयोक्तिपूर्ण माना जाता है — जैसे 'सोने की चींटियाँ'। 'इंडिका' मौर्य काल के अध्ययन का महत्वपूर्ण स्रोत है।",en:"'Indica' was written by 'Megasthenes', Seleucus' ambassador to Chandragupta's court, describing Mauryan society, administration, economy, caste and culture — though some parts are exaggerated (e.g., 'gold-digging ants')."}},
+
+{q:{hi:"मौर्य काल में 'स्तूप' कला का सबसे प्रसिद्ध उदाहरण कौन-सा है?",en:"What is the most famous example of 'Stupa' art from the Mauryan period?"},
+ o:[{hi:"सांची का महास्तूप",en:"Great Stupa at Sanchi"},{hi:"धमेख स्तूप",en:"Dhamek Stupa"},{hi:"अमरावती स्तूप",en:"Amaravati Stupa"},{hi:"रामभर स्तूप",en:"Ramabhar Stupa"}],a:0,
+ ex:{hi:"मौर्य काल में 'स्तूप' कला का सबसे प्रसिद्ध उदाहरण 'सांची का महास्तूप' (मध्य प्रदेश) है — जिसे अशोक ने तीसरी शताब्दी ईसा पूर्व में बनवाया। यह यूनेस्को विश्व धरोहर स्थल है। सांची स्तूप की ऊँचाई 54 फीट और व्यास 106 फीट है। इसके चारों ओर प्रसिद्ध तोरण (गेटवे) हैं, जो बुद्ध के जीवन की घटनाओं को दर्शाते हैं।",en:"The most famous Stupa is the 'Great Stupa at Sanchi' (MP), built by Ashoka in the 3rd century BCE — a UNESCO World Heritage Site, 54 ft high, 106 ft wide, with famous toranas depicting Buddha's life."}},
+
+{q:{hi:"मौर्य काल में 'अशोक स्तंभ' की क्या विशेषता थी?",en:"What was special about 'Ashoka pillars'?"},
+ o:[{hi:"केवल स्तंभ",en:"Only pillars"},{hi:"चिकनी पॉलिश और शेर की मूर्ति",en:"Smooth polish and lion capital"},{hi:"केवल शिलालेख",en:"Only inscriptions"},{hi:"केवल धार्मिक",en:"Only religious"}],a:1,
+ ex:{hi:"अशोक के स्तंभों की विशेषता थी — 'चिकनी पॉलिश' (Mauryan polish) और 'शेर की मूर्ति' (Lion Capital)। सारनाथ का स्तंभ सबसे प्रसिद्ध है — जिसमें 4 शेर हैं, जो आज भारत के राष्ट्रीय प्रतीक हैं। अशोक ने कई स्तंभ स्थापित किए — सारनाथ, वैशाली, लौरिया, रामपुरवा, निग्लीवा, मेरठ, टोपरा, कौशांबी, सांची, प्रयागराज, भोगरा, दिल्ली-मेरठ, दिल्ली-टोपरा। इन पर उनके अभिलेख उत्कीर्ण हैं।",en:"Ashoka's pillars feature 'Mauryan polish' and 'lion capitals'. Sarnath's pillar with four lions is the most famous — now India's national emblem. Pillars were erected at Sarnath, Vaishali, Lauriya, Rampurva, Niglihawa, Meerut, Topra, Kaushambi, Sanchi, Prayagraj, Bhojpur, Delhi-Meerut and Delhi-Topra, bearing his edicts."}},
+
+{q:{hi:"मौर्य काल में 'गुहा' (Cave) वास्तुकला का उदाहरण कौन-सा है?",en:"Which is an example of 'Cave' architecture in the Mauryan period?"},
+ o:[{hi:"अजंता गुफाएँ",en:"Ajanta Caves"},{hi:"बराबर गुफाएँ",en:"Barabar Caves"},{hi:"एलोरा गुफाएँ",en:"Ellora Caves"},{hi:"कान्हेरी गुफाएँ",en:"Kanheri Caves"}],a:1,
+ ex:{hi:"मौर्य काल में 'गुहा' वास्तुकला का उदाहरण 'बराबर गुफाएँ' (जहानाबाद जिला, बिहार) हैं — जो अशोक के शासनकाल में बनीं। इनमें से एक 'लोमश ऋषि' की गुफा है — जिसे अशोक ने 'अजीविक' संप्रदाय को दान किया। इन गुफाओं में मौर्यकालीन चिकनी पॉलिश और अशोक के अभिलेख मिलते हैं। ये भारत की प्राचीनतम चट्टान-कटी गुफाएँ हैं।",en:"'Barabar Caves' (Jehanabad, Bihar) are the Mauryan example — built under Ashoka. The 'Lomas Rishi' cave was donated to the Ajivika sect, with Mauryan polish and Ashokan inscriptions — India's oldest rock-cut caves."}},
+
+{q:{hi:"मौर्य काल के 'चित्रकला' और 'मूर्तिकला' की विशेषता क्या थी?",en:"What were the features of 'painting' and 'sculpture' in the Mauryan period?"},
+ o:[{hi:"प्राकृतिक चित्र",en:"Nature paintings"},{hi:"चिकनी पॉलिश और बुद्ध की मूर्तियाँ",en:"Smooth polish and Buddha images"},{hi:"केवल लोक कला",en:"Only folk art"},{hi:"केवल भित्ति चित्र",en:"Only murals"}],a:1,
+ ex:{hi:"मौर्य काल की चित्रकला और मूर्तिकला की विशेषता — 'चिकनी पॉलिश' (Mauryan polish), बुद्ध की मूर्तियाँ (गांधार और मथुरा शैली से प्रभावित), पत्थर की मूर्तियाँ, हाथी की मूर्तियाँ (दिदारगंज, बिहार), यक्ष-यक्षी की मूर्तियाँ (दीदारगंज यक्षी)। मौर्य कला 'दरबारी कला' थी। हालांकि अजंता-एलोरा बाद के काल की हैं, मौर्य काल में भी मूर्तिकला विकसित थी।",en:"Mauryan art featured 'Mauryan polish', Buddha images (Gandhara/Mathura influences), stone sculptures, elephant figures (Didarganj, Bihar) and Yaksha-Yakshi figures. Court art predominated; sculpture developed though Ajanta-Ellora came later."}},
+
+{q:{hi:"मौर्य काल में 'बौद्ध धर्म' का प्रसार किस प्रकार हुआ?",en:"How did 'Buddhism' spread during the Mauryan period?"},
+ o:[{hi:"केवल भारत में",en:"Only in India"},{hi:"भारत और विदेशों में (श्रीलंका, चीन, म्यांमार आदि)",en:"India and abroad (Sri Lanka, China, Myanmar etc.)"},{hi:"केवल दक्षिण भारत में",en:"Only South India"},{hi:"केवल उत्तर भारत में",en:"Only North India"}],a:1,
+ ex:{hi:"मौर्य काल में बौद्ध धर्म 'भारत और विदेशों' — दोनों में फैला। अशोक ने अपने पुत्र 'महेंद्र' और पुत्री 'संघमित्रा' को श्रीलंका भेजा। उन्होंने चीन, म्यांमार, थाईलैंड, इंडोनेशिया, जापान और मध्य एशिया में भी धर्म प्रचारक भेजे। तृतीय बौद्ध संगीति (पाटलिपुत्र, 250 ईसा पूर्व) के बाद 9 मिशनरी दल भेजे गए। इससे बौद्ध धर्म विश्व धर्म बन गया।",en:"Buddhism spread in 'India and abroad'. Ashoka sent his son Mahendra and daughter Sanghamitra to Sri Lanka and missionaries to China, Myanmar, Thailand, Indonesia, Japan and Central Asia. After the Third Buddhist Council (Pataliputra, 250 BCE), 9 missions were sent — making Buddhism a world religion."}},
+
+{q:{hi:"मौर्य साम्राज्य की 'सबसे बड़ी विरासत' क्या है?",en:"What is the 'greatest legacy' of the Maurya Empire?"},
+ o:[{hi:"केवल सैन्य विजय",en:"Only military conquest"},{hi:"राजनीतिक एकीकरण, प्रशासनिक प्रणाली, बौद्ध धर्म का प्रसार",en:"Political unification, administrative system, spread of Buddhism"},{hi:"केवल कला",en:"Only art"},{hi:"केवल व्यापार",en:"Only trade"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य की सबसे बड़ी विरासत — (1) 'राजनीतिक एकीकरण' — पहली बार लगभग पूरे उपमहाद्वीप को एक साम्राज्य में संगठित किया, (2) 'प्रशासनिक प्रणाली' — केंद्रीकृत प्रशासन, अर्थशास्त्र, कर व्यवस्था, गुप्तचर तंत्र, (3) 'बौद्ध धर्म का प्रसार' — एशिया भर में, (4) 'कला और संस्कृति' — स्तूप, स्तंभ, गुफाएँ, चिकनी पॉलिश, (5) 'धम्म' — नैतिक शासन, अहिंसा और सहिष्णुता का आदर्श, (6) 'अशोक के अभिलेख' — भारत के प्राचीनतम लिखित स्रोतों में से। भारत का राष्ट्रीय प्रतीक (सारनाथ स्तंभ) भी मौर्य विरासत है।",en:"Greatest legacies — (1) political unification of the subcontinent, (2) administrative system (centralised rule, Arthashastra, taxation, spies), (3) spread of Buddhism across Asia, (4) art and culture (stupas, pillars, caves, polish), (5) Dhamma — model of ethical rule, non-violence and tolerance, (6) Ashokan edicts — among India's oldest written records. India's national emblem (Sarnath pillar) is Mauryan legacy."}},
+
+{q:{hi:"मौर्य साम्राज्य की 'अंतिम विरासत' आज किस रूप में देखी जा सकती है?",en:"In what form can the 'last legacy' of the Maurya Empire be seen today?"},
+ o:[{hi:"केवल संग्रहालय में",en:"Only in museums"},{hi:"भारत के राष्ट्रीय प्रतीक, ध्वज के अशोक चक्र और स्तूप",en:"India's national emblem, Ashoka Chakra on flag, stupas"},{hi:"केवल पुस्तकों में",en:"Only in books"},{hi:"केवल सिक्कों में",en:"Only in coins"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य की विरासत आज कई रूपों में देखी जा सकती है — (1) 'भारत का राष्ट्रीय प्रतीक' — सारनाथ का शेर स्तंभ, (2) 'राष्ट्रीय ध्वज' — बीच में अशोक चक्र (24 तीलियाँ), (3) 'सांची स्तूप' — यूनेस्को विश्व धरोहर, (4) 'अशोक के स्तंभ' — दिल्ली, वैशाली, सारनाथ, (5) 'बराबर गुफाएँ' — बिहार, (6) 'अशोक के अभिलेख' — भारत के प्राचीनतम लिखित स्रोत। मौर्य साम्राज्य भारतीय एकता और संस्कृति का प्रतीक है।",en:"Today's legacy — (1) India's national emblem (Sarnath Lion Capital), (2) Ashoka Chakra on the national flag, (3) Sanchi Stupa (UNESCO site), (4) Ashoka pillars (Delhi, Vaishali, Sarnath), (5) Barabar caves (Bihar), (6) Ashokan edicts — India's oldest written records. The Maurya Empire symbolises Indian unity and culture."}},
+
+{q:{hi:"मौर्य साम्राज्य के काल में भारत का 'सामाजिक ढाँचा' कैसा था?",en:"What was India's 'social structure' during the Maurya period?"},
+ o:[{hi:"पूर्णतः समान",en:"Fully equal"},{hi:"वर्ण व्यवस्था और जाति प्रथा",en:"Varna and caste system"},{hi:"केवल आदिवासी",en:"Only tribal"},{hi:"केवल साम्यवादी",en:"Only communist"}],a:1,
+ ex:{hi:"मौर्य काल में भारत का सामाजिक ढाँचा 'वर्ण व्यवस्था और जाति प्रथा' पर आधारित था — ब्राह्मण, क्षत्रिय, वैश्य और शूद्र। मेगस्थनीज के अनुसार समाज 7 वर्गों में विभाजित था — दार्शनिक, कृषक, पशुपालक, शिल्पकार, सैनिक, निरीक्षक और मंत्री। हालांकि अशोक ने जाति भेद को कम करने और समानता बढ़ाने का प्रयास किया। महिलाओं की स्थिति अपेक्षाकृत बेहतर थी — वे संपत्ति की अधिकारी हो सकती थीं।",en:"Society was based on 'Varna and caste'. Megasthenes described 7 classes — philosophers, farmers, herdsmen, artisans, soldiers, overseers and councillors. Ashoka tried to reduce caste barriers. Women's status was relatively better — they could own property."}},
+
+{q:{hi:"मौर्य साम्राज्य किस प्रकार 'भारत के इतिहास का स्वर्ण युग' माना जाता है?",en:"In what way is the Maurya Empire considered a 'golden age' of Indian history?"},
+ o:[{hi:"केवल सैन्य विजयों के कारण",en:"Only due to military conquests"},{hi:"राजनीतिक एकता, प्रशासनिक विकास, कला-संस्कृति, धार्मिक सहिष्णुता, आर्थिक समृद्धि",en:"Political unity, administrative growth, art-culture, religious tolerance, economic prosperity"},{hi:"केवल धार्मिक कारण",en:"Only religious reasons"},{hi:"केवल व्यापार के कारण",en:"Only due to trade"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य को कई कारणों से 'स्वर्ण युग' माना जा सकता है — (1) 'राजनीतिक एकता' — पहली बार लगभग पूरा उपमहाद्वीप एक साम्राज्य में, (2) 'प्रशासनिक विकास' — अर्थशास्त्र आधारित केंद्रीकृत प्रशासन, (3) 'कला-संस्कृति' — स्तूप, स्तंभ, गुफाएँ, चिकनी पॉलिश, (4) 'धार्मिक सहिष्णुता' — अशोक की धम्म नीति, (5) 'आर्थिक समृद्धि' — कृषि, व्यापार, सिक्के, सड़कें, (6) 'साहित्य' — अर्थशास्त्र, इंडिका, अशोक के अभिलेख। हालांकि कुछ इतिहासकार इसे 'गुप्त काल' को स्वर्ण युग मानते हैं, मौर्य काल भी स्वर्ण युग ही है।",en:"The Maurya Empire can be called a 'golden age' due to — (1) political unity, (2) administrative growth (Arthashastra-based centralisation), (3) art-culture (stupas, pillars, caves, polish), (4) religious tolerance (Ashoka's Dhamma), (5) economic prosperity (agriculture, trade, coins, roads), (6) literature (Arthashastra, Indica, Ashokan edicts)."}},
+
+{q:{hi:"मौर्य साम्राज्य के काल में 'कृषि' का क्या महत्व था?",en:"What was the importance of 'agriculture' in the Mauryan period?"},
+ o:[{hi:"गौण",en:"Secondary"},{hi:"प्रमुख आर्थिक आधार",en:"Main economic base"},{hi:"कोई महत्व नहीं",en:"No importance"},{hi:"केवल व्यापारिक",en:"Only commercial"}],a:1,
+ ex:{hi:"मौर्य काल में कृषि 'प्रमुख आर्थिक आधार' थी — जनसंख्या का बड़ा भाग कृषि पर निर्भर था। राज्य कृषि को प्रोत्साहित करता था — सिंचाई, नहरें, बाँध बनवाता था। 'सीताध्यक्ष' नामक अधिकारी राजकीय भूमि की देखरेख करता था। 'भाग' (उपज का 1/6 भाग) भूमि कर था। अर्थशास्त्र में कृषि के विस्तृत नियम हैं। चंद्रगुप्त मौर्य के समय 'सुदर्शन झील' (गुजरात) का निर्माण हुआ।",en:"Agriculture was the 'main economic base' — most of the population depended on it. The state promoted it with irrigation, canals and dams. The 'Sitadhyaksha' managed crown lands; 'Bhaga' (1/6 produce) was the land tax. The Arthashastra has extensive agricultural rules; Sudarshana Lake (Gujarat) was built under Chandragupta."}},
+
+{q:{hi:"मौर्य साम्राज्य के काल में 'विदेशी व्यापार' किन देशों से होता था?",en:"With which countries did 'foreign trade' occur during the Maurya period?"},
+ o:[{hi:"केवल रोम",en:"Only Rome"},{hi:"यूनान, रोम, मिस्र, चीन, दक्षिण-पूर्व एशिया",en:"Greece, Rome, Egypt, China, Southeast Asia"},{hi:"केवल चीन",en:"Only China"},{hi:"कोई विदेशी व्यापार नहीं",en:"No foreign trade"}],a:1,
+ ex:{hi:"मौर्य काल में विदेशी व्यापार 'यूनान, रोम, मिस्र, चीन और दक्षिण-पूर्व एशिया' से होता था। भारत से निर्यात — मसाले, रेशम, कपास, हाथी दाँत, रत्न, सोना। आयात — चाँदी, शराब, काँच, ऊन। व्यापार मार्ग स्थल और समुद्री दोनों थे। तक्षशिला प्रमुख व्यापारिक केंद्र था। मेगस्थनीज ने 'इंडिका' में व्यापार का वर्णन किया।",en:"Foreign trade was with 'Greece, Rome, Egypt, China and Southeast Asia'. Exports — spices, silk, cotton, ivory, gems, gold; imports — silver, wine, glass, wool. Routes were both land and sea; Taxila was a major hub, described by Megasthenes."}},
+
+{q:{hi:"मौर्य साम्राज्य के पतन के बाद भारत में कौन-सा युग आया?",en:"Which era followed the decline of the Maurya Empire in India?"},
+ o:[{hi:"गुप्त युग",en:"Gupta era"},{hi:"शुंग युग और विदेशी आक्रमणों का युग",en:"Shunga era and age of foreign invasions"},{hi:"मुगल युग",en:"Mughal era"},{hi:"ब्रिटिश युग",en:"British era"}],a:1,
+ ex:{hi:"मौर्य साम्राज्य के पतन के बाद भारत में 'शुंग युग और विदेशी आक्रमणों का युग' आया — पुष्यमित्र शुंग (185–73 ईसा पूर्व) ने शुंग वंश की स्थापना की। इसके बाद कण्व वंश और सातवाहन वंश आए। साथ ही यवन (इंडो-ग्रीक), शक, पहलव और कुषाण जैसे विदेशी आक्रमण हुए — जिन्होंने भारत पर शासन किया। गुप्त युग (320–550 ई.) बाद में आया और इसे 'स्वर्ण युग' कहा जाता है।",en:"After the Maurya decline came the 'Shunga era and the age of foreign invasions' — Pushyamitra Shunga (185–73 BCE) founded the Shunga dynasty, followed by the Kanvas and Satavahanas, with Indo-Greek, Shaka, Pahlava and Kushana invasions. The Gupta era (320–550 CE) later emerged as the 'Golden Age'."}}
+];
+
+const TOTAL = QUESTIONS.length;
+const state = {
+  current: 0,
+  lang: 'both',
+  answers: QUESTIONS.map(() => ({selected:null, revealed:false, visited:false}))
+};
+state.answers[0].visited = true;
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+const quizMain      = $('#quizMain');
+const palette       = $('#palette');
+const palettePanel  = $('#palettePanel');
+const paletteToggle = $('#paletteToggle');
+const paletteChip   = $('#paletteChip');
+const paletteScore  = $('#paletteScore');
+const sectionLabel  = $('#sectionLabel');
+const progressBar   = $('#progressBar');
+const sCorrect      = $('#sCorrect');
+const sWrong        = $('#sWrong');
+const sAttempted    = $('#sAttempted');
+const sRemaining    = $('#sRemaining');
+
+function renderPalette(){
+  let html = '';
+  for (let i = 0; i < TOTAL; i++){
+    const a = state.answers[i];
+    let cls = 'pal-btn';
+    if (a.visited && a.selected === null) cls += ' visited';
+    if (a.selected !== null && !a.revealed) cls += ' attempted';
+    if (a.revealed) cls += a.selected === QUESTIONS[i].a ? ' correct' : ' wrong';
+    if (i === state.current) cls += ' current';
+    if (SECTION_STARTS.includes(i)) cls += ' sec-start';
+    html += `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }
+  palette.innerHTML = html;
+  palette.querySelectorAll('.pal-btn').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.i, 10)));
+  });
+}
+
+function renderQuestion(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  const a = state.answers[i];
+  a.visited = true;
+
+  for (let s = SECTION_STARTS.length - 1; s >= 0; s--){
+    if (i >= SECTION_STARTS[s]){
+      const sec = SECTIONS[s];
+      sectionLabel.innerHTML = `<span class="lang-hi">${sec.hi}</span><span class="lang-en">${sec.en}</span>`;
+      break;
+    }
+  }
+
+  const letters = ['A','B','C','D'];
+  let optHtml = '';
+  for (let oi = 0; oi < 4; oi++){
+    let cls = 'opt-btn';
+    if (a.selected === oi && !a.revealed) cls += ' selected';
+    if (a.revealed){
+      if (oi === q.a) cls += ' correct';
+      else if (oi === a.selected) cls += ' wrong';
+    }
+    const disabled = a.revealed ? 'disabled' : '';
+    const opt = q.o[oi];
+    optHtml += `
+      <button class="${cls}" data-opt="${oi}" ${disabled}>
+        <span class="key">${letters[oi]}</span>
+        <span>
+          <span class="lang-hi">${opt.hi}</span>
+          <span class="lang-en">${opt.en}</span>
+        </span>
+      </button>`;
+  }
+
+  const revealDisabled = a.selected === null || a.revealed;
+  const isFirst = i === 0;
+  const isLast  = i === TOTAL - 1;
+
+  quizMain.innerHTML = `
+    <div class="q-card" id="qCard">
+      <span class="q-tag">
+        <span class="lang-hi">प्रश्न ${i+1} / ${TOTAL}</span>
+        <span class="lang-en">Question ${i+1} of ${TOTAL}</span>
+      </span>
+      <p class="q-text">
+        <span class="q-num">प्र.${i+1}.</span>
+        <span class="lang-hi">${q.q.hi}</span>
+        <span class="lang-en">${q.q.en}</span>
+      </p>
+      <div class="opt-list" id="optList">${optHtml}</div>
+      <div class="explain ${a.revealed ? 'show' : ''}" id="explain">
+        <b class="lang-hi">सही उत्तर: (${letters[q.a]}) ${q.o[q.a].hi}</b>
+        <b class="lang-en">Correct: (${letters[q.a]}) ${q.o[q.a].en}</b>
+        <div class="lang-hi" style="margin-top:6px">${q.ex.hi}</div>
+        <div class="lang-en" style="margin-top:6px;color:#5d6b80">${q.ex.en}</div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn btn-lg btn-prev" id="prevBtn" ${isFirst ? 'disabled' : ''}>
+          <span class="lang-hi">← पिछला</span><span class="lang-en">← Previous</span>
+        </button>
+        <button class="btn btn-lg btn-reveal" id="revealBtn" ${revealDisabled ? 'disabled' : ''}>
+          <span class="lang-hi">${a.revealed ? '✓ उत्तर दिखाया गया' : '👁 उत्तर दिखाएँ'}</span>
+          <span class="lang-en">${a.revealed ? '✓ Answer Revealed' : '👁 Show Answer'}</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn btn-lg btn-next" id="nextBtn">
+          <span class="lang-hi">${isLast ? 'परिणाम देखें →' : 'अगला →'}</span>
+          <span class="lang-en">${isLast ? 'See Result →' : 'Next →'}</span>
+        </button>
+      </div>
+    </div>
+    <p class="kbd-hint">
+      <span class="lang-hi">कीबोर्ड: <kbd>←</kbd> <kbd>→</kbd> नेविगेशन · <kbd>1</kbd>–<kbd>4</kbd> विकल्प · <kbd>Enter</kbd> उत्तर/अगला</span>
+      <span class="lang-en">Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>1</kbd>–<kbd>4</kbd> pick · <kbd>Enter</kbd> reveal/next</span>
+    </p>
+  `;
+
+  $$('#optList .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answers[i].revealed) return;
+      selectOption(parseInt(btn.dataset.opt, 10));
+    });
+  });
+
+  const prevBtn = $('#prevBtn');
+  const nextBtn = $('#nextBtn');
+  const revealBtn = $('#revealBtn');
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (revealBtn) revealBtn.addEventListener('click', reveal);
+
+  updateProgressStrip();
+  renderPalette();
+  updatePaletteChip();
+}
+
+function selectOption(oi){
+  const a = state.answers[state.current];
+  if (a.revealed) return;
+  a.selected = oi;
+  $$('#optList .opt-btn').forEach(btn => {
+    const i = parseInt(btn.dataset.opt, 10);
+    btn.classList.toggle('selected', i === oi);
+  });
+  const revealBtn = $('#revealBtn');
+  if (revealBtn) revealBtn.disabled = false;
+  updateProgressStrip();
+  renderPalette();
+}
+
+function reveal(){
+  const a = state.answers[state.current];
+  if (a.revealed || a.selected === null) return;
+  a.revealed = true;
+  renderQuestion();
+  if (window.innerWidth <= 640){
+    const card = $('#qCard');
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+function prev(){ if (state.current > 0){ state.current--; renderQuestion(); scrollTop(); } }
+function next(){ if (state.current < TOTAL - 1){ state.current++; renderQuestion(); scrollTop(); } else { showResult(); } }
+function goTo(i){
+  if (i < 0 || i >= TOTAL) return;
+  state.current = i;
+  renderQuestion();
+  scrollTop();
+  if (window.innerWidth <= 900){
+    palettePanel.classList.remove('open');
+    paletteToggle.classList.remove('open');
+    paletteToggle.setAttribute('aria-expanded','false');
+  }
+}
+function scrollTop(){
+  const card = $('#qCard');
+  if (card){
+    const y = card.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+}
+function updateProgressStrip(){
+  let correct = 0, wrong = 0, attempted = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null) attempted++;
+    if (a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const revealed = state.answers.filter(a => a.revealed).length;
+  sCorrect.textContent = correct;
+  sWrong.textContent = wrong;
+  sAttempted.textContent = attempted;
+  sRemaining.textContent = TOTAL - revealed;
+  progressBar.style.width = ((revealed / TOTAL) * 100) + '%';
+  paletteScore.textContent = `${revealed} / ${TOTAL}`;
+}
+function updatePaletteChip(){
+  const isEn = state.lang === 'en';
+  paletteChip.textContent = `${isEn ? 'Q' : 'प्र.'}${state.current + 1} / ${TOTAL}`;
+}
+
+function showResult(){
+  let correct = 0, wrong = 0;
+  state.answers.forEach((a, i) => {
+    if (a.selected !== null && a.revealed){
+      if (a.selected === QUESTIONS[i].a) correct++;
+      else wrong++;
+    }
+  });
+  const pct = Math.round((correct / TOTAL) * 100);
+
+  let hiMsg = "अभ्यास जारी रखें — पुनरावृत्ति ही कुंजी है।";
+  let enMsg = "Keep practising — revision is the key.";
+  if (pct >= 85) { hiMsg = "शानदार! मौर्य साम्राज्य पर आपकी पकड़ मजबूत है।"; enMsg = "Outstanding! Your command over the Maurya Empire is strong."; }
+  else if (pct >= 65) { hiMsg = "अच्छा प्रयास! गलत उत्तरों को एक बार और दोहराएँ।"; enMsg = "Good job! Revise the wrong answers once more."; }
+  else if (pct >= 40) { hiMsg = "ठीक शुरुआत। मौर्य साम्राज्य के तथ्यों को दोबारा पढ़ें।"; enMsg = "Decent start. Re-read the Maurya Empire facts and try again."; }
+
+  const isEn = state.lang === 'en';
+
+  quizMain.innerHTML = `
+    <div class="result-screen">
+      <div class="ring" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <h2>
+        <span class="lang-hi">परीक्षा पूर्ण हुई</span>
+        <span class="lang-en">Test Complete</span>
+      </h2>
+      <p>
+        <span class="lang-hi">${hiMsg}</span>
+        <span class="lang-en">${enMsg}</span>
+      </p>
+      <div class="stat-grid">
+        <div><b>${TOTAL}</b><span>${isEn ? 'Total' : 'कुल'}</span></div>
+        <div class="g"><b>${correct}</b><span>${isEn ? 'Correct' : 'सही'}</span></div>
+        <div class="r"><b>${wrong}</b><span>${isEn ? 'Wrong' : 'गलत'}</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="reviewBtn">
+          <span class="lang-hi">उत्तर देखें</span><span class="lang-en">Review Answers</span>
+        </button>
+        <button class="btn btn-ghost" id="retakeBtn">
+          <span class="lang-hi">↻ दोबारा दें</span><span class="lang-en">↻ Retake Test</span>
+        </button>
+        <a class="btn btn-ghost" href="index.html">
+          <span class="lang-hi">MCQ विषयों पर वापस</span><span class="lang-en">Back to MCQ Topics</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  $('#reviewBtn').addEventListener('click', () => { state.current = 0; renderQuestion(); scrollTop(); });
+  $('#retakeBtn').addEventListener('click', () => {
+    state.answers.forEach(a => { a.selected = null; a.revealed = false; a.visited = false; });
+    state.current = 0;
+    state.answers[0].visited = true;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  updateProgressStrip();
+  renderPalette();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const a = state.answers[state.current];
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  else if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+  else if (e.key === 'Enter'){
+    e.preventDefault();
+    if (!a.revealed && a.selected !== null) reveal();
+    else next();
+  }
+  else if (['1','2','3','4'].includes(e.key)){
+    if (!a.revealed) selectOption(parseInt(e.key, 10) - 1);
+  }
+});
+
+paletteToggle.addEventListener('click', () => {
+  const open = palettePanel.classList.toggle('open');
+  paletteToggle.classList.toggle('open', open);
+  paletteToggle.setAttribute('aria-expanded', String(open));
+});
+
+$$('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const l = btn.dataset.lang;
+    state.lang = l;
+    document.body.className = 'lang-' + l;
+    $$('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const wasResult = quizMain.querySelector('.result-screen');
+    if (!wasResult) renderQuestion();
+  });
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
